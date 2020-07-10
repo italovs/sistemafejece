@@ -1,0 +1,10 @@
+{
+  "ruby.rubocop.useBundler": true,
+  "solargraph.useBundler": true,
+  "files.associations": {
+    "*.erb": "erb"
+  },
+  "emmet.includeLanguages": {
+    "erb": "html"
+  },
+}

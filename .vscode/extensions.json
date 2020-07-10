@@ -11,7 +11,9 @@
 		"rebornix.ruby",
 		"castwide.solargraph",
 		"vortizhe.simple-ruby-erb",
-		"wingrunr21.vscode-ruby"
+		"wingrunr21.vscode-ruby",
+		"miguel-savignano.ruby-symbols",
+		"misogi.ruby-rubocop"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
