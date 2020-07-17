@@ -1,5 +1,53 @@
 require:
   - rubocop-rails
   - rubocop-performance
+  - rubocop-minitest
 AllCops:
   NewCops: enable
+
+# style
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/controllers/*/**'
+Style/WordArray:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+
+# layout
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'db/seeds.rb'
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/HashAlignment:
+  Exclude:
+    - 'config/routes.rb'
+Layout/ArrayAlignment:
+  Enabled: false
+
+# metrics
+Metrics/MethodLength:
+  Max: 15
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/*'
+    - 'config/routes.rb'
+    - 'db/seeds.rb'
