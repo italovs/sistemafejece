@@ -35,6 +35,10 @@ O projeto também utiliza a gem Solargraph, que é um Servidor de Linguagem Ruby
     $ bundle exec solargraph download-core 2.7.1
     $ bundle exec solargraph bundle
 
+O último passo é instalar as dependências de CSS e JS externas com a ferramenta Yarn. Para isso execute:
+
+    $ yarn
+
 ## Padrões de código
 
 Para padronizar o código, o projeto utiliza a gem [Rubocop](https://docs.rubocop.org/rubocop/). Ele é baseado nas regras descritas em https://rubystyle.guide/, https://rails.rubystyle.guide/ e https://minitest.rubystyle.guide/. As regras desse projeto estão descritas no arquivo [.rubocop.yml](.rubocop.yml).
