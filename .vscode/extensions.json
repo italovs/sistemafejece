@@ -13,7 +13,8 @@
 		"vortizhe.simple-ruby-erb",
 		"wingrunr21.vscode-ruby",
 		"miguel-savignano.ruby-symbols",
-		"misogi.ruby-rubocop"
+		"misogi.ruby-rubocop",
+		"Vtrois.gitmoji-vscode"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
