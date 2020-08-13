@@ -17,6 +17,8 @@ Style/SymbolArray:
   Enabled: false
 Style/Alias:
   EnforcedStyle: prefer_alias_method
+Style/EmptyMethod:
+  EnforcedStyle: expanded
 Style/HashEachMethods:
   Enabled: true
 Style/HashTransformKeys:
