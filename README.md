@@ -6,7 +6,7 @@ Seu intuito é criar uma base comum de código para todos da empresa falaram a m
 
 ## Tecnologias
 
-* Ruby 2.7.1
+* Ruby 2.7.2
 
 * Ruby on Rails 6.0.x
 
@@ -18,11 +18,11 @@ Seu intuito é criar uma base comum de código para todos da empresa falaram a m
 
 Para a instalação do Rails, Postgres e do Yarn, veja o https://gorails.com/setup/ubuntu/20.04.
 
-Após isso, clone o projeto e cheque se tem a versão 2.7.1 do Ruby instalada, se não, rode:
+Após isso, clone o projeto e cheque se tem a versão 2.7.2 do Ruby instalada, se não, rode:
 
-    $ rbenv install 2.7.1
+    $ rbenv install 2.7.2
 
-Se o Rbenv reporta que não existe versão 2.7.1 do Ruby para ser instalada, siga os passos em https://github.com/rbenv/ruby-build#upgrading.
+Se o Rbenv reporta que não existe versão 2.7.2 do Ruby para ser instalada, siga os passos em https://github.com/rbenv/ruby-build#upgrading.
 
 Depois, rode para instalar as dependências do projeto.
 
