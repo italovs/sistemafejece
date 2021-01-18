@@ -1,0 +1,27 @@
+<%= form_with(model: junior_enterprise, local: true) do |form| %>
+  <% if junior_enterprise.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(junior_enterprise.errors.count, "error") %> prohibited this junior_enterprise from being saved:</h2>
+
+      <ul>
+        <% junior_enterprise.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :junior_enterprises
+  get 'site/index'
+  get 'site/perfil'
   devise_for :admins, controllers: { 
     sessions: 'admins/sessions',
     registrations: 'admins/registrations',
