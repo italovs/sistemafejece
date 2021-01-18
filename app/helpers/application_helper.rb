@@ -9,4 +9,12 @@ module ApplicationHelper
       destroy_admin_session_path
     end
   end
+
+  def logged_name
+    if member_signed_in?
+      current_member.try(:name)
+    elsif admin_signed_in?
+      current_admin.try(:name)
+    end
+  end
 end
