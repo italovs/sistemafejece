@@ -1,8 +1,5 @@
 <h2>Log in</h2>
 
-------
-<h4><%= member_signed_in? ? 'Member' : "" %> </h4>
-<h4><%= admin_signed_in? ? 'Adm' : "" %></h4>
 <%= form_with(model: @member, url: member_session_path) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
