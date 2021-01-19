@@ -1,4 +1,5 @@
 class JuniorEnterprisesController < ApplicationController
+  layout 'administrative'
   before_action :set_junior_enterprise, only: [:show, :edit, :update, :destroy]
 
   # GET /junior_enterprises

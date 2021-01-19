@@ -24,16 +24,16 @@
   <div class="nav-wrapper">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" href="index.html">
+        <%= link_to logged_root, class: "nav-link active" do %>
           <i class="material-icons">edit</i>
           <span>Blog Dashboard</span>
-        </a>
+        <% end %>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="components-blog-posts.html">
+        <%= link_to junior_enterprises_path, class: "nav-link active" do %>
           <i class="material-icons">vertical_split</i>
-          <span>Blog Posts</span>
-        </a>
+          <span>EJS</span>
+        <% end %>
       </li>
       <li class="nav-item">
         <a class="nav-link " href="add-new-post.html">

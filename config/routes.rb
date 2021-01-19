@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :junior_enterprises
   get 'site/index'
   get 'site/perfil'
   devise_for :admins, controllers: { 
@@ -12,8 +11,12 @@ Rails.application.routes.draw do
   devise_for :members, controllers: { 
     sessions: 'members/sessions'
   }
-
+  
   devise_scope :admin do
+    scope '/piratas' do
+      resources :junior_enterprises
+    end
+    
     authenticated :admin do
       root 'administrative#index', as: 'admin_root'
     end
