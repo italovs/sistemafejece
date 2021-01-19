@@ -9,10 +9,11 @@
 
 
 Admin.create(email: 'admin@gti.com', password: 'voagti')
-Member.create(email: 'member@gti.com', password: '123123')
-
 
 JuniorEnterprise.create(name: 'GTi', description: 'Ases, mestres, guerreiros e exploradores do espaço')
 9.times do |i|
   JuniorEnterprise.create(name: "EJ #{i}", description: "A #{i+2}ª melhor EJ")
 end
+
+Member.create(email: 'member@gti.com', password: '123123', junior_enterprise_id: 1)
+
