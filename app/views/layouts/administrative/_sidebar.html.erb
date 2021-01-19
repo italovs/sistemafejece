@@ -24,13 +24,13 @@
   <div class="nav-wrapper">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <%= link_to logged_root, class: "nav-link active" do %>
+        <%= link_to logged_root, class: "nav-link #{verifica_controller_ativo('administrative')}" do %>
           <i class="material-icons">edit</i>
           <span>Blog Dashboard</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to junior_enterprises_path, class: "nav-link active" do %>
+        <%= link_to junior_enterprises_path, class: "nav-link #{verifica_controller_ativo('junior_enterprises')}" do %>
           <i class="material-icons">vertical_split</i>
           <span>EJS</span>
         <% end %>
