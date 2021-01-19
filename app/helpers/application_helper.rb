@@ -10,9 +10,9 @@ module ApplicationHelper
 		end
 	end
 
-	#recebe array de strings como primeiro parâmetro e uma string como segundo
-	def verifica_controller_ativo( controllers, view = controller.action_name )
-		if( controllers.include?( controller_name ) && (view == controller.action_name ) )
+	#recebe até 2 arrays de strings como parâmetros
+	def verifica_controller_ativo( controllers, view = [controller.action_name] )
+		if( controllers.include?( controller_name ) && ( view.include?(controller.action_name) ) )
 			return 'active'
 		else
 			return ''
