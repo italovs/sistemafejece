@@ -15,5 +15,24 @@ JuniorEnterprise.create(name: 'GTi', description: 'Ases, mestres, guerreiros e e
   JuniorEnterprise.create(name: "EJ #{i}", description: "A #{i+2}ª melhor EJ")
 end
 
-Member.create(email: 'member@gti.com', password: '123123', junior_enterprise_id: 1)
+Member.create(email: 'member@gti.com', password: '123123', junior_enterprise_id: 1, validated: true)
 
+#3 membros comuns
+3.times do |i|
+
+end
+
+ejs = Set.new(1..10)
+#5 membros que desejam ser diretores
+5.times do |i|
+  ej_id = ejs.to_a.sample
+  ejs = ejs.delete(ej_id)
+  Member.create(email: "quero_ser_diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: nil)
+end
+
+#5 diretores de EJ
+5.times do |i|
+  ej_id = ejs.to_a.sample
+  ejs = ejs.delete(ej_id)
+  Member.create(email: "diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: true)
+end
