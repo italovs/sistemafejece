@@ -13,11 +13,12 @@ Rails.application.routes.draw do
   }
   
   devise_scope :admin do
-    scope '/piratas' do
-      resources :junior_enterprises
-    end
-    
     authenticated :admin do
+      scope '/piratas' do
+        resources :junior_enterprises
+        get '/diretores', to: 'administrative#members_validation', as: 'members_validation'
+      end
+    
       root 'administrative#index', as: 'admin_root'
     end
 
