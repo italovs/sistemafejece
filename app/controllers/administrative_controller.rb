@@ -11,6 +11,6 @@ class AdministrativeController < ApplicationController
     @not_yet_directors = Member.where(validated: nil)
   end
 
-  def change_member_position
+  def change_member_validation
   end
 end

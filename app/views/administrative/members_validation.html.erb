@@ -1,8 +1,62 @@
 
 Verificar diretoria de EJ
-<% @directors.each do |director| %>
-<% end %>
-<br>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>EJ</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @not_yet_directors.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.junior_enterprise.name %></td>
+        <td class="director" id="<%= member.id %>">Tornar Diretor</td>
+        <td  class="member"  id="<%= member.id %>">Tornar Membro</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 Diretores cadastrados
-<% @directors.each do |director| %>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>EJ</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @directors.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.junior_enterprise.name %></td>
+        <td class="member question"  id="<%= member.id %>">Tornar Membro</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+
+$(function(){
+  $(".member").on("click", function(){
+    if( $(this).hasClass("question") ){
+      
+    }
+    alert("CLICK")
+  })
+
+  $(".director").on("click", function(){
+    alert("CLICK CLICK")
+  })
+})
+//change_member_validation
+</script>
+
