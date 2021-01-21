@@ -27,12 +27,12 @@ ejs = Set.new(1..10)
 5.times do |i|
   ej_id = ejs.to_a.sample
   ejs = ejs.delete(ej_id)
-  Member.create(email: "quero_ser_diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: nil)
+  Member.create(name: "membro#{i+1}", email: "quero_ser_diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: nil)
 end
 
 #5 diretores de EJ
 5.times do |i|
   ej_id = ejs.to_a.sample
   ejs = ejs.delete(ej_id)
-  Member.create(email: "diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: true)
+  Member.create(name: "membro#{i+6}", email: "diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: true)
 end
