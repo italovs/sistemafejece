@@ -1,62 +1,83 @@
 
 Verificar diretoria de EJ
 <table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>EJ</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>EJ</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
 
-  <tbody>
-    <% @not_yet_directors.each do |member| %>
-      <tr>
-        <td><%= member.name %></td>
-        <td><%= member.junior_enterprise.name %></td>
-        <td class="director" id="<%= member.id %>">Tornar Diretor</td>
-        <td  class="member"  id="<%= member.id %>">Tornar Membro</td>
-      </tr>
-    <% end %>
-  </tbody>
+	<tbody>
+		<% @not_yet_directors.each do |member| %>
+			<tr>
+				<td><%= member.name %></td>
+				<td><%= member.junior_enterprise.name %></td>
+				<td><div class="btn btn-primary" id="director_<%= "#{member.id}" %>">Tornar Diretor</div></td>
+				<td><div class="btn btn-primary" id="member_<%= "#{member.id}" %>">Tornar Membro</div></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
 
 Diretores cadastrados
 <table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>EJ</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>EJ</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
 
-  <tbody>
-    <% @directors.each do |member| %>
-      <tr>
-        <td><%= member.name %></td>
-        <td><%= member.junior_enterprise.name %></td>
-        <td class="member question"  id="<%= member.id %>">Tornar Membro</td>
-      </tr>
-    <% end %>
-  </tbody>
+	<tbody>
+		<% @directors.each do |member| %>
+			<tr>
+				<td><%= member.name %></td>
+				<td><%= member.junior_enterprise.name %></td>
+				<td><div class="btn btn-primary" id="member_<%= "#{member.id}" %>">Tornar Membro</div></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
+
 
 <script>
 
 $(function(){
-  $(".member").on("click", function(){
-    if( $(this).hasClass("question") ){
-      
-    }
-    alert("CLICK")
-  })
+	$("div.btn.btn-primary").on("click", function(){
+		id = $(this).attr("id");
+		if( id.substring( 0, id.indexOf("_")) == "director" ){
+			director = true;
+		} else if( id.substring( 0, id.indexOf("_")) == "member" ){
+			director = false;
+		}
+		member_id = id.substring( id.indexOf("_") + 1, id.length)
 
-  $(".director").on("click", function(){
-    alert("CLICK CLICK")
-  })
+		alert(document.location.hostname + "/director/change_validation")
+
+		$.post("/pirates/director/change_validation",
+		{
+			id: member_id,
+			status: director
+		},
+		function(data, status){
+			console.log(data)
+			alert("Data: " + data + "\nStatus: " + status);
+		});
+
+		// $.ajax
+
+		// $.ajax({
+		// 	url: endereco,
+		// 	method: "post",
+		// 	success: function(result){
+		// 		$("#div1").html(result);
+		// 	}
+		// });
+	})
 })
 //change_member_validation
 </script>
-
