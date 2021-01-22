@@ -27,11 +27,10 @@ class AdministrativeController < ApplicationController
 	end
 
 	def new_admins
-
 	end
 
-	def insert_new_admin
-		
+	def create_admin
+
 	end
 
 	private

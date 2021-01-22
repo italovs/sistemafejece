@@ -16,8 +16,10 @@ Rails.application.routes.draw do
 		authenticated :admin do
 			scope '/pirates' do
 				resources :junior_enterprises
-				get '/director', to: 'administrative#members_validation', as: 'members_validation'
-				post '/director/change_validation', to: 'administrative#change_member_validation', as: 'change_member_validation'
+				get '/directors', to: 'administrative#members_validation', as: 'members_validation'
+				post '/directors/change_validation', to: 'administrative#change_member_validation', as: 'change_member_validation'
+				get '/new_pirates', to: 'administrative#new_admins', as: 'new_admins'
+				post '/new_pirates', to: 'administrative#create_admin', as: 'create_admin'
 			end
 
 			root 'administrative#index', as: 'admin_root'
