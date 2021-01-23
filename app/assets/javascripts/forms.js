@@ -24,17 +24,39 @@ function collect_data( redundant_fields = [] ){
 	for(i = 0; i < redundant_fields.length; i++){
 		errors = verify_same_data( fields[redundant_fields[i]], fields[redundant_fields[i] +"_2"], redundant_fields[i], errors )
 	}
-
+	console.log(fields)
 	if(errors.length == 0){
-		
+		return [true, fields]
 	} else {
-		//EXIBIR ERROS NA TELA
+		return [false, errors]
 	}
+}
+
+function ajax_submit(fields, target_path){
+	$.post( target_path ,
+  {
+    form_data: fields
+  },
+  function(data, status){
+    // if(status == "success"){
+    //   refill_table("#membros", data[0]["members"], "member")
+    //   refill_table("#diretores", data[0]["directors"], "directors")
+    // }
+    // $("div.btn.btn-primary").on("click", function(){
+    //   fire_ajax(this)
+    // })
+  });
 }
 
 $(function(){
 	$("#send").on("click", function(){
-		collect_data([ "email", "senha" ]);
+		response = collect_data([ "email", "senha" ]);
+		if( response[0] == true ){
+			ajax_submit(response[1], "/pirates/new_pirates")			
+		} else {
+			alert(response[1])
+			//EXIBIR ERROS NA TELA
+		}
 	});
 });
 
