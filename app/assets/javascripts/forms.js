@@ -24,7 +24,6 @@ function collect_data( redundant_fields = [] ){
 	for(i = 0; i < redundant_fields.length; i++){
 		errors = verify_same_data( fields[redundant_fields[i]], fields[redundant_fields[i] +"_2"], redundant_fields[i], errors )
 	}
-	console.log(fields)
 	if(errors.length == 0){
 		return [true, fields]
 	} else {
@@ -33,15 +32,17 @@ function collect_data( redundant_fields = [] ){
 }
 
 function ajax_submit(fields, target_path){
+	console.log(fields)
 	$.post( target_path ,
   {
-    form_data: fields
+    my_form_data: fields
   },
   function(data, status){
-    // if(status == "success"){
-    //   refill_table("#membros", data[0]["members"], "member")
-    //   refill_table("#diretores", data[0]["directors"], "directors")
-    // }
+    if(status == "success"){
+			alert(status)
+			// refill_table("#membros", data[0]["members"], "member")
+      // refill_table("#diretores", data[0]["directors"], "directors")
+    }
     // $("div.btn.btn-primary").on("click", function(){
     //   fire_ajax(this)
     // })
