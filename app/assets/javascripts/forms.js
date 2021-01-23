@@ -32,7 +32,6 @@ function collect_data( redundant_fields = [] ){
 }
 
 function ajax_submit(fields, target_path){
-	console.log(fields)
 	$.post( target_path ,
   {
     my_form_data: fields
