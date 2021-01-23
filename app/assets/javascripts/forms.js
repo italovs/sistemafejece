@@ -39,13 +39,12 @@ function ajax_submit(fields, target_path){
   },
   function(data, status){
     if(status == "success"){
-			alert(status)
-			// refill_table("#membros", data[0]["members"], "member")
-      // refill_table("#diretores", data[0]["directors"], "directors")
-    }
-    // $("div.btn.btn-primary").on("click", function(){
-    //   fire_ajax(this)
-    // })
+			console.log(data)
+			alert(data[0]["msg"])
+    } else {
+			//ERRO DE REQUISIÇÃO
+		}
+    
   });
 }
 

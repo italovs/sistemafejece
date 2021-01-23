@@ -31,12 +31,14 @@ class AdministrativeController < ApplicationController
 
 	def create_admin
 		puts params[:my_form_data]
-		byebug
-		admin = Admin.new(name: params[:my_form_data][:name], email: params[:my_form_data][:email], password: params[:my_form_data][:passrord] )
+		@admin = Admin.create(name: params[:my_form_data][:name], email: params[:my_form_data][:email], password: params[:my_form_data][:password] )
 		ActiveRecord::Base.transaction do
-			admin.save
+			@admin.save
+			render json: [msg: "Valeu, meu consagrado!"]
 		end
-		render json: [msg: "YO"]
+
+		rescue  ActiveRecord::RecordInvalid
+			render json: [msg: "Erro: "+	@admin.errors ]
 	end
 
 	private
