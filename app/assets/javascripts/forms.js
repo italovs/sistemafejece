@@ -39,8 +39,8 @@ function ajax_submit(fields, target_path){
   },
   function(data, status){
     if(status == "success"){
-			console.log(data)
-			alert(data[0]["msg"])
+			// console.log(data)
+			// alert(data[0]["msg"])
     } else {
 			//ERRO DE REQUISIÇÃO
 		}
@@ -54,7 +54,7 @@ $(function(){
 		if( response[0] == true ){
 			ajax_submit(response[1], "/pirates/new_pirates")			
 		} else {
-			alert(response[1])
+			// alert(response[1])
 			//EXIBIR ERROS NA TELA
 		}
 	});
