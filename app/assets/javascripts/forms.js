@@ -32,13 +32,22 @@ function collect_data( redundant_fields = [] ){
 	}
 }
 
-function ajax_submit(fields, target_path){
+function clear_forms(){
+	$(".input_field").each(function(){
+		$(this).val("")
+	});
+}
+
+function ajax_submit(fields, target_path, clear_fields = false){
 	$.post( target_path ,
   {
     my_form_data: fields
   },
   function(data, status){
     if(status == "success"){
+			if(clear_fields == true){
+				clear_forms()
+			}
 			// console.log(data)
 			// alert(data[0]["msg"])
     } else {
