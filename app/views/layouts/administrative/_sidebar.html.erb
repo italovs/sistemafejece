@@ -49,10 +49,10 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link " href="form-components.html">
+        <%= link_to categories_path, class: "nav-link #{verifica_controller_ativo(['administrative'], ['categories'] )}" do %>
           <i class="material-icons">view_module</i>
-          <span>Forms &amp; Components</span>
-        </a>
+          <span>Categorias</span>
+        <% end %>
       </li>
       <li class="nav-item">
         <a class="nav-link " href="tables.html">
