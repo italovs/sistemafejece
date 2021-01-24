@@ -1,0 +1,38 @@
+<script src="<%= javascript_path "forms" %>"></script>
+<script src="<%= javascript_path "junior_enterprises" %>"></script>
+<p id="notice"><%= notice %></p>
+
+<h1>EJs Cadastradas</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Descrição</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @junior_enterprises.each do |junior_enterprise| %>
+			<tr>
+				<td><%= junior_enterprise.name %></td>
+				<td><%= junior_enterprise.description %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br>
+
+<br>
+Nova EJ
+<br>
+<div class="field">
+	<%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field" %>
+</div>
+<div class="field">
+	<%= text_field_tag :description, nil, placeholder: "Descrição", class: "input_field" %>
+</div>
+<div id="send" class="btn btn-primary">
+	Enviar
+</div>
