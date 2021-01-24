@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 				post '/new_pirates', to: 'administrative#create_admin', as: 'create_admin'
 				get '/junior_enterprises', to: 'administrative#junior_enterprises', as: 'junior_enterprises'
 				post '/junior_enterprises', to: 'administrative#new_junior_enterprise', as: 'new_junior_enterprise'
+				post '/categories', to: 'administrative#categories', as: 'categories'
+				post '/categories', to: 'administrative#new_category', as: 'new_category'
 			end
 
 			root 'administrative#index', as: 'admin_root'

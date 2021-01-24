@@ -1,0 +1,38 @@
+<script src="<%= javascript_path "essencials" %>"></script>
+<script src="<%= javascript_path "categories" %>"></script>
+<p id="notice"><%= notice %></p>
+
+<h1>Categorias Cadastradas</h1>
+
+<table id="categories">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Descrição</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @categories.each do |category| %>
+			<tr>
+				<td><%= category.name %></td>
+				<td><%= category.description %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br>
+
+<br>
+Nova Categoria
+<br>
+<div class="field">
+	<%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field" %>
+</div>
+<div class="field">
+	<%= text_field_tag :description, nil, placeholder: "Descrição", class: "input_field" %>
+</div>
+<div id="send" class="btn btn-primary">
+	Enviar
+</div>

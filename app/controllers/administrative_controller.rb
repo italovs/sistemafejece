@@ -57,6 +57,13 @@ class AdministrativeController < ApplicationController
 			render json: [msg: "Erro: "+	@admin.errors ]
 	end
 
+	def categories
+	end
+
+	def new_category
+
+	end
+
 	private
 	def return_members
 		@directors = Member.where(validated: true)
