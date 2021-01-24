@@ -21,6 +21,7 @@ function create_line(dados, kind = "", columns = []){
 		dados = novos_dados
 	}
 	line = "<tr><td>"+dados[1]+"</td><td>"+dados[2]+"</td>"
+	console.log(kind)
 	if(kind == "member"){
 		line += '<td><div id="director_'+dados[0]+'" class="btn btn-primary">Tornar Diretor' 
 		line += '</div></td><td><div id="member_'+dados[0]+'" class="btn btn-primary">Tornar Membro</div></td>';

@@ -12,7 +12,7 @@ function fire_ajax( obj ){
     director = false;
   }
   member_id = id.substring( id.indexOf("_") + 1, id.length)
-  $.post("/pirates/director/change_validation",
+  $.post("/pirates/directors",
   {
     id: member_id,
     status: director
@@ -20,7 +20,7 @@ function fire_ajax( obj ){
   function(data, status){
     if(status == "success"){
       refill_table("#membros", data[0]["members"], "member")
-      refill_table("#diretores", data[0]["directors"], "directors")
+      refill_table("#diretores", data[0]["directors"], "director")
     }
     $("div.btn.btn-primary").on("click", function(){
       fire_ajax(this)
