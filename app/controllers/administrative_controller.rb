@@ -46,7 +46,6 @@ class AdministrativeController < ApplicationController
 	end
 
 	def new_junior_enterprise
-		puts params[:my_form_data]
 		@ej = JuniorEnterprise.create(name: params[:my_form_data][:name], description: params[:my_form_data][:description] )
 		ActiveRecord::Base.transaction do
 			@ej.save
@@ -58,6 +57,7 @@ class AdministrativeController < ApplicationController
 	end
 
 	def categories
+		@categories = Category.all
 	end
 
 	def new_category
