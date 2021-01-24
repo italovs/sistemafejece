@@ -20,9 +20,10 @@ function collect_data( redundant_fields = [] ){
 			errors.push("Campo de "+invalid_field+" não pode estar em branco")
 		}
 	});
-
-	for(i = 0; i < redundant_fields.length; i++){
-		errors = verify_same_data( fields[redundant_fields[i]], fields[redundant_fields[i] +"_2"], redundant_fields[i], errors )
+	if( errors.length > 0){
+		for(i = 0; i < redundant_fields.length; i++){
+			errors = verify_same_data( fields[redundant_fields[i]], fields[redundant_fields[i] +"_2"], redundant_fields[i], errors )
+		}
 	}
 	if(errors.length == 0){
 		return [true, fields]
