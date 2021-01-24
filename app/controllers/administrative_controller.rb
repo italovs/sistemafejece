@@ -50,7 +50,7 @@ class AdministrativeController < ApplicationController
 		@ej = JuniorEnterprise.create(name: params[:my_form_data][:name], description: params[:my_form_data][:description] )
 		ActiveRecord::Base.transaction do
 			@ej.save
-			render json: [msg: "Valeu, meu consagrado!"]
+			render json: [msg: "Valeu, meu consagrado!", ejs: JuniorEnterprise.all.select(:name, :description)]
 		end
 
 		rescue  ActiveRecord::RecordInvalid
