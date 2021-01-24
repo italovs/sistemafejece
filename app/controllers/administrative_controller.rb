@@ -61,7 +61,14 @@ class AdministrativeController < ApplicationController
 	end
 
 	def new_category
+		@category = Category.create(name: params[:my_form_data][:name], description: params[:my_form_data][:description] )
+		ActiveRecord::Base.transaction do
+			@category.save
+			render json: [msg: "Valeu, meu consagrado!", ejs: Category.all.select(:name, :description)]
+		end
 
+		rescue  ActiveRecord::RecordInvalid
+			render json: [msg: "Erro: "+	@admin.errors ]
 	end
 
 	private
