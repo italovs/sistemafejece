@@ -25,8 +25,6 @@ JuniorEnterprise.create(name: 'GTi', description: 'Ases, mestres, guerreiros e e
   JuniorEnterprise.create(name: "EJ #{i}", description: "A #{i+2}ª melhor EJ")
 end
 
-
-
 puts "#{acoes.sample} Membros..."
 Member.create(email: 'member@gti.com', password: '123123', junior_enterprise_id: 1, validated: nil)
 ejs = Set.new(2..10)
@@ -42,6 +40,12 @@ end
   ej_id = ejs.to_a.sample
   ejs = ejs.delete(ej_id)
   Member.create(name: "membro#{i+6}", email: "diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: true)
+end
+
+puts "#{acoes.sample} Categorias..."
+categorias = ["Time", "Marketing", "Projetos", "Liderança", "Organização"]
+categorias.each do |c|
+  Category.create(name: c, description: "Sobre "+c)
 end
 
 puts "##### FIM #####"
