@@ -24,14 +24,15 @@ Rails.application.routes.draw do
 				get '/categories', to: 'administrative#categories', as: 'categories'
 				post '/categories', to: 'administrative#new_category', as: 'new_category'
 			end
-
-			root 'administrative#index', as: 'admin_root'
+			
+			root 'site#index', as: 'admin_root'
 		end
 
 		unauthenticated :admin do
 			devise_scope :member do
 				authenticated :member do
-					root 'administrative#index', as: 'member_root'
+					root 'site#index', as: 'member_root'
+					get '/profile', to: 'site#perfil', as: 'perfil'
 				end
 
 				unauthenticated :member  do

@@ -1,2 +1,82 @@
-<h1>Site#perfil</h1>
-<p>Find me in app/views/site/perfil.html.erb</p>
+Seus Dados
+<br>
+<br>
+
+<div class="field">
+	<strong>
+	Nome: 
+	</strong>
+	<span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
+</div>
+<div class="field">
+	<strong>
+	Sobre: 
+	</strong>
+	<span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+</div>
+<% if member_signed_in? %>
+	<div class="field">
+		<b>
+		Empresa Júnior: 
+		</b>
+		<span id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
+	</div>
+	<div class="field">
+		<strong>
+		Cargo: 
+		</strong>
+		<span id="position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+	</div>
+	<div class="field">
+		<strong>
+		Status: 
+		</strong>
+		<span id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
+	</div>
+<% end %>
+
+<br>
+<br>
+Alterar Dados
+<br>
+<br>
+
+<div class="field">
+	<%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
+</div>
+
+<div class="field">
+	<%= text_area_tag :name, nil, placeholder: "Descrição", class: "input_field", value: @profile.try(:description) %>
+</div>
+
+<% if member_signed_in? %>
+	<div class="field">
+		<%= select_tag :junior_enterprise, options_for_select(@ejs, current_member.junior_enterprise.id) , class: "input_field" %>
+	</div>
+<% end %>
+
+<% if member_signed_in? %>
+	<div class="field">
+		<%= select_tag :director, options_for_select(@directories, current_member.validated) , class: "input_field" %>
+	</div>
+<% end %>
+
+<div class="field">
+	<%= text_field_tag :email, nil, placeholder: "Email", class: "input_field", value: @profile.email %>
+</div>
+
+<div class="field">
+	<%= text_field_tag :email_2, nil, placeholder: "Repetir Email", class: "input_field"  %>
+</div>
+
+<div class="field">
+	<%= password_field_tag :password, nil, placeholder: "Senha", class: "input_field" %>
+</div>
+
+<div class="field">
+	<%= password_field_tag :password_2, nil, placeholder: "Repetir Senha", class: "input_field" %>
+</div>
+
+<div id="send" class="btn btn-primary">
+	Enviar
+</div>
