@@ -4,7 +4,8 @@
 
 <head>
     <meta charset="UTF-8">
-
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
     <!-- ===== Mobile viewport optimized ===== -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
@@ -32,7 +33,17 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
 
     <!-- ===== CSS links ===== -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+    <%= stylesheet_link_tag 'revolution/settings', media: 'all' %>
+    <%= stylesheet_link_tag 'revolution/layers', media: 'all' %>
+    <%= stylesheet_link_tag 'revolution/navigation', media: 'all' %>
+    <%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+    <%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+    <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+    <%= stylesheet_link_tag 'style', media: 'all' %>
+    <%= stylesheet_link_tag 'responsive', media: 'all' %>
+
     <link rel="stylesheet" type="text/css" href="assets/revolution/css/settings.css">
     <link rel="stylesheet" type="text/css" href="assets/revolution/css/layers.css">
     <link rel="stylesheet" type="text/css" href="assets/revolution/css/navigation.css">
@@ -1974,6 +1985,19 @@
 
 
     <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
+    <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
     <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.ajaxchimp.js"></script>
@@ -1989,10 +2013,22 @@
     <script src="assets/js/custom.js"></script>
 
     <!-- ===== Slider Revolution core JavaScript files ===== -->
+    <%= javascript_include_tag 'revolution/jquery.themepunch.tools.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/jquery.themepunch.revolution.min', 'data-turbolinks-track': 'reload' %>
     <script type="text/javascript" src="assets/revolution/js/jquery.themepunch.tools.min.js"></script>
     <script type="text/javascript" src="assets/revolution/js/jquery.themepunch.revolution.min.js"></script>
 
     <!-- ===== Slider Revolution extension scripts ===== -->
+    <%= javascript_include_tag 'revolution/revolution.extension.actions.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.carousel.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.kenburn.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.layeranimation.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.migration.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.navigation.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.parallax.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.slideanims.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'revolution/revolution.extension.video.min', 'data-turbolinks-track': 'reload' %>
+    
     <script type="text/javascript" src="assets/revolution/js/extensions/revolution.extension.actions.min.js"></script>
     <script type="text/javascript" src="assets/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
     <script type="text/javascript" src="assets/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>

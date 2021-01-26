@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout 'member'
+	layout "member"
 	def index
 	end
        
