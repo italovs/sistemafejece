@@ -12,8 +12,9 @@ puts "##### SEEDS #####"
 acoes = [
   "Semeando", "Plantando", "Colhendo", "Programando", "Codando", "Fazendo deploy de", 
   "Debuggando", "Em reunião com", "Indo buscar", "Pensando em", "Fazendo cosplay de",
-  "Fritando", "Dançando", "Jogando RPG", "Pilotando a nave com", "Estudando sobre",
-  "Vacinando", "Virando jacaré com", "No Dota com"
+  "Fritando", "Dançando com", "Jogando RPG com", "Pilotando a nave com", "Estudando sobre",
+  "Vacinando", "Virando jacaré com", "No Dota com", "Update sem where em",
+  "Fazendo pair programming com"'
 ]
 
 
