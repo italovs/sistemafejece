@@ -2,7 +2,7 @@ Seus Dados
 <br>
 <br>
 
-<div class="field">
+<div class="field" id="profile_info">
 	<strong>
 	Nome: 
 	</strong>
@@ -37,46 +37,48 @@ Seus Dados
 
 <br>
 <br>
-Alterar Dados
-<br>
-<br>
 
-<div class="field">
+
+<div class="field profile_data">
 	<%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
 </div>
 
-<div class="field">
+<div class="field profile_data">
 	<%= text_area_tag :name, nil, placeholder: "Descrição", class: "input_field", value: @profile.try(:description) %>
 </div>
 
-<% if member_signed_in? %>
-	<div class="field">
-		<%= select_tag :junior_enterprise, options_for_select(@ejs, current_member.junior_enterprise.id) , class: "input_field" %>
-	</div>
-<% end %>
-
-<% if member_signed_in? %>
-	<div class="field">
-		<%= select_tag :director, options_for_select(@directories, current_member.validated) , class: "input_field" %>
-	</div>
-<% end %>
-
-<div class="field">
+<div class="field profile_data email">
 	<%= text_field_tag :email, nil, placeholder: "Email", class: "input_field", value: @profile.email %>
 </div>
 
-<div class="field">
+<div class="field profile_data email">
 	<%= text_field_tag :email_2, nil, placeholder: "Repetir Email", class: "input_field"  %>
 </div>
 
-<div class="field">
+<div class="field password">
 	<%= password_field_tag :password, nil, placeholder: "Senha", class: "input_field" %>
 </div>
 
-<div class="field">
+<div class="field password">
 	<%= password_field_tag :password_2, nil, placeholder: "Repetir Senha", class: "input_field" %>
+</div>
+
+<div id="edit" class="btn btn-primary">
+	Modificar Informações
+</div>
+
+<div id="director" class="btn btn-primary">
+	Solicitar Diretoria
+</div>
+
+<div id="new_password" class="btn btn-primary">
+	Nova Senha
 </div>
 
 <div id="send" class="btn btn-primary">
 	Enviar
 </div>
+
+
+<script src="<%= javascript_path "essencials" %>"></script>
+<script src="<%= javascript_path "profile" %>"></script>

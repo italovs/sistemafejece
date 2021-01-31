@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-	get 'site/index'
-	get 'site/perfil'
 	devise_for :admins, controllers: {
 		sessions: 'admins/sessions',
 		registrations: 'admins/registrations',
@@ -24,6 +22,7 @@ Rails.application.routes.draw do
 				post '/junior_enterprises', to: 'administrative#new_junior_enterprise', as: 'new_junior_enterprise'
 				get '/categories', to: 'administrative#categories', as: 'categories'
 				post '/categories', to: 'administrative#new_category', as: 'new_category'
+				get '/profile', to: 'site#profile', as: 'admin_profile'
 			end
 			
 			root 'site#index', as: 'admin_root'
@@ -33,7 +32,7 @@ Rails.application.routes.draw do
 			devise_scope :member do
 				authenticated :member do
 					root 'site#index', as: 'member_root'
-					get '/profile', to: 'site#perfil', as: 'perfil'
+					get '/profile', to: 'site#profile', as: 'member_profile'
 				end
 
 				unauthenticated :member  do

@@ -2,8 +2,8 @@ class SiteController < ApplicationController
 	layout "member"
 	def index
 	end
-       
-	def perfil
+
+	def profile
 		@ejs = JuniorEnterprise.all.map { |ej| [ ej.name,  ej.id, ]}
 		if member_signed_in?
 			@profile = current_member

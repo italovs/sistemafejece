@@ -35,4 +35,12 @@ module ApplicationHelper
 			admin_root_path
 		end
 	end
+
+	def profile_path
+		if member_signed_in?
+			member_profile_path
+		elsif admin_signed_in?
+			admin_profile_path
+		end
+	end
 end
