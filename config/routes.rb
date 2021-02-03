@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 				authenticated :member do
 					root 'site#index', as: 'member_root'
 					get '/profile', to: 'site#profile', as: 'member_profile'
+					post '/request_to_become_a_director', to: 'site#request_to_become_a_director', as: 'request_to_become_a_director'
 				end
 
 				unauthenticated :member  do

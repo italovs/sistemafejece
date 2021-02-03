@@ -21,8 +21,20 @@ $(function(){
 });
 
 function im_a_director(){
-	//requisição
-	alert("requisição")
+	$.post( '/request_to_become_a_director' ,
+		{
+			email: $("#member_email").val() 
+		},
+		function(data, status){
+		if(status == "success"){
+			reset_fields()
+			update_data(data[0])
+			$("#director").hide()
+		} else {
+			//ERRO DE REQUISIÇÃO
+			reset_fields()
+		}
+	});
 }
 
 function change_information(){
@@ -37,3 +49,19 @@ function reset_fields(){
 	$(".password").hide()
 }
 
+
+function update_data( new_data ){
+	console.log(new_data["member"])
+	$('#name').html(new_data["member"]["name"] || "Não informado")
+	$('#about').html(new_data["member"]["about"] || "Não informado")
+	$('#about').html(new_data["member"]["position"] || "Não informado")
+	$('#email').html(new_data["member"]["email"])
+	$('#junior_enterprise').html(new_data["junior_enterprise"])
+	if( new_data["member"]["validated"] == "true" ){
+		$("#validated").html("Membro Diretor")
+	} else if( new_data["member"]["validated"] == "false" ){
+		$("#validated").html("Membro")
+	} else {
+		$("#validated").html("Diretoria Solicitada")
+	}
+}

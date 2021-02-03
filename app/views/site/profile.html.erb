@@ -4,13 +4,19 @@ Seus Dados
 
 <div class="field" id="profile_info">
 	<strong>
-	Nome: 
+		Nome: 
 	</strong>
 	<span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
 </div>
 <div class="field">
 	<strong>
-	Sobre: 
+		E-mail: 
+	</strong>
+	<span id="email"><%= @profile.email %></span>
+</div>
+<div class="field">
+	<strong>
+		Sobre: 
 	</strong>
 	<span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
 </div>
@@ -40,36 +46,38 @@ Seus Dados
 
 
 <div class="field profile_data">
-	<%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
+	<%= text_field_tag :field_name, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
 </div>
 
 <div class="field profile_data">
-	<%= text_area_tag :name, nil, placeholder: "Descrição", class: "input_field", value: @profile.try(:description) %>
+	<%= text_area_tag :field_about, nil, placeholder: "Descrição", class: "input_field", value: @profile.try(:description) %>
 </div>
 
 <div class="field profile_data email">
-	<%= text_field_tag :email, nil, placeholder: "Email", class: "input_field", value: @profile.email %>
+	<%= text_field_tag :field_email, nil, placeholder: "Email", class: "input_field", value: @profile.email %>
 </div>
 
 <div class="field profile_data email">
-	<%= text_field_tag :email_2, nil, placeholder: "Repetir Email", class: "input_field"  %>
+	<%= text_field_tag :field_email_2, nil, placeholder: "Repetir Email", class: "input_field"  %>
 </div>
 
 <div class="field password">
-	<%= password_field_tag :password, nil, placeholder: "Senha", class: "input_field" %>
+	<%= password_field_tag :field_password, nil, placeholder: "Senha", class: "input_field" %>
 </div>
 
 <div class="field password">
-	<%= password_field_tag :password_2, nil, placeholder: "Repetir Senha", class: "input_field" %>
+	<%= password_field_tag :field_password_2, nil, placeholder: "Repetir Senha", class: "input_field" %>
 </div>
 
 <div id="edit" class="btn btn-primary">
 	Modificar Informações
 </div>
 
-<div id="director" class="btn btn-primary">
-	Solicitar Diretoria
-</div>
+<% if member_signed_in? && current_member.validated == false %>
+	<div id="director" class="btn btn-primary">
+		Solicitar Diretoria
+	</div>
+<% end %>
 
 <div id="new_password" class="btn btn-primary">
 	Nova Senha
