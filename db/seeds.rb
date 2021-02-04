@@ -14,7 +14,7 @@ acoes = [
   "Debuggando", "Em reunião com", "Indo buscar", "Pensando em", "Fazendo cosplay de",
   "Fritando", "Dançando com", "Jogando RPG com", "Pilotando a nave com", "Estudando sobre",
   "Vacinando", "Virando jacaré com", "No Dota com", "Update sem where em",
-  "Fazendo pair programming com"'
+  "Fazendo pair programming com"
 ]
 
 
