@@ -9,6 +9,8 @@ $(function(){
 		}
 	});
 
+	initial_buttons()
+
 	$("#director").on("click", function(){
 		im_a_director()
 	})
@@ -17,6 +19,11 @@ $(function(){
 		change_information()
 	})
 
+	$("#change_password").on("click", function(){
+		change_password()
+	});
+
+	
 	reset_fields()
 });
 
@@ -38,20 +45,49 @@ function im_a_director(){
 }
 
 function change_information(){
+	$("#field").show();
 	$("#profile_info").hide();
 	$(".profile_data").show()
 	$("#password").show()
 }
 
 function reset_fields(){
+	$("#field").show();
 	$("#profile_info").show();
 	$(".profile_data").hide()
 	$(".password").hide()
 }
 
+function change_password(){
+	if($("#change_password").html() == "NOVA SENHA"){
+		$(".field").hide();
+		$("#profile_info").hide();
+		$(".profile_data").hide()
+		$(".password").show()
+		$("#change_password").html("ENVIAR")
+	} else {
+		$.post( '/change_password' ,
+		{
+			old_password: $("#old_password").val(),
+			new_password: $("#change_password").val(),
+			confirmation_password: $("#confirmation_password").val() 
+		},
+		function(data, status){
+			if(status == "success"){
+				reset_fields()
+				console.log(data[0])
+				//update_data(data[0])
+			} else {
+				//ERRO DE REQUISIÇÃO
+				reset_fields()
+			}
+		});
+		
+		$("#change_password").html("NOVA SENHA")
+	}
+}
 
 function update_data( new_data ){
-	console.log(new_data["member"])
 	$('#name').html(new_data["member"]["name"] || "Não informado")
 	$('#about').html(new_data["member"]["about"] || "Não informado")
 	$('#about').html(new_data["member"]["position"] || "Não informado")
@@ -64,4 +100,8 @@ function update_data( new_data ){
 	} else {
 		$("#validated").html("Diretoria Solicitada")
 	}
+}
+
+function initial_buttons(){
+	$("#change_password").html("NOVA SENHA");
 }

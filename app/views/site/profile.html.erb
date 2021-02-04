@@ -62,11 +62,15 @@ Seus Dados
 </div>
 
 <div class="field password">
-	<%= password_field_tag :field_password, nil, placeholder: "Senha", class: "input_field" %>
+	<%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field" %>
 </div>
 
 <div class="field password">
-	<%= password_field_tag :field_password_2, nil, placeholder: "Repetir Senha", class: "input_field" %>
+	<%= password_field_tag :new_password, nil, placeholder: "Nova Senha", class: "input_field" %>
+</div>
+
+<div class="field password">
+	<%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field" %>
 </div>
 
 <div id="edit" class="btn btn-primary">
@@ -79,12 +83,12 @@ Seus Dados
 	</div>
 <% end %>
 
-<div id="new_password" class="btn btn-primary">
-	Nova Senha
+<div id="change_mail" class="btn btn-primary">
+	Mudar E-mail
 </div>
 
-<div id="send" class="btn btn-primary">
-	Enviar
+<div id="change_password" class="btn btn-primary">
+	Nova Senha
 </div>
 
 

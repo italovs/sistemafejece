@@ -22,9 +22,10 @@ Rails.application.routes.draw do
 				post '/junior_enterprises', to: 'administrative#new_junior_enterprise', as: 'new_junior_enterprise'
 				get '/categories', to: 'administrative#categories', as: 'categories'
 				post '/categories', to: 'administrative#new_category', as: 'new_category'
-				get '/profile', to: 'site#profile', as: 'admin_profile'
 			end
 			
+			get '/profile', to: 'site#profile', as: 'admin_profile'
+			post '/change_password', to: 'site#change_password', as: 'change_admin_password'
 			root 'site#index', as: 'admin_root'
 		end
 
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
 					root 'site#index', as: 'member_root'
 					get '/profile', to: 'site#profile', as: 'member_profile'
 					post '/request_to_become_a_director', to: 'site#request_to_become_a_director', as: 'request_to_become_a_director'
+					post '/change_password', to: 'site#change_password', as: 'change_member_password'
 				end
 
 				unauthenticated :member  do

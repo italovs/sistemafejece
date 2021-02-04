@@ -27,4 +27,49 @@ class SiteController < ApplicationController
 		rescue  ActiveRecord::RecordInvalid
 			render json: [msg: "Erro: "+	@member.errors ]
 	end
+
+	def change_password
+		if member_signed_in?
+			@person = current_member
+		else
+			@person = current_admin
+		end
+
+		if @person.valid_password? params[:old_password]
+			if params[:new_password] == params[:confirmation_password]
+				@person.password = params[:new_password]
+				if @person.save
+					if member_signed_in?
+						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+					else
+						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person )]
+					end
+				else
+					if member_signed_in?
+						render json: [msg: "Erro: Falha em salvar nova senha", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+					else
+						render json: [msg: "Erro: Falha em salvar nova senha", person: person_information( @person )]
+					end
+				end
+			else
+				if member_signed_in?
+					render json: [msg: "Erro: Campos de nova senha não são iguais", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+				else
+					render json: [msg: "Erro: Campos de nova senha não são iguais", person: person_information( @person )]
+				end
+			end
+		else
+			if member_signed_in?
+				render json: [msg: "Erro: Senha antiga inválida", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name ]
+			else
+				render json: [msg: "Erro: Senha antiga inválida", person: person_information( @person )]
+			end
+		end
+
+	end
+	
+	private
+	def person_information( person )
+		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position, validated: person.validated }  
+	end
 end

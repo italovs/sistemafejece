@@ -4,4 +4,12 @@ class Member < ApplicationRecord
 	devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
 	belongs_to :junior_enterprise
+
+	enum cargo: {
+		desenvolvedor: 0,
+		designer: 1,
+		marketing: 2,
+		gerente: 3,
+		rh: 4
+	}
 end
