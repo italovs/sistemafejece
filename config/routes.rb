@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 			
 			get '/profile', to: 'site#profile', as: 'admin_profile'
 			post '/change_password', to: 'site#change_password', as: 'change_admin_password'
+			post '/change_mail', to: 'site#change_mail', as: 'change_admin_mail'
 			root 'site#index', as: 'admin_root'
 		end
 
@@ -36,6 +37,7 @@ Rails.application.routes.draw do
 					get '/profile', to: 'site#profile', as: 'member_profile'
 					post '/request_to_become_a_director', to: 'site#request_to_become_a_director', as: 'request_to_become_a_director'
 					post '/change_password', to: 'site#change_password', as: 'change_member_password'
+					post '/change_mail', to: 'site#change_mail', as: 'change_member_mail'
 				end
 
 				unauthenticated :member  do
