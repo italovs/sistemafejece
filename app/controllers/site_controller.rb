@@ -66,6 +66,46 @@ class SiteController < ApplicationController
 			end
 		end
 	end
+
+	##PROTOTIPADO
+	def change_data
+		if member_signed_in?
+			@person = current_member
+		else
+			@person = current_admin
+		end
+
+		if @person.valid_password? params[:confirmation_password]
+			if params[:new_email] == params[:repeat_email]
+				@person.email = params[:new_email]
+				if @person.save
+					if member_signed_in?
+						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+					else
+						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person )]
+					end
+				else
+					if member_signed_in?
+						render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+					else
+						render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person )]
+					end
+				end
+			else
+				if member_signed_in?
+					render json: [msg: "Erro: Campos de novo e-mail não são iguais", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+				else
+					render json: [msg: "Erro: Campos de novo e-mail não são iguais", person: person_information( @person )]
+				end
+			end
+		else
+			if member_signed_in?
+				render json: [msg: "Erro: Senha inválida", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name ]
+			else
+				render json: [msg: "Erro: Senha inválida", person: person_information( @person )]
+			end
+		end
+	end
 	
 	def change_mail
 		if member_signed_in?
@@ -74,8 +114,7 @@ class SiteController < ApplicationController
 			@person = current_admin
 		end
 
-		if @person.valid_password? params[:confirmation_password]
-			byebug
+		if @person.valid_password? params[:confirmation_password]			
 			if params[:new_email] == params[:repeat_email]
 				@person.email = params[:new_email]
 				if @person.save
