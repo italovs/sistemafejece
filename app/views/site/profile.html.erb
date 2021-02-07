@@ -54,7 +54,7 @@ Seus Dados
 </div>
 
 <div class="field profile_data email">
-	<%= text_field_tag :new_email, nil, placeholder: "Email", class: "input_field", value: @profile.email %>
+	<%= text_field_tag :new_email, nil, placeholder: "Email", class: "input_field"%>
 </div>
 
 <div class="field profile_data email">
@@ -73,8 +73,8 @@ Seus Dados
 	<%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field" %>
 </div>
 
-<div id="edit" class="btn btn-primary">
-	Modificar Informações
+<div id="change_information" class="btn btn-primary">
+	ATUALIZAR INFORMAÇÕES
 </div>
 
 <% if member_signed_in? && current_member.validated == false %>

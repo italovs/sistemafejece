@@ -15,7 +15,7 @@ $(function(){
 		im_a_director()
 	})
 
-	$("#edit").on("click", function(){
+	$("#change_information").on("click", function(){
 		change_information()
 	})
 
@@ -45,13 +45,6 @@ function im_a_director(){
 			reset_fields()
 		}
 	});
-}
-
-function change_information(){
-	$("#field").show();
-	$("#profile_info").hide();
-	$(".profile_data").show()
-	$("#password").show()
 }
 
 function reset_fields(){
@@ -92,33 +85,34 @@ function change_mail(){
 	}
 }
 
-function change_data(){
-	if($("#change_mail").html() == "MUDAR E-MAIL"){
-		$(".field").hide();
-		$("#profile_info").hide();
-		$(".profile_data").hide()
-		$(".email").show()
-		$(".password").first().show();
-		$("#change_mail").html("ENVIAR")
+function change_information(){
+	if($("#change_information").html() == "ATUALIZAR DADOS"){
+		initial_buttons()
+		// $(".field").hide();
+		// $("#profile_info").hide();
+		// $(".profile_data").hide()
+		// $(".email").show()
+		// $(".password").first().show();
+		$("#change_information").html("ENVIAR")
 	} else {
-		$.post( '/change_mail' ,
-		{
-			new_email: $("#new_email").val(),
-			repeat_email: $("#repeat_email").val(),
-			confirmation_password: $("#old_password").val() 
-		},
-		function(data, status){
-			if(status == "success"){
-				reset_fields()
-				console.log(data[0])
-				//update_data(data[0])
-			} else {
-				//ERRO DE REQUISIÇÃO
-				reset_fields()
-			}
-		});
+		// $.post( '/change_information' ,
+		// {
+		// 	new_email: $("#new_email").val(),
+		// 	repeat_email: $("#repeat_email").val(),
+		// 	confirmation_password: $("#old_password").val() 
+		// },
+		// function(data, status){
+		// 	if(status == "success"){
+		// 		reset_fields()
+		// 		console.log(data[0])
+		// 		//update_data(data[0])
+		// 	} else {
+		// 		//ERRO DE REQUISIÇÃO
+		// 		reset_fields()
+		// 	}
+		// });
 		
-		$("#change_mail").html("MUDAR E-MAIL")
+		$("#change_information").html("ATUALIZAR DADOS")
 	}
 }
 
@@ -156,6 +150,7 @@ function change_password(){
 function initial_buttons(){
 	$("#change_password").html("NOVA SENHA");
 	$("#change_mail").html("MUDAR E-MAIL");
+	$("#change_information").html("ATUALIZAR DADOS");
 }
 
 //retorno de ajax
