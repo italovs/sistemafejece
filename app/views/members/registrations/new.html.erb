@@ -19,7 +19,7 @@
 
         <div class="form-group">
           <label>Escolha sua empresa júnior</label>
-          <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all ,:id,:description, {},{:class =>'form-control custom-select custom-select-sm'})%>
+          <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{:class =>'form-control custom-select custom-select-sm'})%>
         </div>
         <div class="form-group">
           <label>Qual o seu cargo?</label>
