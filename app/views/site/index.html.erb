@@ -304,9 +304,9 @@
 
                             <!-- Menu Item -->
                             <li class="nav-item m-auto">
-                                <a href="#login-register-popup" class="btn btn-main btn-effect login-btn popup-with-zoom-anim">
-                                    <i class="icon-user"></i>login
-                                </a>
+                                <%= button_to logout_path , class:"btn btn-main btn-effect ", :method => 'delete' do %>
+                                    Logout
+                                <% end %>
                             </li>
                         </ul>
                         <!-- ====== End of Extra Nav ====== -->
