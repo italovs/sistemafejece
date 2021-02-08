@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout "member"
+	#layout "member"
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
 

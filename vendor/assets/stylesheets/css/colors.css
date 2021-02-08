@@ -32,7 +32,7 @@ a:hover,
 .contact-page .details-wrapper ul.contact-details li i,
 .bloglist-post-holder .bloglist-title a:hover,
 .blog-post .post-content a.read-more {
-    color: #9352b3;
+    color: #F39201;
 }
 
 
@@ -48,7 +48,7 @@ a:hover,
 .layout-switcher a:hover,
 .layout-switcher a.active,
 .mm-counter {
-    background: #9352b3;
+    background: #F39201;
 }
 
 
@@ -60,7 +60,7 @@ a:hover,
 
 /* Color */
 .btn-second {
-    background: #a11f3c;
+    background: #F39201;
 }
 
 
@@ -78,8 +78,8 @@ ul.blog-posts-widget .blog-content .blog-thumb a:before,
 .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
 .movie-box-1 .poster:before,
 .movie-detail-intro2 .movie-poster:before {
-    background: -webkit-gradient(linear, left top, left bottom, from(#a11f3c), to(#9352b3));
-    background: -webkit-linear-gradient(bottom, #9352b3 0%, #a11f3c 100%);
-    background: -o-linear-gradient(bottom, #9352b3 0%, #a11f3c 100%);
-    background: linear-gradient(to bottom, #a11f3c 0%, #9352b3 100%);
+    background: -webkit-gradient(linear, left top, left bottom, from(#009540), to(#F39201));
+    background: -webkit-linear-gradient(bottom, #F39201 0%, #009540 100%);
+    background: -o-linear-gradient(bottom, #F39201 0%, #009540 100%);
+    background: linear-gradient(to bottom, #F39201 0%, #F39201 100%);
 }
