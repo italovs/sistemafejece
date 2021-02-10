@@ -94,6 +94,7 @@ function change_information(){
 		$(".password").first().show();
 		$("#change_information").html("ENVIAR")
 	} else {
+		//ajax (rota, parâmetros, função )
 		$.post( '/change_information' ,
 		{
 			name: $("#name_field").val(),
@@ -111,7 +112,8 @@ function change_information(){
 				reset_fields()
 			}
 		});
-		
+		//fim ajax
+
 		$("#change_information").html("ATUALIZAR DADOS")
 	}
 }
