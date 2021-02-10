@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
           <label>Qual o seu cargo?</label>
-          <%= f.select :position, Member.cargos,{}, {:class=>'form-control custom-select custom-select-sm'}%>
+          <%= f.select :position, Member.positions,{}, {:class=>'form-control custom-select custom-select-sm'}%>
         </div>
         <div class="form-group">
           <label>Senha</label>
@@ -42,9 +42,9 @@
           <%= f.submit "Cadastrar", class:"mb-2 btn btn-sm btn-pill btn-outline-primary mr-2" %>
         </div>
         <%= render "devise/shared/links" %>
-     </div>
+    </div>
   </div>
 </div>
- <% end %>
+<% end %>
 
       
