@@ -41,6 +41,7 @@ class AdministrativeController < ApplicationController
 			render json: [msg: "Erro: "+	@admin.errors ]
 	end
 
+	#EJS
 	def junior_enterprises
 		@junior_enterprises = JuniorEnterprise.all
 	end
@@ -49,12 +50,26 @@ class AdministrativeController < ApplicationController
 		@ej = JuniorEnterprise.create(name: params[:my_form_data][:name], description: params[:my_form_data][:description] )
 		ActiveRecord::Base.transaction do
 			@ej.save
-			render json: [msg: "Valeu, meu consagrado!", ejs: JuniorEnterprise.all.select(:name, :description)]
+			render json: [msg: "Valeu, meu consagrado!", ejs: JuniorEnterprise.all.select(:id, :name, :description)]
 		end
 
 		rescue  ActiveRecord::RecordInvalid
 			render json: [msg: "Erro: "+	@admin.errors ]
 	end
+
+	def remove_junior_enterprise
+		if(params[:id].present?)
+			ej = JuniorEnterprise.find(params[:id])
+		end
+
+		if ej.members.count == 0
+			ej.destroy
+			render json: [msg: "Valeu, meu consagrado!", ejs: JuniorEnterprise.all.select(:id, :name, :description)]
+		else
+			render json: [msg: ej.members.count == 1 ? "Erro: Há 1 membro associado a esta EJ" : "Erro: Há #{ej.members.count} membros associados a esta EJ" ]
+		end
+	end
+	# FIM EJS
 
 	def categories
 		@categories = Category.all
