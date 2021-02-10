@@ -10,6 +10,8 @@ class SiteController < ApplicationController
 		@ejs = JuniorEnterprise.all.map { |ej| [ ej.name,  ej.id, ]}
 		if member_signed_in?
 			@profile = current_member
+			@positions = Member.positions.map { |k,v| [k.capitalize, k] }
+
 		elsif admin_signed_in?
 			@profile = current_admin
 		end
@@ -68,7 +70,7 @@ class SiteController < ApplicationController
 	end
 
 	##PROTOTIPADO
-	def change_data
+	def change_information
 		if member_signed_in?
 			@person = current_member
 		else
@@ -77,7 +79,14 @@ class SiteController < ApplicationController
 
 		if @person.valid_password? params[:confirmation_password]
 			if params[:new_email] == params[:repeat_email]
-				@person.email = params[:new_email]
+				@person.name = params[:name] if params[:name].present?
+				@person.about = params[:about] if params[:about].present?
+
+				#apenas membros
+				if member_signed_in?
+					@person.position = params[:position] if params[:position].present?
+					@person.junior_enterprise_id = params[:junior_enterprise] if params[:junior_enterprise].present?
+				end
 				if @person.save
 					if member_signed_in?
 						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
@@ -148,6 +157,6 @@ class SiteController < ApplicationController
 
 	private
 	def person_information( person )
-		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position, validated: person.validated }  
+		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position.capitalize, validated: person.validated }  
 	end
 end

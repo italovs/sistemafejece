@@ -20,6 +20,7 @@ Seus Dados
 	</strong>
 	<span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
 </div>
+
 <% if member_signed_in? %>
 	<div class="field">
 		<b>
@@ -46,15 +47,26 @@ Seus Dados
 
 
 <div class="field profile_data">
-	<%= text_field_tag :field_name, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
+	<%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
 </div>
 
 <div class="field profile_data">
-	<%= text_area_tag :field_about, nil, placeholder: "Descrição", class: "input_field", value: @profile.try(:description) %>
+	<%= text_area_tag :about_field, nil, placeholder: "Descrição", class: "input_field", value: @profile.try(:description) %>
 </div>
 
+
+<% if member_signed_in? #EXCLUSIVO MEMBRO%>
+	<div class="field profile_data">
+		<%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{class: 'select_field'})%>
+	</div>
+
+	<div class="field profile_data">
+		<%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'select_field' }%>
+	</div>
+<% end %>
+
 <div class="field profile_data email">
-	<%= text_field_tag :new_email, nil, placeholder: "Email", class: "input_field"%>
+	<%= text_field_tag :new_email, nil, placeholder: "Novo Email", class: "input_field"%>
 </div>
 
 <div class="field profile_data email">

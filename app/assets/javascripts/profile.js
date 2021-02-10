@@ -73,7 +73,6 @@ function change_mail(){
 		function(data, status){
 			if(status == "success"){
 				reset_fields()
-				console.log(data[0])
 				//update_data(data[0])
 			} else {
 				//ERRO DE REQUISIÇÃO
@@ -88,29 +87,30 @@ function change_mail(){
 function change_information(){
 	if($("#change_information").html() == "ATUALIZAR DADOS"){
 		initial_buttons()
-		// $(".field").hide();
-		// $("#profile_info").hide();
-		// $(".profile_data").hide()
-		// $(".email").show()
-		// $(".password").first().show();
+		$(".field").hide();
+		$("#profile_info").hide();
+		$(".profile_data").show()
+		$(".email").hide()
+		$(".password").first().show();
 		$("#change_information").html("ENVIAR")
 	} else {
-		// $.post( '/change_information' ,
-		// {
-		// 	new_email: $("#new_email").val(),
-		// 	repeat_email: $("#repeat_email").val(),
-		// 	confirmation_password: $("#old_password").val() 
-		// },
-		// function(data, status){
-		// 	if(status == "success"){
-		// 		reset_fields()
-		// 		console.log(data[0])
-		// 		//update_data(data[0])
-		// 	} else {
-		// 		//ERRO DE REQUISIÇÃO
-		// 		reset_fields()
-		// 	}
-		// });
+		$.post( '/change_information' ,
+		{
+			name: $("#name_field").val(),
+			about: $("#about_field").val(),
+			junior_enterprise: $("#member_junior_enterprise_id").val(),
+			position: $("#position_field").val(),
+			confirmation_password: $("#old_password").val() 
+		},
+		function(data, status){
+			if(status == "success"){
+				reset_fields()
+				update_data(data[0])
+			} else {
+				//ERRO DE REQUISIÇÃO
+				reset_fields()
+			}
+		});
 		
 		$("#change_information").html("ATUALIZAR DADOS")
 	}
@@ -135,7 +135,6 @@ function change_password(){
 		function(data, status){
 			if(status == "success"){
 				reset_fields()
-				console.log(data[0])
 				//update_data(data[0])
 			} else {
 				//ERRO DE REQUISIÇÃO
@@ -155,14 +154,21 @@ function initial_buttons(){
 
 //retorno de ajax
 function update_data( new_data ){
-	$('#name').html(new_data["member"]["name"] || "Não informado")
-	$('#about').html(new_data["member"]["about"] || "Não informado")
-	$('#about').html(new_data["member"]["position"] || "Não informado")
-	$('#email').html(new_data["member"]["email"])
+	elemento_do_json = ""
+	if(new_data.hasOwnProperty("member")  ){
+		elemento_do_json = "member"
+	} else {
+		elemento_do_json = "person"
+	}
+	console.log(new_data[elemento_do_json])
+	$('#name').html(new_data[elemento_do_json]["name"] || "Não informado")
+	$('#about').html(new_data[elemento_do_json]["about"] || "Não informado")
+	$('#position').html(new_data[elemento_do_json]["position"] || "Não informado")
+	$('#email').html(new_data[elemento_do_json]["email"])
 	$('#junior_enterprise').html(new_data["junior_enterprise"])
-	if( new_data["member"]["validated"] == "true" ){
+	if( new_data[elemento_do_json]["validated"] == "true" ){
 		$("#validated").html("Membro Diretor")
-	} else if( new_data["member"]["validated"] == "false" ){
+	} else if( new_data[elemento_do_json]["validated"] == "false" ){
 		$("#validated").html("Membro")
 	} else {
 		$("#validated").html("Diretoria Solicitada")

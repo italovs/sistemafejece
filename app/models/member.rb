@@ -5,7 +5,7 @@ class Member < ApplicationRecord
 
 	belongs_to :junior_enterprise
 
-	enum cargo: {
+	enum position: {
 		desenvolvedor: 0,
 		designer: 1,
 		marketing: 2,
