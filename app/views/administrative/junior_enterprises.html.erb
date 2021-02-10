@@ -2,8 +2,11 @@
 <script src="<%= javascript_path "junior_enterprises" %>"></script>
 <p id="notice"><%= notice %></p>
 
-<h1>EJs Cadastradas</h1>
 
+<h1>EJs Cadastradas</h1>
+<br />
+
+<!--
 <table id="junior_enterprises">
 	<thead>
 		<tr>
@@ -22,11 +25,50 @@
 	</tbody>
 </table>
 
+-->
+
+<div class="row">
+<div class="col">
+  <div class="card card-small mb-4">
+	<div class="card-header border-bottom bg-info">
+	  <h6 class="m-0 text-white">EJs</h6>
+	</div>
+	<div class="card-body p-0 pb-3 text-center">
+	  <table class="table mb-0" id="junior_enterprises">
+		<thead class="bg-light">
+		  <tr>
+			<th scope="col" class="border-0">#</th>
+			<th scope="col" class="border-0">Nome</th>
+			<th scope="col" class="border-0">Descrição</th>
+			<th scope="col" class="border-0">Ações</th>
+		  </tr>
+		</thead>
+		<tbody id="membros_t">
+			<% cont = 1 %>
+			<% @junior_enterprises.each do |junior_enterprise| %>
+				<tr>
+					<td><%= cont %></td>
+					<td><%= junior_enterprise.name %></td>
+					<td><%= junior_enterprise.description %></td>
+					<td>
+						<i class="btn btn-danger material-icons" title="Tornar membro" id="junior_enterprise_<%= "#{junior_enterprise.id}" %>">close</i>
+					</td>
+					<% cont = cont + 1%>
+				</tr>
+			<% end %>
+		</tbody>
+	  </table>
+	</div>
+  </div>
+</div>
+</div>
+
+
 <br>
 
 <br>
-Nova EJ
-<br>
+<h2>Nova EJ</h2>
+<br />
 <div class="field">
 	<%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field" %>
 </div>
@@ -36,3 +78,7 @@ Nova EJ
 <div id="send" class="btn btn-primary">
 	Enviar
 </div>
+
+<br>
+
+<br>

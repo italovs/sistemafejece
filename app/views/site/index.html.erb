@@ -53,8 +53,7 @@
 </head>
 
 <body>
-
-
+    
     <!-- =============== START OF PRELOADER =============== -->
     <div class="loading">
         <div class="loading-inner">
@@ -305,9 +304,9 @@
 
                             <!-- Menu Item -->
                             <li class="nav-item m-auto">
-                                <a href="#login-register-popup" class="btn btn-main btn-effect login-btn popup-with-zoom-anim">
-                                    <i class="icon-user"></i>login
-                                </a>
+                                <%= button_to logout_path , class:"btn btn-main btn-effect ", :method => 'delete' do %>
+                                    Logout
+                                <% end %>
                             </li>
                         </ul>
                         <!-- ====== End of Extra Nav ====== -->
@@ -1209,109 +1208,6 @@
             </div>
         </section>
         <!-- =============== END OF UPCOMING MOVIES SECTION =============== -->
-
-
-
-
-        <!-- =============== END OF BECOME PREMIUM SECTION =============== -->
-        <section class="become-premium3 ptb100">
-            <div class="container">
-
-                <!-- Start of row -->
-                <div class="row justify-content-center">
-                    <div class="col-md-7 text-center">
-                        <h2 class="title">Become a Premium Member</h2>
-                        <h6 class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</h6>
-                    </div>
-                </div>
-                <!-- End of row -->
-
-                <!-- Start of row -->
-                <div class="row mt80">
-                    <div class="col-md-12">
-
-                        <!-- Start of Pricing Table -->
-                        <div class="pricing-table-2">
-
-                            <!-- Pricing Plan 1 -->
-                            <div class="plan">
-
-                                <!-- Price -->
-                                <div class="plan-price">
-                                    <h3>Basic</h3>
-                                    <span class="value">Free</span>
-                                    <span class="period">Try Movify for FREE for the first 7 days, you can upgrade anytime.</span>
-                                </div>
-
-                                <!-- Features -->
-                                <div class="plan-features">
-                                    <ul>
-                                        <li>7 days</li>
-                                        <li>720p Resolution</li>
-                                        <li>Desktop Only</li>
-                                        <li>Limited Support</li>
-                                    </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="#">Get Started</a>
-                                </div>
-
-                            </div>
-
-                            <!-- Featured - Pricing Plan 2 -->
-                            <div class="plan featured">
-
-                                <!-- Price -->
-                                <div class="plan-price">
-                                    <h3>Premium</h3>
-                                    <span class="value">$19</span>
-                                    <span class="period">Most wanted subscription package by our Movifiers.</span>
-                                </div>
-
-                                <!-- Features -->
-                                <div class="plan-features">
-                                    <ul>
-                                        <li>1 Month</li>
-                                        <li>Full HD</li>
-                                        <li>Lifetime Availability</li>
-                                        <li>TV & Desktop</li>
-                                        <li>24/7 Support</li>
-                                    </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="#">Get Started</a>
-                                </div>
-                            </div>
-
-                            <!-- Pricing Plan 3 -->
-                            <div class="plan">
-
-                                <!-- Price -->
-                                <div class="plan-price">
-                                    <h3>Cinematic</h3>
-                                    <span class="value">$39</span>
-                                    <span class="period">Watch your favorite movies anywhere and anytime.</span>
-                                </div>
-
-                                <!-- Features -->
-                                <div class="plan-features">
-                                    <ul>
-                                        <li>2 Months</li>
-                                        <li>Ultra HD</li>
-                                        <li>Any Device</li>
-                                        <li>24/7 Support</li>
-                                    </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="#">Get Started</a>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End of Pricing Table -->
-
-                    </div>
-                </div>
-                <!-- End of row -->
-
-            </div>
-        </section>
-        <!-- =============== END OF BECOME PREMIUM SECTION =============== -->
-
 
 
 
