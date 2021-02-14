@@ -220,26 +220,41 @@
 							<!-- Menu Item -->
 							<li class="nav-item">
 								<a class="nav-link toggle-search" href="#">
-									<i class="fa fa-search"></i>
+									<i class="fas fa-search"></i>
 								</a>
 							</li>
 
 							<!-- Menu Item -->
 							<li class="nav-item notification-wrapper">
 								<a class="nav-link notification" href="#">
-									<i class="fa fa-globe"></i>
+									<i class="fas fa-globe"></i>
 									<span class="notification-count">2</span>
 								</a>
 							</li>
-
+	
 							<!-- Menu Item -->
-							<li class="nav-item m-auto">
-								<%= link_to logout_path, {class: "btn btn-main btn-effect login-btn popup-with-zoom-anim", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete' } do %>
-									<i class="icon-user"></i>Logout
-								<% end %>
 
-							</li>
-						</ul>
+						<div class="btn-group">
+							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<%=logged_name%>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li class="dropdown-item" >
+									<%= link_to profile_path, class: "nav-link" do%>
+										<i class="fas fa-user"></i>
+										Perfil
+									<%end%>
+								</li>
+
+								<li class="dropdown-item">
+									<%= link_to logout_path, {class: "dropdown-item ", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete' } do %>
+										<i class="fas fa-sign-out-alt"></i>
+										logout
+									<% end %>
+								</li>
+							</ul>
+						</div>
+
 						<!-- ====== End of Extra Nav ====== -->
 
 					</div>
