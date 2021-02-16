@@ -156,6 +156,7 @@ class SiteController < ApplicationController
 	end
 
 	private
+	
 	def person_information( person )
 		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position.capitalize, validated: person.validated }  
 	end

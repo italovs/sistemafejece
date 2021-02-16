@@ -46,6 +46,153 @@ Seus Dados
 <br>
 
 
+
+		<div style="margin: 0 5%;">
+			<div class="row">
+              <div class="col-lg-4">
+                <div class="card card-small mb-4 pt-3">
+                  <div class="card-header border-bottom text-center bg-white">
+                    <div class="mb-3 mx-auto">
+                    	<span class="circle-img">
+												<%=image_tag(current_member&.picture.url(:medium) || "assets/user.png", style: "width:40%;") %>
+											</span>
+                    </div>
+                    <h4 class="mb-0"><%=logged_name%></h4>
+                    <span class="text-muted d-block mb-2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-4">
+                      <strong class="text-muted d-block mb-2">Sobre</strong>
+                      <span><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="card card-small mb-4">
+                  <div class="card-header border-bottom bg-info">
+                    <h6 class="m-0 text-white">Detalhes do Perfil</h6>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-3">
+                      <div class="row">
+                        <div class="col">
+                          <form>
+                            <div class="form-row">
+                              <div class="form-group col-md-12">
+                                <label for="feFirstName">Nome</label>
+                                <input type="text" class="form-control" id="name" placeholder="Name" value="<%= @profile.name.nil? ? "Não informado" : @profile.name %>">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="feEmailAddress">E-mail</label>
+                                <input type="email" class="form-control" id="email" placeholder="E-mail" value="<%= @profile.email %>">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="feValidated">Status</label>
+                                <input type="text" class="form-control" id="validated" placeholder="Status" value="<%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %>">
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="feJunior_Enterprise">EJ</label>
+                                <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {:selected => @profile.junior_enterprise.name},{:class =>'form-control custom-select', style: "height:65%"})%>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="fePosition">Cargo</label>
+                                <%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'form-control custom-select', style: "height:65%"} %>
+                              </div>
+                            </div>
+
+
+                            <div class="form-row">
+                              <div class="form-group col-md-12">
+                                <label for="feAbout">Sobre</label>
+                                <textarea class="form-control" name="about" rows="5"><%= @profile.about.nil? ? "Não informado" : @profile.about %></textarea>
+                              </div>
+                            </div>
+                            <button type="submit" class="btn btn-accent">Atualizar Informações</button>
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+		</div>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="field profile_data">
 	<%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
 </div>

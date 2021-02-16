@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_24_204636) do
+ActiveRecord::Schema.define(version: 2021_02_15_185605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,10 @@ ActiveRecord::Schema.define(version: 2021_01_24_204636) do
     t.integer "position"
     t.boolean "validated"
     t.string "name"
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["junior_enterprise_id"], name: "index_members_on_junior_enterprise_id"
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true

@@ -5,6 +5,8 @@ class Member < ApplicationRecord
 
 	belongs_to :junior_enterprise
 
+	has_attached_file :picture, styles: { medium: "300x300#", thumb: "10x10#" }, default_url: "/assets/user.png"
+
 	enum position: {
 		desenvolvedor: 0,
 		designer: 1,

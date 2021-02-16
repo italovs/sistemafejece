@@ -69,6 +69,7 @@ class JuniorEnterprisesController < ApplicationController
       @junior_enterprise = JuniorEnterprise.find(params[:id])
     end
 
+
     # Only allow a list of trusted parameters through.
     def junior_enterprise_params
       params.require(:junior_enterprise).permit(:name, :description)
