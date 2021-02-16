@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_02_15_185605) do
+=======
+ActiveRecord::Schema.define(version: 2021_02_16_024740) do
+>>>>>>> fce0c9c2b05e140cb4b8179409b5cfea8b72189e
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,5 +69,62 @@ ActiveRecord::Schema.define(version: 2021_02_15_185605) do
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end
 
+  create_table "post_categories", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_post_categories_on_category_id"
+    t.index ["post_id"], name: "index_post_categories_on_post_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "link"
+    t.float "rating"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "season_posts", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "season_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_season_posts_on_post_id"
+    t.index ["season_id"], name: "index_season_posts_on_season_id"
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.string "name"
+    t.bigint "tv_serie_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tv_serie_id"], name: "index_seasons_on_tv_serie_id"
+  end
+
+  create_table "tv_serie_categories", force: :cascade do |t|
+    t.bigint "tv_serie_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_tv_serie_categories_on_category_id"
+    t.index ["tv_serie_id"], name: "index_tv_serie_categories_on_tv_serie_id"
+  end
+
+  create_table "tv_series", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "members", "junior_enterprises"
+  add_foreign_key "post_categories", "categories"
+  add_foreign_key "post_categories", "posts"
+  add_foreign_key "season_posts", "posts"
+  add_foreign_key "season_posts", "seasons"
+  add_foreign_key "seasons", "tv_series", column: "tv_serie_id"
+  add_foreign_key "tv_serie_categories", "categories"
+  add_foreign_key "tv_serie_categories", "tv_series", column: "tv_serie_id"
 end
