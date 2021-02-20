@@ -24,9 +24,9 @@ Rails.application.routes.draw do
 				post '/junior_enterprises/remove', to: 'administrative#remove_junior_enterprise', as: 'remove_junior_enterprise'
 				get '/categories', to: 'administrative#categories', as: 'categories'
 				post '/categories', to: 'administrative#new_category', as: 'new_category'
+				get '/profile', to: 'administrative#profile_admin', as: 'profile_admin'
 			end
 			
-			get '/profile', to: 'site#profile', as: 'admin_profile'
 			post '/change_password', to: 'site#change_password', as: 'change_admin_password'
 			post '/change_mail', to: 'site#change_mail', as: 'change_admin_mail'
 			post '/change_information', to: 'site#change_information', as: 'change_admin_information'

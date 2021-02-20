@@ -1,3 +1,4 @@
+//= require jquery
 $(function(){
 	$("#send").on("click", function(){
 		response = collect_data([ "email", "senha" ]);
@@ -177,3 +178,32 @@ function update_data( new_data ){
 	}
 }
 
+
+function change_data(){
+	if($("#change_data").html() == "ATUALIZAR DADOS"){
+		initial_buttons()
+	} else {
+		$.post( '/change_data' ,
+		{
+			name: $("#name_field").val(),
+			about: $("#about_field").val(),
+			junior_enterprise: $("#member_junior_enterprise_id").val(),
+			position: $("#position_field").val(),
+			confirmation_password: $("#old_password").val() 
+			new_email: $("#new_email").val(),
+			repeat_email: $("#repeat_email").val(),
+			// confirmation_password: $("#old_password").val() 
+		},
+		function(data, status){
+			if(status == "success"){
+				reset_fields()
+				//update_data(data[0])
+			} else {
+				//ERRO DE REQUISIÇÃO
+				reset_fields()
+			}
+		});
+		
+		$("#change_data").html("ATUALIZAR DADOS")
+	}
+}

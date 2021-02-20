@@ -10,6 +10,10 @@ class AdministrativeController < ApplicationController
 		return_members
 	end
 
+	def profile_admin
+		@profile = current_admin
+	end	
+
 	def change_member_validation
 		membro = Member.find(params[:id])
 		membro.validated = params[:status]

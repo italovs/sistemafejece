@@ -12,7 +12,6 @@
 					</a>
 					
 					<!-- Login Button on Responsive -->
-					<a href="#login-register-popup" class="login-mobile-btn popup-with-zoom-anim"><i class="icon-user"></i></a>
 
 					<button id="mobile-nav-toggler" class="hamburger hamburger--collapse" type="button">
 						<span class="hamburger-box">
@@ -29,8 +28,9 @@
 							<li class="nav-item dropdown">
 								<%= link_to 'Início', member_root_path, class: "nav-link" %>
 							</li>
+
 							<li class="nav-item dropdown">
-								<%= link_to 'Perfil', profile_path, class: "nav-link" %>
+								<%= link_to 'Perfil', profile_path , class: "nav-link" %>
 							</li>
 
 
@@ -236,9 +236,7 @@
 
 						<div class="btn-group">
 							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="circle-img">
-									<%=image_tag(current_member&.picture.url(:thumb) || "assets/user.png", style: "width:20%;") %>
-								</span>	
+								<%=image_tag(current_logged_user&.picture.url(:small)|| "assets/user.png", class:"rounded-circle") %>
 								<%=logged_name%>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right">

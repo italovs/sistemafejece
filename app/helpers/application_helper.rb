@@ -28,6 +28,14 @@ module ApplicationHelper
 		end
 	end
 
+	def current_logged_user
+		if member_signed_in?
+			current_member
+		elsif admin_signed_in?
+			current_admin
+		end
+	end
+
 	def logged_root
 		if member_signed_in?
 			member_root_path
@@ -40,7 +48,7 @@ module ApplicationHelper
 		if member_signed_in?
 			member_profile_path
 		elsif admin_signed_in?
-			admin_profile_path
+			profile_admin_path
 		end
 	end
 end

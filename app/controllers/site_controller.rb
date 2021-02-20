@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout "member"
+	layout "member", :except => :profile
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
 
@@ -8,13 +8,8 @@ class SiteController < ApplicationController
 
 	def profile
 		@ejs = JuniorEnterprise.all.map { |ej| [ ej.name,  ej.id, ]}
-		if member_signed_in?
-			@profile = current_member
-			@positions = Member.positions.map { |k,v| [k.capitalize, k] }
-
-		elsif admin_signed_in?
-			@profile = current_admin
-		end
+		@profile = current_member
+		@positions = Member.positions.map { |k,v| [k.capitalize, k] }
 		@directories = [ ["Membro", false], ["Diretoria", true], ["Solicitar Dirertoria", ""] ]
 	end
 

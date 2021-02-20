@@ -67,10 +67,10 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="user-profile-lite.html">
+				<%= link_to profile_admin_path, class: "nav-link #{verifica_controller_ativo(['administrative'], ['profile_admin'])}" do %>
 					<i class="material-icons">person</i>
 					<span>User Profile</span>
-				</a>
+				<%end%>		
 			</li>
 			<li class="nav-item">
 				<a class="nav-link " href="errors.html">

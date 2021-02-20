@@ -18,7 +18,10 @@ acoes = [
 ]
 
 
-Admin.create(email: 'admin@gti.com', password: 'voagti')
+Admin.create(email: 'admin@gti.com',
+            password: 'voagti',
+            picture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r')
+            )
 
 puts "#{acoes.sample} EJs..."
 JuniorEnterprise.create(name: 'GTi', description: 'Ases, mestres, guerreiros e exploradores do espaço')

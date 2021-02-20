@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_02_15_185605) do
-=======
-ActiveRecord::Schema.define(version: 2021_02_16_024740) do
->>>>>>> fce0c9c2b05e140cb4b8179409b5cfea8b72189e
+ActiveRecord::Schema.define(version: 2021_02_20_011046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +25,10 @@ ActiveRecord::Schema.define(version: 2021_02_16_024740) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "about"
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
