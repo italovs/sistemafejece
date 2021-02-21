@@ -16,7 +16,8 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks'
 gem 'devise'
-gem 'paperclip', '~> 6.0.0'
+gem "google-cloud-storage"
+#gem 'paperclip', '~> 6.0.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

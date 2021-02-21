@@ -6,7 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
-
+gcs.keyfile.json
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
