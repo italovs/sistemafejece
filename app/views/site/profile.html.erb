@@ -1,7 +1,7 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 	<html lang="pt-BR">
     <head>
-    <!-- ===== CSS links ===== -->
+      <!-- ===== CSS links ===== -->
       <%= stylesheet_link_tag 'application', media: 'all' %>
       <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
       <%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
@@ -14,210 +14,224 @@
       <%= stylesheet_link_tag 'responsive', media: 'all' %>
     </head>
     
-    
-    
-  <body>
-    <nav id="main-mobile-nav"></nav>
-    <%= render '/layouts/member_navbar' %>
-    <%= yield %>
-    Seus Dados
-    <br>
-    <br>
+    <body>
+      <nav id="main-mobile-nav"></nav>
+      <%= render '/layouts/member_navbar' %>
+      <%= yield %>
+      Seus Dados
+      <br>
+      <br>
 
-    <div class="field" id="profile_info">
-      <strong>
-        Nome: 
-      </strong>
-      <span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
-    </div>
-    <div class="field">
-      <strong>
-        E-mail: 
-      </strong>
-      <span id="email"><%= @profile.email %></span>
-    </div>
-    <div class="field">
-      <strong>
-        Sobre: 
-      </strong>
-      <span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-    </div>
-
-    <% if member_signed_in? %>
-      <div class="field">
-        <b>
-        Empresa Júnior: 
-        </b>
-        <span id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
+      <div class="field" id="profile_info">
+        <strong>
+          Nome: 
+        </strong>
+        <span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
       </div>
       <div class="field">
         <strong>
-        Cargo: 
+          E-mail: 
         </strong>
-        <span id="position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+        <span id="email"><%= @profile.email %></span>
       </div>
       <div class="field">
         <strong>
-        Status: 
+          Sobre: 
         </strong>
-        <span id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
+        <span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
       </div>
-    <% end %>
 
-    <br>
-    <br>
+      <% if member_signed_in? %>
+        <div class="field">
+          <b>
+          Empresa Júnior: 
+          </b>
+          <span id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
+        </div>
+        <div class="field">
+          <strong>
+          Cargo: 
+          </strong>
+          <span id="position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+        </div>
+        <div class="field">
+          <strong>
+          Status: 
+          </strong>
+          <span id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
+        </div>
+      <% end %>
+
+      <br>
+      <br>
 
 
 
-        <div style="margin: 0 5%;">
-          <div class="row">
-                  <div class="col-lg-4">
-                    <div class="card card-small mb-4 pt-3">
-                      <div class="card-header border-bottom text-center bg-white">
-                        <div class="mb-3 mx-auto">
-                          <%=image_tag(current_member&.picture.url(:medium) || "assets/user.png", class:"rounded-circle", style: "width:40%;") %>
-                        </div>
-                        <h4 class="mb-0"><%=logged_name%></h4>
-                        <span class="text-muted d-block mb-2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
-                      </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-4">
-                          <strong class="text-muted d-block mb-2">Sobre</strong>
-                          <span><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-                        </li>
-                      </ul>
+          <div style="margin: 0 5%;">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="card card-small mb-4 pt-3">
+                  <div class="card-header border-bottom text-center bg-white">
+                    <div class="mb-3 mx-auto">
+                      <%=image_tag(current_member&.picture.url(:medium) || "assets/user.png", class:"rounded-circle", style: "width:40%;") %>
                     </div>
+                    <h4 class="mb-0"><%=logged_name%></h4>
+                    <span class="text-muted d-block mb-2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
                   </div>
-                  <div class="col-lg-8">
-                    <div class="card card-small mb-4">
-                      <div class="card-header border-bottom bg-info">
-                        <h6 class="m-0 text-white">Detalhes do Perfil</h6>
-                      </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-3">
-                          <div class="row">
-                            <div class="col">
-                              <form>
-                                <div class="form-row">
-                                  <div class="form-group col-md-12">
-                                    <label for="feFirstName">Nome</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Name" value="<%= @profile.name.nil? ? "Não informado" : @profile.name %>">
-                                  </div>
-                                </div>
-                                <div class="form-row">
-                                  <div class="form-group col-md-6">
-                                    <label for="feEmailAddress">E-mail</label>
-                                    <input type="email" class="form-control" id="email" placeholder="E-mail" value="<%= @profile.email %>">
-                                  </div>
-                                  <div class="form-group col-md-6">
-                                    <label for="feValidated">Status</label>
-                                    <input type="text" class="form-control" id="validated" placeholder="Status" value="<%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %>">
-                                  </div>
-                                </div>
-                                <div class="form-row">
-                                  <div class="form-group col-md-6">
-                                    <label for="feJunior_Enterprise">EJ</label>
-                                    <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {:selected => @profile.junior_enterprise.name},{:class =>'form-control custom-select', style: "height:65%"})%>
-                                  </div>
-                                  <div class="form-group col-md-6">
-                                    <label for="fePosition">Cargo</label>
-                                    <%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'form-control custom-select', style: "height:65%"} %>
-                                  </div>
-                                </div>
-
-
-                                <div class="form-row">
-                                  <div class="form-group col-md-12">
-                                    <label for="feAbout">Sobre</label>
-                                    <textarea class="form-control" name="about" rows="5"><%= @profile.about.nil? ? "Não informado" : @profile.about %></textarea>
-                                  </div>
-                                </div>
-                                <button id="change_data" type="submit" class="btn btn-accent">Atualizar Informações</button>
-                              </form>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-4">
+                      <strong class="text-muted d-block mb-2">Sobre</strong>
+                      <span><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+                    </li>
+                  </ul>
                 </div>
-        </div>	
+              </div>
+              <div class="col-lg-8">
+                <div class="card card-small mb-4">
+                  <div class="card-header border-bottom bg-info">
+                    <h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-3">
+                      <div class="row">
+                        <div class="col">
+                          <form>
+                            <div class="form-row initial_table">
+                              <div class="form-group col-md-12">
+                                <label for="feFirstName">Nome</label>
+                                <input type="text" class="form-control" id="name" placeholder="Name" value="<%= @profile.name.nil? ? "Não informado" : @profile.name %>" readonly>
+                              </div>
+                            </div>
+                            <div class="form-row initial_table">
+                              <div class="form-group col-md-6">
+                                <label for="feEmailAddress">E-mail</label>
+                                <input type="email" class="form-control" id="email" placeholder="E-mail" value="<%= @profile.email %>" readonly>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="feValidated">Status</label>
+                                <input type="text" class="form-control" id="validated" placeholder="Status" value="<%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %>" readonly>
+                              </div>
+                            </div>
+                            <div class="form-row initial_table">
+                              <div class="form-group col-md-6">
+                                <label for="feJunior_Enterprise">EJ</label>
+                                <input type="text" class="form-control" id="validated" placeholder="Junior_Enterprise" value="<%= @profile.junior_enterprise.name%>" readonly>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="fePosition">Cargo</label>
+                                <input type="text" class="form-control" id="validated" placeholder="Position" value="<%= @profile.position%>" readonly>
+                              </div>
+                            </div>
+                            <div class="form-row initial_table">
+                              <div class="form-group col-md-12">
+                                <label for="feAbout">Sobre</label>
+                                <textarea class="form-control" name="about" rows="5" readonly><%= @profile.about.nil? ? "Não informado" : @profile.about %></textarea>
+                              </div>
+                            </div>
 
 
-    <div class="field profile_data">
-      <%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field", value: @profile.try(:name) %>
-    </div>
+                            <div class="form-row field profile_data">
+                              <div class="form-group col-md-12">
+                                <%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field form-control", value: @profile.try(:name) %>
+                              </div>  
+                            </div>
 
-    <div class="field profile_data">
-      <%= text_area_tag :about_field, nil, placeholder: "Descrição", class: "input_field", value: @profile.try(:description) %>
-    </div>
+                            <% if member_signed_in? #EXCLUSIVO MEMBRO%>
+                              <div class="form-row field profile_data">
+                                <div class="form-group col-md-6">
+                                  <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{class: 'select_field custom-select form-control',  style: "height:95%;"})%>
+                                </div>
 
+                                <div class="form-group col-md-6">
+                                  <%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'select_field custom-select form-control', style: "height:95%;"}%>
+                                </div>
+                              </div>  
+                            <% end %>
 
-    <% if member_signed_in? #EXCLUSIVO MEMBRO%>
-      <div class="field profile_data">
-        <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{class: 'select_field'})%>
-      </div>
+                            <div class="form-row field profile_data">
+                              <div class="form-group col-md-12">
+                                <%= text_area_tag :about_field, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5", value: @profile.try(:description) %>
+                              </div>  
+                            </div>
 
-      <div class="field profile_data">
-        <%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'select_field' }%>
-      </div>
-    <% end %>
+                            
+                            <div class="form-row field profile_data email">
+                              <div class="form-group col-md-6">
+                                <%= text_field_tag :new_email, nil, placeholder: "Novo Email", class: "input_field form-control"%>
+                              </div>
 
-    <div class="field profile_data email">
-      <%= text_field_tag :new_email, nil, placeholder: "Novo Email", class: "input_field"%>
-    </div>
-
-    <div class="field profile_data email">
-      <%= text_field_tag :repeat_email, nil, placeholder: "Repetir Email", class: "input_field"  %>
-    </div>
-
-    <div class="field password">
-      <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field" %>
-    </div>
-
-    <div class="field password">
-      <%= password_field_tag :new_password, nil, placeholder: "Nova Senha", class: "input_field" %>
-    </div>
-
-    <div class="field password">
-      <%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field" %>
-    </div>
-
-    <div id="change_information" class="btn btn-primary">
-      ATUALIZAR INFORMAÇÕES
-    </div>
-
-    <% if member_signed_in? && current_member.validated == false %>
-      <div id="director" class="btn btn-primary">
-        Solicitar Diretoria
-      </div>
-    <% end %>
-
-    <div id="change_mail" class="btn btn-primary">
-      Mudar E-mail
-    </div>
-
-    <div id="change_password" class="btn btn-primary">
-      Nova Senha
-    </div>
+                              <div class="form-group col-md-6">
+                                <%= text_field_tag :repeat_email, nil, placeholder: "Repetir Email", class: "input_field form-control"  %>
+                              </div>  
+                            </div>
 
 
-    <script src="<%= javascript_path "essencials" %>"></script>
-    <script src="<%= javascript_path "profile" %>"></script>
-  <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
-    <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
-    
+                            <div class="form-row field password">
+                              <div class="form-group col-md-12">
+                                <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control" %>
+                              </div> 
+                            </div>
+
+                            <div class="form-row field password">
+                              <div class="form-group col-md-12">
+                                <%= password_field_tag :new_password, nil, placeholder: "Nova Senha", class: "input_field form-control" %>
+                              </div> 
+                            </div>
+
+                            <div class="form-row field password">
+                              <div class="form-group col-md-12">
+                                <%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field form-control" %>
+                              </div> 
+                            </div>
+
+                            
+                            <div id="change_information" class="btn btn-primary">
+                              ATUALIZAR INFORMAÇÕES
+                            </div>
+
+                            <% if member_signed_in? && current_member.validated == false %>
+                              <div id="director" class="btn btn-primary">
+                                Solicitar Diretoria
+                              </div>
+                            <% end %>
+
+                            <div id="change_mail" class="btn btn-primary">
+                              Mudar E-mail
+                            </div>
+
+                            <div id="change_password" class="btn btn-primary">
+                              Nova Senha
+                            </div>
+
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>	
+
+
+
+
+      <script src="<%= javascript_path "essencials" %>"></script>
+      <script src="<%= javascript_path "profile" %>"></script>
+      <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
+      <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+      
     </body>
   </html>

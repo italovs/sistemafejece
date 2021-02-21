@@ -51,19 +51,23 @@ function im_a_director(){
 function reset_fields(){
 	$(".field").show();
 	$("#profile_info").show();
-	$(".profile_data").hide()
-	$(".password").hide()
+	$(".profile_data").hide();
+	$(".password").hide();
+	$(".initial_table").show();
+	$("#main_title").html("Detalhes do Perfil");
 }
 
 function change_mail(){
 	if($("#change_mail").html() == "MUDAR E-MAIL"){
 		initial_buttons()
+		$(".initial_table").hide();
+		$("#main_title").html("Atualizar E-mail");
 		$(".field").hide();
 		$("#profile_info").hide();
-		$(".profile_data").hide()
-		$(".email").show()
+		$(".profile_data").hide();
+		$(".email").show();
 		$(".password").first().show();
-		$("#change_mail").html("ENVIAR")
+		$("#change_mail").html("ENVIAR");
 	} else {
 		$.post( '/change_mail' ,
 		{
@@ -88,6 +92,8 @@ function change_mail(){
 function change_information(){
 	if($("#change_information").html() == "ATUALIZAR DADOS"){
 		initial_buttons()
+		$(".initial_table").hide();
+		$("#main_title").html("Atualizar Informações");
 		$(".field").hide();
 		$("#profile_info").hide();
 		$(".profile_data").show()
@@ -123,6 +129,8 @@ function change_information(){
 function change_password(){
 	if($("#change_password").html() == "NOVA SENHA"){
 		initial_buttons()
+		$(".initial_table").hide();
+		$("#main_title").html("Mudar Senha");
 		$(".field").hide();
 		$("#profile_info").hide();
 		$(".profile_data").hide()
@@ -175,35 +183,5 @@ function update_data( new_data ){
 		$("#validated").html("Membro")
 	} else {
 		$("#validated").html("Diretoria Solicitada")
-	}
-}
-
-
-function change_data(){
-	if($("#change_data").html() == "ATUALIZAR DADOS"){
-		initial_buttons()
-	} else {
-		$.post( '/change_data' ,
-		{
-			name: $("#name_field").val(),
-			about: $("#about_field").val(),
-			junior_enterprise: $("#member_junior_enterprise_id").val(),
-			position: $("#position_field").val(),
-			confirmation_password: $("#old_password").val() 
-			new_email: $("#new_email").val(),
-			repeat_email: $("#repeat_email").val(),
-			// confirmation_password: $("#old_password").val() 
-		},
-		function(data, status){
-			if(status == "success"){
-				reset_fields()
-				//update_data(data[0])
-			} else {
-				//ERRO DE REQUISIÇÃO
-				reset_fields()
-			}
-		});
-		
-		$("#change_data").html("ATUALIZAR DADOS")
 	}
 }
