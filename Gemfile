@@ -17,6 +17,7 @@ gem 'sass-rails', '>= 6'
 gem 'turbolinks'
 gem 'devise'
 gem "google-cloud-storage"
+gem 'image_processing'
 #gem 'paperclip', '~> 6.0.0'
 
 group :development, :test do

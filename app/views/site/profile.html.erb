@@ -75,7 +75,11 @@
                     <div class="card card-small mb-4 pt-3">
                       <div class="card-header border-bottom text-center bg-white">
                         <div class="mb-3 mx-auto">
-                          <%=image_tag(current_member&.picture.url(:medium) || "assets/user.png", class:"rounded-circle", style: "width:40%;") %>
+                          <%if current_logged_user.profile_picture.attached?%>
+									          <%= image_tag current_logged_user.profile_picture.variant(resize_to_limit:[150,150]), :class=>"rounded-circle"%>
+								          <%else%>
+									          <%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"150x150", :class =>"rounded-circle"%>
+								          <%end%>
                         </div>
                         <h4 class="mb-0"><%=logged_name%></h4>
                         <span class="text-muted d-block mb-2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
