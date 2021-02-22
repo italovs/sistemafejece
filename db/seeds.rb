@@ -20,7 +20,7 @@ acoes = [
 
 Admin.create(email: 'admin@gti.com',
             password: 'voagti',
-            picture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r')
+            #picture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r')
             )
 
 puts "#{acoes.sample} EJs..."
@@ -34,7 +34,7 @@ Member.create(
   email: 'member@gti.com',
   password: '123123',
   junior_enterprise_id: 1,
-  picture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
+  #fieldpicture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
   validated: nil)
 ejs = Set.new(2..10)
 
@@ -48,7 +48,7 @@ ejs = Set.new(2..10)
     email: "quero_ser_diretor_#{i}@gti.com",
     password: '123123',
     junior_enterprise_id: ej_id,
-    picture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
+    #fieldpicture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
     validated: nil)
 end
 

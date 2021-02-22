@@ -18,6 +18,10 @@
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
+
+      <br /><br /><br /><br /><br />
+
+         
       Seus Dados
       <br>
       <br>
@@ -28,6 +32,7 @@
         </strong>
         <span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
       </div>
+
       <div class="field">
         <strong>
           E-mail: 
@@ -73,15 +78,15 @@
                 <div class="card card-small mb-4 pt-3">
                   <div class="card-header border-bottom text-center bg-white">
                     <div class="mb-3 mx-auto">
-                      <%=image_tag(current_member&.picture.url(:medium) || "assets/user.png", class:"rounded-circle", style: "width:40%;") %>
+                      <%# <%=image_tag(current_member&.picture.url(:medium) || "assets/user.png", class:"rounded-circle", style: "width:40%;") %> %>
                     </div>
-                    <h4 class="mb-0"><%=logged_name%></h4>
-                    <span class="text-muted d-block mb-2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+                    <h4 class="mb-0 name"><span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span></h4>
+                    <span class="text-muted d-block mb-2" id="position_2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item p-4">
                       <strong class="text-muted d-block mb-2">Sobre</strong>
-                      <span><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+                      <span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
                     </li>
                   </ul>
                 </div>
@@ -98,34 +103,46 @@
                           <form>
                             <div class="form-row initial_table">
                               <div class="form-group col-md-12">
-                                <label for="feFirstName">Nome</label>
-                                <input type="text" class="form-control" id="name" placeholder="Name" value="<%= @profile.name.nil? ? "Não informado" : @profile.name %>" readonly>
+                                <div class="field" id="profile_info">
+                                  <label for="feName">Nome</label>
+                                  <span class="form-control bg-light" id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
+                                </div>
                               </div>
                             </div>
                             <div class="form-row initial_table">
                               <div class="form-group col-md-6">
-                                <label for="feEmailAddress">E-mail</label>
-                                <input type="email" class="form-control" id="email" placeholder="E-mail" value="<%= @profile.email %>" readonly>
-                              </div>
+                                <div class="field" id="profile_info">
+                                  <label for="feEmailAddress">E-mail</label>
+                                  <span class="form-control bg-light" id="email"><%= @profile.email %></span>
+                                </div>
+                              </div>  
                               <div class="form-group col-md-6">
-                                <label for="feValidated">Status</label>
-                                <input type="text" class="form-control" id="validated" placeholder="Status" value="<%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %>" readonly>
+                                <div class="field" id="profile_info">
+                                  <label for="feValidated">Status</label>
+                                  <span class="form-control bg-light" id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
+                                </div>
                               </div>
                             </div>
                             <div class="form-row initial_table">
                               <div class="form-group col-md-6">
-                                <label for="feJunior_Enterprise">EJ</label>
-                                <input type="text" class="form-control" id="validated" placeholder="Junior_Enterprise" value="<%= @profile.junior_enterprise.name%>" readonly>
+                                <div class="field" id="profile_info">
+                                  <label for="feJunior_Enterprise">EJ</label>
+                                  <span class="form-control bg-light" id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
+                                </div>
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="fePosition">Cargo</label>
-                                <input type="text" class="form-control" id="validated" placeholder="Position" value="<%= @profile.position%>" readonly>
+                                <div class="field" id="profile_info">
+                                  <label for="fePosition">Cargo</label>
+                                  <span class="form-control bg-light" id="position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+                                </div>
                               </div>
                             </div>
                             <div class="form-row initial_table">
                               <div class="form-group col-md-12">
-                                <label for="feAbout">Sobre</label>
-                                <textarea class="form-control" name="about" rows="5" readonly><%= @profile.about.nil? ? "Não informado" : @profile.about %></textarea>
+                                <div class="field" id="profile_info">
+                                  <label for="feAbout">Sobre</label>
+                                  <span class="form-control bg-light" id="about" style="height:130px;"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+                                </div>
                               </div>
                             </div>
 
