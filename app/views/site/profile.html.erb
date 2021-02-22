@@ -21,7 +21,7 @@
 
       <br /><br /><br /><br /><br />
 
-         
+    <!--    
       Seus Dados
       <br>
       <br>
@@ -45,11 +45,11 @@
         </strong>
         <span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
       </div>
+      -->
 
 
-
-        <div style="margin: 0 5%;">
-          <div class="row">
+              <div style="margin: 0 5%;">
+                <div class="row">
                   <div class="col-lg-4">
                     <div class="card card-small mb-4 pt-3">
                       <div class="card-header border-bottom text-center bg-white">
@@ -60,165 +60,155 @@
 									          <%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"150x150", :class =>"rounded-circle"%>
 								          <%end%>
                         </div>
-                        <h4 class="mb-0"><%=logged_name%></h4>
-                        <span class="text-muted d-block mb-2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+                        <h4 class="mb-0 name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></h4>
+                        <span class="text-muted d-block mb-2 position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
                       </div>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item p-4">
                           <strong class="text-muted d-block mb-2">Sobre</strong>
-                          <span><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+                          <span class="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
                         </li>
                       </ul>
                     </div>
-                    <h4 class="mb-0 name"><span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span></h4>
-                    <span class="text-muted d-block mb-2" id="position_2"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
                   </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item p-4">
-                      <strong class="text-muted d-block mb-2">Sobre</strong>
-                      <span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div class="card card-small mb-4">
-                  <div class="card-header border-bottom bg-info">
-                    <h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
-                  </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item p-3">
-                      <div class="row">
-                        <div class="col">
-                          <form>
-                            <div class="form-row initial_table">
-                              <div class="form-group col-md-12">
-                                <div class="field" id="profile_info">
-                                  <label for="feName">Nome</label>
-                                  <span class="form-control bg-light" id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-row initial_table">
-                              <div class="form-group col-md-6">
-                                <div class="field" id="profile_info">
-                                  <label for="feEmailAddress">E-mail</label>
-                                  <span class="form-control bg-light" id="email"><%= @profile.email %></span>
-                                </div>
-                              </div>  
-                              <div class="form-group col-md-6">
-                                <div class="field" id="profile_info">
-                                  <label for="feValidated">Status</label>
-                                  <span class="form-control bg-light" id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-row initial_table">
-                              <div class="form-group col-md-6">
-                                <div class="field" id="profile_info">
-                                  <label for="feJunior_Enterprise">EJ</label>
-                                  <span class="form-control bg-light" id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
-                                </div>
-                              </div>
-                              <div class="form-group col-md-6">
-                                <div class="field" id="profile_info">
-                                  <label for="fePosition">Cargo</label>
-                                  <span class="form-control bg-light" id="position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-row initial_table">
-                              <div class="form-group col-md-12">
-                                <div class="field" id="profile_info">
-                                  <label for="feAbout">Sobre</label>
-                                  <span class="form-control bg-light" id="about" style="height:130px;"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-                                </div>
-                              </div>
-                            </div>
-
-
-                            <div class="form-row field profile_data">
-                              <div class="form-group col-md-12">
-                                <%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field form-control", value: @profile.try(:name) %>
-                              </div>  
-                            </div>
-
-                            <% if member_signed_in? #EXCLUSIVO MEMBRO%>
-                              <div class="form-row field profile_data">
-                                <div class="form-group col-md-6">
-                                  <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{class: 'select_field custom-select form-control',  style: "height:95%;"})%>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                  <%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'select_field custom-select form-control', style: "height:95%;"}%>
-                                </div>
-                              </div>  
-                            <% end %>
-
-                            <div class="form-row field profile_data">
-                              <div class="form-group col-md-12">
-                                <%= text_area_tag :about_field, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5", value: @profile.try(:description) %>
-                              </div>  
-                            </div>
-
-                            
-                            <div class="form-row field profile_data email">
-                              <div class="form-group col-md-6">
-                                <%= text_field_tag :new_email, nil, placeholder: "Novo Email", class: "input_field form-control"%>
-                              </div>
-
-                              <div class="form-group col-md-6">
-                                <%= text_field_tag :repeat_email, nil, placeholder: "Repetir Email", class: "input_field form-control"  %>
-                              </div>  
-                            </div>
-
-
-                            <div class="form-row field password">
-                              <div class="form-group col-md-12">
-                                <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control" %>
-                              </div> 
-                            </div>
-
-                            <div class="form-row field password">
-                              <div class="form-group col-md-12">
-                                <%= password_field_tag :new_password, nil, placeholder: "Nova Senha", class: "input_field form-control" %>
-                              </div> 
-                            </div>
-
-                            <div class="form-row field password">
-                              <div class="form-group col-md-12">
-                                <%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field form-control" %>
-                              </div> 
-                            </div>
-
-                            
-                            <div id="change_information" class="btn btn-primary">
-                              ATUALIZAR INFORMAÇÕES
-                            </div>
-
-                            <% if member_signed_in? && current_member.validated == false %>
-                              <div id="director" class="btn btn-primary">
-                                Solicitar Diretoria
-                              </div>
-                            <% end %>
-
-                            <div id="change_mail" class="btn btn-primary">
-                              Mudar E-mail
-                            </div>
-
-                            <div id="change_password" class="btn btn-primary">
-                              Nova Senha
-                            </div>
-
-                          </form>
-                        </div>
+                  <div class="col-lg-8">
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom bg-info">
+                        <h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
                       </div>
-                    </li>
-                  </ul>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                          <div class="row">
+                            <div class="col">
+                              <form>
+                                <div class="form-row initial_table">
+                                  <div class="form-group col-md-12">
+                                    <div class="field" id="profile_info">
+                                      <label for="feName">Nome</label>
+                                      <span class="form-control bg-light name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-row initial_table">
+                                  <div class="form-group col-md-6">
+                                    <div class="field" id="profile_info">
+                                      <label for="feEmailAddress">E-mail</label>
+                                      <span class="form-control bg-light" id="email"><%= @profile.email %></span>
+                                    </div>
+                                  </div>  
+                                  <div class="form-group col-md-6">
+                                    <div class="field" id="profile_info">
+                                      <label for="feValidated">Status</label>
+                                      <span class="form-control bg-light" id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-row initial_table">
+                                  <div class="form-group col-md-6">
+                                    <div class="field" id="profile_info">
+                                      <label for="feJunior_Enterprise">EJ</label>
+                                      <span class="form-control bg-light" id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
+                                    </div>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <div class="field" id="profile_info">
+                                      <label for="fePosition">Cargo</label>
+                                      <span class="form-control bg-light position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-row initial_table">
+                                  <div class="form-group col-md-12">
+                                    <div class="field" id="profile_info">
+                                      <label for="feAbout">Sobre</label>
+                                      <span class="form-control bg-light about" style="height:130px;"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                                <div class="form-row field profile_data">
+                                  <div class="form-group col-md-12">
+                                    <%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field form-control", value: @profile.try(:name) %>
+                                  </div>  
+                                </div>
+
+                                <% if member_signed_in? #EXCLUSIVO MEMBRO%>
+                                  <div class="form-row field profile_data">
+                                    <div class="form-group col-md-6">
+                                      <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{class: 'select_field custom-select form-control',  style: "height:95%;"})%>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                      <%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'select_field custom-select form-control', style: "height:95%;"}%>
+                                    </div>
+                                  </div>  
+                                <% end %>
+
+                                <div class="form-row field profile_data">
+                                  <div class="form-group col-md-12">
+                                    <%= text_area_tag :about_field, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5", value: @profile.try(:description) %>
+                                  </div>  
+                                </div>
+
+                                
+                                <div class="form-row field profile_data email">
+                                  <div class="form-group col-md-6">
+                                    <%= text_field_tag :new_email, nil, placeholder: "Novo Email", class: "input_field form-control"%>
+                                  </div>
+
+                                  <div class="form-group col-md-6">
+                                    <%= text_field_tag :repeat_email, nil, placeholder: "Repetir Email", class: "input_field form-control"  %>
+                                  </div>  
+                                </div>
+
+
+                                <div class="form-row field password">
+                                  <div class="form-group col-md-12">
+                                    <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control" %>
+                                  </div> 
+                                </div>
+
+                                <div class="form-row field password">
+                                  <div class="form-group col-md-12">
+                                    <%= password_field_tag :new_password, nil, placeholder: "Nova Senha", class: "input_field form-control" %>
+                                  </div> 
+                                </div>
+
+                                <div class="form-row field password">
+                                  <div class="form-group col-md-12">
+                                    <%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field form-control" %>
+                                  </div> 
+                                </div>
+
+                                
+                                <div id="change_information" class="btn btn-primary">
+                                  ATUALIZAR INFORMAÇÕES
+                                </div>
+
+                                <% if member_signed_in? && current_member.validated == false %>
+                                  <div id="director" class="btn btn-primary">
+                                    Solicitar Diretoria
+                                  </div>
+                                <% end %>
+
+                                <div id="change_mail" class="btn btn-primary">
+                                  Mudar E-mail
+                                </div>
+
+                                <div id="change_password" class="btn btn-primary">
+                                  Nova Senha
+                                </div>
+
+                              </form>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>	
+              </div>	
 
 
 

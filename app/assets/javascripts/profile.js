@@ -53,7 +53,7 @@ function reset_fields(){
 	$("#profile_info").show();
 	$(".profile_data").hide();
 	$(".password").hide();
-	$(".initial_table").show();
+	$(".initial_table").show()
 	$("#main_title").html("Detalhes do Perfil");
 }
 
@@ -172,9 +172,9 @@ function update_data( new_data ){
 		elemento_do_json = "person"
 	}
 	console.log(new_data[elemento_do_json])
-	$('#name').html(new_data[elemento_do_json]["name"] || "Não informado")
-	$('#about').html(new_data[elemento_do_json]["about"] || "Não informado")
-	$('#position').html(new_data[elemento_do_json]["position"] || "Não informado")
+	$('.name').html(new_data[elemento_do_json]["name"] || "Não informado")
+	$('.about').html(new_data[elemento_do_json]["about"] || "Não informado")
+	$('.position').html(new_data[elemento_do_json]["position"] || "Não informado")
 	$('#email').html(new_data[elemento_do_json]["email"])
 	$('#junior_enterprise').html(new_data["junior_enterprise"])
 	if( new_data[elemento_do_json]["validated"] == "true" ){
