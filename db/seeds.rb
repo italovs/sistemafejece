@@ -18,10 +18,14 @@ acoes = [
 ]
 
 
-Admin.create(email: 'admin@gti.com',
+admin = Admin.create(email: 'admin@gti.com',
             password: 'voagti',
+<<<<<<< HEAD
             #picture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r')
+=======
+>>>>>>> f9bc28d17dbe4a41f472c1be6e6fdac7266d53ad
             )
+admin.profile_picture.attach(io: File.open(TEMPLATE_IMAGE_FOR_PROFILE_SEED),filename: 'user.png')
 
 puts "#{acoes.sample} EJs..."
 JuniorEnterprise.create(name: 'GTi', description: 'Ases, mestres, guerreiros e exploradores do espaço')
@@ -34,7 +38,10 @@ Member.create(
   email: 'member@gti.com',
   password: '123123',
   junior_enterprise_id: 1,
+<<<<<<< HEAD
   #fieldpicture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
+=======
+>>>>>>> f9bc28d17dbe4a41f472c1be6e6fdac7266d53ad
   validated: nil)
 ejs = Set.new(2..10)
 
@@ -43,13 +50,17 @@ ejs = Set.new(2..10)
 4.times do |i|
   ej_id = ejs.to_a.sample
   ejs = ejs.delete(ej_id)
-  Member.create(
+  member=Member.create(
     name: "membro#{i+2}",
     email: "quero_ser_diretor_#{i}@gti.com",
     password: '123123',
     junior_enterprise_id: ej_id,
+<<<<<<< HEAD
     #fieldpicture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
+=======
+>>>>>>> f9bc28d17dbe4a41f472c1be6e6fdac7266d53ad
     validated: nil)
+    member.profile_picture.attach(io: File.open(TEMPLATE_IMAGE_FOR_PROFILE_SEED),filename: 'user.png')
 end
 
 #5 diretores de EJ
