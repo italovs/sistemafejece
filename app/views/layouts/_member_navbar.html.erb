@@ -237,7 +237,7 @@
 						<div class="btn-group">
 							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<%if current_logged_user.profile_picture.attached?%>
-									<%= image_tag current_logged_user.profile_picture.variant(resize_to_limit:[30,30]), :class=>"rounded-circle"%>
+									<%= image_tag "/assets/user.png",:size=>"30x30", :class =>"rounded-circle"%>
 								<%else%>
 									<%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"30x30", :class =>"rounded-circle"%>
 								<%end%>
