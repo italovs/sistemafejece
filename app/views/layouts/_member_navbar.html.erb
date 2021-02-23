@@ -237,7 +237,7 @@
 						<div class="btn-group">
 							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<%if current_logged_user.profile_picture.attached?%>
-									<%= image_tag "/assets/user.png",:size=>"30x30", :class =>"rounded-circle"%>
+									<%= image_tag current_logged_user.profile_picture,:size=>"30x30", :class =>"rounded-circle"%>
 								<%else%>
 									<%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"30x30", :class =>"rounded-circle"%>
 								<%end%>
@@ -252,7 +252,7 @@
 								</li>
 
 								<li class="dropdown-item">
-									<%= link_to logout_path, {class: "dropdown-item ", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete' } do %>
+									<%= link_to logout_path, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete'  do %>
 										<i class="fas fa-sign-out-alt"></i>
 										logout
 									<% end %>
