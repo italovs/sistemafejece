@@ -6,8 +6,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'open-uri'
-
 
 puts "##### SEEDS #####"
 
@@ -18,84 +16,24 @@ acoes = [
   "Vacinando", "Virando jacaré com", "No Dota com", "Update sem where em",
   "Fazendo pair programming com"
 ]
-<<<<<<< HEAD
-=======
 
 
 admin = Admin.create(email: 'admin@gti.com',
             password: 'voagti',
-<<<<<<< HEAD
-            #picture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r')
-=======
->>>>>>> f9bc28d17dbe4a41f472c1be6e6fdac7266d53ad
             )
 admin.profile_picture.attach(io: File.open(TEMPLATE_IMAGE_FOR_PROFILE_SEED),filename: 'user.png')
 
->>>>>>> ea8724401b3cdbe31ded3cffa3a72cf27dbcc90c
 puts "#{acoes.sample} EJs..."
 JuniorEnterprise.create(name: 'GTi', description: 'Ases, mestres, guerreiros e exploradores do espaço')
 9.times do |i|
   JuniorEnterprise.create(name: "EJ #{i}", description: "A #{i+2}ª melhor EJ")
 end
+
 puts "#{acoes.sample} Membros..."
-<<<<<<< HEAD
-
-file = open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
-member = Member.create(
-          email: 'member@gti.com',
-          password: '123123',
-          junior_enterprise_id: 1,
-          validated: nil)
-member.profile_picture.attach(io: file, filename: "user.png", content_type: 'image/png')
-ejs = Set.new(2..10)
-
-
-case Rails.env
-when "development"
-  admin = Admin.create(email: 'admin@gti.com',
-            password: 'voagti',
-            )
-  #admin.profile_picture.attach(io: File.open('app/assets/images/user.png'),filename: 'user.png', content_type:"image/png")
-
-  4.times do |i|
-    ej_id = ejs.to_a.sample
-    ejs = ejs.delete(ej_id)
-    member=Member.create(
-      name: "membro#{i+2}",
-      email: "quero_ser_diretor_#{i}@gti.com",
-      password: '123123',
-      junior_enterprise_id: ej_id,
-      validated: nil)
-      #member.profile_picture.attach(io: File.open('app/assets/images/user.png'),filename: 'user.png', content_type:"image/png")
-  end
-
-
-when "production"
-  admin = Admin.create(email: 'admin@gti.com',
-  password: 'voagti',
-  )
-  #admin.profile_picture.attach(io:file,filename:'user.png',content_type:'image/png')
-
-  4.times do |i|
-    ej_id = ejs.to_a.sample
-    ejs = ejs.delete(ej_id)
-    member=Member.create(
-      name: "membro#{i+2}",
-      email: "quero_ser_diretor_#{i}@gti.com",
-      password: '123123',
-      junior_enterprise_id: ej_id,
-      validated: nil)
-      #member.profile_picture.attach(io:file,filename:'user.png',content_type:'image/png')
-  end
-=======
 Member.create(
   email: 'member@gti.com',
   password: '123123',
   junior_enterprise_id: 1,
-<<<<<<< HEAD
-  #fieldpicture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
-=======
->>>>>>> f9bc28d17dbe4a41f472c1be6e6fdac7266d53ad
   validated: nil)
 ejs = Set.new(2..10)
 
@@ -109,23 +47,9 @@ ejs = Set.new(2..10)
     email: "quero_ser_diretor_#{i}@gti.com",
     password: '123123',
     junior_enterprise_id: ej_id,
-<<<<<<< HEAD
-    #fieldpicture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
-=======
->>>>>>> f9bc28d17dbe4a41f472c1be6e6fdac7266d53ad
     validated: nil)
     member.profile_picture.attach(io: File.open(TEMPLATE_IMAGE_FOR_PROFILE_SEED),filename: 'user.png')
->>>>>>> ea8724401b3cdbe31ded3cffa3a72cf27dbcc90c
 end
-
-
-
-
-
-
-
-#5 membros que desejam ser diretores
-
 
 #5 diretores de EJ
 5.times do |i|
