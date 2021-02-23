@@ -64,6 +64,7 @@ when "development"
 
 
 when "production"
+  file= URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
   admin = Admin.create(email: 'admin@gti.com',
   password: 'voagti',
   )
@@ -78,6 +79,7 @@ when "production"
       password: '123123',
       junior_enterprise_id: ej_id,
       validated: nil)
+      file= URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
       member.profile_picture.attach(io: file,filename: 'user.png',content_type: 'image/png')
   end
 end
@@ -86,6 +88,7 @@ member = Member.create(
   password: '123123',
   junior_enterprise_id: 1,
     validated: nil)
+    file= URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
     member.profile_picture.attach(io: file, filename: "user.png", content_type: 'image/png')
 ejs = Set.new(2..10)
 
@@ -104,6 +107,7 @@ ejs = Set.new(2..10)
 
 
       validated: nil)
+      file= URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
       member.profile_picture.attach(io: file,filename: 'user.png',content_type: 'image/png')
 
   end
