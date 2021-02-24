@@ -1,0 +1,14 @@
+<script src="<%= javascript_path "video_channel" %>"></script>
+<br>
+
+<br><br><br><br><br><br><br>
+
+<div id="new_video" class="btn btn-primary">Novo Vídeo</div>
+<div id="new_serie" class="btn btn-primary">nova série</div>
+<div id="series" class="btn btn-primary">Suas Séries</div>
+<div id="videos" class="btn btn-primary">Seus vídeos</div>
+<%# novo vídeo %>
+<%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
+
+<%# nova série %>
+<%= text_field_tag :serie_name, nil, placeholder: "Nome da Série" %>
