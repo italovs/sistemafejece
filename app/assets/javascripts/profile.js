@@ -1,4 +1,24 @@
 //= require jquery
+
+//Navbar
+var menu_toggler = $("#mobile-nav-toggler");
+var menu_API = main_menu.data( "mmenu" );
+
+menu_toggler.on( "click", function() {
+	menu_API.open();
+	document.getElementById("mobile-nav-toggler").style.margin = "0px 450px 0px 0px";
+	$(".logo-white").hide();
+});
+
+var menuClose = $(".mm-slideout");
+
+menuClose.on("click", function(){
+	document.getElementById("mobile-nav-toggler").style.margin = "0px 0px 0px 0px";
+	$(".logo-white").show();
+});
+//End of Navbar
+
+
 $(function(){
 	$("#send").on("click", function(){
 		response = collect_data([ "email", "senha" ]);

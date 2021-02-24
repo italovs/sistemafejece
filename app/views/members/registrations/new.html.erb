@@ -18,7 +18,7 @@
   <main class="main-content col">
     <div class="main-content-container container-fluid px4 h-100">
       <div class="row no gutters h-100">
-        <div class="col-lg-10 col-md-5 auth-form mx-auto mt-3">
+        <div class="col-lg-5 col-md-5 auth-form mx-auto mt-3">
           <div class="card">
             <div class="card-body">
               <img class="auth-form__logo d-table mx-auto mb-3" src="/images/fejece_logo_fundo_branco.jpg" alt="Logo FEJECE">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                   <label>Qual o seu cargo?</label>
-                  <%= f.select :position, Member.positions,{}, {:class=>'form-control custom-select custom-select-sm'}%>
+                  <%= f.select :position, Member.positions.keys ,{},{class:'form-control custom-select custom-select-sm'}%>
                 </div>
                 <div class="form-group">
                   <label>Senha</label>
