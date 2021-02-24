@@ -29,6 +29,12 @@
 								<%= link_to 'Início', member_root_path, class: "nav-link" %>
 							</li>
 
+							<% if admin_signed_in? %>
+								<li class="nav-item dropdown">
+									<%= link_to 'Painel', administrative_index_path, class: "nav-link" %>
+								</li>
+							<% end %>
+
 							<li class="nav-item dropdown">
 								<%= link_to 'Perfil', profile_path , class: "nav-link" %>
 							</li>
