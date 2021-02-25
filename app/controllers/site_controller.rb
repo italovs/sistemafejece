@@ -2,6 +2,7 @@ class SiteController < ApplicationController
 	layout "member", :except => :profile
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
+	before_action :check_if_user_is_director_or_is_admin, only: [:video_channel]
 
 	def index
 	end
@@ -160,9 +161,21 @@ class SiteController < ApplicationController
 		end
 	end
 
+	def video_channel #postagens de vídeo
+		
+	end
+
 	private
 	
 	def person_information( person )
 		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position.capitalize, validated: person.validated }  
+	end
+
+	def check_if_user_is_director_or_is_admin
+		if member_signed_in?
+			unless current_member.validated?
+				redirect_back(fallback_location: member_root_path)
+			end
+		end
 	end
 end
