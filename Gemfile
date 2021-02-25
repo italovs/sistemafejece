@@ -18,6 +18,7 @@ gem 'turbolinks'
 gem 'devise'
 gem "google-cloud-storage"
 gem 'image_processing'
+gem 'active_storage_validations'
 #gem 'paperclip', '~> 6.0.0'
 
 group :development, :test do

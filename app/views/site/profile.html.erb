@@ -160,9 +160,12 @@
                                   <div class="form-group col-md-6">
                                     <%= text_field_tag :repeat_email, nil, placeholder: "Repetir Email", class: "input_field form-control"  %>
                                   </div>  
+                                </div> 
+                                <div class="form-group profile_picture">
+                                  <div class="form-group col-md-12">
+                                    <%= file_field_tag :profile_picture, placeholder:"escolha uma nova imagem de perfil", class:"input_field form-control", id:"profile_picture"%>
+                                  </div>
                                 </div>
-
-
                                 <div class="form-row field password">
                                   <div class="form-group col-md-12">
                                     <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control" %>

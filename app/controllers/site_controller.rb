@@ -71,12 +71,22 @@ class SiteController < ApplicationController
 		else
 			@person = current_admin
 		end
-
+		
 		if @person.valid_password? params[:confirmation_password]
 			if params[:new_email] == params[:repeat_email]
 				@person.name = params[:name] if params[:name].present?
 				@person.about = params[:about] if params[:about].present?
-
+				if params[:profile_picture].present?
+					if @person.profile_picture.present?
+						temp= @person.profile_picture
+						@person.profile_picture.purge()
+						if @person.profile_picture.attach(params[:profile_picture])
+						else
+							@person.profile_picture.attach(temp)
+						end
+					end
+					@person.profile_picture.attach(params[:profile_picture])
+				end
 				#apenas membros
 				if member_signed_in?
 					@person.position = params[:position] if params[:position].present?
