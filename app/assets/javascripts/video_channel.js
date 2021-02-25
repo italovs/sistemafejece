@@ -1,19 +1,72 @@
 $(function(){
+  page_load();
+})
+
+function page_load(){
   hide_fields()
   setting_events()
-})
+}
+
+function page_reload(){
+  hide_fields()
+}
 
 function hide_fields(){
   $("#youtube_link").hide();
   $("#serie_name").hide();
+  $("#create_new_serie").hide();
+  $("#create_new_video").hide();
+  $("#tv_series").hide();
+  $("#season").hide();
+  $("#tv_series_category").hide();
 }
 
 function setting_events(){
   $("#new_video").on("click", function(){
+    hide_fields()
     $("#youtube_link").show();
+    $("#create_new_video").show();
+    $("#tv_series").show();
+    $("#season").show();
   })
 
   $("#new_serie").on("click", function(){
+    hide_fields()
     $("#serie_name").show();
+    $("#create_new_serie").show();
+    $("#tv_series_category").show();
   })
+
+  $("#create_new_serie").on("click", function(){
+    if( valid_value($("#serie_name").val()) && valid_value($("#tv_series_category").val()) ){
+      $.post( '/new_serie' ,
+      {
+        serie_name: $("#serie_name").val(),
+        category: $("#tv_series_category").val() 
+      },
+      function(data, status){
+        if(status == "success"){
+          page_reload()
+          console.log(data)
+        } else {
+          //ERRO DE REQUISIÇÃO
+          
+        }
+      })
+    } else {
+      alert("Há campos em branco")
+    }
+  })
+}
+
+function fill_select_box( target, data){
+
+}
+
+function valid_value(value){
+  if( typeof(value) !== "undefined" && value != null && value != "" ){
+    return true;
+  } else {
+    return false;
+  }
 }
