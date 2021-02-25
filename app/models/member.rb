@@ -8,6 +8,8 @@ class Member < ApplicationRecord
 		attachable.variant :thumb, resize:"100x100"
 		attachable.variant :mediun, resize: "300x300"
 	end
+	validates :profile_picture, content_type: ['image/jpg','image/png','image/jpeg']
+	validates :profile_picture, size:{less_than: 5.megabytes}
 	#has_attached_file :picture, styles: { medium: "300x300#", small: "30x30#"}, default_url: "/assets/:style/user.png"
 	#validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/
 
