@@ -47,7 +47,7 @@ function setting_events(){
       function(data, status){
         if(status == "success"){
           page_reload()
-          console.log(data)
+          refill_select_box( "#tv_series", data[0]["tv_series"] )
         } else {
           //ERRO DE REQUISIÇÃO
           
@@ -59,8 +59,13 @@ function setting_events(){
   })
 }
 
-function fill_select_box( target, data){
-
+function refill_select_box( target, data ){
+  $(target).empty()
+  $(target).append(new Option("Selecione", ""))
+  $(data).each(function(index, element){
+    $(target).append(new Option( element["name"], element["id"]))
+  })
+  $(target).val("")
 }
 
 function valid_value(value){
