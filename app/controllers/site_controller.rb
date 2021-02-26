@@ -181,8 +181,13 @@ class SiteController < ApplicationController
 		end	
 	end
 
-	def get_serie_seasons
-
+	def serie_seasons
+		if admin_signed_in? || (member_signed_in? &&  current_member.validated?)
+			seasons = TvSerie.find(params[:serie]).seasons.select(:id, :name)
+			render json: [seasons: seasons]
+		else
+			render json: [msg: "Erro: Série inválida"]
+		end
 	end
 
 	private
