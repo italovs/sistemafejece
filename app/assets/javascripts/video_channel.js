@@ -59,20 +59,24 @@ function setting_events(){
 	})
 
 	$("#tv_series").on("change", function(){
-		$.post( '/serie_seasons' ,
-		{
-			serie: $("#tv_series").val()
-		},
-		function(data, status){
-			if(status == "success" && (data[0]["seasons"].length > 0) ){
-				refill_select_box( "#season", data[0]["seasons"] )
-			} else {
-				//ERRO DE REQUISIÇÃO
-				
-			}
-		})
+		valid_value($("#tv_series").val()){
+			$.post( '/serie_seasons' ,
+			{
+				serie: $("#tv_series").val()
+			},
+			function(data, status){
+				if(status == "success" && (data[0]["seasons"].length > 0) ){
+					refill_select_box( "#season", data[0]["seasons"] )
+				} else {
+					//ERRO DE REQUISIÇÃO
+					
+				}
+			})
+		}
 	})
 }
+
+
 
 function refill_select_box( target, data ){
 	$(target).empty()
