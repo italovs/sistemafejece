@@ -65,7 +65,6 @@ class SiteController < ApplicationController
 		end
 	end
 
-	##PROTOTIPADO
 	def change_information
 		if member_signed_in?
 			@person = current_member
@@ -166,8 +165,24 @@ class SiteController < ApplicationController
 		end
 	end
 
+	#POSTS VIDEO
 	def video_channel #postagens de vídeo
-		
+		get_user_tv_series
+		@categories = Category.all.select(:id, :name)
+	end
+
+	def new_serie
+		tv_serie = TvSerie.new(name: params[:serie_name], owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in? )
+		if tv_serie.save
+			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
+			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
+		else
+			render json: [msg: "Erro: Deu ruim"]
+		end	
+	end
+
+	def get_serie_seasons
+
 	end
 
 	private
@@ -182,5 +197,9 @@ class SiteController < ApplicationController
 				redirect_back(fallback_location: member_root_path)
 			end
 		end
+	end
+
+	def get_user_tv_series
+		@tv_series = TvSerie.where(owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in?).select(:id, :name)
 	end
 end

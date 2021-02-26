@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 			post '/change_mail', to: 'site#change_mail', as: 'change_admin_mail'
 			post '/change_information', to: 'site#change_information', as: 'change_admin_information'
 			get '/video_channel', to: 'site#video_channel', as: 'admin_video_channel'
+			post '/new_serie', to: 'site#new_serie', as: 'admin_new_serie'
 			root 'site#index', as: 'admin_root'
 		end
 
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
 					post '/change_mail', to: 'site#change_mail', as: 'change_member_mail'
 					post '/change_information', to: 'site#change_information', as: 'change_member_information'
 					get '/video_channel', to: 'site#video_channel', as: 'validated_video_channel'
+					post '/new_serie', to: 'site#new_serie', as: 'validated_new_serie'
 				end
 
 				unauthenticated :member  do
