@@ -121,7 +121,6 @@ function change_information(){
 		}).done(function(){
 				reset_fields()
 				update_data(data[0])
-		 		console.log("deu bom")
 		}).fail(function(){
 			reset_fields()
 		});
