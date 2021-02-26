@@ -1,7 +1,5 @@
 //= require jquery
-$("input[type=file]").on('change',function(){
-    alert(this.files[0].size);
-});
+
 $(function(){
 	$("#send").on("click", function(){
 		response = collect_data([ "email", "senha" ]);

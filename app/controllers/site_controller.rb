@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout "member", :except => :profile
+	layout 'member', :except => :profile
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
 	before_action :check_if_user_is_director_or_is_admin, only: [:video_channel]
@@ -75,19 +75,24 @@ class SiteController < ApplicationController
 		
 		if @person.valid_password? params[:confirmation_password]
 			if params[:new_email] == params[:repeat_email]
+				if params[:profile_picture].present?
+					@image = params[:profile_picture]
+					
+					if @image.content_type == "image/jpg" || @image.content_type == "image/png" || @image.content_type == "image/jpeg"
+						if @person.profile_picture.attached?
+							@person.profile_picture.purge()
+							@person.profile_picture.attach(params[:profile_picture])
+						else
+							@person.profile_picture.attach(params[:profile_picture])
+						end
+					else
+						(byebug)
+						render json: [msg: "formato de arquivo de imagem não suportado, somente jpg, png e jpeg são validos"] and return
+					end
+				end
+
 				@person.name = params[:name] if params[:name].present?
 				@person.about = params[:about] if params[:about].present?
-				if params[:profile_picture].present?
-					if @person.profile_picture.present?
-						temp= @person.profile_picture
-						@person.profile_picture.purge()
-						if @person.profile_picture.attach(params[:profile_picture])
-						else
-							@person.profile_picture.attach(temp)
-						end
-					end
-					@person.profile_picture.attach(params[:profile_picture])
-				end
 				#apenas membros
 				if member_signed_in?
 					@person.position = params[:position] if params[:position].present?

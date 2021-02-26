@@ -5,16 +5,14 @@ class Member < ApplicationRecord
 
 	belongs_to :junior_enterprise
 	has_one_attached :profile_picture do |attachable|
-		attachable.variant :thumb, resize:"100x100"
-		attachable.variant :mediun, resize: "300x300"
+		attachable.variant(combine_options:{gravity:'Center', crop: '100x100+0+0'})
+		attachable.variant(combine_options:{gravity:'Center', crop: '300x300+0+0'})
 	end
-	validates :profile_picture, content_type: ['image/jpg','image/png','image/jpeg']
-	validates :profile_picture, size:{less_than: 5.megabytes}
-	#has_attached_file :picture, styles: { medium: "300x300#", small: "30x30#"}, default_url: "/assets/:style/user.png"
-	#validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/
-
+	validates :profile_picture, content_type: ["image/jpg","image/png","image/jpeg"]
+	validates :profile_picture, size: {less_than: 5.megabytes}
+	
 	enum position: {
-		desenvolvedor: 0,
+		desenvolvedor:0,
 		designer: 1,
 		marketing: 2,
 		gerente: 3,
