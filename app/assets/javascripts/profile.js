@@ -53,6 +53,7 @@ function reset_fields(){
 	$(".field").show();
 	$("#profile_info").show();
 	$(".profile_data").hide();
+	$(".profile_picture").hide();
 	$(".password").hide();
 	$(".initial_table").show()
 	$("#main_title").html("Detalhes do Perfil");
@@ -97,32 +98,36 @@ function change_information(){
 		$("#main_title").html("Atualizar Informações");
 		$(".field").hide();
 		$("#profile_info").hide();
-		$(".profile_data").show()
-		$(".email").hide()
+		$(".profile_data").show();
+		$(".email").hide();
+		$(".profile_picture").show();
 		$(".password").first().show();
 		$("#change_information").html("ENVIAR")
 	} else {
 		//ajax (rota, parâmetros, função )
-		$.post( '/change_information' ,
-		{
-			name: $("#name_field").val(),
-			about: $("#about_field").val(),
-			junior_enterprise: $("#member_junior_enterprise_id").val(),
-			position: $("#position_field").val(),
-			confirmation_password: $("#old_password").val() 
-		},
-		function(data, status){
-			if(status == "success"){
+		var formData = new FormData();
+		formData.append('name',$("#name_field").val())
+		formData.append('about',$("#about_field").val())
+		formData.append('junior_enterprise',$("#member_junior_enterprise_id").val())
+		formData.append('position',$("#position_field").val())
+		formData.append('confirmation_password',$("#old_password").val())
+		formData.append('profile_picture',$("input[type=file]").prop('files')[0])
+		$.ajax({
+			url: '/change_information',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData:false,
+		}).done(function(){
 				reset_fields()
 				update_data(data[0])
-			} else {
-				//ERRO DE REQUISIÇÃO
-				reset_fields()
-			}
+		}).fail(function(){
+			reset_fields()
 		});
-		//fim ajax
-
 		$("#change_information").html("ATUALIZAR DADOS")
+		
+
+		
 	}
 }
 

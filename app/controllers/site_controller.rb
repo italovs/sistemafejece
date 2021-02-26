@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout "member", :except => :profile
+	layout 'member', :except => :profile
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
 	before_action :check_if_user_is_director_or_is_admin, only: [:video_channel]
@@ -65,19 +65,33 @@ class SiteController < ApplicationController
 		end
 	end
 
-	##PROTOTIPADO
 	def change_information
 		if member_signed_in?
 			@person = current_member
 		else
 			@person = current_admin
 		end
-
+		
 		if @person.valid_password? params[:confirmation_password]
 			if params[:new_email] == params[:repeat_email]
+				if params[:profile_picture].present?
+					@image = params[:profile_picture]
+					
+					if @image.content_type == "image/jpg" || @image.content_type == "image/png" || @image.content_type == "image/jpeg"
+						if @person.profile_picture.attached?
+							@person.profile_picture.purge()
+							@person.profile_picture.attach(params[:profile_picture])
+						else
+							@person.profile_picture.attach(params[:profile_picture])
+						end
+					else
+						(byebug)
+						render json: [msg: "formato de arquivo de imagem não suportado, somente jpg, png e jpeg são validos"] and return
+					end
+				end
+
 				@person.name = params[:name] if params[:name].present?
 				@person.about = params[:about] if params[:about].present?
-
 				#apenas membros
 				if member_signed_in?
 					@person.position = params[:position] if params[:position].present?
@@ -151,8 +165,29 @@ class SiteController < ApplicationController
 		end
 	end
 
+	#POSTS VIDEO
 	def video_channel #postagens de vídeo
-		
+		get_user_tv_series
+		@categories = Category.all.select(:id, :name)
+	end
+
+	def new_serie
+		tv_serie = TvSerie.new(name: params[:serie_name], owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in? )
+		if tv_serie.save
+			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
+			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
+		else
+			render json: [msg: "Erro: Deu ruim"]
+		end	
+	end
+
+	def serie_seasons
+		if admin_signed_in? || (member_signed_in? &&  current_member.validated?)
+			seasons = TvSerie.find(params[:serie]).seasons.select(:id, :name)
+			render json: [seasons: seasons]
+		else
+			render json: [msg: "Erro: Série inválida"]
+		end
 	end
 
 	private
@@ -167,5 +202,9 @@ class SiteController < ApplicationController
 				redirect_back(fallback_location: member_root_path)
 			end
 		end
+	end
+
+	def get_user_tv_series
+		@tv_series = TvSerie.where(owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in?).select(:id, :name)
 	end
 end
