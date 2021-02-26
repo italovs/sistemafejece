@@ -59,7 +59,7 @@ function setting_events(){
 	})
 
 	$("#tv_series").on("change", function(){
-		valid_value($("#tv_series").val()){
+		if(valid_value($("#tv_series").val())){
 			$.post( '/serie_seasons' ,
 			{
 				serie: $("#tv_series").val()
