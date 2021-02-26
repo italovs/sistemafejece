@@ -43,9 +43,17 @@
           <%= f.submit "Entrar", class: "btn btn-pill btn-accent d-table mx-auto" %>
         <% end %>
       </div>
-      <div class="card-footer border-top">
-        <%= render "devise/shared/links" %>
-      </div>
+
+        <div class="card-footer border-top">
+          <div class="row">
+            <div class="col-6">
+              <%= render "devise/shared/links" %>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+              <%= link_to "Logar como admin", new_admin_session_path%>
+            </div>
+          </div>  
+        </div>
     </div>
     
   </div>
