@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 	<html lang="pt-BR">
     <head>
+      <meta charset="UTF-8">
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <!-- ===== Mobile viewport optimized ===== -->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+
+      <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+      <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+      <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+      <meta name="author" content="GnoDesign">
+      <meta name="turbolinks-visit-control" content="reload">
+
+
+      <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag 'application', media: 'all' %>
+
+      <!-- ===== Favicon & Different size apple touch icons ===== -->
+      <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+      <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
+      <link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
+      <link rel="icon" sizes="128x128" href="assets/images/icon.png">
+
+      <!-- ===== Google Fonts ===== -->
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+        
+
       <!-- ===== CSS links ===== -->
       <%= stylesheet_link_tag 'application', media: 'all' %>
       <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
@@ -13,8 +47,20 @@
       <%= stylesheet_link_tag 'style', media: 'all' %>
       <%= stylesheet_link_tag 'responsive', media: 'all' %>
     </head>
-    
-    <body>
+
+    <style>
+      .mm-slideout{
+        z-index: 99;
+      }
+
+      #main-mobile-nav{
+        z-index: 2
+      }
+
+      
+    </style>
+
+    <body class="bg-dark">
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
@@ -213,11 +259,9 @@
                 </div>
               </div>	
 
-
-
-
       <script src="<%= javascript_path "essencials" %>"></script>
       <script src="<%= javascript_path "profile" %>"></script>
+
       <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
       <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>

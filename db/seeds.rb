@@ -6,8 +6,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'open-uri'
-
 
 puts "##### SEEDS #####"
 
@@ -111,15 +109,6 @@ ejs = Set.new(2..10)
       member.profile_picture.attach(io: file,filename: 'user.png',content_type: 'image/png')
 
   end
-
-
-
-
-
-
-
-#5 membros que desejam ser diretores
-
 
 #5 diretores de EJ
 5.times do |i|
