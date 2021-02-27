@@ -2,7 +2,7 @@ class SiteController < ApplicationController
 	layout 'member', :except => :profile
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
-	before_action :check_if_user_is_director_or_is_admin, only: [:video_channel]
+	before_action :check_if_user_is_director_or_is_admin, only: [:my_channel]
 
 	def index
 	end
@@ -85,7 +85,6 @@ class SiteController < ApplicationController
 							@person.profile_picture.attach(params[:profile_picture])
 						end
 					else
-						(byebug)
 						render json: [msg: "formato de arquivo de imagem não suportado, somente jpg, png e jpeg são validos"] and return
 					end
 				end
@@ -166,7 +165,7 @@ class SiteController < ApplicationController
 	end
 
 	#POSTS VIDEO
-	def video_channel #postagens de vídeo
+	def my_channel #postagens de vídeo
 		get_user_tv_series
 		@categories = Category.all.select(:id, :name)
 	end
@@ -188,6 +187,22 @@ class SiteController < ApplicationController
 		else
 			render json: [msg: "Erro: Série inválida"]
 		end
+	end
+
+	def new_video
+		byebug
+		post = Post.new(name: params[:name], description: params[:description], link: params[:video_link], kind: Post.kinds[:video])
+		if post.save
+			SeasonPost.create(post_id: post.id, season_id: params[:season])
+			render json: [msg: "Sucesso: Vídeo criado"]
+		else
+			render json: [msg: "Erro: Falha ao criar vídeo"]
+		end
+	end
+
+	#POSTS
+	def my_library
+
 	end
 
 	private

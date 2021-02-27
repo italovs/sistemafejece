@@ -30,9 +30,14 @@ Rails.application.routes.draw do
 			post '/change_password', to: 'site#change_password', as: 'change_admin_password'
 			post '/change_mail', to: 'site#change_mail', as: 'change_admin_mail'
 			post '/change_information', to: 'site#change_information', as: 'change_admin_information'
-			get '/video_channel', to: 'site#video_channel', as: 'admin_video_channel'
+			get '/my_channel', to: 'site#my_channel', as: 'admin_my_channel'
 			post '/new_serie', to: 'site#new_serie', as: 'admin_new_serie'
 			post '/serie_seasons', to: 'site#serie_seasons', as: 'admin_serie_seasons'
+			post '/new_video', to: 'site#new_video', as: 'admin_new_video'
+			post '/my_posts', to: 'site#my_posts', as: 'admin_my_posts'
+			post '/new_post', to: 'site#new_post', as: 'admin_new_post'
+
+			get '/my_library', to: 'site#my_library', as: 'admin_my_library'
 			root 'site#index', as: 'admin_root'
 		end
 
@@ -45,9 +50,16 @@ Rails.application.routes.draw do
 					post '/change_password', to: 'site#change_password', as: 'change_member_password'
 					post '/change_mail', to: 'site#change_mail', as: 'change_member_mail'
 					post '/change_information', to: 'site#change_information', as: 'change_member_information'
-					get '/video_channel', to: 'site#video_channel', as: 'validated_video_channel'
+					
+					#validated
+					get '/my_channel', to: 'site#my_channel', as: 'validated_my_channel'
 					post '/new_serie', to: 'site#new_serie', as: 'validated_new_serie'
 					post '/serie_seasons', to: 'site#serie_seasons', as: 'validated_serie_seasons'
+					post '/new_video', to: 'site#new_video', as: 'validated_new_video'
+
+					get '/my_library', to: 'site#my_library', as: 'validated_my_library'
+					post '/my_posts', to: 'site#my_posts', as: 'validated_my_posts'
+					post '/new_post', to: 'site#new_post', as: 'validated_new_post'
 				end
 
 				unauthenticated :member  do
