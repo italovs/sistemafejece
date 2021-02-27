@@ -19,9 +19,17 @@ a {
 a:visited {
   color: #666; }
 
-a:hover {
+#main-nav ul li a:visited{
   color: #fff;
-  background-color: #000; }
+}
+
+.play-btn .play-video:hover{
+  background-color: #fff;
+}
+
+a:hover {
+  color: #e27321;
+  background-color: transparent; }
 
 th {
   padding-bottom: 5px; }
