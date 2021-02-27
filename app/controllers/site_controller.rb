@@ -85,7 +85,6 @@ class SiteController < ApplicationController
 							@person.profile_picture.attach(params[:profile_picture])
 						end
 					else
-						(byebug)
 						render json: [msg: "formato de arquivo de imagem não suportado, somente jpg, png e jpeg são validos"] and return
 					end
 				end
@@ -187,6 +186,17 @@ class SiteController < ApplicationController
 			render json: [seasons: seasons]
 		else
 			render json: [msg: "Erro: Série inválida"]
+		end
+	end
+
+	def new_video
+		byebug
+		post = Post.new(name: params[:name], description: params[:description], link: params[:video_link], kind: Post.kinds[:video])
+		if post.save
+			SeasonPost.create(post_id: post.id, season_id: params[:season])
+			render json: [msg: "Sucesso: Vídeo criado"]
+		else
+			render json: [msg: "Erro: Falha ao criar vídeo"]
 		end
 	end
 

@@ -8,6 +8,8 @@
 <div id="series" class="btn btn-primary">Suas Séries</div>
 <div id="videos" class="btn btn-primary">Seus vídeos</div>
 <%# novo vídeo %>
+<%= text_field_tag :youtube_name, nil, placeholder: "Nome" %>
+<%= text_field_tag :youtube_description, nil, placeholder: "Descrição" %>
 <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
 <%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione"} %>
 <%= select_tag :season, options_for_select([ "Selecione", "1"])  %>

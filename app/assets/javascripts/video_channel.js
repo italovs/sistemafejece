@@ -19,6 +19,8 @@ function hide_fields(){
 	$("#tv_series").hide();
 	$("#season").hide();
 	$("#tv_series_category").hide();
+	$("#youtube_name").hide();
+	$("#youtube_description").hide();
 }
 
 function setting_events(){
@@ -28,6 +30,8 @@ function setting_events(){
 		$("#create_new_video").show();
 		$("#tv_series").show();
 		$("#season").show();
+		$("#youtube_name").show();
+		$("#youtube_description").show();
 	})
 
 	$("#new_serie").on("click", function(){
@@ -74,6 +78,31 @@ function setting_events(){
 			})
 		}
 	})
+
+	$("#create_new_video").on("click", function(){
+		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val()) && valid_value($("#tv_series").val()) && valid_value($("#season").val()) ){
+			link = sanitarize_youtube_link($("#youtube_link").val())
+			if(link != null){
+				$.post( '/new_video' ,
+				{
+					video_link: link,
+					name: $("#youtube_name").val(),
+					description: $("#youtube_description").val(),
+					tv_series: $("#tv_series").val(),
+					season: $("#season").val()
+				},
+				function(data, status){
+					if(status == "success" ){
+						hide_fields()
+						//refill_select_box( "#season", data[0]["seasons"] )
+					} else {
+						//ERRO DE REQUISIÇÃO
+						
+					}
+				})
+			}
+		}
+	})
 }
 
 
@@ -93,4 +122,42 @@ function valid_value(value){
 	} else {
 		return false;
 	}
+}
+
+function video_embed( link ){
+	return '<iframe width="1047" height="558" src="https://www.youtube.com/embed/'+ link +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+}
+
+function sanitarize_youtube_link( link ){
+	//embed
+	if( link.indexOf("embed/") > 0){
+		link = link.replace("embed/", "*")
+		position = link.indexOf("*") + 1
+		link = link.substring(position, link.length)
+		position = link.indexOf('"')
+		link = link.substring(0, position)
+		if(link.length > 0){
+			return link
+		}
+	}
+	//normal
+	if( link.indexOf("watch?v=") > 0){
+		link = link.replace("watch?v=", "*")
+		position = link.indexOf("*") + 1
+		link = link.substring(position, link.length)
+		if(link.length > 0){
+			return link
+		}
+	}
+	//mobile
+	if( link.indexOf("youtu.be/") > 0){
+		link = link.replace("youtu.be/", "*")
+		position = link.indexOf("*") + 1
+		link = link.substring(position, link.length)
+		if(link.length > 0){
+			return link
+		}
+	}
+	alert("Link inválido!")
+	return null
 }

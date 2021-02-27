@@ -1,5 +1,6 @@
 class TvSerie < ApplicationRecord
   has_many :seasons
+  
 
   after_create :first_season
 

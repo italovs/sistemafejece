@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 			get '/video_channel', to: 'site#video_channel', as: 'admin_video_channel'
 			post '/new_serie', to: 'site#new_serie', as: 'admin_new_serie'
 			post '/serie_seasons', to: 'site#serie_seasons', as: 'admin_serie_seasons'
+			post '/new_video', to: 'site#new_video', as: 'admin_new_video'
 			root 'site#index', as: 'admin_root'
 		end
 
@@ -45,9 +46,12 @@ Rails.application.routes.draw do
 					post '/change_password', to: 'site#change_password', as: 'change_member_password'
 					post '/change_mail', to: 'site#change_mail', as: 'change_member_mail'
 					post '/change_information', to: 'site#change_information', as: 'change_member_information'
+					
+					#validated
 					get '/video_channel', to: 'site#video_channel', as: 'validated_video_channel'
 					post '/new_serie', to: 'site#new_serie', as: 'validated_new_serie'
 					post '/serie_seasons', to: 'site#serie_seasons', as: 'validated_serie_seasons'
+					post '/new_video', to: 'site#new_video', as: 'validated_new_video'
 				end
 
 				unauthenticated :member  do
