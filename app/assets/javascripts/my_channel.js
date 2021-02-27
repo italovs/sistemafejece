@@ -21,9 +21,16 @@ function hide_fields(){
 	$("#tv_series_category").hide();
 	$("#youtube_name").hide();
 	$("#youtube_description").hide();
+	$("#my_series").hide()
 }
 
 function setting_events(){
+	$("#series").on("click", function(){
+		if( $("#my_series").is(":visible") ){
+			
+		}
+	})
+
 	$("#new_video").on("click", function(){
 		if(!$("#youtube_link").is(":visible")){
 			hide_fields()
