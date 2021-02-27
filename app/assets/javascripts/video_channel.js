@@ -25,20 +25,24 @@ function hide_fields(){
 
 function setting_events(){
 	$("#new_video").on("click", function(){
-		hide_fields()
-		$("#youtube_link").show();
-		$("#create_new_video").show();
-		$("#tv_series").show();
-		$("#season").show();
-		$("#youtube_name").show();
-		$("#youtube_description").show();
+		if(!$("#youtube_link").is(":visible")){
+			hide_fields()
+		}
+		$("#youtube_link").toggle();
+		$("#create_new_video").toggle();
+		$("#tv_series").toggle();
+		$("#season").toggle();
+		$("#youtube_name").toggle();
+		$("#youtube_description").toggle();
 	})
 
 	$("#new_serie").on("click", function(){
-		hide_fields()
-		$("#serie_name").show();
-		$("#create_new_serie").show();
-		$("#tv_series_category").show();
+		if(!$("#serie_name").is(":visible")){
+			hide_fields()
+		}
+		$("#serie_name").toggle();
+		$("#create_new_serie").toggle();
+		$("#tv_series_category").toggle();
 	})
 
 	$("#create_new_serie").on("click", function(){
