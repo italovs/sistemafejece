@@ -34,7 +34,23 @@ function setting_events(){
 
 	$("#create_new_post").on("click", function(){
 		if( valid_value( $("#post_link").val() ) && valid_value( $("#post_category").val() ) && valid_value($("#post_name").val()) && valid_value($("#post_description").val()) ){
-			alert("ok")
+			$.post( '/new_post' ,
+			{
+				name: $("#post_name").val(),
+				category: $("#post_category").val(),
+				link: $("#post_link").val(),
+				description: $("#post_description").val()
+			},
+			function(data, status){
+				if(status == "success"){
+					page_reload()
+				} else {
+					//ERRO DE REQUISIÇÃO
+					
+				}
+			})
+		} else {
+			alert("Há campos em branco")
 		}
 	})
 

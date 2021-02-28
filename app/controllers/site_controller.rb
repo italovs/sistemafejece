@@ -210,6 +210,27 @@ class SiteController < ApplicationController
 		@categories = Category.all.select(:id, :name)
 	end
 
+	def new_post
+		post = Post.new(name: params[:name], description: params[:description], link: params[:link], kind: Post.kinds[:post])
+		if post.save
+			if member_signed_in?
+				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: false, owner_id: current_member.id)
+			else
+				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: true)
+			end
+				render json: [msg: "Sucesso: post criado"]
+		else
+			render json: [msg: "Erro: Falha ao criar post"]
+		end
+	end
+
+	def my_posts
+		if admin_signed_in?
+			@posts = Post.joins()
+		else
+		end
+	end
+
 	private
 	def person_information( person )
 		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position.capitalize, validated: person.validated }  
