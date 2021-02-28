@@ -13,3 +13,6 @@
 <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
 <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo" %>
 <div id="create_new_post" class="btn btn-primary">CRIAR</div>
+
+<div id="posts_area">
+</div>

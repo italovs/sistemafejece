@@ -225,9 +225,19 @@ class SiteController < ApplicationController
 	end
 
 	def my_posts
-		if admin_signed_in?
-			@posts = Post.joins()
+		categories = Category.all.pluck(:name)
+		posts = Hash.new
+		categories.each do |category|
+			if admin_signed_in?
+				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id is null AND is_admin is true AND categories.name = :category", category: category)
+			else
+				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id = :member_id AND is_admin is false AND categories.name = :category", member_id: current_member.id, category: category)
+			end
+		end
+		if posts != Hash.new
+			render json: posts
 		else
+			render json: [msg: "Erro: Falha ao recuperar postagens"]
 		end
 	end
 

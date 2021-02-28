@@ -17,6 +17,7 @@ function hide_fields(){
 	$("#post_name").hide();
 	$("#post_description").hide();
 	$("#create_new_post").hide();
+	$("#posts_area").hide()
 }
 
 function setting_events(){
@@ -54,18 +55,60 @@ function setting_events(){
 		}
 	})
 
-	$("#new_serie").on("click", function(){
-		// if(!$("#serie_name").is(":visible")){
-		// 	hide_fields()
-		// }
-		// $("#serie_name").toggle();
-		// $("#create_new_serie").toggle();
-		// $("#tv_series_category").toggle();
-	})
-
-
+	$("#my_posts").on("click", function(){
+		$.post( '/my_posts' ,
+		{ },
+		function(data, status){
+			if(status == "success"){
+				if(!data.hasOwnProperty("msg")){
+					$("#posts_area").show()
+					insert_card_areas(data)
+				} else {
+					//erro
+				}
+			} else {
+				//ERRO DE REQUISIÇÃO
+				
+			}
+		})
+	});
 }
 
+function new_card_area(name, data){
+	html = 	"<h3>"+name+"</h3>"
+	html += '<div id="'+name+'" class="card-group">'
+	//inserindo cards
+	$(data).each(function(index, element){
+		html += 	'<div class="card">'
+		html += 		'<img class="card-img-top" src="..." alt="Card image cap">'
+		html += 		'<div class="card-body">'
+		html +=      	'<h5 class="card-title">'+ element["name"] +'</h5>'
+		html +=      	'<p class="card-text">'+ element["description"] +'</p>'
+		if(element["votes"] == 0){
+			html += 		'<p class="card-text"><small class="text-muted">Nota: 5</small></p>'
+		} else {
+			html += 		'<p class="card-text"><small class="text-muted">Nota: '+ (element["sum_votes"]/( element["votes"]).toFixed(2)) +'</small></p>'
+		}
+		html +=    	'</div>'
+		html += 	'</div>'
+	})
+	
+	//fim dos cards
+	html += "</div>"
+	return html
+}
+
+function insert_card_areas(data){
+	html = ""
+	for (var key in data) {
+		if (data.hasOwnProperty(key)) {
+			if(data[key].length > 0){
+				html += new_card_area(key, data[key])
+			}
+    }
+	}
+	$("#posts_area").html(html)
+}
 
 function refill_select_box( target, data ){
 	$(target).empty()
