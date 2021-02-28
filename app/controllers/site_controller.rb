@@ -171,7 +171,13 @@ class SiteController < ApplicationController
 	end
 
 	def new_serie
-		tv_serie = TvSerie.new(name: params[:serie_name], owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in? )
+		tv_serie = TvSerie.new(name: params[:serie_name])
+		if admin_signed_in?
+			tv_serie = tv_serie.is_admin = true
+		else
+			tv_serie.owner_id = current_member.id
+			tv_serie.is_admin = false
+		end
 		if tv_serie.save
 			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
 			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
@@ -190,7 +196,6 @@ class SiteController < ApplicationController
 	end
 
 	def new_video
-		byebug
 		post = Post.new(name: params[:name], description: params[:description], link: params[:video_link], kind: Post.kinds[:video])
 		if post.save
 			SeasonPost.create(post_id: post.id, season_id: params[:season])
@@ -202,11 +207,10 @@ class SiteController < ApplicationController
 
 	#POSTS
 	def my_library
-
+		@categories = Category.all.select(:id, :name)
 	end
 
 	private
-	
 	def person_information( person )
 		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position.capitalize, validated: person.validated }  
 	end
@@ -220,6 +224,10 @@ class SiteController < ApplicationController
 	end
 
 	def get_user_tv_series
-		@tv_series = TvSerie.where(owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in?).select(:id, :name)
+		if admin_signed_in?
+			@tv_series = TvSerie.where(is_admin: true).select(:id, :name)
+		else
+			@tv_series = TvSerie.where(owner_id: current_member.id, is_admin: false).select(:id, :name)
+		end
 	end
 end

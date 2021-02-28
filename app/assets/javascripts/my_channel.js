@@ -27,7 +27,7 @@ function hide_fields(){
 function setting_events(){
 	$("#series").on("click", function(){
 		if( $("#my_series").is(":visible") ){
-			
+			//COMPLETAR
 		}
 	})
 
