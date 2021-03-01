@@ -171,7 +171,13 @@ class SiteController < ApplicationController
 	end
 
 	def new_serie
-		tv_serie = TvSerie.new(name: params[:serie_name], owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in? )
+		tv_serie = TvSerie.new(name: params[:serie_name])
+		if admin_signed_in?
+			tv_serie = tv_serie.is_admin = true
+		else
+			tv_serie.owner_id = current_member.id
+			tv_serie.is_admin = false
+		end
 		if tv_serie.save
 			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
 			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
@@ -201,11 +207,41 @@ class SiteController < ApplicationController
 
 	#POSTS
 	def my_library
+		@categories = Category.all.select(:id, :name)
+	end
 
+	def new_post
+		post = Post.new(name: params[:name], description: params[:description], link: params[:link], kind: Post.kinds[:post])
+		if post.save
+			if member_signed_in?
+				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: false, owner_id: current_member.id)
+			else
+				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: true)
+			end
+				render json: [msg: "Sucesso: post criado"]
+		else
+			render json: [msg: "Erro: Falha ao criar post"]
+		end
+	end
+
+	def my_posts
+		categories = Category.all.pluck(:name)
+		posts = Hash.new
+		categories.each do |category|
+			if admin_signed_in?
+				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id is null AND is_admin is true AND categories.name = :category", category: category)
+			else
+				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id = :member_id AND is_admin is false AND categories.name = :category", member_id: current_member.id, category: category)
+			end
+		end
+		if posts != Hash.new
+			render json: posts
+		else
+			render json: [msg: "Erro: Falha ao recuperar postagens"]
+		end
 	end
 
 	private
-	
 	def person_information( person )
 		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position.capitalize, validated: person.validated }  
 	end
@@ -219,6 +255,10 @@ class SiteController < ApplicationController
 	end
 
 	def get_user_tv_series
-		@tv_series = TvSerie.where(owner_id: admin_signed_in? ? current_admin.id : current_member.id , is_admin: admin_signed_in?).select(:id, :name)
+		if admin_signed_in?
+			@tv_series = TvSerie.where(is_admin: true).select(:id, :name)
+		else
+			@tv_series = TvSerie.where(owner_id: current_member.id, is_admin: false).select(:id, :name)
+		end
 	end
 end
