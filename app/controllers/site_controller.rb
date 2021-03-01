@@ -190,7 +190,6 @@ class SiteController < ApplicationController
 	end
 
 	def new_video
-		byebug
 		post = Post.new(name: params[:name], description: params[:description], link: params[:video_link], kind: Post.kinds[:video])
 		if post.save
 			SeasonPost.create(post_id: post.id, season_id: params[:season])
