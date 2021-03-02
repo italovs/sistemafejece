@@ -56,6 +56,7 @@ function setting_events(){
 	})
 
 	$("#my_posts").on("click", function(){
+		hide_fields()
 		$.post( '/my_posts' ,
 		{ },
 		function(data, status){
@@ -79,6 +80,7 @@ function new_card_area(name, data){
 	html += '<div id="'+name+'" class="card-group">'
 	//inserindo cards
 	$(data).each(function(index, element){
+		html += '<a href="/post/'+ element["pc_id"] + '">'
 		html += 	'<div class="card">'
 		html += 		'<img class="card-img-top" src="..." alt="Card image cap">'
 		html += 		'<div class="card-body">'
@@ -91,6 +93,7 @@ function new_card_area(name, data){
 		}
 		html +=    	'</div>'
 		html += 	'</div>'
+		html += '</a>'
 	})
 	
 	//fim dos cards

@@ -229,16 +229,26 @@ class SiteController < ApplicationController
 		posts = Hash.new
 		categories.each do |category|
 			if admin_signed_in?
-				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id is null AND is_admin is true AND categories.name = :category", category: category)
+				posts[category] = Post.includes(post_categories: [:categories]) #.where("post_categories.owner_id is null AND is_admin is true AND categories.name = :category", category: category)
+				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id is null AND post_categories.is_admin is true AND categories.name = \''
 			else
-				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id = :member_id AND is_admin is false AND categories.name = :category", member_id: current_member.id, category: category)
+				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id = '
+				sql += current_member.id
+				sql += ' AND post_categories.is_admin is false AND categories.name = \''
 			end
+			sql += category 
+			sql += "')"
+			posts[category] = ActiveRecord::Base.connection.execute(sql)
 		end
 		if posts != Hash.new
 			render json: posts
 		else
 			render json: [msg: "Erro: Falha ao recuperar postagens"]
 		end
+	end
+
+	def post
+		@post = PostCategory.find(params[:id]).post
 	end
 
 	private

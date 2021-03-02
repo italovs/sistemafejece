@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 			post '/new_video', to: 'site#new_video', as: 'admin_new_video'
 			post '/my_posts', to: 'site#my_posts', as: 'admin_my_posts'
 			post '/new_post', to: 'site#new_post', as: 'admin_new_post'
+			get '/post/:id', to: 'site#post', as: 'admin_post'
 
 			get '/my_library', to: 'site#my_library', as: 'admin_my_library'
 			root 'site#index', as: 'admin_root'
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
 					get '/my_library', to: 'site#my_library', as: 'validated_my_library'
 					post '/my_posts', to: 'site#my_posts', as: 'validated_my_posts'
 					post '/new_post', to: 'site#new_post', as: 'validated_new_post'
+					get '/post/:id', to: 'site#post', as: 'member_post'
 				end
 
 				unauthenticated :member  do
