@@ -205,6 +205,36 @@ class SiteController < ApplicationController
 		end
 	end
 
+	def my_series
+		series = Hash.new
+		categories = Category.all.pluck(:name)
+		categories.each do |category|
+			if admin_signed_in?
+				sql = 	'SELECT "series".*, "categories"."name" as "category_name" 
+									FROM "tv_series" as "series"
+									JOIN "tv_serie_categories" as "serie_category"
+									ON "series"."id" = "serie_category"."tv_serie_id"
+									JOIN "categories"
+									ON "categories"."id" = "serie_category"."category_id"
+									WHERE "series"."is_admin" is true
+									AND "categories"."name" = '
+			else
+				sql = 	'SELECT "series".*, "categories"."name" as "category_name" 
+									FROM "tv_series" as "series"
+									JOIN "tv_serie_categories" as "serie_category"
+									ON "series"."id" = "serie_category"."tv_serie_id"
+									JOIN "categories"
+									ON "categories"."id" = "serie_category"."category_id"
+									WHERE "series"."is_admin" is false
+									AND "series"."owner_id" = '
+				sql +=		"#{current_member.id} "
+				sql +=		'AND "categories"."name" = '
+			end
+			sql += "#{category}'"
+			series[category] = ActiveRecord::Base.connection.execute(sql)
+		end
+	end
+
 	def video
 		@post = SeasonPost.find(params[:id]).post
 	end
