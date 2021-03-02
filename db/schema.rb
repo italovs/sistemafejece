@@ -46,6 +46,10 @@ ActiveRecord::Schema.define(version: 2021_02_25_014544) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "about"
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -77,6 +81,10 @@ ActiveRecord::Schema.define(version: 2021_02_25_014544) do
     t.integer "position"
     t.boolean "validated"
     t.string "name"
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["junior_enterprise_id"], name: "index_members_on_junior_enterprise_id"
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
