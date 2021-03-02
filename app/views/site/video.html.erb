@@ -1,0 +1,13 @@
+<div class="card">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">  <%= @post.name %></h5>
+    <iframe width="1047" height="558" src="<%= "https://www.youtube.com/embed/#{@post.link}" %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p class="card-text"><%= @post.description %></p>
+    <% if @post.votes == 0 %>
+      <p class="card-text"><small class="text-muted">Nota: 5</small></p>
+    <% else %>
+      <p class="card-text"><small class="text-muted" id="nota"> <%= "Nota: #{ @post.rating }" %></small></p>
+    <% end %>
+  </div>
+</div>

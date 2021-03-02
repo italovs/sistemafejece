@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_014544) do
+ActiveRecord::Schema.define(version: 2021_02_28_032610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_014544) do
     t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "owner_id"
+    t.boolean "is_admin"
     t.index ["category_id"], name: "index_post_categories_on_category_id"
     t.index ["post_id"], name: "index_post_categories_on_post_id"
   end
@@ -103,9 +105,11 @@ ActiveRecord::Schema.define(version: 2021_02_25_014544) do
     t.string "name"
     t.string "description"
     t.string "link"
-    t.float "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "votes"
+    t.integer "sum_votes"
+    t.integer "kind"
   end
 
   create_table "season_posts", force: :cascade do |t|

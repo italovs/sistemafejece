@@ -1437,19 +1437,19 @@ footer.bg-dark .social-btns .social-btn-roll:hover {
 
 @keyframes loading-animation {
     0% {
-        -webkit-box-shadow: 0 0 0 rgba(147, 82, 179, .5);
-        -moz-box-shadow: 0 0 0 rgba(147, 82, 179, .5);
-        box-shadow: 0 0 0 rgba(147, 82, 179, .5);
+        -webkit-box-shadow: 0 0 0 rgba(226,115,33, .5);
+        -moz-box-shadow: 0 0 0 rgba(226,115,33, .5);
+        box-shadow: 0 0 0 rgba(226,115,33, .5);
     }
     50% {
-        -webkit-box-shadow: 0 0 0 30px rgba(147, 82, 179, .15);
-        -moz-box-shadow: 0 0 0 30px rgba(147, 82, 179, .15);
-        box-shadow: 0 0 0 30px rgba(147, 82, 179, .15);
+        -webkit-box-shadow: 0 0 0 30px rgba(226,115,33, .15);
+        -moz-box-shadow: 0 0 0 30px rgba(226,115,33, .15);
+        box-shadow: 0 0 0 30px rgba(226,115,33, .15);
     }
     100% {
-        -webkit-box-shadow: 0 0 0 rgba(147, 82, 179, .5);
-        -moz-box-shadow: 0 0 0 rgba(147, 82, 179, .5);
-        box-shadow: 0 0 0 rgba(147, 82, 179, .5);
+        -webkit-box-shadow: 0 0 0 rgba(226,115,33, .5);
+        -moz-box-shadow: 0 0 0 rgba(226,115,33, .5);
+        box-shadow: 0 0 0 rgba(226,115,33, .5);
     }
 }
 
@@ -1473,7 +1473,7 @@ footer.bg-dark .social-btns .social-btn-roll:hover {
 }
 
 .bg-primary {
-    background-color: #9352b3 !important;
+    background-color: #e27321 !important;
 }
 
 .bg-success {
@@ -1501,12 +1501,12 @@ footer.bg-dark .social-btns .social-btn-roll:hover {
 }
 
 .bg-main-gradient {
-    background: #9352b3;
-    background: -webkit-linear-gradient(legacy-direction(to right), #9352b3 0%, #a11f3c 100%);
-    background: -webkit-gradient(linear, left top, right top, from(#9352b3), to(#a11f3c));
-    background: -webkit-linear-gradient(left, #9352b3 0%, #a11f3c 100%);
-    background: -o-linear-gradient(left, #9352b3 0%, #a11f3c 100%);
-    background: linear-gradient(to right, #9352b3 0%, #a11f3c 100%);
+    background: #e27321;
+    background: -webkit-linear-gradient(legacy-direction(to right), #e27321 0%, #018c77 70%);
+    background: -webkit-gradient(linear, left top, right top, from(#e27321), to(#018c77));
+    background: -webkit-linear-gradient(left, #e27321 0%, #018c77 70%);
+    background: -o-linear-gradient(left, #e27321 0%, #018c77 70%);
+    background: linear-gradient(to right, #e27321 0%, #018c77 70%);
 }
 
 .bg-success-gradient {
@@ -1582,7 +1582,7 @@ footer.bg-dark .social-btns .social-btn-roll:hover {
 .btn-second:hover {
     -webkit-filter: brightness(113%);
     filter: brightness(113%);
-    color: #fff;
+    color: #e27321;
 }
 
 
@@ -1691,6 +1691,34 @@ footer.bg-dark .social-btns .social-btn-roll:hover {
     background: #293053;
 }
 
+.bg-f-green{
+    background: #018c77;
+}
+
+.btn-f-green{
+    background: #018c77;
+}
+
+
+.btn-f-green:hover{
+    background: #02a28a;
+}
+
+.bg-f-orange{
+    background: #e27321;
+}
+
+.btn-f-orange{
+    background: #e27321;
+}
+
+.btn-f-orange:hover{
+    background: #FF8225;
+}
+
+.text-f-orange{
+    color: #e27321;
+}
 
 /*** ====== 6.3.2 Social Media Buttons ====== ***/
 
@@ -2027,7 +2055,7 @@ ul.social-btns li {
 }
 
 .play-video:hover {
-    color: #fff;
+    color: #FF8225;
     -webkit-transform: scale(1.05);
     -moz-transform: scale(1.05);
     -ms-transform: scale(1.05);
@@ -3839,9 +3867,9 @@ ul.blog-posts-widget .blog-content .blog-text span {
     -ms-transform: scale(1);
     -o-transform: scale(1);
     transform: scale(1);
-    -webkit-box-shadow: 0 0 0 10px rgba(147, 82, 179, 0);
-    -moz-box-shadow: 0 0 0 10px rgba(147, 82, 179, 0);
-    box-shadow: 0 0 0 10px rgba(147, 82, 179, 0);
+    -webkit-box-shadow: 0 0 0 10px rgba(226,115,33, 0);
+    -moz-box-shadow: 0 0 0 10px rgba(226,115,33, 0);
+    box-shadow: 0 0 0 10px rgba(226,115,33, 0);
 }
 
 .movie-box-1:hover .buttons .play-video:hover {
@@ -3850,9 +3878,9 @@ ul.blog-posts-widget .blog-content .blog-text span {
     -ms-transform: scale(1.05);
     -o-transform: scale(1.05);
     transform: scale(1.05);
-    -webkit-box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
-    -moz-box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
-    box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
+    -webkit-box-shadow: 0 0 0 10px rgba(226,115,33, .4);
+    -moz-box-shadow: 0 0 0 10px rgba(226,115,33, .4);
+    box-shadow: 0 0 0 10px rgba(226,115,33, .4);
 }
 
 
@@ -4159,9 +4187,9 @@ ul.blog-posts-widget .blog-content .blog-text span {
 }
 
 .movie-box-3 .play-btn a {
-    -webkit-box-shadow: 0 10px 30px 0 rgba(147, 82, 179, 0.7);
-    -moz-box-shadow: 0 10px 30px 0 rgba(147, 82, 179, 0.7);
-    box-shadow: 0 10px 30px 0 rgba(147, 82, 179, 0.7);
+    -webkit-box-shadow: 0 10px 30px 0 rgba(226,115,33, 0.7);
+    -moz-box-shadow: 0 10px 30px 0 rgba(226,115,33, 0.7);
+    box-shadow: 0 10px 30px 0 rgba(226,115,33, 0.7);
 }
 
 .movie-box-3 .title {

@@ -1,0 +1,18 @@
+<script src="<%= javascript_path "my_library" %>"></script>
+<br>
+
+<br><br><br><br><br><br><br>
+
+<div id="new_post" class="btn btn-primary">Novo Post</div>
+<div id="my_posts" class="btn btn-primary">Meus Posts</div>
+
+
+<%# novo post %>
+<%= text_field_tag :post_name, nil, placeholder: "Nome" %>
+<%= text_field_tag :post_description, nil, placeholder: "Descrição" %>
+<%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
+<%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo" %>
+<div id="create_new_post" class="btn btn-primary">CRIAR</div>
+
+<div id="posts_area">
+</div>
