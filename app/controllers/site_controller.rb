@@ -173,7 +173,7 @@ class SiteController < ApplicationController
 	def new_serie
 		tv_serie = TvSerie.new(name: params[:serie_name])
 		if admin_signed_in?
-			tv_serie = tv_serie.is_admin = true
+			tv_serie.is_admin = true
 		else
 			tv_serie.owner_id = current_member.id
 			tv_serie.is_admin = false
@@ -203,6 +203,10 @@ class SiteController < ApplicationController
 		else
 			render json: [msg: "Erro: Falha ao criar vídeo"]
 		end
+	end
+
+	def video
+		@post = SeasonPost.find(params[:id]).post
 	end
 
 	#POSTS
