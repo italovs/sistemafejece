@@ -68,7 +68,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     domain: 'farol-fejece-teste.herokuapp.com',
-    addresses: 'smtp.sendgrid.net',
+    address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
     user_name: 'apikey',
