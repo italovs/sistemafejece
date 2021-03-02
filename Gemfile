@@ -19,7 +19,7 @@ gem 'devise'
 gem "google-cloud-storage"
 gem 'image_processing'
 gem 'active_storage_validations'
-gem 'sendgrid-ruby'
+#gem 'sendgrid-ruby'
 #gem 'paperclip', '~> 6.0.0'
 
 group :development, :test do
