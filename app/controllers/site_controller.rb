@@ -172,12 +172,6 @@ class SiteController < ApplicationController
 
 	def new_serie
 		tv_serie = TvSerie.new(name: params[:serie_name])
-		if admin_signed_in?
-			tv_serie.is_admin = true
-		else
-			tv_serie.owner_id = current_member.id
-			tv_serie.is_admin = false
-		end
 		if tv_serie.save
 			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
 			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
@@ -259,13 +253,13 @@ class SiteController < ApplicationController
 
 	def new_post
 		post = Post.new(
-			 name: params[:name],
-			 description: params[:description],
-			 link: params[:link],
-			 kind: Post.kinds[:post],
-			 poster_image: params[:poster_image],
-			 banner_image: params[:banner_image]
-			)
+			name: params[:name],
+			description: params[:description],
+			link: params[:link],
+			kind: Post.kinds[:post],
+			poster_image: params[:poster_image],
+			banner_image: params[:banner_image]
+		)
 
 		if post.save
 			if member_signed_in?
@@ -284,7 +278,6 @@ class SiteController < ApplicationController
 		posts = Hash.new
 		categories.each do |category|
 			if admin_signed_in?
-				posts[category] = Post.includes(post_categories: [:categories]) #.where("post_categories.owner_id is null AND is_admin is true AND categories.name = :category", category: category)
 				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id is null AND post_categories.is_admin is true AND categories.name = \''
 			else
 				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id = '

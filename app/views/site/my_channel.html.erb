@@ -1,4 +1,4 @@
-
+<br><br><br><br><br><br><br>
 <div id="new_video" class="btn btn-primary">Novo Vídeo</div>
 <div id="new_serie" class="btn btn-primary">Nova Série</div>
 <div id="series" class="btn btn-primary">Minhas Séries</div>
@@ -9,8 +9,12 @@
 <%= text_field_tag :youtube_name, nil, placeholder: "Nome" %>
 <%= text_field_tag :youtube_description, nil, placeholder: "Descrição" %>
 <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
-<%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione"} %>
-<%= select_tag :season, options_for_select([ "Selecione", "1"])  %>
+<% if @tv_series %>
+  <%= select_tag :tv_series, options_for_select([ "Selecione"]) %>
+<% else %>
+  <%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione"} %>
+<% end %>
+<%= select_tag :season, options_for_select([ "Selecione"])  %>
 <div id="create_new_video" class="btn btn-primary">CRIAR</div> 
 
 <%# nova série %>
