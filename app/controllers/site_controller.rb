@@ -196,7 +196,15 @@ class SiteController < ApplicationController
 	end
 
 	def new_video
-		post = Post.new(name: params[:name], description: params[:description], link: params[:video_link], kind: Post.kinds[:video])
+		post = Post.new(
+			name: params[:name],
+			description: params[:description],
+			link: params[:video_link],
+			kind: Post.kinds[:video],
+			poster_image: params[:poster_image],
+			banner_image: params[:banner_image]
+		)
+		
 		if post.save
 			SeasonPost.create(post_id: post.id, season_id: params[:season])
 			render json: [msg: "Sucesso: Vídeo criado"]
@@ -250,7 +258,15 @@ class SiteController < ApplicationController
 	end
 
 	def new_post
-		post = Post.new(name: params[:name], description: params[:description], link: params[:link], kind: Post.kinds[:post])
+		post = Post.new(
+			 name: params[:name],
+			 description: params[:description],
+			 link: params[:link],
+			 kind: Post.kinds[:post],
+			 poster_image: params[:poster_image],
+			 banner_image: params[:banner_image]
+			)
+
 		if post.save
 			if member_signed_in?
 				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: false, owner_id: current_member.id)

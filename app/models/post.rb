@@ -3,7 +3,11 @@ class Post < ApplicationRecord
   attribute :votes, :integer, default: 0
 
   has_one :post_category
-
+  has_one_attached :poster_image #300x444
+  has_one_attached :banner_image #1600x803
+  validates :poster_image, content_type: ["image/jpg","image/png","image/jpeg"]
+  validates :banner_image, content_type: ["image/jpg","image/png","image/jpeg"]
+  
   before_create :insert_owner_identification
 
   enum kind: {
