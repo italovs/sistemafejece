@@ -230,8 +230,13 @@ class SiteController < ApplicationController
 				sql +=		"#{current_member.id} "
 				sql +=		'AND "categories"."name" = '
 			end
-			sql += "#{category}'"
+			sql += "'#{category}'"
 			series[category] = ActiveRecord::Base.connection.execute(sql)
+		end
+		if series != Hash.new
+			render json: series
+		else
+			render json: [msg: "Erro: Falha ao recuperar postagens"]
 		end
 	end
 
