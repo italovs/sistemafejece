@@ -1,10 +1,10 @@
 class TvSerie < ApplicationRecord
   has_many :seasons
 
-  after_create :first_season
+  after_create :create_first_season
 
   #métodos
-  def first_season
+  def create_first_season
     Season.create(name: "Primeira Temporada", tv_serie_id: self.id)
   end
   #private

@@ -4,6 +4,8 @@ class Post < ApplicationRecord
 
   has_one :post_category
 
+  before_create :insert_owner_identification
+
   enum kind: {
 		post: 0,
 		video: 1
@@ -11,5 +13,13 @@ class Post < ApplicationRecord
 
   def rating
     (self.sum_votes/self.votes).to_f.round(2)
+  end
+
+  def insert_owner_identification
+    if admin_signed_in?
+      self.owner = nil
+    else
+      self.owner = current_member.id
+    end
   end
 end

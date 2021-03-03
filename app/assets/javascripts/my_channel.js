@@ -203,12 +203,12 @@ function new_card_area(name, data){
 		html += 	'<img class="card-img-top" src="..." alt="Card image cap">'
 		html += 	'<div class="card-body">'
 		html +=			'<h5 class="card-title">'+ element["name"] +'</h5>'
-		html +=			video_embed( element["link"] )
+		//html +=			video_embed( element["link"] )
 		html += 		'<p class="card-text">'+ element["description"] +'</p>'
 		if(element["votes"] == 0){
-			html += 	'<p class="card-text"><small class="text-muted">Nota: 5</small></p>'
+			//html += 	'<p class="card-text"><small class="text-muted">Nota: 5</small></p>'
 		} else {
-			html += 	'<p class="card-text"><small class="text-muted" id="nota">'+ (element["sum_votes"]/( element["votes"]).toFixed(2)) +'</small></p>'
+			//html += 	'<p class="card-text"><small class="text-muted" id="nota">'+ (element["sum_votes"]/( element["votes"]).toFixed(2)) +'</small></p>'
 		}
 		html += 	'</div>'
 		html += '</div>'
