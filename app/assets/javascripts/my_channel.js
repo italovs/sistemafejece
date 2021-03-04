@@ -1,3 +1,5 @@
+//= require jquery
+
 $(function(){
 	page_load();
 })
@@ -98,25 +100,67 @@ function setting_events(){
 		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val()) && valid_value($("#tv_series").val()) && valid_value($("#season").val()) ){
 			link = sanitarize_youtube_link($("#youtube_link").val())
 			if(link != null){
-				$.post( '/new_video' ,
-				{
-					video_link: link,
-					name: $("#youtube_name").val(),
-					description: $("#youtube_description").val(),
-					tv_series: $("#tv_series").val(),
-					season: $("#season").val()
-				},
-				function(data, status){
-					if(status == "success" ){
-						hide_fields()
-						//refill_select_box( "#season", data[0]["seasons"] )
-					} else {
-						//ERRO DE REQUISIÇÃO
+				var formData = new FormData();
+				formData.append('name',$("#youtube_name").val())
+				formData.append('video_link', link)
+				formData.append('description',$("#youtube_description").val())
+				formData.append('tv_series',$("#tv_series").val())
+				formData.append('season', $("season").val())
+				formData.append('poster_image',$("#poster_image").prop('files')[0])
+				formData.append('banner_image',$("#banner_image").prop('files')[0])
+				$.ajax({
+					url: '/new_video',
+					data: formData,
+					type: 'POST',
+					contentType: false,
+					processData: false
+				}).done(function(){
+					hide_fields()
+					//refill_select_box( "#season", data[0]["seasons"])
+				}).fail(function(){
+					//ERRO DE REQUISIÇÃO
+				});
+
+				// $.post( '/new_video' ,
+				// {
+				// 	video_link: link,
+				// 	name: $("#youtube_name").val(),
+				// 	description: $("#youtube_description").val(),
+				// 	tv_series: $("#tv_series").val(),
+				// 	season: $("#season").val()
+				// },
+				// function(data, status){
+				// 	if(status == "success" ){
+				// 		hide_fields()
+				// 		//refill_select_box( "#season", data[0]["seasons"] )
+				// 	} else {
+				// 		//ERRO DE REQUISIÇÃO
 						
-					}
-				})
+				// 	}
+				// })
 			}
 		}
+	})
+
+	$("#series").on("click", function(){
+		hide_fields()
+		$.post( '/my_series' ,
+		{
+		},
+		function(data, status){
+			if(status == "success" ){
+				console.log(data)
+				if(!data.hasOwnProperty("msg")){
+					$("#posts_area").show()
+					insert_card_areas(data)
+				} else {
+					//erro
+				}
+			} else {
+				//ERRO DE REQUISIÇÃO
+				
+			}
+		})
 	})
 }
 
@@ -175,4 +219,41 @@ function sanitarize_youtube_link( link ){
 	}
 	alert("Link inválido!")
 	return null
+}
+
+function new_card_area(name, data){
+	html = 	"<h3>"+name+"</h3>"
+	html += '<div id="'+name+'" class="card-group">'
+	//inserindo cards
+	$(data).each(function(index, element){
+		html += '<div class="card">'
+		html += 	'<img class="card-img-top" src="..." alt="Card image cap">'
+		html += 	'<div class="card-body">'
+		html +=			'<h5 class="card-title">'+ element["name"] +'</h5>'
+		//html +=			video_embed( element["link"] )
+		html += 		'<p class="card-text">'+ element["description"] +'</p>'
+		if(element["votes"] == 0){
+			//html += 	'<p class="card-text"><small class="text-muted">Nota: 5</small></p>'
+		} else {
+			//html += 	'<p class="card-text"><small class="text-muted" id="nota">'+ (element["sum_votes"]/( element["votes"]).toFixed(2)) +'</small></p>'
+		}
+		html += 	'</div>'
+		html += '</div>'
+	})
+	
+	//fim dos cards
+	html += "</div>"
+	return html
+}
+
+function insert_card_areas(data){
+	html = ""
+	for (var key in data) {
+		if (data.hasOwnProperty(key)) {
+			if(data[key].length > 0){
+				html += new_card_area(key, data[key])
+			}
+    }
+	}
+	$("#my_series").html(html)
 }

@@ -1,0 +1,13 @@
+<div class="card">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">  <%= @post.name %></h5>
+    <p class="card-text"><%= @post.description %></p>
+    <p class="card-text"><small class="text-muted"> Arquivo: <a href="<%= @post.link %>" target="_blank">Link</a></small></p>
+    <% if @post.votes == 0 %>
+      <p class="card-text"><small class="text-muted">Nota: 5</small></p>
+    <% else %>
+      <p class="card-text"><small class="text-muted" id="nota"> <%= "Nota: #{ @post.rating }" %></small></p>
+    <% end %>
+  </div>
+</div>

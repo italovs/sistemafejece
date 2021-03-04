@@ -38,15 +38,6 @@
 							<li class="nav-item dropdown">
 								<%= link_to 'Perfil', profile_path , class: "nav-link" %>
 							</li>
-							
-							<% if valid_member_or_admin? %>
-								<li class="nav-item dropdown">
-									<%= link_to 'Meu Canal', my_channel_routes, class: "nav-link" %>
-								</li>
-								<li class="nav-item dropdown">
-									<%= link_to 'Minha Biblioteca', my_library_routes, class: "nav-link" %>
-								</li>
-							<% end %>
 
 							<% if true == false%>
 								<li class="nav-item dropdown">
@@ -268,6 +259,23 @@
 										Perfil
 									<%end%>
 								</li>
+								<% if valid_member_or_admin? %>
+									<li class="dropdown-item">
+										<%= link_to my_channel_routes, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete'  do %>
+											<i class="fas fa-tv"></i>
+											Meu canal
+										<% end %>
+									</li>
+
+									<li class="dropdown-item">
+										<%= link_to my_library_routes, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete'  do %>
+											<i class="fas fa-book"></i>
+											Minha biblioteca
+										<% end %>
+									</li>
+								<%end%>	
+
+								<li class="divider"></li>
 
 								<li class="dropdown-item">
 									<%= link_to logout_path, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete'  do %>

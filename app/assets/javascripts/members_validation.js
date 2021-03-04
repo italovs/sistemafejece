@@ -1,5 +1,12 @@
+//= require jquery
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
 $(function(){
-	$("div.btn.btn-primary").on("click", function(){
+	$("i.btn.btn-success").on("click", function(){
 		fire_ajax(this)
 	})
 })

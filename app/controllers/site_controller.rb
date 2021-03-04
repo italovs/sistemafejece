@@ -176,7 +176,7 @@ class SiteController < ApplicationController
 	def new_serie
 		tv_serie = TvSerie.new(name: params[:serie_name])
 		if admin_signed_in?
-			tv_serie = tv_serie.is_admin = true
+			tv_serie.is_admin = true
 		else
 			tv_serie.owner_id = current_member.id
 			tv_serie.is_admin = false
@@ -199,13 +199,60 @@ class SiteController < ApplicationController
 	end
 
 	def new_video
-		post = Post.new(name: params[:name], description: params[:description], link: params[:video_link], kind: Post.kinds[:video])
+		post = Post.new(
+			name: params[:name],
+			description: params[:description],
+			link: params[:video_link],
+			kind: Post.kinds[:video],
+			poster_image: params[:poster_image],
+			banner_image: params[:banner_image]
+		)
+		
 		if post.save
 			SeasonPost.create(post_id: post.id, season_id: params[:season])
 			render json: [msg: "Sucesso: Vídeo criado"]
 		else
 			render json: [msg: "Erro: Falha ao criar vídeo"]
 		end
+	end
+
+	def my_series
+		series = Hash.new
+		categories = Category.all.pluck(:name)
+		categories.each do |category|
+			if admin_signed_in?
+				sql = 	'SELECT "series".*, "categories"."name" as "category_name" 
+									FROM "tv_series" as "series"
+									JOIN "tv_serie_categories" as "serie_category"
+									ON "series"."id" = "serie_category"."tv_serie_id"
+									JOIN "categories"
+									ON "categories"."id" = "serie_category"."category_id"
+									WHERE "series"."is_admin" is true
+									AND "categories"."name" = '
+			else
+				sql = 	'SELECT "series".*, "categories"."name" as "category_name" 
+									FROM "tv_series" as "series"
+									JOIN "tv_serie_categories" as "serie_category"
+									ON "series"."id" = "serie_category"."tv_serie_id"
+									JOIN "categories"
+									ON "categories"."id" = "serie_category"."category_id"
+									WHERE "series"."is_admin" is false
+									AND "series"."owner_id" = '
+				sql +=		"#{current_member.id} "
+				sql +=		'AND "categories"."name" = '
+			end
+			sql += "'#{category}'"
+			series[category] = ActiveRecord::Base.connection.execute(sql)
+		end
+		if series != Hash.new
+			render json: series
+		else
+			render json: [msg: "Erro: Falha ao recuperar postagens"]
+		end
+	end
+
+	def video
+		@post = SeasonPost.find(params[:id]).post
 	end
 
 	#POSTS
@@ -216,7 +263,15 @@ class SiteController < ApplicationController
 	end
 
 	def new_post
-		post = Post.new(name: params[:name], description: params[:description], link: params[:link], kind: Post.kinds[:post])
+		post = Post.new(
+			 name: params[:name],
+			 description: params[:description],
+			 link: params[:link],
+			 kind: Post.kinds[:post],
+			 poster_image: params[:poster_image],
+			 banner_image: params[:banner_image]
+			)
+
 		if post.save
 			if member_signed_in?
 				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: false, owner_id: current_member.id)
@@ -234,16 +289,26 @@ class SiteController < ApplicationController
 		posts = Hash.new
 		categories.each do |category|
 			if admin_signed_in?
-				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id is null AND is_admin is true AND categories.name = :category", category: category)
+				posts[category] = Post.includes(post_categories: [:categories]) #.where("post_categories.owner_id is null AND is_admin is true AND categories.name = :category", category: category)
+				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id is null AND post_categories.is_admin is true AND categories.name = \''
 			else
-				posts[category] = Post.joins(post_category: [:category]).where("post_categories.owner_id = :member_id AND is_admin is false AND categories.name = :category", member_id: current_member.id, category: category)
+				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id = '
+				sql += current_member.id
+				sql += ' AND post_categories.is_admin is false AND categories.name = \''
 			end
+			sql += category 
+			sql += "')"
+			posts[category] = ActiveRecord::Base.connection.execute(sql)
 		end
 		if posts != Hash.new
 			render json: posts
 		else
 			render json: [msg: "Erro: Falha ao recuperar postagens"]
 		end
+	end
+
+	def post
+		@post = PostCategory.find(params[:id]).post
 	end
 
 	private
