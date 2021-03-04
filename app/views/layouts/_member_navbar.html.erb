@@ -239,12 +239,16 @@
 							</li>
 
 							<!-- Menu Item -->
-							<li class="nav-item notification-wrapper">
-								<a class="nav-link notification" href="#">
-									<i class="fas fa-globe"></i>
-									<span class="notification-count">2</span>
-								</a>
-							</li>
+							<% if admin_signed_in? %>
+								<li class="nav-item notification-wrapper">
+									<%= link_to members_validation_path, class:'tooltips nav-link notification', title: 'Novas solicitações de Diretoria', data:{placement: 'bottom'} do %>
+										<i class="fas fa-bell"></i>
+										<% if @flag > 0 %>
+											<span class="notification-count"><%= @flag %></span>
+										<%end%>	
+									<%end%>
+								</li>
+							<%end%>	
 	
 							<!-- Menu Item -->
 

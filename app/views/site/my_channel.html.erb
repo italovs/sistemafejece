@@ -3,6 +3,7 @@
 
 <br><br><br><br><br><br><br>
 
+<!--
 <div id="new_video" class="btn btn-primary">Novo Vídeo</div>
 <div id="new_serie" class="btn btn-primary">Nova Série</div>
 <div id="series" class="btn btn-primary">Minhas Séries</div>
@@ -25,7 +26,7 @@
 <div id="my_series">
 
 </div>
-
+-->
 
 
 <div style="margin: 0 5%;">
@@ -41,34 +42,54 @@
               <div class="col">
                 <form>
 
-                  <div class="form-row">
+                  <div class="form-row video-field">
                     <div class="form-group col-md-12">
-                      <%= text_field_tag :youtube_name, nil, placeholder: "Nome" %>
+                      <%= text_field_tag :youtube_name, nil, placeholder: "Nome", class: "input_field form-control" %>
                     </div>  
                   </div>
 
-                  <div class="form-row">
+                  <div class="form-row video-field">
                     <div class="form-group col-md-12">
-                      <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
+                      <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube", class: "input_field form-control" %>
                     </div>  
                   </div>
 
-                  <div class="form-row">
+                  <div class="form-row video-field">
                     <div class="form-group col-md-6">
-                      <%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione", :class => 'select_field custom-select form-control', :style => "height:95%;"} %>
+                      <%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione", :class => 'select_field custom-select form-control', :style => "height:100%;"} %>
                     </div>
 
                     <div class="form-group col-md-6">
-                      <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control', style: "height:95%;"}  %>
+                      <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control', style: "height:100%;"}  %>
                     </div>  
                   </div> 
 
-                  <div class="form-row field profile_data">
+                  <div class="form-row video-field">
                     <div class="form-group col-md-12">
-                      <%= text_field_tag :youtube_description, nil, placeholder: "Descrição" %>
+                      <%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+                    </div>  
+                  </div>
+
+                  <div class="form-row serie-field">
+                    <div class="form-group col-md-12">
+                      <%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
+                    </div>  
+                  </div>
+
+                  <div class="form-row serie-field">
+                    <div class="form-group col-md-12">
+                      <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione",  :class => 'select_field custom-select form-control', :style => "height:100%;"} %>
                     </div>  
                   </div>
                   
+                  <div id="create_new_video" class="btn btn-f-green text-white">
+                    Criar
+                  </div>
+
+                  <div id="create_new_serie" class="btn btn-f-green text-white">
+                    Criar
+                  </div>
+
                   <div id="new_video" class="btn btn-f-green text-white">
                     Novo Vídeo
                   </div>

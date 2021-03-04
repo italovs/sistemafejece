@@ -12,6 +12,8 @@ function page_reload(){
 }
 
 function hide_fields(){
+	$(".video-field").hide();
+	$(".serie-field").hide();
 	$("#youtube_link").hide();
 	$("#serie_name").hide();
 	$("#create_new_serie").hide();
@@ -35,6 +37,7 @@ function setting_events(){
 		if(!$("#youtube_link").is(":visible")){
 			hide_fields()
 		}
+		$(".video-field").toggle();
 		$("#youtube_link").toggle();
 		$("#create_new_video").toggle();
 		$("#tv_series").toggle();
@@ -47,6 +50,7 @@ function setting_events(){
 		if(!$("#serie_name").is(":visible")){
 			hide_fields()
 		}
+		$(".serie-field").toggle();
 		$("#serie_name").toggle();
 		$("#create_new_serie").toggle();
 		$("#tv_series_category").toggle();
