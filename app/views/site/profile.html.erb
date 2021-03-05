@@ -56,17 +56,33 @@
       #main-mobile-nav{
         z-index: 2
       }
-      
+
+      .header{
+        background: trasnparent !important;
+      }
     </style>
 
-    <body class="bg-dark">
+    <body>
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
 
+      <section class="page-header overlay-gradient">
+        <div class="container">
+            <div class="inner py-5">
+                <h2 class="title pb-1">Meu Perfil</h2>
+                <ol class="breadcrumb">
+                    <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
+                    <li>Meu Perfil</li>
+                </ol>
+            </div>
+        </div>
+      </section>
+
+
       <br /><br /><br /><br /><br />
 
-    <!--    
+    <%if true==false%>    
       Seus Dados
       <br>
       <br>
@@ -90,7 +106,7 @@
         </strong>
         <span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
       </div>
-      -->
+    <%end%>  
 
 
               <div style="margin: 0 5%;">

@@ -24,6 +24,183 @@
   </div>
 <%end%>
 
+<style>
+  .header{
+    background: trasnparent !important;
+  }
+</style>
+
+
+
+<section class="page-header overlay-gradient">
+  <div class="container">
+      <div class="inner py-5">
+          <h2 class="title pb-1">Meus Vídeos</h2>
+          <ol class="breadcrumb">
+              <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
+              <li>Meus Vídeos</li>
+          </ol>
+      </div>
+  </div>
+</section>
+
+<br/><br/><br/><br/>
+
+
+
+<div class="col-md-12 col-sm-12">
+  <div class="movie-list-1 mb30">
+      <div class="listing-container">
+
+          <!-- Movie List Image -->
+          <div class="listing-image">
+
+              <!-- Play Button -->
+              <div class="play-btn">
+                  <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
+                      <i class="fas fa-play"></i>
+                  </a>
+              </div>
+
+              <!-- Buttons -->
+              <div class="buttons">
+                  <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
+                      <i class="fas fa-heart"></i>
+                  </a>
+
+                  <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
+                      <i class="fas fa-share-alt"></i>
+                  </a>
+              </div>
+
+              <!-- Rating -->
+              <div class="stars">
+                  <div class="rating">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                  </div>
+              </div>
+
+              <!-- Image -->
+              <img src="assets/images/posters/poster-1.jpg" alt="">
+          </div>
+
+          <!-- Movie List Content -->
+          <div class="listing-content">
+              <div class="inner">
+                  <h2 class="title">Star Wars</h2>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                  <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+
+<% @posts.each do |post| %>
+  <div class="col-md-12 col-sm-12">
+    <div class="movie-list-1 mb30">
+        <div class="listing-container">
+
+            <!-- Movie List Image -->
+            <div class="listing-image">
+
+                <!-- Play Button -->
+                <div class="play-btn">
+                    <a href="<%= post.link %>" class="play-video">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+
+                <!-- Buttons -->
+                <div class="buttons">
+                    <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
+                        <i class="fas fa-heart"></i>
+                    </a>
+
+                    <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
+                        <i class="fas fa-share-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Rating -->
+                <div class="stars">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <img src="" alt="">
+            </div>
+
+            <!-- Movie List Content -->
+            <div class="listing-content">
+                <div class="inner">
+                    <h2 class="title"><%= post.name %></h2>
+
+                    <p><%=post.description%></p>
+
+                    <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+<%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div style="margin: 0 5%;">
   <div class="row">
@@ -51,8 +228,7 @@
                   </div>
 
                   <div class="form-row video-field">
-                    
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                       <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control', style: "height:100%;"}  %>
                     </div>  
                   </div> 

@@ -169,6 +169,7 @@ class SiteController < ApplicationController
 	def my_channel #postagens de vídeo
 		get_user_tv_series
 		@categories = Category.all.select(:id, :name)
+		@posts = Post.all
 
 		direction_notification
 	end

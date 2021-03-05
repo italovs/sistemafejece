@@ -97,14 +97,13 @@ function setting_events(){
 	})
 
 	$("#create_new_video").on("click", function(){
-		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val()) && valid_value($("#tv_series").val()) && valid_value($("#season").val()) ){
+		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val()) && valid_value($("#season").val()) ){
 			link = sanitarize_youtube_link($("#youtube_link").val())
 			if(link != null){
 				var formData = new FormData();
 				formData.append('name',$("#youtube_name").val())
 				formData.append('video_link', link)
 				formData.append('description',$("#youtube_description").val())
-				formData.append('tv_series',$("#tv_series").val())
 				formData.append('season', $("season").val())
 				formData.append('poster_image',$("#poster_image").prop('files')[0])
 				formData.append('banner_image',$("#banner_image").prop('files')[0])
