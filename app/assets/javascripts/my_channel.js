@@ -101,7 +101,6 @@ function setting_events(){
 	$("#create_new_video").on("click", function(){
 		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val()) && valid_value($("#season").val()) ){
 			link = sanitarize_youtube_link($("#youtube_link").val())
-			alert($("#season").val())
 			if(link != null){
 				var formData = new FormData();
 				formData.append('name', $("#youtube_name").val())
@@ -132,14 +131,11 @@ function setting_events(){
 		},
 		function(data, status){
 			if(status == "success" ){
-				console.log(data)
 				if(!data.hasOwnProperty("msg")){
 					$("#my_series").show()
 					insert_card_areas(data)
-					alert('AAA')
 				} else {
 					//erro
-					alert('BB')
 				}
 			} else {
 				//ERRO DE REQUISIÇÃO
@@ -212,7 +208,6 @@ function new_card_area(name, data){
 	//inserindo cards
 	$(data).each(function(index, element){
 		html += '<div class="card">'
-		html += 	'<img class="card-img-top" src="..." alt="Card image cap">'
 		html += 	'<div class="card-body">'
 		html +=			'<h5 class="card-title">'+ element["name"] +'</h5>'
 		html += 	'</div>'
