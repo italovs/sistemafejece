@@ -162,46 +162,6 @@
 <%end%>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div style="margin: 0 5%;">
   <div class="row">
     <div class="col-lg-8">
@@ -218,6 +178,20 @@
                   <div class="form-row video-field">
                     <div class="form-group col-md-12">
                       <%= text_field_tag :youtube_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+                    </div>  
+                  </div>
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <p class="text-muted d-block mb-2">Poster da publicação</p>
+                      <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+                    </div>  
+                  </div>
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <p class="text-muted d-block mb-2">Banner da publicação</p>
+                      <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
                     </div>  
                   </div>
 
