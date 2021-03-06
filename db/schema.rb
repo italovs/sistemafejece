@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_03_223759) do
+ActiveRecord::Schema.define(version: 2021_03_06_174229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,10 +46,6 @@ ActiveRecord::Schema.define(version: 2021_03_03_223759) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "about"
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -81,10 +77,6 @@ ActiveRecord::Schema.define(version: 2021_03_03_223759) do
     t.integer "position"
     t.boolean "validated"
     t.string "name"
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["junior_enterprise_id"], name: "index_members_on_junior_enterprise_id"
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
@@ -95,6 +87,7 @@ ActiveRecord::Schema.define(version: 2021_03_03_223759) do
     t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "owner_id"
     t.index ["category_id"], name: "index_post_categories_on_category_id"
     t.index ["post_id"], name: "index_post_categories_on_post_id"
   end
@@ -108,7 +101,6 @@ ActiveRecord::Schema.define(version: 2021_03_03_223759) do
     t.integer "votes"
     t.integer "sum_votes"
     t.integer "kind"
-    t.integer "owner_id"
   end
 
   create_table "season_posts", force: :cascade do |t|
@@ -141,6 +133,7 @@ ActiveRecord::Schema.define(version: 2021_03_03_223759) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "owner_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

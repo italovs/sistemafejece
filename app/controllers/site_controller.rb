@@ -176,6 +176,11 @@ class SiteController < ApplicationController
 
 	def new_serie
 		tv_serie = TvSerie.new(name: params[:serie_name])
+		if admin_signed_in?
+			tv_serie.owner_id = nil
+		else
+			tv_serie.owner_id = current_member.id
+		end
 		if tv_serie.save
 			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
 			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
@@ -221,7 +226,7 @@ class SiteController < ApplicationController
 									ON "series"."id" = "serie_category"."tv_serie_id"
 									JOIN "categories"
 									ON "categories"."id" = "serie_category"."category_id"
-									WHERE "series"."is_admin" is true
+									WHERE "series"."owner_id" is NULL
 									AND "categories"."name" = '
 			else
 				sql = 	'SELECT "series".*, "categories"."name" as "category_name" 
@@ -230,8 +235,7 @@ class SiteController < ApplicationController
 									ON "series"."id" = "serie_category"."tv_serie_id"
 									JOIN "categories"
 									ON "categories"."id" = "serie_category"."category_id"
-									WHERE "series"."is_admin" is false
-									AND "series"."owner_id" = '
+									WHERE "series"."owner_id" = '
 				sql +=		"#{current_member.id} "
 				sql +=		'AND "categories"."name" = '
 			end
@@ -268,9 +272,9 @@ class SiteController < ApplicationController
 
 		if post.save
 			if member_signed_in?
-				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: false, owner_id: current_member.id)
+				PostCategory.create(post_id: post.id, category_id: params[:category], owner_id: current_member.id)
 			else
-				PostCategory.create(post_id: post.id, category_id: params[:category], is_admin: true)
+				PostCategory.create(post_id: post.id, category_id: params[:category], owner_id: nil)
 			end
 				render json: [msg: "Sucesso: post criado"]
 		else
@@ -283,11 +287,11 @@ class SiteController < ApplicationController
 		posts = Hash.new
 		categories.each do |category|
 			if admin_signed_in?
-				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id is null AND post_categories.is_admin is true AND categories.name = \''
+				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id is null AND categories.name = \''
 			else
 				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id = '
 				sql += current_member.id
-				sql += ' AND post_categories.is_admin is false AND categories.name = \''
+				sql += ' AND categories.name = \''
 			end
 			sql += category 
 			sql += "')"
@@ -319,9 +323,9 @@ class SiteController < ApplicationController
 
 	def get_user_tv_series
 		if admin_signed_in?
-			@tv_series = TvSerie.where(is_admin: true).select(:id, :name)
+			@tv_series = TvSerie.where(owner_id: nil).select(:id, :name)
 		else
-			@tv_series = TvSerie.where(owner_id: current_member.id, is_admin: false).select(:id, :name)
+			@tv_series = TvSerie.where(owner_id: current_member.id).select(:id, :name)
 		end
 	end
 
