@@ -5,6 +5,7 @@ class SiteController < ApplicationController
 	before_action :check_if_user_is_director_or_is_admin, only: [:my_channel]
 
 	def index
+		direction_notification
 	end
 
 	def profile
@@ -168,6 +169,9 @@ class SiteController < ApplicationController
 	def my_channel #postagens de vídeo
 		get_user_tv_series
 		@categories = Category.all.select(:id, :name)
+		@posts = Post.all
+
+		direction_notification
 	end
 
 	def new_serie
@@ -194,11 +198,10 @@ class SiteController < ApplicationController
 			name: params[:name],
 			description: params[:description],
 			link: params[:video_link],
-			kind: Post.kinds[:video],
-			poster_image: params[:poster_image],
-			banner_image: params[:banner_image]
+			kind: Post.kinds[:video]
 		)
-		
+		post.poster_image.attach(params[:poster_image])
+		post.banner_image.attach(params[:banner_image])
 		if post.save
 			SeasonPost.create(post_id: post.id, season_id: params[:season])
 			render json: [msg: "Sucesso: Vídeo criado"]
@@ -249,6 +252,8 @@ class SiteController < ApplicationController
 	#POSTS
 	def my_library
 		@categories = Category.all.select(:id, :name)
+
+		direction_notification
 	end
 
 	def new_post
@@ -318,5 +323,16 @@ class SiteController < ApplicationController
 		else
 			@tv_series = TvSerie.where(owner_id: current_member.id, is_admin: false).select(:id, :name)
 		end
+	end
+
+	def direction_notification
+		@flag = 0
+
+		Member.all.each do |member|
+			if member.validated == nil
+				@flag = @flag + 1
+			end
+		end
+
 	end
 end

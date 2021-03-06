@@ -38,15 +38,6 @@
 							<li class="nav-item dropdown">
 								<%= link_to 'Perfil', profile_path , class: "nav-link" %>
 							</li>
-							
-							<% if valid_member_or_admin? %>
-								<li class="nav-item dropdown">
-									<%= link_to 'Meu Canal', my_channel_routes, class: "nav-link" %>
-								</li>
-								<li class="nav-item dropdown">
-									<%= link_to 'Minha Biblioteca', my_library_routes, class: "nav-link" %>
-								</li>
-							<% end %>
 
 							<% if true == false%>
 								<li class="nav-item dropdown">
@@ -239,12 +230,16 @@
 							</li>
 
 							<!-- Menu Item -->
-							<li class="nav-item notification-wrapper">
-								<a class="nav-link notification" href="#">
-									<i class="fas fa-globe"></i>
-									<span class="notification-count">2</span>
-								</a>
-							</li>
+							<% if admin_signed_in? %>
+								<li class="nav-item notification-wrapper">
+									<%= link_to members_validation_path, class:'tooltips nav-link notification', title: 'Novas solicitações de Diretoria', data:{placement: 'bottom'} do %>
+										<i class="fas fa-bell"></i>
+										<% if @flag > 0 %>
+											<span class="notification-count"><%= @flag %></span>
+										<%end%>	
+									<%end%>
+								</li>
+							<%end%>	
 	
 							<!-- Menu Item -->
 
@@ -264,6 +259,23 @@
 										Perfil
 									<%end%>
 								</li>
+								<% if valid_member_or_admin? %>
+									<li class="dropdown-item">
+										<%= link_to my_channel_routes, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false" do %>
+											<i class="fas fa-tv"></i>
+											Meu canal
+										<% end %>
+									</li>
+
+									<li class="dropdown-item">
+										<%= link_to my_library_routes, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false" do %>
+											<i class="fas fa-book"></i>
+											Minha biblioteca
+										<% end %>
+									</li>
+								<%end%>	
+
+								<li class="divider"></li>
 
 								<li class="dropdown-item">
 									<%= link_to logout_path, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete'  do %>

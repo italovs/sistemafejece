@@ -25,13 +25,13 @@
 		<ul class="nav flex-column">
 			<li class="nav-item">
 				<%= link_to administrative_index_path, class: "nav-link #{verifica_controller_ativo(['administrative'], ['index'])}" do %>
-					<i class="material-icons">edit</i>
+					<i class="fas fa-chart-bar"></i>
 					<span>Painel</span>
 				<% end %>
 			</li>
 			<li class="nav-item">
 				<%= link_to admin_root_path, class: "nav-link #{verifica_controller_ativo(['administrative'], ['index'])}" do %>
-					<i class="material-icons">edit</i>
+					<i class="fas fa-tv"></i>
 					<span>Site</span>
 				<% end %>
 			</li>
@@ -43,13 +43,13 @@
 			</li>
 			<li class="nav-item">
 				<%= link_to members_validation_path, class: "nav-link #{verifica_controller_ativo(['administrative'], ['members_validation'] )}" do %>
-					<i class="material-icons">note_add</i>
+					<i class="material-icons">manage_accounts</i>
 					<span>Diretores de EJ</span>
 				<% end %>
 			</li>
 			<li class="nav-item">
 				<%= link_to new_admins_path, class: "nav-link #{verifica_controller_ativo(['administrative'], ['new_admins'] )}" do %>
-					<i class="material-icons">note_add</i>
+					<i class="fas fa-anchor"></i>
 					<span>Novos Piratas</span>
 				<% end %>
 			</li>
@@ -69,7 +69,7 @@
 			<li class="nav-item">
 				<%= link_to profile_admin_path, class: "nav-link #{verifica_controller_ativo(['administrative'], ['profile_admin'])}" do %>
 					<i class="material-icons">person</i>
-					<span>User Profile</span>
+					<span>Perfil</span>
 				<%end%>		
 			</li>
 			<li class="nav-item">

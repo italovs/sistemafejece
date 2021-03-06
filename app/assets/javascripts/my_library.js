@@ -35,21 +35,40 @@ function setting_events(){
 
 	$("#create_new_post").on("click", function(){
 		if( valid_value( $("#post_link").val() ) && valid_value( $("#post_category").val() ) && valid_value($("#post_name").val()) && valid_value($("#post_description").val()) ){
-			$.post( '/new_post' ,
-			{
-				name: $("#post_name").val(),
-				category: $("#post_category").val(),
-				link: $("#post_link").val(),
-				description: $("#post_description").val()
-			},
-			function(data, status){
-				if(status == "success"){
-					page_reload()
-				} else {
-					//ERRO DE REQUISIÇÃO
-					
-				}
+			var formData = new FormData();
+			formData.append('name',$("#post_name").val())
+			formData.append('category', $("#post_category").val())
+			formData.append('link',$("#post_link").val())
+			formData.append('description',$("#post_description").val())
+			formData.append('poster_image',$("#poster_image").prop('files')[0])
+			formData.append('banner_image',$("#banner_image").prop('files')[0])
+			$.ajax({
+				url:'/new_post',
+				data: formData,
+				type: 'POST',
+				contentType:false,
+				processData:false
+			}).done(function(){
+				page_reload()
+			}).fail(function(){
+				//ERRO DE REQUISIÇÃO
 			})
+			
+			// $.post( '/new_post' ,
+			// {
+			// 	name: $("#post_name").val(),
+			// 	category: $("#post_category").val(),
+			// 	link: $("#post_link").val(),
+			// 	description: $("#post_description").val()
+			// },
+			// function(data, status){
+			// 	if(status == "success"){
+			// 		page_reload()
+			// 	} else {
+			// 		//ERRO DE REQUISIÇÃO
+					
+			// 	}
+			// })
 		} else {
 			alert("Há campos em branco")
 		}
