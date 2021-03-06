@@ -9,10 +9,10 @@
 <%= text_field_tag :youtube_name, nil, placeholder: "Nome" %>
 <%= text_field_tag :youtube_description, nil, placeholder: "Descrição" %>
 <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
-<% if @tv_series %>
-  <%= select_tag :tv_series, options_for_select([ "Selecione"]) %>
-<% else %>
+<% if @tv_series.any? %>
   <%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione"} %>
+<% else %>
+  <%= select_tag :tv_series, options_for_select([ "Selecione"]) %>
 <% end %>
 <%= select_tag :season, options_for_select([ "Selecione"])  %>
 <div id="create_new_video" class="btn btn-primary">CRIAR</div> 
@@ -23,7 +23,6 @@
 <div id="create_new_serie" class="btn btn-primary">CRIAR</div>
 
 <div id="my_series">
-  
 </div>
 
 <%= javascript_include_tag 'my_channel.js' %>

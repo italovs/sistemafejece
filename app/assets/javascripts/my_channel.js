@@ -7,6 +7,9 @@ $(function(){
 function page_load(){
 	hide_fields()
 	setting_events()
+	if( $("#tv_series  option").length > 1 ){
+		$("#tv_series").trigger('change')
+	}
 }
 
 function page_reload(){
@@ -90,7 +93,6 @@ function setting_events(){
 					refill_select_box( "#season", data[0]["seasons"] )
 				} else {
 					//ERRO DE REQUISIÇÃO
-					
 				}
 			})
 		}
@@ -99,14 +101,15 @@ function setting_events(){
 	$("#create_new_video").on("click", function(){
 		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val()) && valid_value($("#season").val()) ){
 			link = sanitarize_youtube_link($("#youtube_link").val())
+			alert($("#season").val())
 			if(link != null){
 				var formData = new FormData();
-				formData.append('name',$("#youtube_name").val())
+				formData.append('name', $("#youtube_name").val())
 				formData.append('video_link', link)
-				formData.append('description',$("#youtube_description").val())
-				formData.append('season', $("season").val())
-				formData.append('poster_image',$("#poster_image").prop('files')[0])
-				formData.append('banner_image',$("#banner_image").prop('files')[0])
+				formData.append('description', $("#youtube_description").val())
+				formData.append('season', $("#season").val())
+				formData.append('poster_image', $("#poster_image").prop('files')[0])
+				formData.append('banner_image', $("#banner_image").prop('files')[0])
 				$.ajax({
 					url: '/new_video',
 					data: formData,
@@ -115,28 +118,9 @@ function setting_events(){
 					processData: false
 				}).done(function(){
 					hide_fields()
-					//refill_select_box( "#season", data[0]["seasons"])
 				}).fail(function(){
 					//ERRO DE REQUISIÇÃO
 				});
-
-				// $.post( '/new_video' ,
-				// {
-				// 	video_link: link,
-				// 	name: $("#youtube_name").val(),
-				// 	description: $("#youtube_description").val(),
-				// 	tv_series: $("#tv_series").val(),
-				// 	season: $("#season").val()
-				// },
-				// function(data, status){
-				// 	if(status == "success" ){
-				// 		hide_fields()
-				// 		//refill_select_box( "#season", data[0]["seasons"] )
-				// 	} else {
-				// 		//ERRO DE REQUISIÇÃO
-						
-				// 	}
-				// })
 			}
 		}
 	})
@@ -150,10 +134,12 @@ function setting_events(){
 			if(status == "success" ){
 				console.log(data)
 				if(!data.hasOwnProperty("msg")){
-					$("#posts_area").show()
+					$("#my_series").show()
 					insert_card_areas(data)
+					alert('AAA')
 				} else {
 					//erro
+					alert('BB')
 				}
 			} else {
 				//ERRO DE REQUISIÇÃO
@@ -229,13 +215,6 @@ function new_card_area(name, data){
 		html += 	'<img class="card-img-top" src="..." alt="Card image cap">'
 		html += 	'<div class="card-body">'
 		html +=			'<h5 class="card-title">'+ element["name"] +'</h5>'
-		//html +=			video_embed( element["link"] )
-		html += 		'<p class="card-text">'+ element["description"] +'</p>'
-		if(element["votes"] == 0){
-			//html += 	'<p class="card-text"><small class="text-muted">Nota: 5</small></p>'
-		} else {
-			//html += 	'<p class="card-text"><small class="text-muted" id="nota">'+ (element["sum_votes"]/( element["votes"]).toFixed(2)) +'</small></p>'
-		}
 		html += 	'</div>'
 		html += '</div>'
 	})
