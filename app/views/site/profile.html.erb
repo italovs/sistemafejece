@@ -60,6 +60,28 @@
       .header{
         background: trasnparent !important;
       }
+
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after {
+        opacity:1.0 !important;
+      }  
+
+
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after,
+      .blog-post .blog-thumb a:before,
+      ul.blog-posts-widget .blog-content .blog-thumb a:before,
+      .celebrity-list-1 .celebrity-image a:before,
+      .celebrity-grid-1 .celebrity-image a:before,
+      .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
+      .movie-box-1 .poster:before,
+      .movie-detail-intro2 .movie-poster:before {
+          background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
+          background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+      }
+
     </style>
 
     <body>
@@ -69,7 +91,7 @@
 
       <section class="page-header overlay-gradient">
         <div class="container">
-            <div class="inner py-5">
+            <div class="inner py-4">
                 <h2 class="title pb-1">Meu Perfil</h2>
                 <ol class="breadcrumb">
                     <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
@@ -224,12 +246,12 @@
                                 </div> 
                                 <div class="form-group profile_picture">
                                   <div class="form-group col-md-12">
-                                    <%= file_field_tag :profile_picture, placeholder:"escolha uma nova imagem de perfil", class:"input_field form-control", id:"profile_picture", accept:"image/jpg, image/png, image/jpeg"%>
+                                    <%= file_field_tag :profile_picture, placeholder:"escolha uma nova imagem de perfil", class:"input_field form-control", id:"profile_picture"%>
                                   </div>
                                 </div>
                                 <div class="form-row field password">
                                   <div class="form-group col-md-12">
-                                    <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control" %>
+                                    <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control", accept:"image/jpg, image/png, image/jpeg" %>
                                   </div> 
                                 </div>
 

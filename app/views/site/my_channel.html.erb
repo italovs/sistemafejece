@@ -1,28 +1,243 @@
-<br><br><br><br><br><br><br>
-<div id="new_video" class="btn btn-primary">Novo Vídeo</div>
-<div id="new_serie" class="btn btn-primary">Nova Série</div>
-<div id="series" class="btn btn-primary">Minhas Séries</div>
-<div id="videos" class="btn btn-primary">Meus Vídeos</div>
+
+<%if true == false%>
+  <div id="new_video" class="btn btn-primary">Novo Vídeo</div>
+  <div id="new_serie" class="btn btn-primary">Nova Série</div>
+  <div id="series" class="btn btn-primary">Minhas Séries</div>
+  <div id="videos" class="btn btn-primary">Meus Vídeos</div>
 
 
-<%# novo vídeo %>
-<%= text_field_tag :youtube_name, nil, placeholder: "Nome" %>
-<%= text_field_tag :youtube_description, nil, placeholder: "Descrição" %>
-<%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
-<% if @tv_series.any? %>
+  <%# novo vídeo %>
+  <%= text_field_tag :youtube_name, nil, placeholder: "Nome" %>
+  <%= text_field_tag :youtube_description, nil, placeholder: "Descrição" %>
+  <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
   <%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione"} %>
-<% else %>
-  <%= select_tag :tv_series, options_for_select([ "Selecione"]) %>
-<% end %>
-<%= select_tag :season, options_for_select([ "Selecione"])  %>
-<div id="create_new_video" class="btn btn-primary">CRIAR</div> 
+  <%= select_tag :season, options_for_select([ "Selecione", "1"])  %>
+  <div id="create_new_video" class="btn btn-primary">CRIAR</div> 
 
-<%# nova série %>
-<%= text_field_tag :serie_name, nil, placeholder: "Nome da Série" %>
-<%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
-<div id="create_new_serie" class="btn btn-primary">CRIAR</div>
+  <%# nova série %>
+  <%= text_field_tag :serie_name, nil, placeholder: "Nome da Série" %>
+  <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
+  <div id="create_new_serie" class="btn btn-primary">CRIAR</div>
 
-<div id="my_series" class="card-group">
+  <div id="my_series">
+    
+  </div>
+<%end%>
+
+<style>
+  .header{
+    background: trasnparent !important;
+  }
+</style>
+
+
+
+<section class="page-header overlay-gradient">
+  <div class="container">
+      <div class="inner py-5">
+          <h2 class="title pb-1">Meus Vídeos</h2>
+          <ol class="breadcrumb">
+              <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
+              <li>Meus Vídeos</li>
+          </ol>
+      </div>
+  </div>
+</section>
+
+<br/><br/><br/>
+
+
+<div class="d-flex justify-content-end">
+  <div id="video" class="btn btn-f-green text-white mr-2">
+    Meus Vídeos
+  </div>
+
+  <div id="series" class="btn btn-f-green text-white mr-4">
+    Minhas Séries
+  </div>
+</div>  
+
+<br/><br/><br/>
+
+<div class="videos-row">
+  <% @posts.each do |post| %>
+    <div class="col-md-12 col-sm-12">
+      <div class="movie-list-1 mb30">
+          <div class="listing-container">
+
+              <!-- Movie List Image -->
+              <div class="listing-image">
+                <%if post.poster_image.attached?%>
+                  <%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+                <%end%>
+
+                  <!-- Play Button -->
+                  <div class="play-btn">
+                      <a href="<%= post.link %>" class="play-video">
+                          <i class="fas fa-play"></i>
+                      </a>
+                  </div>
+
+                  <!-- Buttons -->
+                  <div class="buttons">
+                      <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
+                          <i class="fas fa-heart"></i>
+                      </a>
+
+                      <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
+                          <i class="fas fa-share-alt"></i>
+                      </a>
+                  </div>
+
+                  <!-- Rating -->
+                  <div class="stars">
+                      <div class="rating">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                      </div>
+                  </div>
+
+                  <!-- Image -->
+                  <img src="" alt="">
+              </div>
+
+              <!-- Movie List Content -->
+              <div class="listing-content">
+                  <div class="inner">
+                      <h2 class="title"><%= post.name %></h2>
+
+                      <p><%=post.description%></p>
+
+                      <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+    </div>
+  <%end%>
+</div>  
+
+
+<div class="card card-small series-row mb-4 mx-5 w-55">
+	<div class="card-header border-bottom bg-f-green">
+    <div class="row">
+      <h6 class="text-white d-flex d-inline col-2 mb-0">#</h6>
+      <h6 class="text-white d-flex d-inline col-5 mb-0">Nome</h6>
+      <h6 class="text-white d-flex d-inline col-5 mb-0">Tipo</h6>
+    </div>  
+	</div>
+	<div class="card-body p-0 text-center">
+      <table class="table table-hover mb-0">
+        <tbody>
+          <%cont = 0%>
+          <% @categories.each do |category| %>
+            <% cont += 1%>
+            <tr>
+              <td><%= cont %></th>
+              <td><%=category.name%></td>
+              <td><%=category.name%></td>
+            </tr>
+          <%end%>  
+        </tbody>
+      </table>
+  </div>
+</div>   
+
+
+
+
+
+<div style="margin: 0 5%;">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card card-small mb-4">
+        <div class="card-header border-bottom bg-f-green">
+          <h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item p-3">
+            <div class="row">
+              <div class="col">
+                <form>
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <%= text_field_tag :youtube_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+                    </div>  
+                  </div>
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <p class="text-muted d-block mb-2">Poster da publicação</p>
+                      <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+                    </div>  
+                  </div>
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <p class="text-muted d-block mb-2">Banner da publicação</p>
+                      <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+                    </div>  
+                  </div>
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube", class: "input_field form-control" %>
+                    </div>  
+                  </div>
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control', style: "height:100%;"}  %>
+                    </div>  
+                  </div> 
+
+                  <div class="form-row video-field">
+                    <div class="form-group col-md-12">
+                      <%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+                    </div>  
+                  </div>
+
+                  <div class="form-row serie-field">
+                    <div class="form-group col-md-12">
+                      <%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
+                    </div>  
+                  </div>
+
+                  <div class="form-row serie-field">
+                    <div class="form-group col-md-12">
+                      <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione",  :class => 'select_field custom-select form-control', :style => "height:100%;"} %>
+                    </div>  
+                  </div>
+                  
+                  <div id="create_new_video" class="btn btn-f-green text-white">
+                    Criar
+                  </div>
+
+                  <div id="create_new_serie" class="btn btn-f-green text-white">
+                    Criar
+                  </div>
+
+                  <div id="new_video" class="btn btn-f-green text-white">
+                    Novo Vídeo
+                  </div>
+
+                  <div id="new_serie" class="btn btn-f-green text-white">
+                    Nova Série
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <%= javascript_include_tag 'my_channel.js' %>
