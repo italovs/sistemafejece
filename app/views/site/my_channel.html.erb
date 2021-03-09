@@ -22,7 +22,7 @@
 <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
 <div id="create_new_serie" class="btn btn-primary">CRIAR</div>
 
-<div id="my_series">
+<div id="my_series" class="card-group">
 </div>
 
 <%= javascript_include_tag 'my_channel.js' %>
