@@ -10,10 +10,30 @@ function page_load(){
 	if( $("#tv_series  option").length > 1 ){
 		$("#tv_series").trigger('change')
 	}
+	starting_from_videos();
+	initial_create_table();
 }
 
 function page_reload(){
-	hide_fields()
+	hide_fields();
+	starting_from_videos();
+	initial_create_table();
+}
+
+
+function starting_from_videos(){
+	$(".videos-row").show();
+	$(".series-row").hide();
+	$("#video").addClass("bg-secondary");
+	$("#series").removeClass("bg-secondary");
+	$("#video").removeClass("btn-f-green");
+	$("#series").addClass("btn-f-green");
+}
+
+function initial_create_table(){
+	$(".form-row").hide();
+	$("#create_new_video").hide();
+	$("#create_new_serie").hide();
 }
 
 function hide_fields(){
@@ -142,6 +162,26 @@ function setting_events(){
 				
 			}
 		})
+	})
+
+	$("#video").on("click", function(){
+		$(".videos-row").show();
+		$(".series-row").hide();
+		$("#video").addClass("bg-secondary");
+		$("#series").removeClass("bg-secondary");
+		$("#video").removeClass("btn-f-green");
+		$("#series").addClass("btn-f-green");
+
+	})
+
+	$("#series").on("click", function(){
+		$(".videos-row").hide();
+		$(".series-row").show();
+		$("#series").addClass("bg-secondary");
+		$("#video").removeClass("bg-secondary");
+		$("#series").removeClass("btn-f-green");
+		$("#video").addClass("btn-f-green");
+
 	})
 }
 
