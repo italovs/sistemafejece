@@ -10,10 +10,30 @@ function page_load(){
 	if( $("#tv_series  option").length > 1 ){
 		$("#tv_series").trigger('change')
 	}
+	starting_from_videos();
+	initial_create_table();
 }
 
 function page_reload(){
-	hide_fields()
+	hide_fields();
+	starting_from_videos();
+	initial_create_table();
+}
+
+
+function starting_from_videos(){
+	$(".videos-row").show();
+	$(".series-row").hide();
+	$("#video").addClass("bg-secondary");
+	$("#series").removeClass("bg-secondary");
+	$("#video").removeClass("btn-f-green");
+	$("#series").addClass("btn-f-green");
+}
+
+function initial_create_table(){
+	$(".form-row").hide();
+	$("#create_new_video").hide();
+	$("#create_new_serie").hide();
 }
 
 function hide_fields(){
@@ -143,6 +163,47 @@ function setting_events(){
 			}
 		})
 	})
+
+	$("#videos").on("click", function(){
+		hide_fields()
+		$.post( '/my_categories' ,
+		{
+		},
+		function(data, status){
+			if(status == "success" ){
+				if(!data.hasOwnProperty("msg")){
+					//$("#my_series").show()
+					$("#my_series").show()
+					insert_card_areas(data[0]["categories"])
+				} else {
+					//erro
+				}
+			} else {
+				//ERRO DE REQUISIÇÃO
+				
+			}
+		})
+	})
+
+	$("#video").on("click", function(){
+		$(".videos-row").show();
+		$(".series-row").hide();
+		$("#video").addClass("bg-secondary");
+		$("#series").removeClass("bg-secondary");
+		$("#video").removeClass("btn-f-green");
+		$("#series").addClass("btn-f-green");
+
+	})
+
+	$("#series").on("click", function(){
+		$(".videos-row").hide();
+		$(".series-row").show();
+		$("#series").addClass("bg-secondary");
+		$("#video").removeClass("bg-secondary");
+		$("#series").removeClass("btn-f-green");
+		$("#video").addClass("btn-f-green");
+
+	})
 }
 
 
@@ -164,8 +225,8 @@ function valid_value(value){
 	}
 }
 
-function video_embed( link ){
-	return '<iframe width="1047" height="558" src="https://www.youtube.com/embed/'+ link +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+function video_embed( link, width = 1047, height = 558 ){
+	return '<iframe width="' + width + '" height="' + height + '" src="https://www.youtube.com/embed/'+ link +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
 }
 
 function sanitarize_youtube_link( link ){
@@ -219,14 +280,41 @@ function new_card_area(name, data){
 	return html
 }
 
+function new_card_area2(name, data){
+	html =	'<div class="card" id="category_'+ data[0]["id"] +'">'
+  html +=		'<img class="card-img-top" src="..." alt="Card image cap">'
+  html +=  	'<div class="card-body">'
+  html +=   	'<h5 class="card-title">'+ name + '</h5>'
+  html +=    	'<p class="card-text">Séries: '+ data[0]["quantity"]+'</p>'
+	if(data[1] > 0){
+		html +=		'<p class="card-text">Temporadas: '+ data[1] +'</p>'
+		if(data[2] > 0){
+			html +=	'<p class="card-text">Vídeos: '+ data[2] +'</p>'
+		}
+	}
+  html +=  	'</div>'
+  html +=	'</div>'
+	//fim dos cards
+	return html
+}
+
+function series_from_category(id){
+	
+}
+
+function insert_events( full_id ){
+	
+}
+
 function insert_card_areas(data){
 	html = ""
 	for (var key in data) {
 		if (data.hasOwnProperty(key)) {
 			if(data[key].length > 0){
-				html += new_card_area(key, data[key])
+				html += new_card_area2(key, data[key])
 			}
     }
 	}
+	console.log(html)
 	$("#my_series").html(html)
 }

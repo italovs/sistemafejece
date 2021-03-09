@@ -253,6 +253,90 @@ class SiteController < ApplicationController
 		@post = SeasonPost.find(params[:id]).post
 	end
 
+	def my_videos
+		videos = Hash.new
+
+		Category.all.each do |category|
+			#reiniciando valores
+			my_seasons = Hash.new
+			my_series = Hash.new
+
+			#processo
+			if admin_signed_in?
+				series = Category.find(category.id).tv_series.where('"tv_series"."owner_id" IS NULL')
+			else
+				series = Category.find(category.id).tv_series.where('"tv_series"."owner_id" = :member_id', member_id: current_member.id)
+			end
+			if series.count > 0
+				series.each do |serie|
+					seasons = serie.seasons
+					#sempre há pelo menos uma season
+					seasons.each do |season|
+						season_posts = season.season_posts
+						if season_posts.count > 0
+							posts = season.posts.select(:name, :link)
+							posts.each do |post|
+								my_seasons[season.name] = posts
+							end
+						else
+							my_seasons[season.name] = []
+						end
+					end
+					my_series[serie.name] = my_seasons
+				end
+				videos[category.name] = my_series
+			end
+		end
+		if videos.blank?
+				render json: [msg: "Você ainda não possui séries"]
+		else #nenhuma série
+				render json: [series: videos]
+		end
+	end
+
+	def my_categories
+		#reiniciando valores
+		hash_categories = Hash.new
+
+		Category.order(:name).each do |category|
+			series_quantity = 0
+			seasons_quantity = 0
+			videos_quantity = 0
+
+			#processo
+			if admin_signed_in?
+				series = Category.find(category.id).tv_series.where('"tv_series"."owner_id" IS NULL')
+			else
+				series = Category.find(category.id).tv_series.where('"tv_series"."owner_id" = :member_id', member_id: current_member.id)
+			end
+			series_quantity += series.count #
+			if series_quantity > 0
+				series.each do |serie|
+					seasons = serie.seasons
+					seasons_quantity += seasons.count #
+					#sempre há pelo menos uma season
+					seasons.each do |season|
+						season_posts = season.season_posts
+						if season_posts.count > 1
+							videos_quantity += seasons.posts.count
+						elsif season_posts.count == 1
+							videos_quantity += 1
+						end
+					end
+				end
+			end
+			if series_quantity > 0
+				hash_categories[category.name] = [{id: category.id, quantity: series_quantity}, seasons_quantity, videos_quantity]
+			end
+		end
+
+		if hash_categories.blank?
+				render json: [msg: "Você ainda não possui séries"]
+		else #nenhuma série
+				render json: [categories: hash_categories]
+		end
+	end
+
 	#POSTS
 	def my_library
 		@categories = Category.all.select(:id, :name)
@@ -337,6 +421,5 @@ class SiteController < ApplicationController
 				@flag = @flag + 1
 			end
 		end
-
 	end
 end
