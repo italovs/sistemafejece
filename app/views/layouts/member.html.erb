@@ -213,7 +213,7 @@
                             <div class="col-md-8 col-sm-10 col-12">
                                 <div class="form-group">
                                     <input name="search-keyword" type="text" id="search-keyword" value="" class="form-control" placeholder="Enter Movies or Series Title">
-                                    <button type="submit" class="btn btn-main btn-effect"><i class="fa fa-search"></i></button>
+                                    <button type="submit" class="btn btn-main btn-effect"><i class="fas fa-search text-white"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -448,7 +448,7 @@
                     <!-- Stage -->
                     <div class="col-md-4 col-sm-12">
                         <div class="icon-box with-line">
-                            <i class="icon-login"></i>
+                            <i class="fas fa-sign-in-alt"></i>
                             <h3>Register</h3>
                             <p>Proin dapibus nisl ornare diam varius tempus. Aenean a quam luctus, finibus tellus ut, convallis eros sollicitudin turpis.</p>
                         </div>
@@ -457,7 +457,7 @@
                     <!-- Stage -->
                     <div class="col-md-4 col-sm-12">
                         <div class="icon-box with-line">
-                            <i class="icon-layers"></i>
+                            <i class="fas fa-layer-group"></i>
                             <h3>Choose a Plan</h3>
                             <p>Maecenas pulvinar, risus in facilisis dignissim, quam nisi hendrerit nulla, id vestibulum metus nullam viverra porta purus.</p>
                         </div>
@@ -466,7 +466,7 @@
                     <!-- Stage -->
                     <div class="col-md-4 col-sm-12">
                         <div class="icon-box">
-                            <i class="icon-emotsmile"></i>
+                            <i class="fas fa-smile"></i>
                             <h3>Enjoy Movify</h3>
                             <p>Faucibus ante, in porttitor tellus blandit et. Phasellus tincidunt metus lectus sollicitudin feugiat pharetra consectetur.</p>
                         </div>
@@ -504,51 +504,59 @@
                 <div class="owl-carousel latest-movies-slider mt20">
 
                     <!-- === Start of Sliding Item 1 === -->
-                    <div class="item">
-                        <!-- Start of Movie Box -->
-                        <div class="movie-box-1">
+                        <% @posts.each do |post|%>    
+                            <div class="item">
+                                <!-- Start of Movie Box -->
+                                <div class="movie-box-1">
 
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/posters/poster-1.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
+                                    <!-- Start of Poster -->
+                                    <div class="poster">
+                                        <%if post.poster_image.attached?%>
+                                            <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+                                        <%end%>
+                                    </div>
+                                    <!-- End of Poster -->
 
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fa fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
+                                    <!-- Start of Buttons -->
+                                    <div class="buttons">
+                                        <a class="play-video" href="https://www.youtube.com/watch?v=<%=post.link%>">
+                                            <i class="fas fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <!-- End of Buttons -->
 
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">Star Wars</a>
-                                </h4>
-                                <span class="released">14 Dec 2017</span>
-                            </div>
-                            <!-- End of Movie Details -->
+                                    <!-- Start of Movie Details -->
+                                    <div class="movie-details">
+                                        <h4 class="movie-title">
+                                            <a href="movie-detail.html"><%= post.name %></a>
+                                        </h4>
+                                        <span class="released"><%= post.created_at %></span>
+                                    </div>
+                                    <!-- End of Movie Details -->
 
-                            <!-- Start of Rating -->
-                            <div class="stars">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <!-- Start of Rating -->
+                                    <div class="stars">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <%if post.votes > 0 %>
+                                            <span><%=post.rating%>/ 10</span>
+                                        <% elsif %>
+                                            <span>Não há avaliações</span>
+                                        <%end%>    
+                                    </div>
+                                    <!-- End of Rating -->
+
                                 </div>
-                                <span>7.5 / 10</span>
+                                <!-- End of Movie Box -->
                             </div>
-                            <!-- End of Rating -->
-
-                        </div>
-                        <!-- End of Movie Box -->
-                    </div>
-                    <!-- === End of Sliding Item 1 === -->
-
+                        <%end%>
+                    <!-- === End of Sliding Item 1 === -->    
+                    
 
                     <!-- === Start of Sliding Item 2 === -->
                     <div class="item">
@@ -564,7 +572,7 @@
                             <!-- Start of Buttons -->
                             <div class="buttons">
                                 <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fa fa-play"></i>
+                                    <i class="fas fa-play"></i>
                                 </a>
                             </div>
                             <!-- End of Buttons -->
@@ -581,11 +589,11 @@
                             <!-- Start of Rating -->
                             <div class="stars">
                                 <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
                                 </div>
                                 <span>7.2 / 10</span>
                             </div>
@@ -596,197 +604,8 @@
                     </div>
                     <!-- === End of Sliding Item 2 === -->
 
-
-                    <!-- === Start of Sliding Item 3 === -->
-                    <div class="item">
-                        <!-- Start of Movie Box -->
-                        <div class="movie-box-1">
-
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/posters/poster-3.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
-
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fa fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
-
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">The Mummy</a>
-                                </h4>
-                                <span class="released">9 Jun 2017</span>
-                            </div>
-                            <!-- End of Movie Details -->
-
-                            <!-- Start of Rating -->
-                            <div class="stars">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <span>5.5 / 10</span>
-                            </div>
-                            <!-- End of Rating -->
-
-                        </div>
-                        <!-- End of Movie Box -->
-                    </div>
-                    <!-- === End of Sliding Item 3 === -->
-
-
-                    <!-- === Start of Sliding Item 4 === -->
-                    <div class="item">
-                        <!-- Start of Movie Box -->
-                        <div class="movie-box-1">
-
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/posters/poster-1.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
-
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fa fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
-
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">Star Wars</a>
-                                </h4>
-                                <span class="released">14 Dec 2017</span>
-                            </div>
-                            <!-- End of Movie Details -->
-
-                            <!-- Start of Rating -->
-                            <div class="stars">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <span>7.5 / 10</span>
-                            </div>
-                            <!-- End of Rating -->
-
-                        </div>
-                        <!-- End of Movie Box -->
-                    </div>
-                    <!-- === End of Sliding Item 4 === -->
-
-
-                    <!-- === Start of Sliding Item 5 === -->
-                    <div class="item">
-                        <!-- Start of Movie Box -->
-                        <div class="movie-box-1">
-
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/posters/poster-1.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
-
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fa fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
-
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">Star Wars</a>
-                                </h4>
-                                <span class="released">14 Dec 2017</span>
-                            </div>
-                            <!-- End of Movie Details -->
-
-                            <!-- Start of Rating -->
-                            <div class="stars">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <span>7.5 / 10</span>
-                            </div>
-                            <!-- End of Rating -->
-
-                        </div>
-                        <!-- End of Movie Box -->
-                    </div>
-                    <!-- === End of Sliding Item 5 === -->
-
-
-                    <!-- === Start of Sliding Item 6 === -->
-                    <div class="item">
-                        <!-- Start of Movie Box -->
-                        <div class="movie-box-1">
-
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/posters/poster-2.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
-
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fa fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
-
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">The Brain</a>
-                                </h4>
-                                <span class="released">20 Dec 2017</span>
-                            </div>
-                            <!-- End of Movie Details -->
-
-                            <!-- Start of Rating -->
-                            <div class="stars">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-half-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <span>5.2 / 10</span>
-                            </div>
-                            <!-- End of Rating -->
-
-                        </div>
-                        <!-- End of Movie Box -->
-                    </div>
-                    <!-- === End of Sliding Item 6 === -->
-
                 </div>
                 <!-- End of Latest Movies Slider -->
-
 
             </div>
         </section>
@@ -806,7 +625,7 @@
                     <div class="col-md-4 align-self-center text-right">
                         <a href="#" class="btn btn-icon btn-main btn-effect">
                             view all
-                            <i class="ti-angle-double-right"></i>
+                            <i class="fas fa-angle-double-right"></i>
                         </a>
                     </div>
                 </div>
@@ -814,55 +633,59 @@
 
 
                 <!-- Start of Movie List -->
-                <div class="row mt20">
+                <div class="row mt-20">
 
                     <!-- Movie List Item -->
-                    <div class="col-md-12 col-sm-12">
+                    <% @posts.each do |post| %>
+                      <div class="col-md-12 col-sm-12">
                         <div class="movie-list-1 mb30">
                             <div class="listing-container">
 
                                 <!-- Movie List Image -->
                                 <div class="listing-image">
+                                  <%if post.poster_image.attached?%>
+                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+                                  <%end%>
 
                                     <!-- Play Button -->
                                     <div class="play-btn">
-                                        <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                            <i class="fa fa-play"></i>
+                                        <a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
+                                            <i class="fas fa-play"></i>
                                         </a>
                                     </div>
 
                                     <!-- Buttons -->
                                     <div class="buttons">
                                         <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="icon-heart"></i>
+                                            <i class="fas fa-heart"></i>
                                         </a>
 
                                         <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="icon-share"></i>
+                                            <i class="fas fa-share-alt"></i>
                                         </a>
                                     </div>
 
                                     <!-- Rating -->
                                     <div class="stars">
                                         <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
                                         </div>
                                     </div>
 
                                     <!-- Image -->
-                                    <img src="assets/images/posters/poster-1.jpg" alt="">
+                                    <img src="" alt="">
                                 </div>
 
                                 <!-- Movie List Content -->
                                 <div class="listing-content">
                                     <div class="inner">
-                                        <h2 class="title">Star Wars</h2>
+                                        <h2 class="title"><%= post.name %></h2>
 
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                        <p><%=post.description%></p>
 
                                         <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
                                     </div>
@@ -870,7 +693,8 @@
 
                             </div>
                         </div>
-                    </div>
+                      </div>
+                    <%end%>
 
                     <!-- Movie List Item -->
                     <div class="col-md-12 col-sm-12">
@@ -883,85 +707,29 @@
                                     <!-- Play Button -->
                                     <div class="play-btn">
                                         <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                            <i class="fa fa-play"></i>
+                                            <i class="fas fa-play"></i>
                                         </a>
                                     </div>
 
                                     <!-- Buttons -->
                                     <div class="buttons">
                                         <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="icon-heart"></i>
+                                            <i class="fas fa-heart"></i>
                                         </a>
 
                                         <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="icon-share"></i>
+                                            <i class="fas fa-share-alt"></i>
                                         </a>
                                     </div>
 
                                     <!-- Rating -->
                                     <div class="stars">
                                         <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                    </div>
-
-                                    <!-- Image -->
-                                    <img src="assets/images/posters/poster-2.jpg" alt="">
-                                </div>
-
-                                <!-- Movie List Content -->
-                                <div class="listing-content">
-                                    <div class="inner">
-                                        <h2 class="title">The Brain</h2>
-
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-                                        <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Movie List Item -->
-                    <div class="col-md-12 col-sm-12">
-                        <div class="movie-list-1 mb30">
-                            <div class="listing-container">
-
-                                <!-- Movie List Image -->
-                                <div class="listing-image">
-
-                                    <!-- Play Button -->
-                                    <div class="play-btn">
-                                        <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                            <i class="fa fa-play"></i>
-                                        </a>
-                                    </div>
-
-                                    <!-- Buttons -->
-                                    <div class="buttons">
-                                        <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="icon-heart"></i>
-                                        </a>
-
-                                        <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="icon-share"></i>
-                                        </a>
-                                    </div>
-
-                                    <!-- Rating -->
-                                    <div class="stars">
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
                                         </div>
                                     </div>
 
@@ -992,127 +760,82 @@
         </section>
         <!-- =============== END OF TOP RATED MOVIES SECTION =============== -->
 
+        <!-- =============== START OF FEATURES SECTION =============== -->
+        <section class="features">
+            <div class="row">
 
+                <div class="col-md-6 col-sm-12 with-bg overlay-gradient" style="background: url(assets/images/other/features2.jpg)"></div>
+
+                <div class="col-md-6 col-sm-12 bg-light">
+                    <div class="features-wrapper">
+                        <h3 class="title">Watch all Movies & TV Shows once they get released!</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <a class="btn btn-f-orange btn-effect text-white" href="#">View Features</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- =============== END OF FEATURES SECTION =============== -->
 
 
         <!-- =============== START OF UPCOMING MOVIES SECTION =============== -->
         <section class="upcoming-movies parallax ptb100" data-background="assets/images/posters/movie-collection.jpg" data-color="#3e4555" data-color-opacity="0.95" >
-            <div class="container">
+          <div class="m-0 w-100">
 
-                <!-- Start of row -->
-                <div class="row justify-content-center">
-                    <div class="col-md-7 text-center">
-                        <h2 class="title text-white">Upcoming Movies & TV Shows</h2>
-                    </div>
+            <!-- Start of row -->
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h2 class="title text-white">Upcoming Movies & TV Shows</h2>
                 </div>
-                <!-- End of row -->
-
-
-
-                <!-- Start of row -->
-                <div class="row mt50">
-
-                    <!-- === Start of Upcoming Featured Movies & TV Shows === -->
-                    <div class="col-md-8">
-
-                        <!-- Start of Upcoming Featured Item -->
-                        <div class="movie-box-1 upcoming-featured-item">
-
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/movies/upcoming-featured-item.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
-
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fas fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
-
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">Tomb Raider</a>
-                                </h4>
-                                <span class="released">Release Date: 15 Mar 2018</span>
-                            </div>
-                            <!-- End of Movie Details -->
-                        </div>
-                        <!-- End of Upcoming Featured Item -->
-
-                    </div>
-                    <!-- === End of Upcoming Featured Movies & TV Shows === -->
-
-
-                    <!-- === Start of Upcoming Movies & TV Shows === -->
-                    <div class="col-md-4">
-
-                        <!-- Start of Upcoming Item 1 -->
-                        <div class="movie-box-1 upcoming-item">
-
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/movies/upcoming-item-1.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
-
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fas fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
-
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">The Jungle</a>
-                                </h4>
-                            </div>
-                            <!-- End of Movie Details -->
-
-                        </div>
-                        <!-- End of Upcoming Item 1 -->
-
-                        <!-- Start of Upcoming Item 2 -->
-                        <div class="movie-box-1 upcoming-item mt20">
-
-                            <!-- Start of Poster -->
-                            <div class="poster">
-                                <img src="assets/images/movies/upcoming-item-2.jpg" alt="">
-                            </div>
-                            <!-- End of Poster -->
-
-                            <!-- Start of Buttons -->
-                            <div class="buttons">
-                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                    <i class="fas fa-play"></i>
-                                </a>
-                            </div>
-                            <!-- End of Buttons -->
-
-                            <!-- Start of Movie Details -->
-                            <div class="movie-details">
-                                <h4 class="movie-title">
-                                    <a href="movie-detail.html">Fast and Furious</a>
-                                </h4>
-                            </div>
-                            <!-- End of Movie Details -->
-
-                        </div>
-                        <!-- End of Upcoming Item 2 -->
-
-                    </div>
-                    <!-- === End of Upcoming Movies & TV Shows === -->
-
-                </div>
-                <!-- End of row -->
-
             </div>
+            <!-- End of row -->
+
+
+
+            <!-- Start of row -->
+            <div class="row mt50 mx-5">
+
+              <!-- === Start of Upcoming Featured Movies & TV Shows === -->
+              <div class="col-md-7">
+                <!-- Start of Upcoming Featured Item -->
+                <div class="movie-box-1 upcoming-featured-item overlay-gradient">
+
+                  <!-- Start of Poster -->
+                  <div class="poster">
+                    <img src="assets/images/movies/upcoming-featured-item.jpg" alt="">
+                  </div>
+                  <!-- End of Poster -->
+
+                  <!-- Start of Buttons -->
+                  <div class="buttons">
+                    <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
+                      <i class="fas fa-play"></i>
+                    </a>
+                  </div>
+                  <!-- End of Buttons -->
+
+                  <!-- Start of Movie Details -->
+                  <div class="movie-details">
+                    <h4 class="movie-title">
+                      <a href="movie-detail.html">Tomb Raider</a>
+                    </h4>
+                    <span class="released">Release Date: 15 Mar 2018</span>
+                  </div>
+                  <!-- End of Movie Details -->
+                </div>
+                <!-- End of Upcoming Featured Item -->
+              </div>
+
+              <div class="col-md-5 col-sm-12">
+                <div class="features-wrapper mx-3">
+                  <h3 class="title text-white">Watch all Movies & TV Shows once they get released!</h3>
+                  <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                  <a class="btn btn-f-orange btn-effect text-white" href="#">View Features</a>
+                </div>
+              </div>  
+            </div>
+          </div>
         </section>
         <!-- =============== END OF UPCOMING MOVIES SECTION =============== -->
 
@@ -1607,6 +1330,7 @@
 	<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'pagination.js', 'data-turbolinks-track': 'reload' %>
 
 	<!-- ===== Slider Revolution core JavaScript files ===== -->
 	<%= javascript_include_tag 'revolution/jquery.themepunch.tools.min', 'data-turbolinks-track': 'reload' %>

@@ -37,6 +37,7 @@ function initial_create_table(){
 }
 
 function hide_fields(){
+	$("#full-content").hide();
 	$(".video-field").hide();
 	$(".serie-field").hide();
 	$("#youtube_link").hide();
@@ -62,6 +63,9 @@ function setting_events(){
 		if(!$("#youtube_link").is(":visible")){
 			hide_fields()
 		}
+
+		$("#full-content").toggle();
+		$("#main_title").text("Novo Vídeo");
 		$(".video-field").toggle();
 		$("#youtube_link").toggle();
 		$("#create_new_video").toggle();
@@ -75,6 +79,9 @@ function setting_events(){
 		if(!$("#serie_name").is(":visible")){
 			hide_fields()
 		}
+
+		$("#full-content").toggle();
+		$("#main_title").text("Nova Série");
 		$(".serie-field").toggle();
 		$("#serie_name").toggle();
 		$("#create_new_serie").toggle();
