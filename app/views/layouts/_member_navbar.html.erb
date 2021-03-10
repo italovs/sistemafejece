@@ -261,14 +261,14 @@
 								</li>
 								<% if valid_member_or_admin? %>
 									<li class="dropdown-item">
-										<%= link_to my_channel_routes, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false" do %>
+										<%= link_to "/my_channel", class: "nav-link"  do %>
 											<i class="fas fa-tv"></i>
 											Meu canal
 										<% end %>
 									</li>
 
 									<li class="dropdown-item">
-										<%= link_to my_library_routes, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false" do %>
+										<%= link_to "/my_library", class: "nav-link" do %>
 											<i class="fas fa-book"></i>
 											Minha biblioteca
 										<% end %>

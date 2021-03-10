@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout 'member', :except => :profile
+	layout 'member', :except => [:profile, :my_channel]
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
 	before_action :check_if_user_is_director_or_is_admin, only: [:my_channel]
@@ -330,6 +330,38 @@ class SiteController < ApplicationController
 				render json: [msg: "Você ainda não possui séries nessa categoria"]
 		else #nenhuma série
 				render json: [series: hash_series]
+		end
+	end
+
+	#retorna temporadas de uma série e informa quantidade de vídeos em cada série
+	#deve passar via ajax parâmetro da id da série
+	def my_seasons_by_serie
+		if params[:serie_id].present?
+			serie = TvSerie.where(id: params[:serie_id])
+			if serie.count == 1 && (admin_signed_in? && serie.first.owner_id.nil?) || (member_signed_in? && serie.first.owner_id == current_member.id)
+				hash_seasons = Hash.new
+				serie = serie.first
+				seasons_quantity = serie.seasons.count
+				serie.seasons.each do |season|
+					videos_quantity = 0
+					season_posts = season.season_posts
+					if season_posts.count >= 1
+						videos_quantity = seasons.posts.count
+					end
+					hash_seasons[serie.name] = [{id: season.id, seasons_quantity: seasons_quantity}, videos_quantity ]
+				end
+
+				if hash_seasons.blank?
+					#isso nunca deveria acontecer, pois toda temporada tem pelo menos uma série... maaaaaas...
+					render json: [msg: "Você ainda não possui Temporadas nessa Série"]
+				else #nenhuma série
+					render json: [series: hash_seasons]
+				end
+			else
+				render json: [msg: "Série inválida para você"]
+			end
+		else
+			render json: [msg: "Série inválida"]
 		end
 	end
 

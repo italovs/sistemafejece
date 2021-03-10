@@ -1,4 +1,13 @@
 //= require jquery
+$(document).on("turbolinks:load",function(){
+	$(".selectize").selectize();
+});
+
+$.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 
 $(function(){
 	page_load();
@@ -214,12 +223,32 @@ function setting_events(){
 	
 	//TESTES AJAX
 	//my_series_by_category( 3 )
+	my_seasons_by_serie(10)
 }
 
 function my_series_by_category( category_id ){
 	$.post( '/my_series_by_category' ,
 	{
 		category_id: category_id
+	},
+	function(data, status){
+		if(status == "success" ){
+			if(!data.hasOwnProperty("msg")){
+				console.log(data)
+			} else {
+				//erro
+			}
+		} else {
+			//ERRO DE REQUISIÇÃO
+			
+		}
+	})
+}
+
+function my_seasons_by_serie( serie_id ){
+	$.post( '/my_seasons_by_serie' ,
+	{
+		serie_id: serie_id
 	},
 	function(data, status){
 		if(status == "success" ){
