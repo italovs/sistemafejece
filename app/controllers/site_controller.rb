@@ -380,6 +380,7 @@ class SiteController < ApplicationController
 	#POSTS
 	def my_library
 		@categories = Category.all.select(:id, :name)
+		@posts = Post.all
 
 		direction_notification
 	end

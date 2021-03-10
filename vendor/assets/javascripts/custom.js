@@ -255,7 +255,7 @@ Author URI: gnodesign.com
                                 drag_block_vertical: false
                             },
                             bullets: {
-                                enable: true,
+                                enable: false,
                                 hide_onmobile: true,
                                 hide_under: 1024,
                                 style: "uranus",

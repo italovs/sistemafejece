@@ -1,34 +1,240 @@
-<script src="<%= javascript_path "my_library" %>"></script>
-<br>
-
-<br><br><br><br><br><br><br>
-
-<div id="new_post" class="btn btn-primary">Novo Post</div>
-<div id="my_posts" class="btn btn-primary">Meus Posts</div>
-
-
-<%# novo post %>
-<%= text_field_tag :post_name, nil, placeholder: "Nome" %>
-<%= text_field_tag :post_description, nil, placeholder: "Descrição" %>
-<%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
-<%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo" %>
-<div id="create_new_post" class="btn btn-primary">CRIAR</div>
-
-<div id="posts_area">
-</div>
-<!--CAMPOS DAS IMAGENS SÓ COLOCAR DENTRO DA NOVA ESTRUTURA LOGO A BAIXO DO NOME DA PUBLICAÇÃO -->
 <%if true == false %>
-                <div class="form-row video-field">
-                    <div class="form-group col-md-12">
-                      <p class="text-muted d-block mb-2">Poster da publicação</p>
-                      <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
-                    </div>  
+  <div id="new_post" class="btn btn-primary">Novo Post</div>
+  <div id="my_posts" class="btn btn-primary">Meus Posts</div>
+
+
+  <%# novo post %>
+  <%= text_field_tag :post_name, nil, placeholder: "Nome" %>
+  <%= text_field_tag :post_description, nil, placeholder: "Descrição" %>
+  <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
+  <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo" %>
+  <div id="create_new_post" class="btn btn-primary">CRIAR</div>
+
+  <div id="posts_area">
+  </div>
+  <!--CAMPOS DAS IMAGENS SÓ COLOCAR DENTRO DA NOVA ESTRUTURA LOGO A BAIXO DO NOME DA PUBLICAÇÃO -->
+
+  <div class="form-row video-field">
+    <div class="form-group col-md-12">
+      <p class="text-muted d-block mb-2">Poster da publicação</p>
+      <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+    </div>  
+  </div>
+
+  <div class="form-row video-field">
+    <div class="form-group col-md-12">
+      <p class="text-muted d-block mb-2">Banner da publicação</p>
+      <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+    </div>  
+  </div>
+<%end%>
+
+
+<style>
+  .header{
+    background: trasnparent !important;
+  }
+</style>
+
+<div class="bg-light m-0">
+  <section class="page-header overlay-gradient">
+    <div class="container">
+        <div class="inner py-5">
+            <h2 class="title pb-1">Meus Posts</h2>
+            <ol class="breadcrumb">
+                <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
+                <li>Meus Posts</li>
+            </ol>
+        </div>
+    </div>
+  </section>
+
+  <br/><br/><br/>
+
+  <div class="d-flex justify-content-end mx-4">
+    <div id="my_posts" class="btn btn-f-green text-white mx-3">
+      Meus Posts
+    </div>
+  </div>
+
+  <br/><br/><br/>
+
+  <main id="posts-row" class="bg-light ptb100">
+    <div class="container">
+      <div class="row">
+        <!-- Movie List Item -->
+        <%@posts.each do |post|%>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="movie-box-3 mb30">
+              <div class="listing-container">
+
+                <!-- Movie List Image -->
+                <div class="listing-image">
+                  <%if post.poster_image.attached?%>
+                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
+                  <%end%>
                 </div>
 
-                <div class="form-row video-field">
-                    <div class="form-group col-md-12">
+                <!-- Movie List Content -->
+                <div class="listing-content border-top">
+                  <div class="inner">
+
+                    <!-- Play Button -->
+                    <div class="play-btn">
+                      <a class="play-video" href="https://www.youtube.com/watch?v=<%=post.link%>">
+                        <i class="fas fa-link"></i>
+                      </a>
+                    </div>
+
+                    <h2 class="title"><%=post.name%></h2>
+
+                    <!-- Rating -->
+                    <div class="stars">
+                      <div class="rating">
+                        <i class="fas fa-star"></i>
+
+                        <%if post.votes > 0 %>
+                          <span><%=post.rating%>/ 10</span>
+                        <% elsif %>
+                          <span>Não há avaliações</span>
+                        <%end%> 
+
+                        <span class="category"><%=post.post_category%></span>
+                      </div>
+                    </div>
+
+                    <p><%=post.description%></p>
+
+                    <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        <%end%>  
+
+          <!-- Movie List Item -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="movie-box-3 mb30">
+                  <div class="listing-container">
+
+                      <!-- Movie List Image -->
+                      <div class="listing-image">
+                          <!-- Image -->
+                          <img src="assets/images/posters/poster-8.jpg" alt="">
+                      </div>
+
+                      <!-- Movie List Content -->
+                      <div class="listing-content">
+                          <div class="inner">
+
+                              <!-- Play Button -->
+                              <div class="play-btn">
+                                  <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
+                                      <i class="fas fa-link"></i>
+                                  </a>
+                              </div>
+
+                              <h2 class="title">The Flash</h2>
+
+                              <!-- Rating -->
+                              <div class="stars">
+                                  <div class="rating">
+                                      <i class="fas fa-star"></i>
+                                      <span>8.0/10</span>
+                                      <span class="category">Action, Drama</span>
+                                  </div>
+                              </div>
+
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
+
+                              <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+
+      </div>
+    </div>
+  </main>    
+
+
+  <div id="full-content" style="margin: 0 5%;">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card card-small mb-4">
+          <div class="card-header border-bottom bg-f-green">
+            <h6 id="main_title" class="m-0 text-white">Novo Post</h6>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item p-3">
+              <div class="row">
+                <div class="col">
+                  <form>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <%= text_field_tag :post_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+                      </div>  
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <p class="text-muted d-block mb-2">Poster da publicação</p>
+                        <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+                      </div>  
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
                         <p class="text-muted d-block mb-2">Banner da publicação</p>
                         <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
-                    </div>  
+                      </div>  
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo", class: "input_field form-control" %>
+                      </div>  
+
+                      <div class="form-group col-md-6">
+                        <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {include_blank: 'Selecione', class: 'select_field custom-select form-control', style: "height:100%;"}  %>
+                      </div> 
+                      
+                    </div> 
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <%= text_area_tag :post_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+                      </div>  
+                    </div>
+
+                    <div id="create_new_post" class="btn btn-f-green text-white">
+                      Criar
+                    </div>
+
+                  </form>
                 </div>
-<%end%>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/><br/><br/><br />
+
+  <div class="d-flex justify-content-end mx-4">
+    <div id="new_post" class="btn btn-f-green text-white mx-3">
+      Novo Post
+    </div>
+  </div>  
+
+  <br/><br/>
+</div>  
+
+<script src="<%= javascript_path "my_library" %>"></script>

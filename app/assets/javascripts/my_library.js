@@ -12,25 +12,17 @@ function page_reload(){
 }
 
 function hide_fields(){
-	$("#post_link").hide();
-	$("#post_category").hide();
-	$("#post_name").hide();
-	$("#post_description").hide();
-	$("#create_new_post").hide();
-	$("#posts_area").hide()
+	$("#full-content").hide();
 }
 
 function setting_events(){
 
 	$("#new_post").on("click", function(){
 		if(!$("#post_link").is(":visible")){
-			hide_fields()
+			hide_fields();
+			$("#posts-row").hide();
 		}
-		$("#post_link").toggle();
-		$("#post_category").toggle();
-		$("#post_name").toggle();
-		$("#post_description").toggle();
-		$("#create_new_post").toggle();
+		$("#full-content").toggle();
 	})
 
 	$("#create_new_post").on("click", function(){
@@ -75,7 +67,8 @@ function setting_events(){
 	})
 
 	$("#my_posts").on("click", function(){
-		hide_fields()
+		hide_fields();
+		$("#posts-row").show();
 		$.post( '/my_posts' ,
 		{ },
 		function(data, status){
@@ -92,6 +85,7 @@ function setting_events(){
 			}
 		})
 	});
+
 }
 
 function new_card_area(name, data){
