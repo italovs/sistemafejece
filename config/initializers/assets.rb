@@ -39,6 +39,7 @@ Rails.application.config.assets.precompile += %w(
     isotope.pkgd.min.js
     headroom.js
     custom.js
+    pagination.js
     revolution/jquery.themepunch.tools.min.js
     revolution/jquery.themepunch.revolution.min.js
     revolution/revolution.extension.actions.min.js

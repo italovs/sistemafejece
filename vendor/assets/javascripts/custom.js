@@ -239,7 +239,7 @@ Author URI: gnodesign.com
 						jsFileLocation:"assets/revolution/js/",
                         sliderLayout: "fullscreen",
                         dottedOverlay: "none",
-                        delay: 9000,
+                        delay: 3000,
                         spinner: 'spinner2',
                         navigation: {
                             keyboardNavigation: "on",
@@ -287,9 +287,9 @@ Author URI: gnodesign.com
                         disableProgressBar: "on",
                         shadow: 0,
                         spinner: "off",
-                        stopLoop: "on",
-                        stopAfterLoops: 1,
-                        stopAtSlide: 1,
+                        stopLoop: "off",
+                        stopAfterLoops: -1,
+                        stopAtSlide: -1,
                         shuffle: "off",
                         autoHeight: "off",
                         hideThumbsOnMobile: "off",
@@ -612,8 +612,6 @@ Author URI: gnodesign.com
 
             fixedContentPos: false
         });
-        
-        
         
         
         /*----------------------------------------------------

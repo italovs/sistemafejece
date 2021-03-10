@@ -6,6 +6,7 @@ class SiteController < ApplicationController
 
 	def index
 		direction_notification
+		@posts = Post.all
 	end
 
 	def profile
