@@ -295,6 +295,45 @@ class SiteController < ApplicationController
 		end
 	end
 
+	#retorna séries e informa quantidade de temporadas e vídeos em cada série
+	#deve passar via ajax parâmetro da id da categoria
+	def my_series_by_category
+		#reiniciando valores
+		hash_series = Hash.new
+		
+		if admin_signed_in?
+			series = Category.find( params[:category_id] ).tv_series.where('"tv_series"."owner_id" IS NULL').order(:name)
+		else
+			series = Category.find( params[:category_id] ).tv_series.where('"tv_series"."owner_id" = :member_id', member_id: current_member.id).order(:name)
+		end
+
+		#processo
+		seasons_quantity = 0
+		videos_quantity = 0
+		series.each do |serie|
+
+			seasons = serie.seasons
+			seasons_quantity = seasons.count
+			#sempre há pelo menos uma season
+			seasons.each do |season|
+				season_posts = season.season_posts
+				if season_posts.count > 1
+					videos_quantity += seasons.posts.count
+				elsif season_posts.count == 1
+					videos_quantity += 1
+				end
+			end
+			hash_series[serie.name] = [{id: serie.id, quantity: seasons.count}, videos_quantity]
+		end
+
+		if hash_series.blank?
+				render json: [msg: "Você ainda não possui séries nessa categoria"]
+		else #nenhuma série
+				render json: [series: hash_series]
+		end
+	end
+
+	#retorna categorias e informa quantidade de séries, temporadas e vídeos em cada categoria
 	def my_categories
 		#reiniciando valores
 		hash_categories = Hash.new

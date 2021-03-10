@@ -211,9 +211,29 @@ function setting_events(){
 		$("#video").addClass("btn-f-green");
 
 	})
+	
+	//TESTES AJAX
+	//my_series_by_category( 3 )
 }
 
-
+function my_series_by_category( category_id ){
+	$.post( '/my_series_by_category' ,
+	{
+		category_id: category_id
+	},
+	function(data, status){
+		if(status == "success" ){
+			if(!data.hasOwnProperty("msg")){
+				console.log(data)
+			} else {
+				//erro
+			}
+		} else {
+			//ERRO DE REQUISIÇÃO
+			
+		}
+	})
+}
 
 function refill_select_box( target, data ){
 	$(target).empty()
