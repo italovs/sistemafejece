@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 			post '/my_series', to: 'site#my_series', as: 'admin_my_series'
 			post '/my_categories', to: 'site#my_categories', as: 'admin_my_categories'
 			post '/my_series_by_category', to: 'site#my_series_by_category', as: 'admin_my_series_by_category'
+			post '/my_seasons_by_serie', to: 'site#my_seasons_by_serie', as: 'admin_my_seasons_by_serie'
 			
 			post '/my_videos', to: 'site#my_videos', as: 'admin_my_videos' #CANDIDATO A SER REMOVIDO
 
@@ -70,7 +71,8 @@ Rails.application.routes.draw do
 					post '/my_videos', to: 'site#my_videos', as: 'validated_my_videos' #candidato a ser removido	
 					post '/my_categories', to: 'site#my_categories', as: 'validated_my_categories'
 					post '/my_series_by_category', to: 'site#my_series_by_category', as: 'validated_my_series_by_category'
-					
+					post '/my_seasons_by_serie', to: 'site#my_seasons_by_serie', as: 'validated_my_seasons_by_serie'
+
 					get '/my_library', to: 'site#my_library', as: 'validated_my_library'
 					post '/my_posts', to: 'site#my_posts', as: 'validated_my_posts'
 					post '/new_post', to: 'site#new_post', as: 'validated_new_post'
