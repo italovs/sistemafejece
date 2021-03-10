@@ -1,4 +1,5 @@
 //= require jquery
+//= require selectize
 //= require rails-ujs
 
 $.ajaxSetup({

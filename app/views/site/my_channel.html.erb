@@ -1,4 +1,15 @@
-
+<%=csrf_meta_tags%>
+<%=csp_meta_tag%>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+	<%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+	<%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
+	<%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
+	<%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
+	<%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+	<%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+	<%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+	<%= stylesheet_link_tag 'style', media: 'all' %>
+	<%= stylesheet_link_tag 'responsive', media: 'all' %>
 <%if true == false%>
   <div id="new_video" class="btn btn-primary">Novo Vídeo</div>
   <div id="new_serie" class="btn btn-primary">Nova Série</div>
@@ -30,7 +41,7 @@
   }
 </style>
 
-
+<%= render '/layouts/member_navbar' %>
 
 <section class="page-header overlay-gradient">
   <div class="container">
@@ -192,7 +203,7 @@
 
                   <div class="form-row video-field">
                     <div class="form-group col-md-12">
-                      <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control', style: "height:100%;"}  %>
+                      <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control selectize', style: "height:100%;"}  %>
                     </div>  
                   </div> 
 
@@ -244,5 +255,20 @@
 </div>  
 
 <br/><br/>
+<script src="<%= javascript_path "essencials" %>"></script>
+<script src="<%= javascript_path "profile" %>"></script>
 
 <%= javascript_include_tag 'my_channel.js' %>
+<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
