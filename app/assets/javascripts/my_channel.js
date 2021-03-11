@@ -30,7 +30,6 @@ function page_reload(){
 	initial_create_table();
 }
 
-<<<<<<< HEAD
 var table = "#mytable";
 $("#maxRows").on('change', pagination)
 
@@ -82,9 +81,6 @@ $(function(){
 		$(this).prepend('<td>'+id+'</td>')
 	})
 }) 
-=======
-
->>>>>>> 85333bb27dddfd5cf5469028342f074f27f053c8
 function starting_from_videos(){
 	$(".videos-row").show();
 	$(".series-row").hide();
