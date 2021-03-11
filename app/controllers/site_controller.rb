@@ -364,6 +364,34 @@ class SiteController < ApplicationController
 			render json: [msg: "Série inválida"]
 		end
 	end
+	
+	#retorna temporadas de uma série e informa quantidade de vídeos em cada série
+	#deve passar via ajax parâmetro da id da série
+	def my_posts_by_season
+		if params[:season_id].present?
+			season = Season.where(id: params[:serie_id]).first 
+			posts = Season.where(id: params[:serie_id]).first.posts
+			if (posts.count == 1 && posts.count > 0) && (admin_signed_in? && season.tv_serie.owner_id.nil?) || (member_signed_in? && season.tv_serie.owner_id == current_member.id)
+				array_posts = []
+				posts_quantity = posts.count
+				posts.each do |post|
+					array_posts << post.id
+				end
+				
+				if hash_seasons.blank?
+					render json: [msg: "Você ainda não possui Vídeos nessa Temporada"]
+				else #nenhuma série
+					render json: array_posts
+				end
+			else
+				render json: [msg: "Temporada inválida para você"]
+			end
+		else
+			render json: [msg: "Temporada inválida"]
+		end
+	end
+
+
 
 	#retorna categorias e informa quantidade de séries, temporadas e vídeos em cada categoria
 	def my_categories
