@@ -30,6 +30,7 @@ function page_reload(){
 	initial_create_table();
 }
 
+<<<<<<< HEAD
 var table = "#mytable";
 $("#maxRows").on('change', pagination)
 
@@ -81,6 +82,9 @@ $(function(){
 		$(this).prepend('<td>'+id+'</td>')
 	})
 }) 
+=======
+
+>>>>>>> 85333bb27dddfd5cf5469028342f074f27f053c8
 function starting_from_videos(){
 	$(".videos-row").show();
 	$(".series-row").hide();
@@ -425,3 +429,24 @@ function insert_card_areas(data){
 	console.log(html)
 	$("#my_series").html(html)
 }
+
+
+
+// $(".pagination-item").on("click", function(){
+// 	var this_value = $(this).val();
+// 	var min = (this_value-1)*2 + 1;
+// 	var max = (this_value-1)*2 + 2;
+// 	console.log(this_value);
+// 	console.log(min);
+// 	console.log(max);
+// 	var trnum = 0;
+// 	$('.tr-item').each(function(){
+// 		trnum++;
+		
+// 		$(this).hide();
+// 		if (trnum <= max && trnum >= min ){
+// 			$(this).show();
+// 		}
+	
+// 	})
+// })	
