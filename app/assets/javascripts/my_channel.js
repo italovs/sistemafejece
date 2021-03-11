@@ -21,14 +21,31 @@ function page_load(){
 	}
 	starting_from_videos();
 	initial_create_table();
+	sucesso();
 }
 
 function page_reload(){
 	hide_fields();
 	starting_from_videos();
 	initial_create_table();
+	sucesso();
 }
 
+function sucesso(){
+    $('#demo').pagination({
+        dataSource: [1, 2, 3, 4, 5],
+        pageSize: 2,
+        showPrevious: false,
+        showNext: false,
+        callback: function(data, pagination) {
+            // template method of yourself
+            var html = template(data);
+            dataContainer.html(html);
+        }
+    })
+
+
+}
 
 function starting_from_videos(){
 	$(".videos-row").show();

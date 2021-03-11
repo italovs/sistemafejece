@@ -1,240 +1,340 @@
-<%if true == false %>
-  <div id="new_post" class="btn btn-primary">Novo Post</div>
-  <div id="my_posts" class="btn btn-primary">Meus Posts</div>
+<!DOCTYPE html>
+	<html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <!-- ===== Mobile viewport optimized ===== -->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+
+      <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+      <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+      <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+      <meta name="author" content="GnoDesign">
+      <meta name="turbolinks-visit-control" content="reload">
 
 
-  <%# novo post %>
-  <%= text_field_tag :post_name, nil, placeholder: "Nome" %>
-  <%= text_field_tag :post_description, nil, placeholder: "Descrição" %>
-  <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
-  <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo" %>
-  <div id="create_new_post" class="btn btn-primary">CRIAR</div>
+      <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag 'application', media: 'all' %>
 
-  <div id="posts_area">
-  </div>
-  <!--CAMPOS DAS IMAGENS SÓ COLOCAR DENTRO DA NOVA ESTRUTURA LOGO A BAIXO DO NOME DA PUBLICAÇÃO -->
+      <!-- ===== Favicon & Different size apple touch icons ===== -->
+      <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+      <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
+      <link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
+      <link rel="icon" sizes="128x128" href="assets/images/icon.png">
 
-  <div class="form-row video-field">
-    <div class="form-group col-md-12">
-      <p class="text-muted d-block mb-2">Poster da publicação</p>
-      <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
-    </div>  
-  </div>
+      <!-- ===== Google Fonts ===== -->
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+        
 
-  <div class="form-row video-field">
-    <div class="form-group col-md-12">
-      <p class="text-muted d-block mb-2">Banner da publicação</p>
-      <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
-    </div>  
-  </div>
-<%end%>
+      <!-- ===== CSS links ===== -->
+      <%= stylesheet_link_tag 'application', media: 'all' %>
+      <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
+      <%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+      <%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+      <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+      <%= stylesheet_link_tag 'style', media: 'all' %>
+      <%= stylesheet_link_tag 'responsive', media: 'all' %>
+    </head>
+
+    <style>
+      .mm-slideout{
+        z-index: 99;
+      }
+
+      #main-mobile-nav{
+        z-index: 2
+      }
+
+      .header{
+        background: trasnparent !important;
+      }
+
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after {
+        opacity:1.0 !important;
+      }
+
+      a:visited {
+        color: #fff; }
+
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after,
+      .blog-post .blog-thumb a:before,
+      ul.blog-posts-widget .blog-content .blog-thumb a:before,
+      .celebrity-list-1 .celebrity-image a:before,
+      .celebrity-grid-1 .celebrity-image a:before,
+      .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
+      .movie-box-1 .poster:before,
+      .movie-detail-intro2 .movie-poster:before {
+          background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
+          background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+      }
+    </style>  
 
 
-<style>
-  .header{
-    background: trasnparent !important;
-  }
-</style>
+    <body class="bg-light">
+      <%if true == false %>
+        <div id="new_post" class="btn btn-primary">Novo Post</div>
+        <div id="my_posts" class="btn btn-primary">Meus Posts</div>
 
-<div class="bg-light m-0">
-  <section class="page-header overlay-gradient">
-    <div class="container">
-        <div class="inner py-5">
-            <h2 class="title pb-1">Meus Posts</h2>
-            <ol class="breadcrumb">
-                <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
-                <li>Meus Posts</li>
-            </ol>
+
+        <%# novo post %>
+        <%= text_field_tag :post_name, nil, placeholder: "Nome" %>
+        <%= text_field_tag :post_description, nil, placeholder: "Descrição" %>
+        <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
+        <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo" %>
+        <div id="create_new_post" class="btn btn-primary">CRIAR</div>
+
+        <div id="posts_area">
         </div>
-    </div>
-  </section>
+        <!--CAMPOS DAS IMAGENS SÓ COLOCAR DENTRO DA NOVA ESTRUTURA LOGO A BAIXO DO NOME DA PUBLICAÇÃO -->
 
-  <br/><br/><br/>
+        <div class="form-row video-field">
+          <div class="form-group col-md-12">
+            <p class="text-muted d-block mb-2">Poster da publicação</p>
+            <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+          </div>  
+        </div>
 
-  <div class="d-flex justify-content-end mx-4">
-    <div id="my_posts" class="btn btn-f-green text-white mx-3">
-      Meus Posts
-    </div>
-  </div>
+        <div class="form-row video-field">
+          <div class="form-group col-md-12">
+            <p class="text-muted d-block mb-2">Banner da publicação</p>
+            <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+          </div>  
+        </div>
+      <%end%>
 
-  <br/><br/><br/>
+      <nav id="main-mobile-nav"></nav>
+      <%= render '/layouts/member_navbar' %>
+      <%= yield %>
 
-  <main id="posts-row" class="bg-light ptb100">
-    <div class="container">
-      <div class="row">
-        <!-- Movie List Item -->
-        <%@posts.each do |post|%>
-          <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="movie-box-3 mb30">
-              <div class="listing-container">
-
-                <!-- Movie List Image -->
-                <div class="listing-image">
-                  <%if post.poster_image.attached?%>
-                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
-                  <%end%>
-                </div>
-
-                <!-- Movie List Content -->
-                <div class="listing-content border-top">
-                  <div class="inner">
-
-                    <!-- Play Button -->
-                    <div class="play-btn">
-                      <a class="play-video" href="https://www.youtube.com/watch?v=<%=post.link%>">
-                        <i class="fas fa-link"></i>
-                      </a>
-                    </div>
-
-                    <h2 class="title"><%=post.name%></h2>
-
-                    <!-- Rating -->
-                    <div class="stars">
-                      <div class="rating">
-                        <i class="fas fa-star"></i>
-
-                        <%if post.votes > 0 %>
-                          <span><%=post.rating%>/ 10</span>
-                        <% elsif %>
-                          <span>Não há avaliações</span>
-                        <%end%> 
-
-                        <span class="category"><%=post.post_category%></span>
-                      </div>
-                    </div>
-
-                    <p><%=post.description%></p>
-
-                    <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                  </div>
-                </div>
-
+      <div class="m-0">
+        <section class="page-header overlay-gradient">
+          <div class="container">
+              <div class="inner py-4">
+                  <h2 class="title pb-1">Meus Posts</h2>
+                  <ol class="breadcrumb">
+                      <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
+                      <li>Meus Posts</li>
+                  </ol>
               </div>
-            </div>
           </div>
-        <%end%>  
+        </section>
 
-          <!-- Movie List Item -->
-          <div class="col-lg-4 col-md-6 col-sm-12">
-              <div class="movie-box-3 mb30">
-                  <div class="listing-container">
+        <br/><br/><br/>
+
+        <div class="d-flex justify-content-end mx-4">
+          <div id="my_posts" class="btn btn-f-green text-white mx-3">
+            Meus Posts
+          </div>
+        </div>
+
+        <main id="posts-row" class="ptb100">
+          <div class="container">
+            <div class="row">
+              <!-- Movie List Item -->
+              <%@posts.each do |post|%>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                  <div class="movie-box-3 mb30">
+                    <div class="listing-container">
 
                       <!-- Movie List Image -->
                       <div class="listing-image">
-                          <!-- Image -->
-                          <img src="assets/images/posters/poster-8.jpg" alt="">
+                        <%if post.poster_image.attached?%>
+                          <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
+                        <%end%>
                       </div>
 
                       <!-- Movie List Content -->
-                      <div class="listing-content">
-                          <div class="inner">
+                      <div class="listing-content border-top">
+                        <div class="inner">
 
-                              <!-- Play Button -->
-                              <div class="play-btn">
-                                  <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                      <i class="fas fa-link"></i>
-                                  </a>
-                              </div>
-
-                              <h2 class="title">The Flash</h2>
-
-                              <!-- Rating -->
-                              <div class="stars">
-                                  <div class="rating">
-                                      <i class="fas fa-star"></i>
-                                      <span>8.0/10</span>
-                                      <span class="category">Action, Drama</span>
-                                  </div>
-                              </div>
-
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-
-                              <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                          <!-- Play Button -->
+                          <div class="play-btn">
+                            <a class="play-video" href="https://www.youtube.com/watch?v=<%=post.link%>">
+                              <i class="fas fa-link"></i>
+                            </a>
                           </div>
+
+                          <h2 class="title"><%=post.name%></h2>
+
+                          <!-- Rating -->
+                          <div class="stars">
+                            <div class="rating">
+                              <i class="fas fa-star"></i>
+
+                              <%if post.votes > 0 %>
+                                <span><%=post.rating%>/ 10</span>
+                              <% elsif %>
+                                <span>Não há avaliações</span>
+                              <%end%> 
+
+                              <span class="category"><%=post.post_category%></span>
+                            </div>
+                          </div>
+
+                          <p><%=post.description%></p>
+
+                          <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                        </div>
                       </div>
 
+                    </div>
                   </div>
-              </div>
-          </div>
-
-      </div>
-    </div>
-  </main>    
-
-
-  <div id="full-content" style="margin: 0 5%;">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="card card-small mb-4">
-          <div class="card-header border-bottom bg-f-green">
-            <h6 id="main_title" class="m-0 text-white">Novo Post</h6>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item p-3">
-              <div class="row">
-                <div class="col">
-                  <form>
-
-                    <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <%= text_field_tag :post_name, nil, placeholder: "Nome", class: "input_field form-control" %>
-                      </div>  
-                    </div>
-
-                    <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <p class="text-muted d-block mb-2">Poster da publicação</p>
-                        <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
-                      </div>  
-                    </div>
-
-                    <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <p class="text-muted d-block mb-2">Banner da publicação</p>
-                        <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
-                      </div>  
-                    </div>
-
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo", class: "input_field form-control" %>
-                      </div>  
-
-                      <div class="form-group col-md-6">
-                        <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {include_blank: 'Selecione', class: 'select_field custom-select form-control', style: "height:100%;"}  %>
-                      </div> 
-                      
-                    </div> 
-
-                    <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <%= text_area_tag :post_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
-                      </div>  
-                    </div>
-
-                    <div id="create_new_post" class="btn btn-f-green text-white">
-                      Criar
-                    </div>
-
-                  </form>
                 </div>
+              <%end%>  
+
+                <!-- Movie List Item -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="movie-box-3 mb30">
+                        <div class="listing-container">
+
+                            <!-- Movie List Image -->
+                            <div class="listing-image">
+                                <!-- Image -->
+                                <img src="assets/images/posters/poster-8.jpg" alt="">
+                            </div>
+
+                            <!-- Movie List Content -->
+                            <div class="listing-content">
+                                <div class="inner">
+
+                                    <!-- Play Button -->
+                                    <div class="play-btn">
+                                        <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
+                                            <i class="fas fa-link"></i>
+                                        </a>
+                                    </div>
+
+                                    <h2 class="title">The Flash</h2>
+
+                                    <!-- Rating -->
+                                    <div class="stars">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>8.0/10</span>
+                                            <span class="category">Action, Drama</span>
+                                        </div>
+                                    </div>
+
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
+
+                                    <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        </main>    
+
+
+        <div id="full-content" style="margin: 0 5%;">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card card-small mb-4">
+                <div class="card-header border-bottom bg-f-green">
+                  <h6 id="main_title" class="m-0 text-white">Novo Post</h6>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item p-3">
+                    <div class="row">
+                      <div class="col">
+                        <form>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <%= text_field_tag :post_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+                            </div>  
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <p class="text-muted d-block mb-2">Poster da publicação</p>
+                              <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+                            </div>  
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <p class="text-muted d-block mb-2">Banner da publicação</p>
+                              <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+                            </div>  
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo", class: "input_field form-control" %>
+                            </div>  
+
+                            <div class="form-group col-md-6">
+                              <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {include_blank: 'Selecione', class: 'select_field custom-select form-control', style: "height:100%;"}  %>
+                            </div> 
+                            
+                          </div> 
+
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <%= text_area_tag :post_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+                            </div>  
+                          </div>
+
+                          <div id="create_new_post" class="btn btn-f-green text-white">
+                            Criar
+                          </div>
+
+                        </form>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <br/><br/><br/><br />
+      <div class="d-flex justify-content-end mx-4">
+        <div id="new_post" class="btn btn-f-green text-white mx-3">
+          Novo Post
+        </div>
+      </div> 
 
-  <div class="d-flex justify-content-end mx-4">
-    <div id="new_post" class="btn btn-f-green text-white mx-3">
-      Novo Post
-    </div>
-  </div>  
+      <br/><br/>
 
-  <br/><br/>
-</div>  
+      <script src="<%= javascript_path "my_library" %>"></script>
 
-<script src="<%= javascript_path "my_library" %>"></script>
+      <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
+      <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+    
+    </body>
+  </html>  
