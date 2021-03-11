@@ -21,6 +21,7 @@ function page_load(){
 	}
 	starting_from_videos();
 	initial_create_table();
+	pagination();
 }
 
 function page_reload(){
@@ -28,7 +29,6 @@ function page_reload(){
 	starting_from_videos();
 	initial_create_table();
 }
-
 
 function starting_from_videos(){
 	$(".videos-row").show();
