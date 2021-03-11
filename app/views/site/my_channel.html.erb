@@ -14,9 +14,9 @@
       <meta name="author" content="GnoDesign">
       <meta name="turbolinks-visit-control" content="reload">
 
-
+      
       <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
-        <%= stylesheet_link_tag 'application', media: 'all' %>
+      <%= stylesheet_link_tag 'application', media: 'all' %>
 
       <!-- ===== Favicon & Different size apple touch icons ===== -->
       <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
@@ -46,6 +46,7 @@
       <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
       <%= stylesheet_link_tag 'style', media: 'all' %>
       <%= stylesheet_link_tag 'responsive', media: 'all' %>
+      <title>Meu Canal</title>
     </head>
 
     <style>
@@ -181,51 +182,56 @@
         <%end%>
       </div>  
 
-      <div class="card card-small series-row mb-4 mx-5 w-55">
-        <%if true == false%>
-        <div class="card-header border-bottom bg-f-green">
-          <div class="row">
-            <h6 class="text-white d-flex d-inline col-2 mb-0">#</h6>
-            <h6 class="text-white d-flex d-inline col-5 mb-0">Nome</h6>
-            <h6 class="text-white d-flex d-inline col-5 mb-0">Tipo</h6>
-          </div>  
-        </div>
-        <%end%>
-        <div class="card-body p-0 text-center">
-          <table id="mytable" class="table table-hover mb-0">
-<<<<<<< HEAD
-            <thead >
-              <tr >
-                <th >Nome</th>
-                <th >Tipo</th>
-              </tr>
-            </thead>
-=======
->>>>>>> 85333bb27dddfd5cf5469028342f074f27f053c8
+      
+        
+        
+        
+          <div class="container" >
+            <h4>Selecione numero de linhas</h4>
+            <div class="form-group">
+              <select name="state" id="maxRows" class="form-control" style="width:150px; height:50px;">
+                <option value= "5000"> mostrar todas</option>
+                <option value="2">2</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+          </div>
+        
+        <div class="card card-small series-row mb-4 mx-5 w-55">
+          <table id="mytable" class="table table-hover mb-0 ">
+            <div >
+              <thead class="card-header border-bottom bg-f-green">
+                <tr >
+                  <th >Nome</th>
+                  <th >Tipo</th>
+                </tr>
+              </thead>
+            </div>
+          <div class="card-body p-0 text-center">
             <tbody>
               <%cont = 0%>
               <% @categories.each do |category| %>
                 <% cont += 1%>
-<<<<<<< HEAD
                 <tr>
-=======
-                <tr class="tr-item" value="<%= cont %>">
-                  <td><%= cont %></th>
->>>>>>> 85333bb27dddfd5cf5469028342f074f27f053c8
                   <td><%=category.name%></td>
                   <td><%=category.name%></td>
                 </tr>
               <%end%>  
             </tbody>
+          </div>
           </table>
+          <div class="pagination-container">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center"></ul>
+            </nav>
+          </div>
         </div>
-      </div>
+        
       
-      <div class="pagination-container">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination"></ul>
-        </nav>
-      </div>
+      
+      
 
       <div id="full-content" style="margin: 0 5%;">
         <div class="row">
@@ -321,55 +327,7 @@
 
       <br/><br/>
 
-      <script>
-        var table = "#my_table";
-        $("#maxRows").on('change', function(){
-          var trnum = 0;
-          var maxRows = 2;
-          var totalRows = $(table+'tbody tr').lenght
-
-          $(table+' tr:gt(0)').each(function(){
-            trnum++;
-            if(trnum > maxRows){
-              $(this).hide();
-            }
-            if (trnum <= maxRows){
-              $(this).show();
-            }
-          })
-
-          if(totalRows > maxRows){
-            var pagenum = Math.ceil(totalRows/maxRows)
-            for(var i=1; i<pagenum; ){
-              $('.pagination').append('<li data-page="'+i+'">\<span>' + i++ +'<span class="sr-only">(current)</span></span>\</li>').show();
-            }
-          }
-          $('.pagination li:first-child').addClass('active')
-          $('.pagination li').on('click', function(){
-            var pageNum = $(this).attr('data-page');
-            var trIndex = 0;
-            $('.pagination li').removeClass('active')
-            $(this).addClass('active')
-            $(table+' tr:gt(0)').each(function(){
-              trIndex++;
-              if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
-                $(this).hide();
-              }else{
-                $(this).show();
-              }
-            })
-          })
-
-          $(function(){
-            $('table tr:eq(0)').prepend('<th>ID</th>')
-            var id = 0;
-            $('table tr:gt(0)').each(function(){
-              id++
-              $(this).prepend('<td>'+id+'</td>')
-            })
-          })
-        })  
-      </script>
+      
       <%= javascript_include_tag 'my_channel.js' %>
       <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
