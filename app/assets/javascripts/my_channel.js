@@ -29,55 +29,7 @@ function page_reload(){
 	initial_create_table();
 }
 
-		var table = "#my_table";
-        $("#maxRows").on('change', function(){
-        	$(".pagination").html()
-			var trnum = 0;
-        	var maxRows = parseInt($(this).val());
-        	var totalRows = $(table+'tbody tr').lenght
 
-			$(table+' tr:gt(0)').each(function(){
-				trnum++;
-				if(trnum > maxRows){
-					$(this).hide();
-				}
-				if (trnum <= maxRows){
-					$(this).show();
-				}
-			})
-
-          if(totalRows > maxRows){
-            var pagenum = Math.ceil(totalRows/maxRows)
-            for(var i=1; i<=pagenum; ){
-              $('.pagination').append('<li data-page="'+i+'">\<span>' + i++ +'<span class="sr-only">(current)</span></span>\</li>').show();
-            }
-          }
-          $('.pagination li:first-child').addClass('active')
-          $('.pagination li').on('click', function(){
-            var pageNum = $(this).attr('data-page');
-            var trIndex = 0;
-            $('.pagination li').removeClass('active')
-            $(this).addClass('active')
-            $(table+' tr:gt(0)').each(function(){
-              trIndex++;
-              if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
-                $(this).hide();
-              }else{
-                $(this).show();
-              }
-            })
-          })
-
-          $(function(){
-            $('table tr:eq(0)').prepend('#')
-            var id = 0;
-            $('table tr:gt(0)').each(function(){
-              id++
-              $(this).prepend('<td>'+id+'</td>')
-            })
-          })
-        }) 
-		
 function starting_from_videos(){
 	$(".videos-row").show();
 	$(".series-row").hide();
@@ -422,3 +374,24 @@ function insert_card_areas(data){
 	console.log(html)
 	$("#my_series").html(html)
 }
+
+
+
+// $(".pagination-item").on("click", function(){
+// 	var this_value = $(this).val();
+// 	var min = (this_value-1)*2 + 1;
+// 	var max = (this_value-1)*2 + 2;
+// 	console.log(this_value);
+// 	console.log(min);
+// 	console.log(max);
+// 	var trnum = 0;
+// 	$('.tr-item').each(function(){
+// 		trnum++;
+		
+// 		$(this).hide();
+// 		if (trnum <= max && trnum >= min ){
+// 			$(this).show();
+// 		}
+	
+// 	})
+// })	
