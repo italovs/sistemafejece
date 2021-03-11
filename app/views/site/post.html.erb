@@ -1,13 +1,421 @@
-<div class="card">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">  <%= @post.name %></h5>
-    <p class="card-text"><%= @post.description %></p>
-    <p class="card-text"><small class="text-muted"> Arquivo: <a href="<%= @post.link %>" target="_blank">Link</a></small></p>
-    <% if @post.votes == 0 %>
-      <p class="card-text"><small class="text-muted">Nota: 5</small></p>
-    <% else %>
-      <p class="card-text"><small class="text-muted" id="nota"> <%= "Nota: #{ @post.rating }" %></small></p>
-    <% end %>
-  </div>
-</div>
+<!DOCTYPE html>
+
+  <html lang="pt-BR">
+
+    <head>
+      <meta charset="UTF-8">
+      <%= csrf_meta_tags %>
+      <!-- ===== Mobile viewport optimized ===== -->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+
+      <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+      <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+      <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+      <meta name="author" content="GnoDesign">
+      <meta name="turbolinks-visit-control" content="reload">
+
+      <!-- ===== Website Title ===== -->
+      <title>Farol</title>
+
+      <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag 'application', media: 'all' %>
+
+      <!-- ===== Favicon & Different size apple touch icons ===== -->
+      <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+      <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
+      <link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
+      <link rel="icon" sizes="128x128" href="assets/images/icon.png">
+
+      <!-- ===== Google Fonts ===== -->
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+        
+
+      <!-- ===== CSS links ===== -->
+      <%= stylesheet_link_tag 'application', media: 'all' %>
+      <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
+      <%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+      <%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+      <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+      <%= stylesheet_link_tag 'style', media: 'all' %>
+      <%= stylesheet_link_tag 'responsive', media: 'all' %>
+    </head>
+
+    <style>
+
+      .mm-slideout{
+        z-index: 99;
+      }
+
+      #main-mobile-nav{
+        z-index: 2
+      }
+
+      .header{
+        background: trasnparent !important;
+      }
+
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after {
+        opacity:0.6 !important;
+      }
+
+      a:visited {
+        color: #fff; }
+
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after,
+      .blog-post .blog-thumb a:before,
+      ul.blog-posts-widget .blog-content .blog-thumb a:before,
+      .celebrity-list-1 .celebrity-image a:before,
+      .celebrity-grid-1 .celebrity-image a:before,
+      .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
+      .movie-box-1 .poster:before,
+      .movie-detail-intro2 .movie-poster:before {
+          background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
+          background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+      }
+    </style>
+
+
+    <body>
+      <nav id="main-mobile-nav"></nav>
+      <%= render '/layouts/member_navbar' %>
+      <%= yield %>
+      
+      <!-- =============== START OF MOVIE DETAIL INTRO =============== -->
+      <section  class="movie-detail-intro overlay-gradient ptb100" style="height:650px; background-image: url(<%= rails_blob_url(@post.banner_image) %>);">
+      </section>
+      <!-- =============== END OF MOVIE DETAIL INTRO =============== -->
+
+
+
+      <!-- =============== START OF MOVIE DETAIL INTRO 2 =============== -->
+      <section class="movie-detail-intro2">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+
+                      <div class="movie-poster">
+                          <%if @post.poster_image.attached?%>
+                            <%= image_tag @post.poster_image.variant(gravity:'Center',resize:"300x444^"  , crop: '300x444+0+0')%>
+                          <%end%>
+
+                          <% if @post.kind == 'video'%>
+                            <a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>">
+                              <i class="fas fa-play"></i>
+                            </a>
+                          <% elsif @post.kind == 'post'%>
+                            <a class="play-video" href="<%= @post.link%>">
+                              <i class="fas fa-link"></i>
+                            </a>
+                          <% end %>
+                      </div>
+
+
+                      <div class="movie-details">
+                          <h3 class="title"><%= @post.name %></h3>
+
+                          <!--<ul class="movie-subtext">
+                              <li>PG-13</li>
+                              <li>2h 32min</li>
+                              <li>Action, Adventure, Fantasy</li>
+                              <li>15 December 2017 (USA)</li>
+                          </ul>-->
+
+                          <a href="#" class="btn btn-main btn-effect">trailer</a>
+                          <a href="#" class="btn btn-main btn-effect">watch later</a>
+                          <a href="#" class="btn rate-movie"><i class="far fa-heart"></i></a>
+
+                          <div class="rating mt10">
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star-half-alt"></i>
+                              <span><%= @post.votes%> Avaliações</span>
+                          </div>
+                      </div>
+
+                      <div class="clearfix"></div>
+
+                  </div>
+              </div>
+          </div>
+      </section>
+      <!-- =============== End OF MOVIE DETAIL INTRO 2 =============== -->
+
+
+      <!-- =============== START OF MOVIE DETAIL MAIN SECTION =============== -->
+      <section class="movie-detail-main ptb100">
+          <div class="container">
+
+              <div class="row">
+                  <!-- Start of Movie Main -->
+                  <div class="col-lg-8 col-sm-12">
+                      <div class="inner pr50">
+
+                          <!-- Storyline -->
+                          <div class="storyline">
+                              <h3 class="title">Descrição</h3>
+
+                              <p><%= @post.description %></p>
+                          </div>
+
+                          <!-- Media -->
+                          <div class="movie-media mt50">
+                              <h3 class="title"> Photos &amp; Videos</h3>
+
+                              <ul class="image-gallery isotope" style="position: relative; height: 373.501px;">
+                                  <li class="element" style="position: absolute; left: 0px; top: 0px;">
+                                      <a href="assets/images/blog/bloglist-1.jpg">
+                                          <img src="assets/images/blog/bloglist-1.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 184px; top: 0px;">
+                                      <a href="assets/images/blog/bloglist-2.jpg">
+                                          <img src="assets/images/blog/bloglist-2.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 368px; top: 0px;">
+                                      <a href="assets/images/other/home2-bg.jpg">
+                                          <img src="assets/images/other/home2-bg.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 0px; top: 124px;">
+                                      <a href="assets/images/blog/bloglist-2.jpg">
+                                          <img src="assets/images/blog/bloglist-2.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 184px; top: 124px;">
+                                      <a href="assets/images/blog/bloglist-1.jpg">
+                                          <img src="assets/images/blog/bloglist-1.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 368px; top: 124px;">
+                                      <a href="assets/images/blog/bloglist-3.jpg">
+                                          <img src="assets/images/blog/bloglist-3.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 0px; top: 248px;">
+                                      <a href="assets/images/blog/bloglist-1.jpg">
+                                          <img src="assets/images/blog/bloglist-1.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 184px; top: 248px;">
+                                      <a href="assets/images/other/landscape.jpg">
+                                          <img src="assets/images/other/landscape.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+
+                                  <li class="element" style="position: absolute; left: 368px; top: 248px;">
+                                      <a href="assets/images/other/home2-bg.jpg">
+                                          <img src="assets/images/other/home2-bg.jpg" class="img-responsive" alt="">
+                                      </a>
+                                  </li>
+                              </ul>
+
+                          </div>
+
+                      </div>
+                  </div>
+                  <!-- End of Movie Main -->
+
+
+                  <!-- Start of Sidebar -->
+                  <div class="col-lg-4 col-sm-12">
+                      <div class="sidebar">
+
+                          <!-- Start of Details Widget -->
+                          <aside class="widget widget-movie-details">
+                              <h3 class="title">Details</h3>
+
+                              <ul>
+                                  <li><strong>Release date: </strong>December 15, 2017</li>
+                                  <li><strong>Director: </strong><a href="#">Rian Johnson</a></li>
+                                  <li><strong>Budget: </strong>200 million USD</li>
+                                  <li><strong>Country: </strong>USA</li>
+                                  <li><strong>Language: </strong>English</li>
+                                  <li><strong>Production Co: </strong><a href="#">Lucasfilm</a></li>
+                              </ul>
+                          </aside>
+                          <!-- End of Details Widget -->
+
+                          <!-- Start of Details Widget -->
+                          <aside class="widget widget-movie-cast">
+                              <h3 class="title">Cast</h3>
+
+                              <ul class="cast-wrapper">
+                                  <li>
+                                      <a href="celebrity-detail.html">
+                                          <span class="circle-img">
+                                              <img src="assets/images/celebrities/celebrity1.jpg" alt="">
+                                          </span>
+                                          <h6 class="name">Bryan Doe</h6>
+                                      </a>
+                                  </li>
+
+                                  <li>
+                                      <a href="celebrity-detail.html">
+                                          <span class="circle-img">
+                                              <img src="assets/images/celebrities/celebrity2.jpg" alt="">
+                                          </span>
+                                          <h6 class="name">Baron Saul</h6>
+                                      </a>
+                                  </li>
+
+                                  <li>
+                                      <a href="celebrity-detail.html">
+                                          <span class="circle-img">
+                                              <img src="assets/images/celebrities/celebrity3.jpg" alt="">
+                                          </span>
+                                          <h6 class="name">Ewan Actor</h6>
+                                      </a>
+                                  </li>
+
+                                  <li>
+                                      <a href="celebrity-detail.html">
+                                          <span class="circle-img">
+                                              <img src="assets/images/celebrities/celebrity4.jpg" alt="">
+                                          </span>
+                                          <h6 class="name">Nicole Beet</h6>
+                                      </a>
+                                  </li>
+                              </ul>
+
+                              <a href="celebrities-list.html" class="btn btn-main btn-effect mt20">view all</a>
+
+                          </aside>
+                          <!-- End of Details Widget -->
+
+                      </div>
+                  </div>
+                  <!-- End of Sidebar -->
+              </div>
+
+          </div>
+      </section>
+      <!-- =============== END OF MOVIE DETAIL MAIN SECTION =============== -->
+
+
+
+      <!-- =============== START OF RECOMMENDED MOVIES SECTION =============== -->
+      <section class="recommended-movies bg-light ptb100">
+          <div class="container">
+
+              <!-- Start of row -->
+              <div class="row">
+                  <div class="col-md-8 col-sm-12">
+                      <h2 class="title">Pessoas também gostaram de...</h2>
+                  </div>
+              </div>
+              <!-- End of row -->
+
+
+              <!-- Start of Latest Movies Slider -->
+              <div class="owl-carousel recommended-slider mt20 owl-loaded owl-drag">
+                <!-- === Start of Sliding Item 1 === -->
+                <% @posts.each do |post|%>
+                  <% if post.kind = @post.kind %>
+                    <div class="item">
+                        <!-- Start of Movie Box -->
+                        <div class="movie-box-1">
+
+                            <!-- Start of Poster -->
+                            <div class="poster">
+                                <%if post.poster_image.attached?%>
+                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+                                <%end%>
+                            </div>
+                            <!-- End of Poster -->
+
+                            <!-- Start of Buttons -->
+                            <div class="buttons">
+                              <% if post.kind == 'video'%>
+                                <a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>">
+                                  <i class="fas fa-play"></i>
+                                </a>
+                              <% elsif post.kind == 'post'%>
+                                <a class="play-video" href="<%= @post.link%>">
+                                  <i class="fas fa-link"></i>
+                                </a>
+                              <% end %>
+                            </div>
+                            <!-- End of Buttons -->
+
+                            <!-- Start of Movie Details -->
+                            <div class="movie-details">
+                                <h4 class="movie-title">
+                                    <a href="movie-detail.html"><%= post.name %></a>
+                                </h4>
+                                <span class="released"><%= post.created_at %></span>
+                            </div>
+                            <!-- End of Movie Details -->
+
+                            <!-- Start of Rating -->
+                            <div class="stars">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <%if post.votes > 0 %>
+                                    <span><%=post.rating%>/ 10</span>
+                                <% elsif %>
+                                    <span>Não há avaliações</span>
+                                <%end%>    
+                            </div>
+                            <!-- End of Rating -->
+
+                        </div>
+                    </div>
+                  <%end%>  
+                <%end%>
+                <!-- === End of Sliding Item 1 === --> 
+                
+              <!-- End of Latest Movies Slider -->
+
+          </div>
+      </section>
+      <!-- =============== END OF RECOMMENDED MOVIES SECTION =============== -->
+
+      <%= render '/layouts/member_footer' %>
+
+      <!-- =============== JAVASCRIPT FILES =============== -->
+      <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+
+    </body>
+  </html>    

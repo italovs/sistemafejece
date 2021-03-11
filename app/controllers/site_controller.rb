@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout 'member', :except => [:profile, :my_channel, :my_library]
+	layout 'member', :except => [:profile, :my_channel, :my_library, :post]
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
 	before_action :check_if_user_is_director_or_is_admin, only: [:my_channel]
@@ -490,7 +490,10 @@ class SiteController < ApplicationController
 	end
 
 	def post
-		@post = PostCategory.find(params[:id]).post
+		@post = Post.find(params[:id])
+		@posts = Post.all
+
+		direction_notification
 	end
 
 	private

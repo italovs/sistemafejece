@@ -4886,9 +4886,9 @@ main .col-md-12:last-of-type .movie-list-2 {
     -ms-transform: scale(1.05);
     -o-transform: scale(1.05);
     transform: scale(1.05);
-    -webkit-box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
-    -moz-box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
-    box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
+    -webkit-box-shadow: 0 0 0 10px rgba(226, 115, 33, .4);
+    -moz-box-shadow: 0 0 0 10px rgba(226, 115, 33, .4);
+    box-shadow: 0 0 0 10px rgba(226, 115, 33, .4);
 }
 
 .movie-detail-intro2 .movie-details {
