@@ -16,7 +16,7 @@
 	<meta name="turbolinks-visit-control" content="reload">
 
 	<!-- ===== Website Title ===== -->
-	<title>Movify - Movies, Series & Cinema HTML Template</title>
+	<title>Farol</title>
 
 	<%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
   	<%= stylesheet_link_tag 'application', media: 'all' %>
@@ -70,6 +70,13 @@
 </head>
 
 <body>
+
+    <style>
+
+        a:visited {
+            color: #fff; }
+
+    </style>
 
     <!-- =============== START OF PRELOADER =============== -->
     <div class="loading">
@@ -486,14 +493,14 @@
                 <!-- Start of row -->
                 <div class="row">
                     <div class="col-md-8">
-                        <h2 class="title">Mais vistos</h2>
+                        <h2 class="title">Latest Movies</h2>
                     </div>
 
 
                     <div class="col-md-4 align-self-center text-right">
                         <a href="#" class="btn btn-icon btn-main btn-effect">
-                            Veja todos
-                            <i class="ti-angle-double-right"></i>
+                            view all
+                            <i class="fas fa-angle-double-right"></i>
                         </a>
                     </div>
                 </div>
@@ -501,7 +508,7 @@
 
 
                 <!-- Start of Latest Movies Slider -->
-                <div class="owl-carousel latest-movies-slider mt20">
+                <div class="row owl-carousel latest-movies-slider mt-20">
 
                     <!-- === Start of Sliding Item 1 === -->
                         <% @posts.each do |post|%>    
@@ -607,6 +614,7 @@
                 </div>
                 <!-- End of Latest Movies Slider -->
 
+
             </div>
         </section>
         <!-- =============== END OF LATEST MOVIES SECTION =============== -->
@@ -633,7 +641,7 @@
 
 
                 <!-- Start of Movie List -->
-                <div class="row mt-20">
+                <div class="row mt20">
 
                     <!-- Movie List Item -->
                     <% @posts.each do |post| %>

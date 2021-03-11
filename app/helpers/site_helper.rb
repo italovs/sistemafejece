@@ -19,8 +19,8 @@ module SiteHelper
 	def valid_member_or_admin?
 		if admin_signed_in?
 			true
-		else
-			current_member.valid?
+		elsif current_member.validated?
+			true
 		end
 	end
 end

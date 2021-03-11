@@ -1,4 +1,13 @@
 //= require jquery
+$(document).on("turbolinks:load",function(){
+	$(".selectize").selectize();
+});
+
+$.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 
 $(function(){
 	page_load();
@@ -365,3 +374,24 @@ function insert_card_areas(data){
 	console.log(html)
 	$("#my_series").html(html)
 }
+
+
+
+// $(".pagination-item").on("click", function(){
+// 	var this_value = $(this).val();
+// 	var min = (this_value-1)*2 + 1;
+// 	var max = (this_value-1)*2 + 2;
+// 	console.log(this_value);
+// 	console.log(min);
+// 	console.log(max);
+// 	var trnum = 0;
+// 	$('.tr-item').each(function(){
+// 		trnum++;
+		
+// 		$(this).hide();
+// 		if (trnum <= max && trnum >= min ){
+// 			$(this).show();
+// 		}
+	
+// 	})
+// })	

@@ -1,248 +1,381 @@
+<!DOCTYPE html>
+	<html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <!-- ===== Mobile viewport optimized ===== -->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
 
-<%if true == false%>
-  <div id="new_video" class="btn btn-primary">Novo Vídeo</div>
-  <div id="new_serie" class="btn btn-primary">Nova Série</div>
-  <div id="series" class="btn btn-primary">Minhas Séries</div>
-  <div id="videos" class="btn btn-primary">Meus Vídeos</div>
-
-
-  <%# novo vídeo %>
-  <%= text_field_tag :youtube_name, nil, placeholder: "Nome" %>
-  <%= text_field_tag :youtube_description, nil, placeholder: "Descrição" %>
-  <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube" %>
-  <%= select_tag :tv_series, options_from_collection_for_select(@tv_series, "id", "name"), {:include_blank => "Selecione"} %>
-  <%= select_tag :season, options_for_select([ "Selecione", "1"])  %>
-  <div id="create_new_video" class="btn btn-primary">CRIAR</div> 
-
-  <%# nova série %>
-  <%= text_field_tag :serie_name, nil, placeholder: "Nome da Série" %>
-  <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
-  <div id="create_new_serie" class="btn btn-primary">CRIAR</div>
-
-  <div id="my_series">
-    
-  </div>
-<%end%>
-
-<style>
-  .header{
-    background: trasnparent !important;
-  }
-</style>
+      <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+      <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+      <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+      <meta name="author" content="GnoDesign">
+      <meta name="turbolinks-visit-control" content="reload">
 
 
+      <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag 'application', media: 'all' %>
 
-<section class="page-header overlay-gradient">
-  <div class="container">
-      <div class="inner py-5">
-          <h2 class="title pb-1">Meus Vídeos</h2>
-          <ol class="breadcrumb">
-              <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
-              <li>Meus Vídeos</li>
-          </ol>
-      </div>
-  </div>
-</section>
+      <!-- ===== Favicon & Different size apple touch icons ===== -->
+      <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+      <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
+      <link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
+      <link rel="icon" sizes="128x128" href="assets/images/icon.png">
 
-<br/><br/><br/>
+      <!-- ===== Google Fonts ===== -->
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+        
 
+      <!-- ===== CSS links ===== -->
+      <%= stylesheet_link_tag 'application', media: 'all' %>
+      <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
+      <%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
+      <%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+      <%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+      <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+      <%= stylesheet_link_tag 'style', media: 'all' %>
+      <%= stylesheet_link_tag 'responsive', media: 'all' %>
+    </head>
 
-<div class="d-flex justify-content-end">
-  <div id="video" class="btn btn-f-green text-white mr-2">
-    Meus Vídeos
-  </div>
+    <style>
+      .mm-slideout{
+        z-index: 99;
+      }
 
-  <div id="series" class="btn btn-f-green text-white mr-4">
-    Minhas Séries
-  </div>
-</div>  
+      #main-mobile-nav{
+        z-index: 2
+      }
 
-<br/><br/><br/>
+      .header{
+        background: trasnparent !important;
+      }
 
-<div class="videos-row" style="margin:0 5%">
-  <% @posts.each do |post| %>
-    <div class="col-md-12 col-sm-12 ">
-      <div class="movie-list-1 mb30">
-          <div class="listing-container">
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after {
+        opacity:1.0 !important;
+      }  
 
-              <!-- Movie List Image -->
-              <div class="listing-image">
-                <%if post.poster_image.attached?%>
-                  <%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
-                <%end%>
+      a:visited {
+        color: #fff; }
 
-                  <!-- Play Button -->
-                  <div class="play-btn">
-                      <a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
-                          <i class="fas fa-play"></i>
-                      </a>
-                  </div>
+      .overlay-gradient .slotholder:after,
+      .overlay-gradient:after,
+      .blog-post .blog-thumb a:before,
+      ul.blog-posts-widget .blog-content .blog-thumb a:before,
+      .celebrity-list-1 .celebrity-image a:before,
+      .celebrity-grid-1 .celebrity-image a:before,
+      .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
+      .movie-box-1 .poster:before,
+      .movie-detail-intro2 .movie-poster:before {
+          background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
+          background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+          background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+      }
 
-                  <!-- Buttons -->
-                  <div class="buttons">
-                      <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
-                          <i class="fas fa-heart"></i>
-                      </a>
+    </style>
 
-                      <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-                          <i class="fas fa-share-alt"></i>
-                      </a>
-                  </div>
+    <body class="bg-light">
+      
+      <nav id="main-mobile-nav"></nav>
+      <%= render '/layouts/member_navbar' %>
+      <%= yield %>
 
-                  <!-- Rating -->
-                  <div class="stars">
-                      <div class="rating">
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
-                      </div>
-                  </div>
-
-                  <!-- Image -->
-                  <img src="" alt="">
-              </div>
-
-              <!-- Movie List Content -->
-              <div class="listing-content">
-                  <div class="inner">
-                      <h2 class="title"><%= post.name %></h2>
-
-                      <p><%=post.description%></p>
-
-                      <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                  </div>
-              </div>
-
-          </div>
-      </div>
-    </div>
-  <%end%>
-</div>  
-
-
-<div class="card card-small series-row mb-4 mx-5 w-55">
-	<div class="card-header border-bottom bg-f-green">
-    <div class="row">
-      <h6 class="text-white d-flex d-inline col-2 mb-0">#</h6>
-      <h6 class="text-white d-flex d-inline col-5 mb-0">Nome</h6>
-      <h6 class="text-white d-flex d-inline col-5 mb-0">Tipo</h6>
-    </div>  
-	</div>
-	<div class="card-body p-0 text-center">
-      <table class="table table-hover mb-0">
-        <tbody>
-          <%cont = 0%>
-          <% @categories.each do |category| %>
-            <% cont += 1%>
-            <tr>
-              <td><%= cont %></th>
-              <td><%=category.name%></td>
-              <td><%=category.name%></td>
-            </tr>
-          <%end%>  
-        </tbody>
-      </table>
-  </div>
-</div>   
-
-
-
-
-
-<div id="full-content" style="margin: 0 5%;">
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="card card-small mb-4">
-        <div class="card-header border-bottom bg-f-green">
-          <h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item p-3">
-            <div class="row">
-              <div class="col">
-                <form>
-
-                  <div class="form-row video-field">
-                    <div class="form-group col-md-12">
-                      <%= text_field_tag :youtube_name, nil, placeholder: "Nome", class: "input_field form-control" %>
-                    </div>  
-                  </div>
-
-                  <div class="form-row video-field">
-                    <div class="form-group col-md-12">
-                      <p class="text-muted d-block mb-2">Poster da publicação</p>
-                      <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
-                    </div>  
-                  </div>
-
-                  <div class="form-row video-field">
-                    <div class="form-group col-md-12">
-                      <p class="text-muted d-block mb-2">Banner da publicação</p>
-                      <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
-                    </div>  
-                  </div>
-
-                  <div class="form-row video-field">
-                    <div class="form-group col-md-12">
-                      <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube", class: "input_field form-control" %>
-                    </div>  
-                  </div>
-
-                  <div class="form-row video-field">
-                    <div class="form-group col-md-12">
-                      <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control', style: "height:100%;"}  %>
-                    </div>  
-                  </div> 
-
-                  <div class="form-row video-field">
-                    <div class="form-group col-md-12">
-                      <%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
-                    </div>  
-                  </div>
-
-                  <div class="form-row serie-field">
-                    <div class="form-group col-md-12">
-                      <%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
-                    </div>  
-                  </div>
-
-                  <div class="form-row serie-field">
-                    <div class="form-group col-md-12">
-                      <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione",  :class => 'select_field custom-select form-control', :style => "height:100%;"} %>
-                    </div>  
-                  </div>
-                  
-                  <div id="create_new_video" class="btn btn-f-green text-white">
-                    Criar
-                  </div>
-
-                  <div id="create_new_serie" class="btn btn-f-green text-white">
-                    Criar
-                  </div>
-                </form>
-              </div>
+      <section class="page-header overlay-gradient">
+        <div class="container">
+            <div class="inner py-4">
+                <h2 class="title pb-1">Meus Vídeos</h2>
+                <ol class="breadcrumb">
+                    <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
+                    <li>Meus Vídeos</li>
+                </ol>
             </div>
-          </li>
-        </ul>
+        </div>
+      </section>
+
+      <br/><br/><br/>
+
+
+      <div class="d-flex justify-content-end">
+        <div id="video" class="btn btn-f-green text-white mr-2">
+          Meus Vídeos
+        </div>
+
+        <div id="series" class="btn btn-f-green text-white mr-4">
+          Minhas Séries
+        </div>
+      </div>  
+
+      <br/><br/><br/>
+
+      <div class="videos-row" style="margin:0 5%">
+        <% @posts.each do |post| %>
+          <div class="col-md-12 col-sm-12 ">
+            <div class="movie-list-1 mb30">
+                <div class="listing-container">
+
+                    <!-- Movie List Image -->
+                    <div class="listing-image">
+                      <%if post.poster_image.attached?%>
+                        <%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+                      <%end%>
+
+                        <!-- Play Button -->
+                        <div class="play-btn">
+                            <a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="buttons">
+                            <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
+                                <i class="fas fa-heart"></i>
+                            </a>
+
+                            <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
+                                <i class="fas fa-share-alt"></i>
+                            </a>
+                        </div>
+
+                        <!-- Rating -->
+                        <div class="stars">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+
+                        <!-- Image -->
+                        <img src="" alt="">
+                    </div>
+
+                    <!-- Movie List Content -->
+                    <div class="listing-content">
+                        <div class="inner">
+                            <h2 class="title"><%= post.name %></h2>
+
+                            <p><%=post.description%></p>
+
+                            <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+          </div>
+        <%end%>
+      </div>  
+
+      <div class="card card-small series-row mb-4 mx-5 w-55">
+        <div class="card-header border-bottom bg-f-green">
+          <div class="row">
+            <h6 class="text-white d-flex d-inline col-2 mb-0">#</h6>
+            <h6 class="text-white d-flex d-inline col-5 mb-0">Nome</h6>
+            <h6 class="text-white d-flex d-inline col-5 mb-0">Tipo</h6>
+          </div>  
+        </div>
+        <div class="card-body p-0 text-center">
+          <table id="mytable" class="table table-hover mb-0">
+            <tbody>
+              <%cont = 0%>
+              <% @categories.each do |category| %>
+                <% cont += 1%>
+                <tr class="tr-item" value="<%= cont %>">
+                  <td><%= cont %></th>
+                  <td><%=category.name%></td>
+                  <td><%=category.name%></td>
+                </tr>
+              <%end%>  
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+      
+      <%if ture == false%>
+        <div class="pagination-container">
+          <nav>
+            <ul class="pagination">
+              <% i = 1 %>
+              <% while (i <= (cont.to_f/2).ceil) %>
+                <button class="pagination-item" value="<%= i%>"><%=i%></button>
+                <%i += 1%>
+              <%end%>
+            </ul>
+          </nav>
+          <div id="final-value" value="<%= cont%>"></div>
+        </div>
+      <%end%>  
 
-<br/><br/><br/><br />
+      <div id="full-content" style="margin: 0 5%;">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="card card-small mb-4">
+              <div class="card-header border-bottom bg-f-green">
+                <h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item p-3">
+                  <div class="row">
+                    <div class="col">
+                      <form>
 
-<div class="d-flex justify-content-end mx-4">
-  <div id="new_video" class="btn btn-f-green text-white mx-3">
-    Novo Vídeo
-  </div>
+                        <div class="form-row video-field">
+                          <div class="form-group col-md-12">
+                            <%= text_field_tag :youtube_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+                          </div>  
+                        </div>
 
-  <div id="new_serie" class="btn btn-f-green text-white">
-    Nova Série
-  </div>
-</div>  
+                        <div class="form-row video-field">
+                          <div class="form-group col-md-12">
+                            <p class="text-muted d-block mb-2">Poster da publicação</p>
+                            <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+                          </div>  
+                        </div>
 
-<br/><br/>
+                        <div class="form-row video-field">
+                          <div class="form-group col-md-12">
+                            <p class="text-muted d-block mb-2">Banner da publicação</p>
+                            <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+                          </div>  
+                        </div>
 
-<%= javascript_include_tag 'my_channel.js' %>
+                        <div class="form-row video-field">
+                          <div class="form-group col-md-12">
+                            <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube", class: "input_field form-control" %>
+                          </div>  
+                        </div>
+
+                        <div class="form-row video-field">
+                          <div class="form-group col-md-12">
+                            <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control selectize', style: "height:100%;"}  %>
+                          </div>  
+                        </div> 
+
+                        <div class="form-row video-field">
+                          <div class="form-group col-md-12">
+                            <%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+                          </div>  
+                        </div>
+
+                        <div class="form-row serie-field">
+                          <div class="form-group col-md-12">
+                            <%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
+                          </div>  
+                        </div>
+
+                        <div class="form-row serie-field">
+                          <div class="form-group col-md-12">
+                            <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione",  :class => 'select_field custom-select form-control', :style => "height:100%;"} %>
+                          </div>  
+                        </div>
+                        
+                        <div id="create_new_video" class="btn btn-f-green text-white">
+                          Criar
+                        </div>
+
+                        <div id="create_new_serie" class="btn btn-f-green text-white">
+                          Criar
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br/><br/><br/><br />
+
+      <div class="d-flex justify-content-end mx-4">
+        <div id="new_video" class="btn btn-f-green text-white mx-3">
+          Novo Vídeo
+        </div>
+
+        <div id="new_serie" class="btn btn-f-green text-white">
+          Nova Série
+        </div>
+      </div>  
+
+      <br/><br/>
+
+      <script>
+        var table = "#my_table";
+        $("#maxRows").on('change', function(){
+          var trnum = 0;
+          var maxRows = 2;
+          var totalRows = $(table+'tbody tr').lenght
+
+          $(table+' tr:gt(0)').each(function(){
+            trnum++;
+            if(trnum > maxRows){
+              $(this).hide();
+            }
+            if (trnum <= maxRows){
+              $(this).show();
+            }
+          })
+
+          if(totalRows > maxRows){
+            var pagenum = Math.ceil(totalRows/maxRows)
+            for(var i=1; i<pagenum; ){
+              $('.pagination').append('<li data-page="'+i+'">\<span>' + i++ +'<span class="sr-only">(current)</span></span>\</li>').show();
+            }
+          }
+          $('.pagination li:first-child').addClass('active')
+          $('.pagination li').on('click', function(){
+            var pageNum = $(this).attr('data-page');
+            var trIndex = 0;
+            $('.pagination li').removeClass('active')
+            $(this).addClass('active')
+            $(table+' tr:gt(0)').each(function(){
+              trIndex++;
+              if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
+                $(this).hide();
+              }else{
+                $(this).show();
+              }
+            })
+          })
+
+          $(function(){
+            $('table tr:eq(0)').prepend('<th>ID</th>')
+            var id = 0;
+            $('table tr:gt(0)').each(function(){
+              id++
+              $(this).prepend('<td>'+id+'</td>')
+            })
+          })
+        })  
+      </script>
+      <%= javascript_include_tag 'my_channel.js' %>
+      <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+    </body>  

@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-	layout 'member', :except => :profile
+	layout 'member', :except => [:profile, :my_channel, :my_library]
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
 	before_action :check_if_user_is_director_or_is_admin, only: [:my_channel]
@@ -440,6 +440,7 @@ class SiteController < ApplicationController
 	#POSTS
 	def my_library
 		@categories = Category.all.select(:id, :name)
+		@posts = Post.all
 
 		direction_notification
 	end
