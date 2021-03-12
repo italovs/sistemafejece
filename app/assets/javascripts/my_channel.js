@@ -22,6 +22,7 @@ function page_load(){
 	starting_from_videos();
 	initial_create_table();
 	pagination();
+	initial_paginate()
 }
 
 function page_reload(){
@@ -30,6 +31,57 @@ function page_reload(){
 	initial_create_table();
 }
 
+var table = "#mytable";
+$("#maxRows").on('change', pagination)
+
+function pagination(){
+	$('.pagination').html('')
+		var trnum = 0;
+		var maxRows = parseInt($('#maxRows').val());
+		var totalRows = $(table+'  tbody tr').length
+
+		$(table+' tr:gt(0)').each(function(){
+			trnum++;
+			if(trnum > maxRows){
+				$(this).hide();
+			}
+			if (trnum <= maxRows){
+				$(this).show();
+			}
+		})
+
+		if(totalRows > maxRows){
+			var pagenum = Math.ceil(totalRows/maxRows)
+			for(var i=1; i<=pagenum; ){
+				$('.pagination').append('<li data-page="'+i+'" class="page-item">\<a class="page-link">' + i++ +'<a class="sr-only">(current)</a></a>\</li>').show();
+			}
+		}
+		$('.pagination li:first-child').addClass('active')
+		$('.pagination li').on('click', function(){
+			var pageNum = $(this).attr('data-page');
+			var trIndex = 0;
+			$('.pagination li').removeClass('active')
+			$(this).addClass('active')
+			$(table+' tr:gt(0)').each(function(){
+				trIndex++;
+				if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
+					$(this).hide();
+				}else{
+					$(this).show();
+				}
+			})
+		})
+
+	
+}
+$(function(){
+	$('table tr:eq(0)').prepend('<th>ID</th>')
+	var id = 0;
+	$('table tr:gt(0)').each(function(){
+		id++
+		$(this).prepend('<td>'+id+'</td>')
+	})
+}) 
 function starting_from_videos(){
 	$(".videos-row").show();
 	$(".series-row").hide();
@@ -377,21 +429,49 @@ function insert_card_areas(data){
 
 
 
-// $(".pagination-item").on("click", function(){
-// 	var this_value = $(this).val();
-// 	var min = (this_value-1)*2 + 1;
-// 	var max = (this_value-1)*2 + 2;
-// 	console.log(this_value);
-// 	console.log(min);
-// 	console.log(max);
-// 	var trnum = 0;
-// 	$('.tr-item').each(function(){
-// 		trnum++;
+$(".paginate-item").on("click", function(){
+	var this_value = $(this).val();
+	var maxRows = 2;
+	var min = (this_value-1)*maxRows + 1;
+	var max = (this_value-1)*maxRows + maxRows;
+	var trnum = 0;
+	$('.var-item').each(function(){
+		trnum++;
 		
-// 		$(this).hide();
-// 		if (trnum <= max && trnum >= min ){
-// 			$(this).show();
-// 		}
+		$(this).hide();
+		if (trnum <= max && trnum >= min ){
+			$(this).show();
+		}
 	
-// 	})
-// })	
+	})
+	$('.paginate-item').removeClass('bg-f-green');
+	$('.paginate-item').removeClass('text-white');
+    $(this).addClass('bg-f-green');
+	$(this).addClass('text-white');
+	
+})
+
+
+function initial_paginate(){
+	var this_value = 1;
+	var maxRows = 2;
+	var min = (this_value-1)*maxRows + 1;
+	var max = (this_value-1)*maxRows + maxRows;
+	console.log(this_value);
+	console.log(min);
+	console.log(max);
+	var trnum = 0;
+	$('.var-item').each(function(){
+		trnum++;
+		
+		$(this).hide();
+		if (trnum <= max && trnum >= min ){
+			$(this).show();
+		}
+	
+	})
+	$('.paginate-item').removeClass('bg-f-green');
+	$('.paginate-item').removeClass('text-white');
+    $(' .paginate-item:first').addClass('bg-f-green');
+	$(' .paginate-item:first').addClass('text-white');
+}	

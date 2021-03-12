@@ -121,8 +121,10 @@
       <br/><br/><br/>
 
       <div class="videos-row" style="margin:0 5%">
+        <%cont = 0%>
         <% @posts.each do |post| %>
-          <div class="col-md-12 col-sm-12 ">
+          <%cont += 1%>
+          <div class="col-md-12 col-sm-12 var-item" value="<%=cont%>">
             <div class="movie-list-1 mb30">
                 <div class="listing-container">
 
@@ -135,7 +137,7 @@
                         <!-- Play Button -->
                         <div class="play-btn">
                             <a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
-                                <i class="fas fa-play"></i>
+                              <i class="fas fa-play"></i>
                             </a>
                         </div>
 
@@ -146,7 +148,7 @@
                             </a>
 
                             <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-                                <i class="fas fa-share-alt"></i>
+                              <i class="fas fa-share-alt"></i>
                             </a>
                         </div>
 
@@ -172,7 +174,9 @@
 
                             <p><%=post.description%></p>
 
-                            <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                            <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                Detlhes
+                            <%end%>
                         </div>
                     </div>
 
@@ -180,73 +184,68 @@
             </div>
           </div>
         <%end%>
-      </div>  
+      </div>
 
-      
-      <div class="container" >
-        <h4>Selecione numero de linhas</h4>
-        <div class="form-group">
-          <select name="state" id="maxRows" class="form-control" style="width:150px; height:50px;">
-            <option value= "5000"> mostrar todas</option>
-            <option value="2">2</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-          </select>
-        </div>
+      <div class="paginate-container videos-row">
+        <nav>
+          <ul class="paginate d-flex justify-content-center">
+            <% i = 1 %>
+            <% while (i <= (cont.to_f/2).ceil) %>
+              <button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
+              <%i += 1%>
+            <%end%>
+          </ul>
+        </nav>
       </div>
       
-      <div class="card card-small series-row mb-4 mx-5 w-55">
-        <table id="mytable" class="table table-hover mb-0 ">
-          <div >
-            <thead class="card-header border-bottom bg-f-green">
-              <tr >
-                <th >Nome</th>
-                <th >Tipo</th>
-              </tr>
-            </thead>
+        
+        
+        
+          <div class="container series-row">
+            <h6>Selecione numero de linhas</h6>
+            <div class="form-group">
+              <select name="state" id="maxRows" class="form-control" style="width:150px; height:50px;">
+                <option value= "5000"> mostrar todas</option>
+                <option value="2">2</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
           </div>
-        <div class="card-body p-0 text-center">
-          <tbody>
-            <%cont = 0%>
-            <% @categories.each do |category| %>
-              <% cont += 1%>
-              <tr>
-                <td><%=category.name%></td>
-                <td><%=category.name%></td>
-              </tr>
-            <%end%>  
-          </tbody>
-        </div>
+        
+        <div class="card card-small series-row col-8 mx-auto p-0 border-0">
+          <table id="mytable" class="table table-hover mb-0 border-0">
+            <div >
+              <thead class="card-header border-bottom bg-f-green text-white">
+                <tr >
+                  <th >Nome</th>
+                  <th >Tipo</th>
+                </tr>
+              </thead>
+            </div>
+            <div class="card-body p-0 text-center">
+              <tbody>
+                <%cont = 0%>
+                <% @categories.each do |category| %>
+                  <% cont += 1%>
+                  <tr>
+                    <td><%=category.name%></td>
+                    <td><%=category.name%></td>
+                  </tr>
+                <%end%>  
+              </tbody>
+            </div>
         </table>
       </div>
 
-      <div class="pagination-container">
+      <div class="pagination-container series-row">
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center"></ul>
         </nav>
       </div>
         
       
-      
-      
-      <!--
-      <%if true == false%>
-        <div class="pagination-container">
-          <nav>
-            <ul class="pagination">
-              <% i = 1 %>
-              <% while (i <= (cont.to_f/2).ceil) %>
-                <button class="pagination-item" value="<%= i%>"><%=i%></button>
-                <%i += 1%>
-              <%end%>
-            </ul>
-          </nav>
-          <div id="final-value" value="<%= cont%>"></div>
-        </div>
-      <%end%>
-      -->
-
       <div id="full-content" style="margin: 0 5%;">
         <div class="row">
           <div class="col-lg-8">

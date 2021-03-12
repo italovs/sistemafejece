@@ -469,7 +469,7 @@ class SiteController < ApplicationController
 
 	def my_posts
 		categories = Category.all.pluck(:name)
-		posts = Hash.new
+		@@posts = Hash.new
 		categories.each do |category|
 			if admin_signed_in?
 				sql = 'SELECT "posts".*, "post_categories"."id" AS "pc_id" FROM "posts" INNER JOIN "post_categories" ON "post_categories"."post_id" = "posts"."id" INNER JOIN "categories" ON "categories"."id" = "post_categories"."category_id" WHERE (post_categories.owner_id is null AND categories.name = \''
@@ -480,9 +480,9 @@ class SiteController < ApplicationController
 			end
 			sql += category 
 			sql += "')"
-			posts[category] = ActiveRecord::Base.connection.execute(sql)
+			@@posts[category] = ActiveRecord::Base.connection.execute(sql)
 		end
-		if posts != Hash.new
+		if @@posts != Hash.new
 			render json: posts
 		else
 			render json: [msg: "Erro: Falha ao recuperar postagens"]

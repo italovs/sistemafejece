@@ -367,7 +367,7 @@
                                 <h4 class="movie-title">
                                     <a href="movie-detail.html"><%= post.name %></a>
                                 </h4>
-                                <span class="released"><%= post.created_at %></span>
+                                <span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>
                             </div>
                             <!-- End of Movie Details -->
 

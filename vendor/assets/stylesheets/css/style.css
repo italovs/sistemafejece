@@ -2746,7 +2746,7 @@ form.mailchimp .btn {
     position: absolute;
     left: 50%;
     top: 30px;
-    background: #edf5f7;
+    /* background: #edf5f7; */
     display: block;
 }
 

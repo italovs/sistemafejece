@@ -537,7 +537,7 @@
                                         <h4 class="movie-title">
                                             <a href="movie-detail.html"><%= post.name %></a>
                                         </h4>
-                                        <span class="released"><%= post.created_at %></span>
+                                        <span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>
                                     </div>
                                     <!-- End of Movie Details -->
 
@@ -642,10 +642,11 @@
 
                 <!-- Start of Movie List -->
                 <div class="row mt20">
-
+                    <%cont = 0%>
                     <!-- Movie List Item -->
                     <% @posts.each do |post| %>
-                      <div class="col-md-12 col-sm-12">
+                        <%cont += 1%>
+                      <div class="col-md-12 col-sm-12 var-item" value="<%=cont%>">
                         <div class="movie-list-1 mb30">
                             <div class="listing-container">
 
@@ -695,7 +696,10 @@
 
                                         <p><%=post.description%></p>
 
-                                        <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                                        <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                            Detlhes
+                                        <%end%>
+                                        
                                     </div>
                                 </div>
 
@@ -703,68 +707,22 @@
                         </div>
                       </div>
                     <%end%>
-
-                    <!-- Movie List Item -->
-                    <div class="col-md-12 col-sm-12">
-                        <div class="movie-list-1 mb30">
-                            <div class="listing-container">
-
-                                <!-- Movie List Image -->
-                                <div class="listing-image">
-
-                                    <!-- Play Button -->
-                                    <div class="play-btn">
-                                        <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                            <i class="fas fa-play"></i>
-                                        </a>
-                                    </div>
-
-                                    <!-- Buttons -->
-                                    <div class="buttons">
-                                        <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-
-                                        <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="fas fa-share-alt"></i>
-                                        </a>
-                                    </div>
-
-                                    <!-- Rating -->
-                                    <div class="stars">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                    </div>
-
-                                    <!-- Image -->
-                                    <img src="assets/images/posters/poster-3.jpg" alt="">
-                                </div>
-
-                                <!-- Movie List Content -->
-                                <div class="listing-content">
-                                    <div class="inner">
-                                        <h2 class="title">The Mummy</h2>
-
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-                                        <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- End of Movie List -->
-
-
             </div>
+
+            <div class="paginate-container videos-row">
+                <nav>
+                <ul class="paginate d-flex justify-content-center">
+                    <% i = 1 %>
+                    <% while (i <= (cont.to_f/2).ceil) %>
+                    <button id="paginate-item" class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
+                    <%i += 1%>
+                    <%end%>
+                </ul>
+                </nav>
+            </div>
+      
+
+
         </section>
         <!-- =============== END OF TOP RATED MOVIES SECTION =============== -->
 
@@ -1183,6 +1141,33 @@
 
 
 
+
+    <script>
+
+    $(".paginate-item").on("click", function(){
+	var this_value = $(this).val();
+	var maxRows = 2;
+	var min = (this_value-1)*maxRows + 1;
+	var max = (this_value-1)*maxRows + maxRows;
+	var trnum = 0;
+	$('.var-item').each(function(){
+		trnum++;
+		
+		$(this).hide();
+		if (trnum <= max && trnum >= min ){
+			$(this).show();
+		}
+	
+	})
+	$('.paginate-item').removeClass('bg-f-green');
+	$('.paginate-item').removeClass('text-white');
+    $(this).addClass('bg-f-green');
+	$(this).addClass('text-white');
+	
+})
+
+
+    </script>
 	<!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>

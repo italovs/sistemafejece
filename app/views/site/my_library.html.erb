@@ -148,8 +148,10 @@
           <div class="container">
             <div class="row">
               <!-- Movie List Item -->
+              <%cont = 0%>
               <%@posts.each do |post|%>
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <%cont += 1%>
+                <div class="col-lg-4 col-md-6 col-sm-12 var-item", value="<%=cont%>">
                   <div class="movie-box-3 mb30">
                     <div class="listing-container">
 
@@ -190,58 +192,29 @@
 
                           <p><%=post.description%></p>
 
-                          <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                          <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                              Detlhes
+                          <%end%>
                         </div>
                       </div>
 
                     </div>
                   </div>
                 </div>
-              <%end%>  
+              <%end%>
 
-                <!-- Movie List Item -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="movie-box-3 mb30">
-                        <div class="listing-container">
-
-                            <!-- Movie List Image -->
-                            <div class="listing-image">
-                                <!-- Image -->
-                                <img src="assets/images/posters/poster-8.jpg" alt="">
-                            </div>
-
-                            <!-- Movie List Content -->
-                            <div class="listing-content">
-                                <div class="inner">
-
-                                    <!-- Play Button -->
-                                    <div class="play-btn">
-                                        <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-                                            <i class="fas fa-link"></i>
-                                        </a>
-                                    </div>
-
-                                    <h2 class="title">The Flash</h2>
-
-                                    <!-- Rating -->
-                                    <div class="stars">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <span>8.0/10</span>
-                                            <span class="category">Action, Drama</span>
-                                        </div>
-                                    </div>
-
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-
-                                    <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
+              
+              <div class="paginate-container videos-row">
+                <nav>
+                  <ul class="paginate d-flex justify-content-center">
+                    <% i = 1 %>
+                    <% while (i <= (cont.to_f/2).ceil) %>
+                      <button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
+                      <%i += 1%>
+                    <%end%>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </main>    
