@@ -493,7 +493,32 @@ class SiteController < ApplicationController
 		@post = PostCategory.find(params[:id]).post
 	end
 
+	#requer id do post e nota
+	def new_vote
+		if admin_signed_in?
+			vote = Vote.new(post_id: params[:post_id], owner: current_admin.id, admin: true, value: params[:value])
+		else
+			vote = Vote.new(post_id: params[:post_id], owner: current_member.id, admin: false, value: params[:value])
+		end
+		if vote.save
+			if admin_signed_in?
+				render json: [msg: "Sucesso: Sua nota foi salva", vote.post.vote_information(current_admin, true)]
+			else
+				render json: [msg: "Sucesso: Sua nota foi salva", vote.post.vote_information(current_member, false)]
+			end
+		else
+			render json: [msg: "Erro: Falha ao salvar nota"]
+		end
+	end
+
 	private
+	#recupera rating, total de votos e voto de um usuário
+	#pode ser chamado ao abrir um post
+	#retorna um hash
+	def get_vote_information(post, person, is_admin )
+		post.vote_from_person( person, is_admin )
+	end
+
 	def person_information( person )
 		admin_signed_in? ? {name: person.name, about: person.about, email: person.email } : {name: person.name, about: person.about, email: person.email, position: person.position.capitalize, validated: person.validated }  
 	end
