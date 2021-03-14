@@ -505,14 +505,65 @@ class SiteController < ApplicationController
 		end
 		if vote.save
 			if admin_signed_in?
-				render json: [msg: "Sucesso: Sua nota foi salva", vote.post.vote_information(current_admin, true)]
+				render json: [msg: "Sucesso: Sua nota foi salva", vote_information: vote.post.vote_information(current_admin, true)]
 			else
-				render json: [msg: "Sucesso: Sua nota foi salva", vote.post.vote_information(current_member, false)]
+				render json: [msg: "Sucesso: Sua nota foi salva", vote_information: vote.post.vote_information(current_member, false)]
 			end
 		else
 			render json: [msg: "Erro: Falha ao salvar nota"]
 		end
 	end
+
+	def search_for_video
+		#params: name, category_id, serie_id, season_id, owner_id
+		#OBS para pesquisar onwer com id nil (da FEJECE), passar valor de owner_id sendo 0
+		query = ''
+		unless params[:category_id].blank?
+			query += '"categories"."id" = ' + params[:category_id].to_s
+		end
+
+		unless params[:serie_id].blank?
+			if query != ''
+				query += ' AND '
+			end
+			query += '"tv_series"."id" = ' + params[:serie_id].to_s
+		end
+
+		unless params[:owner_id].blank?
+			if query != ''
+				query += ' AND '
+			end
+			query += '"tv_series"."owner_id" '
+			if params[:owner_id].to_s != "0"
+				query += '= ' + params[:owner_id].to_s
+			else
+				query += 'IS NULL'
+			end
+		end
+
+		unless params[:season_id].blank?
+			if query != ''
+				query += ' AND '
+			end
+			query += '"seasons"."id" = ' + params[:season_id].to_s
+		end
+
+		unless params[:name].blank?
+			if query != ''
+				query += ' AND '
+			end
+			query += 'UPPER("posts"."name") LIKE ' + "'%#{params[:name].upcase}%'"
+		end
+
+		videos = Post.where(kind: "video").left_joins(season_post: [season: [tv_serie: [tv_serie_category: [:category]]]]).where(query)
+		
+		if !videos.blank?
+			render json: videos
+		else
+			render json: [msg: "Erro: Nenhum resultado encontrado"]
+		end
+	end
+	
 
 	private
 	#recupera rating, total de votos e voto de um usuário

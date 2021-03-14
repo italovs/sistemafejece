@@ -11,6 +11,11 @@ $.ajaxSetup({
 
 $(function(){
 	page_load();
+	//TESTES AJAX
+	//my_series_by_category( 3 )
+	//my_seasons_by_serie(10)
+	// seach_for_video( category_id, owner_id, season_id, serie_id, name )
+	//search_for_video( "", "", "", "", "" )
 })
 
 function page_load(){
@@ -219,7 +224,7 @@ function setting_events(){
 		},
 		function(data, status){
 			if(status == "success" ){
-				if(!data.hasOwnProperty("msg")){
+				if(!data[0].hasOwnProperty("msg")){
 					$("#my_series").show()
 					insert_card_areas(data)
 				} else {
@@ -239,7 +244,7 @@ function setting_events(){
 		},
 		function(data, status){
 			if(status == "success" ){
-				if(!data.hasOwnProperty("msg")){
+				if(!data[0].hasOwnProperty("msg")){
 					//$("#my_series").show()
 					$("#my_series").show()
 					insert_card_areas(data[0]["categories"])
@@ -272,10 +277,31 @@ function setting_events(){
 		$("#video").addClass("btn-f-green");
 
 	})
-	
-	//TESTES AJAX
-	//my_series_by_category( 3 )
-	my_seasons_by_serie(10)
+}
+
+// JS DE TESTE
+function search_for_video( category_id, owner_id, season_id, serie_id, name ){
+	$.post( '/search_for_video' ,
+	{
+		category_id: category_id,
+		owner_id: owner_id,
+		season_id: season_id,
+		serie_id: serie_id,
+		name: name
+	},
+	function(data, status){
+		if(status == "success" ){
+			if(!data[0].hasOwnProperty("msg")){
+				console.log(data)
+			} else {
+				//erro
+				console.log(data[0]["msg"])
+			}
+		} else {
+			//ERRO DE REQUISIÇÃO
+			
+		}
+	})
 }
 
 function my_series_by_category( category_id ){
@@ -285,7 +311,7 @@ function my_series_by_category( category_id ){
 	},
 	function(data, status){
 		if(status == "success" ){
-			if(!data.hasOwnProperty("msg")){
+			if(!data[0].hasOwnProperty("msg")){
 				console.log(data)
 			} else {
 				//erro
@@ -304,7 +330,7 @@ function my_seasons_by_serie( serie_id ){
 	},
 	function(data, status){
 		if(status == "success" ){
-			if(!data.hasOwnProperty("msg")){
+			if(!data[0].hasOwnProperty("msg")){
 				console.log(data)
 			} else {
 				//erro
@@ -315,7 +341,9 @@ function my_seasons_by_serie( serie_id ){
 		}
 	})
 }
+// FIM JS DE TESTE
 
+//JS em uso
 function refill_select_box( target, data ){
 	$(target).empty()
 	$(target).append(new Option("Selecione", ""))
@@ -423,7 +451,6 @@ function insert_card_areas(data){
 			}
     }
 	}
-	console.log(html)
 	$("#my_series").html(html)
 }
 
