@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 			post '/my_videos', to: 'site#my_videos', as: 'admin_my_videos' #CANDIDATO A SER REMOVIDO
 
 			post '/search_for_video', to: 'site#search_for_video', as: 'admin_search_for_video'
+			post '/search_for_post', to: 'site#search_for_post', as: 'admin_search_for_post'
 
 			post '/my_posts', to: 'site#my_posts', as: 'admin_my_posts'
 			post '/new_post', to: 'site#new_post', as: 'admin_new_post'
@@ -63,6 +64,7 @@ Rails.application.routes.draw do
 					post '/change_information', to: 'site#change_information', as: 'change_member_information'
 					get '/video/:id', to: 'site#video', as: 'member_video'
 					post '/search_for_video', to: 'site#search_for_video', as: 'member_search_for_video'
+					post '/search_for_post', to: 'site#search_for_post', as: 'member_search_for_post'
 					
 					#validated
 					get '/my_channel', to: 'site#my_channel', as: 'validated_my_channel'

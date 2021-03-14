@@ -563,6 +563,42 @@ class SiteController < ApplicationController
 			render json: [msg: "Erro: Nenhum resultado encontrado"]
 		end
 	end
+
+	def search_for_post
+		#params: name, category_id, owner_id
+		#OBS para pesquisar onwer com id nil (da FEJECE), passar valor de owner_id sendo 0
+		query = ''
+		unless params[:category_id].blank?
+			query += '"categories"."id" = ' + params[:category_id].to_s
+		end
+
+		unless params[:owner_id].blank?
+			if query != ''
+				query += ' AND '
+			end
+			query += '"post_categories"."owner_id" '
+			if params[:owner_id].to_s != "0"
+				query += '= ' + params[:owner_id].to_s
+			else
+				query += 'IS NULL'
+			end
+		end
+
+		unless params[:name].blank?
+			if query != ''
+				query += ' AND '
+			end
+			query += 'UPPER("posts"."name") LIKE ' + "'%#{params[:name].upcase}%'"
+		end
+
+		posts = Post.where(kind: "post").left_joins(post_category: [:category]).where(query)
+		
+		if !posts.blank?
+			render json: posts
+		else
+			render json: [msg: "Erro: Nenhum resultado encontrado"]
+		end
+	end
 	
 
 	private

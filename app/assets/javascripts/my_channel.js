@@ -14,8 +14,11 @@ $(function(){
 	//TESTES AJAX
 	//my_series_by_category( 3 )
 	//my_seasons_by_serie(10)
-	// seach_for_video( category_id, owner_id, season_id, serie_id, name )
+	//search_for_video( category_id, owner_id, season_id, serie_id, name )
 	//search_for_video( "", "", "", "", "" )
+
+	//search_for_post()
+	//search_for_post()
 })
 
 function page_load(){
@@ -287,6 +290,28 @@ function search_for_video( category_id, owner_id, season_id, serie_id, name ){
 		owner_id: owner_id,
 		season_id: season_id,
 		serie_id: serie_id,
+		name: name
+	},
+	function(data, status){
+		if(status == "success" ){
+			if(!data[0].hasOwnProperty("msg")){
+				console.log(data)
+			} else {
+				//erro
+				console.log(data[0]["msg"])
+			}
+		} else {
+			//ERRO DE REQUISIÇÃO
+			
+		}
+	})
+}
+
+function search_for_post( category_id, owner_id, name ){
+	$.post( '/search_for_post' ,
+	{
+		category_id: category_id,
+		owner_id: owner_id,
 		name: name
 	},
 	function(data, status){
