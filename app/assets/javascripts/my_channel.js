@@ -22,13 +22,15 @@ function page_load(){
 	starting_from_videos();
 	initial_create_table();
 	pagination();
-	initial_paginate()
+	initial_paginate();
+	stars_valuation()
 }
 
 function page_reload(){
 	hide_fields();
 	starting_from_videos();
 	initial_create_table();
+	stars_valuation();
 }
 
 var table = "#mytable";
@@ -457,9 +459,6 @@ function initial_paginate(){
 	var maxRows = 2;
 	var min = (this_value-1)*maxRows + 1;
 	var max = (this_value-1)*maxRows + maxRows;
-	console.log(this_value);
-	console.log(min);
-	console.log(max);
 	var trnum = 0;
 	$('.var-item').each(function(){
 		trnum++;
@@ -474,4 +473,30 @@ function initial_paginate(){
 	$('.paginate-item').removeClass('text-white');
     $(' .paginate-item:first').addClass('bg-f-green');
 	$(' .paginate-item:first').addClass('text-white');
-}	
+}
+
+function stars_valuation(){
+	$(".rating").each(function(){
+		var star = $(this).val();
+		star = Math.round(star);
+		var full_star = Math.floor(star/2);
+		var half_star = (star % 2);
+		var empty_star = 5 - (full_star + half_star);
+		console.log(full_star);
+		console.log(half_star);
+		console.log(empty_star);
+
+
+		for(var i=1; i<= full_star; i++){
+			$('.rating').append('<i class="fas fa-star"></i>').show();
+		}
+		for(var i=1; i<= half_star; i++){
+			$('.rating').append('<i class="fas fa-star-half-alt"></i>').show();
+		}
+		for(var i=1; i<= empty_star; i++){
+			$('.rating').append('<i class="far fa-star"></i>').show();
+		}
+	})	
+
+
+}

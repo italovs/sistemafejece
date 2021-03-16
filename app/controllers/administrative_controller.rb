@@ -15,7 +15,6 @@ class AdministrativeController < ApplicationController
 	end	
 
 	def change_member_validation
-		(byebug)
 		membro = Member.find(params[:id])
 		membro.validated = params[:status]
 		ActiveRecord::Base.transaction do

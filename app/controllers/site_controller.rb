@@ -505,9 +505,9 @@ class SiteController < ApplicationController
 		end
 		if vote.save
 			if admin_signed_in?
-				render json: [msg: "Sucesso: Sua nota foi salva", vote.post.vote_information(current_admin, true)]
+				render json: [msg: "Sucesso: Sua nota foi salva", vote_information: vote.post.vote_information(current_admin, true)]
 			else
-				render json: [msg: "Sucesso: Sua nota foi salva", vote.post.vote_information(current_member, false)]
+				render json: [msg: "Sucesso: Sua nota foi salva", vote_information: vote.post.vote_information(current_member, false)]
 			end
 		else
 			render json: [msg: "Erro: Falha ao salvar nota"]
