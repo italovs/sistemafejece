@@ -165,7 +165,7 @@
               <div class="row">
                   <!-- Start of Movie Main -->
                   <div class="col-lg-8 col-sm-12">
-                      <div class="inner pr50">
+                    <div class="inner pr50">
 
                           <!-- Storyline -->
                           <div class="storyline">
@@ -173,145 +173,36 @@
 
                               <p><%= @post.description %></p>
                           </div>
-
-                          <!-- Media -->
-                          <div class="movie-media mt50">
-                              <h3 class="title"> Photos &amp; Videos</h3>
-
-                              <ul class="image-gallery isotope" style="position: relative; height: 373.501px;">
-                                  <li class="element" style="position: absolute; left: 0px; top: 0px;">
-                                      <a href="assets/images/blog/bloglist-1.jpg">
-                                          <img src="assets/images/blog/bloglist-1.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 184px; top: 0px;">
-                                      <a href="assets/images/blog/bloglist-2.jpg">
-                                          <img src="assets/images/blog/bloglist-2.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 368px; top: 0px;">
-                                      <a href="assets/images/other/home2-bg.jpg">
-                                          <img src="assets/images/other/home2-bg.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 0px; top: 124px;">
-                                      <a href="assets/images/blog/bloglist-2.jpg">
-                                          <img src="assets/images/blog/bloglist-2.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 184px; top: 124px;">
-                                      <a href="assets/images/blog/bloglist-1.jpg">
-                                          <img src="assets/images/blog/bloglist-1.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 368px; top: 124px;">
-                                      <a href="assets/images/blog/bloglist-3.jpg">
-                                          <img src="assets/images/blog/bloglist-3.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 0px; top: 248px;">
-                                      <a href="assets/images/blog/bloglist-1.jpg">
-                                          <img src="assets/images/blog/bloglist-1.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 184px; top: 248px;">
-                                      <a href="assets/images/other/landscape.jpg">
-                                          <img src="assets/images/other/landscape.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-
-                                  <li class="element" style="position: absolute; left: 368px; top: 248px;">
-                                      <a href="assets/images/other/home2-bg.jpg">
-                                          <img src="assets/images/other/home2-bg.jpg" class="img-responsive" alt="">
-                                      </a>
-                                  </li>
-                              </ul>
-
-                          </div>
-
                       </div>
                   </div>
-                  <!-- End of Movie Main -->
+              </div>
+          </div>
 
+          <div class="container">
+            <form>
+              <h3 class="title">Deixe sua avaliação</h3>
 
-                  <!-- Start of Sidebar -->
-                  <div class="col-lg-4 col-sm-12">
-                      <div class="sidebar">
+              <div>
 
-                          <!-- Start of Details Widget -->
-                          <aside class="widget widget-movie-details">
-                              <h3 class="title">Details</h3>
+                <i class="fas fa-star bg-warn" style="padding: 12px 10px 0px 0px;"></i>
 
-                              <ul>
-                                  <li><strong>Release date: </strong>December 15, 2017</li>
-                                  <li><strong>Director: </strong><a href="#">Rian Johnson</a></li>
-                                  <li><strong>Budget: </strong>200 million USD</li>
-                                  <li><strong>Country: </strong>USA</li>
-                                  <li><strong>Language: </strong>English</li>
-                                  <li><strong>Production Co: </strong><a href="#">Lucasfilm</a></li>
-                              </ul>
-                          </aside>
-                          <!-- End of Details Widget -->
+                <div class="form-group col-1">
+                  <%= select_tag :value, 
+                      options_for_select(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]), 
+                      {:include_blank => " ",  :class => 'select_field custom-select form-control', :style => "height:90%;"} %>
+                </div>
 
-                          <!-- Start of Details Widget -->
-                          <aside class="widget widget-movie-cast">
-                              <h3 class="title">Cast</h3>
-
-                              <ul class="cast-wrapper">
-                                  <li>
-                                      <a href="celebrity-detail.html">
-                                          <span class="circle-img">
-                                              <img src="assets/images/celebrities/celebrity1.jpg" alt="">
-                                          </span>
-                                          <h6 class="name">Bryan Doe</h6>
-                                      </a>
-                                  </li>
-
-                                  <li>
-                                      <a href="celebrity-detail.html">
-                                          <span class="circle-img">
-                                              <img src="assets/images/celebrities/celebrity2.jpg" alt="">
-                                          </span>
-                                          <h6 class="name">Baron Saul</h6>
-                                      </a>
-                                  </li>
-
-                                  <li>
-                                      <a href="celebrity-detail.html">
-                                          <span class="circle-img">
-                                              <img src="assets/images/celebrities/celebrity3.jpg" alt="">
-                                          </span>
-                                          <h6 class="name">Ewan Actor</h6>
-                                      </a>
-                                  </li>
-
-                                  <li>
-                                      <a href="celebrity-detail.html">
-                                          <span class="circle-img">
-                                              <img src="assets/images/celebrities/celebrity4.jpg" alt="">
-                                          </span>
-                                          <h6 class="name">Nicole Beet</h6>
-                                      </a>
-                                  </li>
-                              </ul>
-
-                              <a href="celebrities-list.html" class="btn btn-main btn-effect mt20">view all</a>
-
-                          </aside>
-                          <!-- End of Details Widget -->
-
-                      </div>
-                  </div>
-                  <!-- End of Sidebar -->
+                <h4 class="title" style="padding-top: 7px;">/10</h4>
+                
               </div>
 
+              <input type="hidden" id="post_id" value="<%= @post.id %>" />
+
+              <div id="create_new_vote" class="btn btn-f-green text-white">
+                Avaliar
+              </div>
+
+            </form>
           </div>
       </section>
       <!-- =============== END OF MOVIE DETAIL MAIN SECTION =============== -->
@@ -403,6 +294,8 @@
       <%= render '/layouts/member_footer' %>
 
       <!-- =============== JAVASCRIPT FILES =============== -->
+      <%= javascript_include_tag 'my_channel' %>
+      <%# <%= javascript_include_tag 'post' %> %>
       <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>

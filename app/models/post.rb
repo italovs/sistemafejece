@@ -36,9 +36,9 @@ class Post < ApplicationRecord
 	end
 
 	def vote_from_person( person, is_admin )
-		vote = Vote.where(post_id: self.id, owner: person.id, admin: is_admin)
+		votes = Vote.where(post_id: self.id, owner: person.id, admin: is_admin)
 		if votes.any?
-			vote.first.value.to_f.round(2)
+			votes.first.value.to_f.round(2)
 		else
 			0
 		end
