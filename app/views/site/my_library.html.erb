@@ -177,17 +177,19 @@
 
                           <!-- Rating -->
                           <div class="stars">
-                            <div class="rating">
-                              <i class="fas fa-star"></i>
+                            <%#byebug%>
+                            <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                            <div class="rating"></div>
 
-                              <%if post.votes > 0 %>
-                                <span><%=post.rating%>/ 10</span>
-                              <% elsif %>
-                                <span>Não há avaliações</span>
-                              <%end%> 
+                            <%if post.rating.class == String%>
+                              <div class="d-inline-flex">
+                                <h6 class="fas fa-star text-warning mr-2"></h6>
+                                <h6 class="text-secondary"><%=post.rating%></h6>
+                              </div>  
+                            <%end%> 
 
-                              <span class="category"><%=post.post_category%></span>
-                            </div>
+                            <span class="category"><%=post.post_category%></span>
+
                           </div>
 
                           <p><%=post.description%></p>
@@ -296,8 +298,8 @@
       <%= render '/layouts/member_footer' %>
 
 
-      <%= javascript_include_tag 'pagination_evaluation.js' %>
-      <%= javascript_include_tag 'my_library.js' %>
+      <%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload'%>
+      <%= javascript_include_tag 'my_library.js', 'data-turbolinks-track': 'reload' %>
       <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
       <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>

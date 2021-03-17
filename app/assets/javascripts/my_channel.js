@@ -30,14 +30,12 @@ function page_load(){
 	starting_from_videos();
 	initial_create_table();
 	pagination();
-	stars_valuation();
 }
 
 function page_reload(){
 	hide_fields();
 	starting_from_videos();
 	initial_create_table();
-	stars_valuation();
 }
 
 var table = "#mytable";

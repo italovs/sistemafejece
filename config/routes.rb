@@ -52,6 +52,8 @@ Rails.application.routes.draw do
 			get '/my_library', to: 'site#my_library', as: 'admin_my_library'
 			root 'site#index', as: 'admin_root'
 			post '/new_vote', to: 'site#new_vote', as: 'admin_new_vote'
+
+			post '/serie/:id', to: 'site#serie', as: 'admin_serie'
 		end
 
 		unauthenticated :admin do
@@ -83,6 +85,7 @@ Rails.application.routes.draw do
 					post '/new_post', to: 'site#new_post', as: 'validated_new_post'
 					get '/post/:id', to: 'site#post', as: 'member_post'
 					post '/new_vote', to: 'site#new_vote', as: 'member_new_vote'
+					post '/serie/:id', to: 'site#serie', as: 'member_serie'
 				end
 
 				unauthenticated :member  do

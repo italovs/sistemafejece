@@ -51,4 +51,12 @@ module ApplicationHelper
 			profile_admin_path
 		end
 	end
+
+	def serie_path(element)
+		if member_signed_in?
+			member_serie_path(element)
+		elsif admin_signed_in?
+			admin_serie_path(element)
+		end
+	end
 end

@@ -44,7 +44,7 @@ function initial_paginate(){
 	$('.paginate-item:first').addClass('text-white');
 }
 
-function stars_valuation(){
+function stars_evaluation(){
 	var j = 0;
 	$(".rating-input").each(function(){
 		var star = $(this).val();
@@ -52,10 +52,10 @@ function stars_valuation(){
 		var full_star = Math.floor(star/2);
 		var half_star = (star % 2);
 		var empty_star = 5 - (full_star + half_star);
-		// console.log(full_star);
-		// console.log(half_star);
-		// console.log(empty_star);
-		// console.log("j = "+j);
+		console.log(full_star);
+		console.log(half_star);
+		console.log(empty_star);
+		console.log("j = "+j);
 
 
 		for(var i=1; i<= full_star; i++){

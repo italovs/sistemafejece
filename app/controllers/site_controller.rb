@@ -169,8 +169,10 @@ class SiteController < ApplicationController
 	#POSTS VIDEO
 	def my_channel #postagens de vídeo
 		get_user_tv_series
+		@serie_categories = TvSerieCategory.all
 		@categories = Category.all.select(:id, :name)
-		@posts = Post.all
+		@series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
+		@videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
 
 		direction_notification
 	end
@@ -447,7 +449,7 @@ class SiteController < ApplicationController
 	#POSTS
 	def my_library
 		@categories = Category.all.select(:id, :name)
-		@posts = Post.all
+		@posts = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
 
 		direction_notification
 	end
@@ -501,6 +503,10 @@ class SiteController < ApplicationController
 		@posts = Post.all
 
 		direction_notification
+	end
+
+	def serie
+
 	end
 
 	#requer id do post e nota
