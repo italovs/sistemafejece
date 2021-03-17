@@ -180,7 +180,7 @@ class SiteController < ApplicationController
 		if admin_signed_in?
 			tv_serie.owner_id = nil
 		else
-			tv_serie.owner_id = current_member.id
+			tv_serie.owner_id = current_member.junior_enterprise_id
 		end
 		if tv_serie.save
 			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
@@ -208,6 +208,13 @@ class SiteController < ApplicationController
 		)
 		post.poster_image.attach(params[:poster_image])
 		post.banner_image.attach(params[:banner_image])
+
+		if admin_signed_in?
+			tv_serie.owner_id = nil
+		else
+			tv_serie.owner_id = current_member.junior_enterprise_id
+		end
+
 		if post.save
 			SeasonPost.create(post_id: post.id, season_id: params[:season])
 			render json: [msg: "Sucesso: Vídeo criado"]
