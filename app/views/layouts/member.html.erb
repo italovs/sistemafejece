@@ -1142,34 +1142,7 @@
     <!-- ===== End of Back to Top Button ===== -->
 
 
-
-
-    <script>
-
-    $(".paginate-item").on("click", function(){
-	var this_value = $(this).val();
-	var maxRows = 2;
-	var min = (this_value-1)*maxRows + 1;
-	var max = (this_value-1)*maxRows + maxRows;
-	var trnum = 0;
-	$('.var-item').each(function(){
-		trnum++;
-		
-		$(this).hide();
-		if (trnum <= max && trnum >= min ){
-			$(this).show();
-		}
-	
-	})
-	$('.paginate-item').removeClass('bg-f-green');
-	$('.paginate-item').removeClass('text-white');
-    $(this).addClass('bg-f-green');
-	$(this).addClass('text-white');
-	
-})
-
-
-    </script>
+    <%= javascript_include_tag 'pagination' %>
 	<!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>

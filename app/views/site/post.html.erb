@@ -99,7 +99,10 @@
 			<% if @post.banner_image.attached? %>      
 				<section  class="movie-detail-intro overlay-gradient ptb100" style="height:650px; background-image: url(<%= rails_blob_url(@post.banner_image) %>);">
 				</section>
-			<% end %>
+			<% else %>
+				<section  class="movie-detail-intro overlay-gradient ptb100" style="height:650px;">
+				</section>
+			<% end %>	
 			<!-- =============== END OF MOVIE DETAIL INTRO =============== -->
 
 
@@ -298,6 +301,7 @@
 			<!-- =============== JAVASCRIPT FILES =============== -->
 			<%# javascript_include_tag 'my_channel' %>
 			<%= javascript_include_tag 'post' %>
+			<%= javascript_include_tag 'pagination' %>
 			<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>

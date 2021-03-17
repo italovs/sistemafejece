@@ -210,9 +210,9 @@ class SiteController < ApplicationController
 		post.banner_image.attach(params[:banner_image])
 
 		if admin_signed_in?
-			tv_serie.owner_id = nil
+			post.owner_id = nil
 		else
-			tv_serie.owner_id = current_member.junior_enterprise_id
+			post.owner_id = current_member.junior_enterprise_id
 		end
 
 		if post.save

@@ -23,9 +23,6 @@ Rails.application.config.assets.precompile += %w(
     owl.carousel.min.css
     style.css
     responsive.css
-    
-
-
     jquery-3.2.1.min.js
     bootstrap.min.js
     jquery.ajaxchimp.js
@@ -39,7 +36,6 @@ Rails.application.config.assets.precompile += %w(
     isotope.pkgd.min.js
     headroom.js
     custom.js
-    pagination.js
     revolution/jquery.themepunch.tools.min.js
     revolution/jquery.themepunch.revolution.min.js
     revolution/revolution.extension.actions.min.js
