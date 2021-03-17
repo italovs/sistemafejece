@@ -40,7 +40,6 @@ Rails.application.config.assets.precompile += %w(
     headroom.js
     custom.js
     pagination.js
-    post.js
     revolution/jquery.themepunch.tools.min.js
     revolution/jquery.themepunch.revolution.min.js
     revolution/revolution.extension.actions.min.js
