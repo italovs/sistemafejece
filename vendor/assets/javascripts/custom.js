@@ -21,7 +21,9 @@ Author URI: gnodesign.com
     ----------------------------------------------------*/
     $(window).on('load', function () {
         var loading = $('.loading');
-        loading.delay(1000).fadeOut(1000);        
+        loading.delay(1000).fadeOut(1000); 
+        initial_paginate();
+        stars_valuation();       
     }); // end of window load function
 
 

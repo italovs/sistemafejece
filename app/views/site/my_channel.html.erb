@@ -154,10 +154,15 @@
 
                         <!-- Rating -->
                         <div class="stars">
-                            <div class="rating" value="<%=post.rating%>">
-                              
-                            </div>
-                            <%=post.rating%>
+                            <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                            <div class="rating"></div>
+
+                            <%if post.rating.class == String%>
+                              <div class="d-inline-flex">
+                                <h6 class="fas fa-star text-warning mr-2"></h6>
+                                <h6 class="text-white"><%=post.rating%></h6>
+                              </div>  
+                            <%end%>
                         </div>
 
                         <!-- Image -->
@@ -340,7 +345,8 @@
       <%= render '/layouts/member_footer' %>
 
       
-      <%= javascript_include_tag 'my_channel.js' %>
+      <%= javascript_include_tag 'my_channel' %>
+      <%= javascript_include_tag 'pagination_evaluation.js' %>
       <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>

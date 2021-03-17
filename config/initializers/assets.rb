@@ -22,6 +22,7 @@ Rails.application.config.assets.precompile += %w(
     jquery.mmenu.css 
     owl.carousel.min.css
     style.css
+    pagination_evaluation.js
     responsive.css
     jquery-3.2.1.min.js
     bootstrap.min.js

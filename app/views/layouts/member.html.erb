@@ -268,7 +268,7 @@
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
                                             <i class="far fa-star"></i>
                                         </div>
                                     </div>
@@ -545,18 +545,15 @@
 
                                     <!-- Start of Rating -->
                                     <div class="stars">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                        <%if post.votes > 0 %>
-                                            <span><strong><%=post.rating%>/ 10</strong></span>
-                                        <% elsif %>
-                                            <span><strong>Não há avaliações</strong></span>
-                                        <%end%>    
+                                        <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                        <div class="rating"></div>
+
+                                        <%if post.rating.class == String%>
+                                            <div class="d-inline-flex">
+                                                <h6 class="fas fa-star text-warning mr-2"></h6>
+                                                <h6 class="text-white"><%=post.rating%></h6>
+                                            </div>  
+                                        <%end%>
                                     </div>
                                     <!-- End of Rating -->
 
@@ -678,13 +675,15 @@
 
                                     <!-- Rating -->
                                     <div class="stars">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
+                                        <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                        <div class="rating"></div>
+
+                                        <%if post.rating.class == String%>
+                                            <div class="d-inline-flex">
+                                                <h6 class="fas fa-star text-warning mr-2"></h6>
+                                                <h6 class="text-white"><%=post.rating%></h6>
+                                            </div>  
+                                        <%end%>
                                     </div>
 
                                     <!-- Image -->
@@ -1142,7 +1141,7 @@
     <!-- ===== End of Back to Top Button ===== -->
 
 
-    <%= javascript_include_tag 'pagination' %>
+    <%= javascript_include_tag 'pagination.js' %>
 	<!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>

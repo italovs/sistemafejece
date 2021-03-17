@@ -295,8 +295,9 @@
 
       <%= render '/layouts/member_footer' %>
 
-      <script src="<%= javascript_path "my_library" %>"></script>
 
+      <%= javascript_include_tag 'pagination_evaluation.js' %>
+      <%= javascript_include_tag 'my_library.js' %>
       <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
       <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
