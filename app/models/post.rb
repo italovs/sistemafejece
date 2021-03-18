@@ -3,7 +3,7 @@ class Post < ApplicationRecord
 	attribute :votes, :integer, default: 0
 
 	#post
-	has_one :post_category
+	has_many :post_category
 	
 	#video
 	has_one :season_post

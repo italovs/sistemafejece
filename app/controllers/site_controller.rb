@@ -206,17 +206,21 @@ class SiteController < ApplicationController
 			link: params[:video_link],
 			kind: Post.kinds[:video]
 		)
-		post.poster_image.attach(params[:poster_image])
-		post.banner_image.attach(params[:banner_image])
+		(byebug)
+		post.banner_image.attach(params[:banner_image])	if params[:banner_image].present?
+		post.poster_image.attach(params[:poster_image]) if params[:poster_image].present?
 
+		categories = params[:categories].split(",")
 		if admin_signed_in?
 			post.owner_id = nil
 		else
 			post.owner_id = current_member.junior_enterprise_id
 		end
-
+		
 		if post.save
-			SeasonPost.create(post_id: post.id, season_id: params[:season])
+			categories.each do |category|
+				PostCategory.create(post_id: post.id, category_id: category.to_i)
+			end
 			render json: [msg: "Sucesso: Vídeo criado"]
 		else
 			render json: [msg: "Erro: Falha ao criar vídeo"]

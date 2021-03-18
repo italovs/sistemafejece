@@ -46,6 +46,7 @@
       <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
       <%= stylesheet_link_tag 'style', media: 'all' %>
       <%= stylesheet_link_tag 'responsive', media: 'all' %>
+     
       <title>Meu Canal</title>
     </head>
 
@@ -286,13 +287,18 @@
                             <%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube", class: "input_field form-control" %>
                           </div>  
                         </div>
-
+                        <!--
                         <div class="form-row video-field">
                           <div class="form-group col-md-12">
                             <%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control selectize', style: "height:100%;"}  %>
                           </div>  
                         </div> 
-
+                        -->
+                        <!--<div class="form-row video-field"> -->
+                          <!--<div class="form-group col-md-12"> -->
+                            <%= select_tag :category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize', style: "height:100%;",multiple: true}%>
+                         <!-- </div> -->
+                       <!-- </div> -->
                         <div class="form-row video-field">
                           <div class="form-group col-md-12">
                             <%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
