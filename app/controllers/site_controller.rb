@@ -127,7 +127,7 @@ class SiteController < ApplicationController
 		end
 
 		if @person.valid_password? params[:confirmation_password]			
-			if params[:new_email] == params[:repeat_email]
+			if params[:new_email] == params[:repeat_email] && !(URI::MailTo::EMAIL_REGEXP =~ params[:repeat_email]).nil?
 				@person.email = params[:new_email]
 				if @person.save
 					if member_signed_in?

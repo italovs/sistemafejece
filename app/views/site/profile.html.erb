@@ -1,323 +1,323 @@
 <!DOCTYPE html>
 	<html lang="pt-BR">
-    <head>
-      <meta charset="UTF-8">
-      <title>Perfil</title>
-      <%= csrf_meta_tags %>
-      <%= csp_meta_tag %>
-      <!-- ===== Mobile viewport optimized ===== -->
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+		<head>
+			<meta charset="UTF-8">
+			<title>Perfil</title>
+			<%= csrf_meta_tags %>
+			<%= csp_meta_tag %>
+			<!-- ===== Mobile viewport optimized ===== -->
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
 
-      <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
-      <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
-      <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
-      <meta name="author" content="GnoDesign">
-      <meta name="turbolinks-visit-control" content="reload">
-
-
-      <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
-        <%= stylesheet_link_tag 'application', media: 'all' %>
-
-      <!-- ===== Favicon & Different size apple touch icons ===== -->
-      <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-      <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
-      <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
-      <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
-      <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
-      <link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
-      <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
-      <link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
-      <link rel="icon" sizes="128x128" href="assets/images/icon.png">
-
-      <!-- ===== Google Fonts ===== -->
-      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
-        
-
-      <!-- ===== CSS links ===== -->
-      <%= stylesheet_link_tag 'application', media: 'all' %>
-      <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
-      <%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
-      <%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
-      <%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
-      <%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
-      <%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
-      <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
-      <%= stylesheet_link_tag 'style', media: 'all' %>
-      <%= stylesheet_link_tag 'responsive', media: 'all' %>
-    </head>
-
-    <style>
-      .mm-slideout{
-        z-index: 99;
-      }
-
-      #main-mobile-nav{
-        z-index: 2
-      }
-
-      .header{
-        background: trasnparent !important;
-      }
-
-      .overlay-gradient .slotholder:after,
-      .overlay-gradient:after {
-        opacity:1.0 !important;
-      }  
+			<!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+			<meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+			<meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+			<meta name="author" content="GnoDesign">
+			<meta name="turbolinks-visit-control" content="reload">
 
 
-      .overlay-gradient .slotholder:after,
-      .overlay-gradient:after,
-      .blog-post .blog-thumb a:before,
-      ul.blog-posts-widget .blog-content .blog-thumb a:before,
-      .celebrity-list-1 .celebrity-image a:before,
-      .celebrity-grid-1 .celebrity-image a:before,
-      .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
-      .movie-box-1 .poster:before,
-      .movie-detail-intro2 .movie-poster:before {
-          background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
-          background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
-          background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
-          background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
-      }
+			<%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+				<%= stylesheet_link_tag 'application', media: 'all' %>
 
-    </style>
+			<!-- ===== Favicon & Different size apple touch icons ===== -->
+			<link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+			<link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
+			<link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
+			<link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
+			<link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
+			<link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
+			<link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
+			<link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
+			<link rel="icon" sizes="128x128" href="assets/images/icon.png">
 
-    <body>
-      <nav id="main-mobile-nav"></nav>
-      <%= render '/layouts/member_navbar' %>
-      <%= yield %>
+			<!-- ===== Google Fonts ===== -->
+			<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+				
 
-      <section class="page-header overlay-gradient">
-        <div class="container">
-            <div class="inner py-4">
-                <h2 class="title pb-1">Meu Perfil</h2>
-                <ol class="breadcrumb">
-                    <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
-                    <li>Meu Perfil</li>
-                </ol>
-            </div>
-        </div>
-      </section>
+			<!-- ===== CSS links ===== -->
+			<%= stylesheet_link_tag 'application', media: 'all' %>
+			<%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+			<%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
+			<%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
+			<%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
+			<%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+			<%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+			<%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+			<%= stylesheet_link_tag 'style', media: 'all' %>
+			<%= stylesheet_link_tag 'responsive', media: 'all' %>
+		</head>
 
+		<style>
+			.mm-slideout{
+				z-index: 99;
+			}
 
-      <br /><br /><br /><br /><br />
+			#main-mobile-nav{
+				z-index: 2
+			}
 
-    <%if true==false%>    
-      Seus Dados
-      <br>
-      <br>
+			.header{
+				background: trasnparent !important;
+			}
 
-      <div class="field" id="profile_info">
-        <strong>
-          Nome: 
-        </strong>
-        <span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
-      </div>
-
-      <div class="field">
-        <strong>
-          E-mail: 
-        </strong>
-        <span id="email"><%= @profile.email %></span>
-      </div>
-      <div class="field">
-        <strong>
-          Sobre: 
-        </strong>
-        <span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-      </div>
-    <%end%>  
+			.overlay-gradient .slotholder:after,
+			.overlay-gradient:after {
+				opacity:1.0 !important;
+			}  
 
 
-              <div style="margin: 0 5%;">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="card card-small mb-4 pt-3">
-                      <div class="card-header border-bottom text-center bg-white">
-                        <div class="mb-3 mx-auto">
-                          <%if current_logged_user.profile_picture.attached?%>
-									          <%= image_tag current_logged_user.profile_picture.variant(gravity:'Center',resize:"150x150^"  , crop: '150x150+0+0'), :class=> "rounded-circle"%>
-								          <%else%>
-									          <%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"150x150", :class =>"rounded-circle"%>
-								          <%end%>
-                        </div>
-                        <h4 class="mb-0 name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></h4>
-                        <span class="text-muted d-block mb-2 position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
-                      </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-4">
-                          <strong class="text-muted d-block mb-2">Sobre</strong>
-                          <span class="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-8">
-                    <div class="card card-small mb-4">
-                      <div class="card-header border-bottom bg-f-green">
-                        <h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
-                      </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-3">
-                          <div class="row">
-                            <div class="col">
-                              <form>
-                                <div class="form-row initial_table">
-                                  <div class="form-group col-md-12">
-                                    <div class="field" id="profile_info">
-                                      <label for="feName">Nome</label>
-                                      <span class="form-control bg-light name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-row initial_table">
-                                  <div class="form-group col-md-6">
-                                    <div class="field" id="profile_info">
-                                      <label for="feEmailAddress">E-mail</label>
-                                      <span class="form-control bg-light" id="email"><%= @profile.email %></span>
-                                    </div>
-                                  </div>  
-                                  <div class="form-group col-md-6">
-                                    <div class="field" id="profile_info">
-                                      <label for="feValidated">Status</label>
-                                      <span class="form-control bg-light" id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-row initial_table">
-                                  <div class="form-group col-md-6">
-                                    <div class="field" id="profile_info">
-                                      <label for="feJunior_Enterprise">EJ</label>
-                                      <span class="form-control bg-light" id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-6">
-                                    <div class="field" id="profile_info">
-                                      <label for="fePosition">Cargo</label>
-                                      <span class="form-control bg-light position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-row initial_table">
-                                  <div class="form-group col-md-12">
-                                    <div class="field" id="profile_info">
-                                      <label for="feAbout">Sobre</label>
-                                      <span class="form-control bg-light about" style="height:130px;"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-                                    </div>
-                                  </div>
-                                </div>
+			.overlay-gradient .slotholder:after,
+			.overlay-gradient:after,
+			.blog-post .blog-thumb a:before,
+			ul.blog-posts-widget .blog-content .blog-thumb a:before,
+			.celebrity-list-1 .celebrity-image a:before,
+			.celebrity-grid-1 .celebrity-image a:before,
+			.bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
+			.movie-box-1 .poster:before,
+			.movie-detail-intro2 .movie-poster:before {
+					background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
+					background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+					background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+					background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+			}
+
+		</style>
+
+		<body>
+			<nav id="main-mobile-nav"></nav>
+			<%= render '/layouts/member_navbar' %>
+			<%= yield %>
+
+			<section class="page-header overlay-gradient">
+				<div class="container">
+						<div class="inner py-4">
+								<h2 class="title pb-1">Meu Perfil</h2>
+								<ol class="breadcrumb">
+										<li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
+										<li>Meu Perfil</li>
+								</ol>
+						</div>
+				</div>
+			</section>
 
 
-                                <div class="form-row field profile_data">
-                                  <div class="form-group col-md-12">
-                                    <%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field form-control", value: @profile.try(:name) %>
-                                  </div>  
-                                </div>
+			<br /><br /><br /><br /><br />
 
-                                <% if member_signed_in? #EXCLUSIVO MEMBRO%>
-                                  <div class="form-row field profile_data">
-                                    <div class="form-group col-md-6">
-                                      <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{class: 'select_field custom-select form-control',  style: "height:95%;"})%>
-                                    </div>
+		<%if true==false%>    
+			Seus Dados
+			<br>
+			<br>
 
-                                    <div class="form-group col-md-6">
-                                      <%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'select_field custom-select form-control', style: "height:95%;"}%>
-                                    </div>
-                                  </div>  
-                                <% end %>
+			<div class="field" id="profile_info">
+				<strong>
+					Nome: 
+				</strong>
+				<span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
+			</div>
 
-                                <div class="form-row field profile_data">
-                                  <div class="form-group col-md-12">
-                                    <%= text_area_tag :about_field, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5", value: @profile.try(:description) %>
-                                  </div>  
-                                </div>
+			<div class="field">
+				<strong>
+					E-mail: 
+				</strong>
+				<span id="email"><%= @profile.email %></span>
+			</div>
+			<div class="field">
+				<strong>
+					Sobre: 
+				</strong>
+				<span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+			</div>
+		<%end%>  
 
-                                
-                                <div class="form-row field profile_data email">
-                                  <div class="form-group col-md-6">
-                                    <%= text_field_tag :new_email, nil, placeholder: "Novo Email", class: "input_field form-control"%>
-                                  </div>
 
-                                  <div class="form-group col-md-6">
-                                    <%= text_field_tag :repeat_email, nil, placeholder: "Repetir Email", class: "input_field form-control"  %>
-                                  </div>  
-                                </div> 
-                                <div class="form-group profile_picture">
-                                  <div class="form-group col-md-12">
-                                    <%= file_field_tag :profile_picture, placeholder:"escolha uma nova imagem de perfil", class:"input_field form-control", id:"profile_picture"%>
-                                  </div>
-                                </div>
-                                <div class="form-row field password">
-                                  <div class="form-group col-md-12">
-                                    <%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control", accept:"image/jpg, image/png, image/jpeg" %>
-                                  </div> 
-                                </div>
+							<div style="margin: 0 5%;">
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="card card-small mb-4 pt-3">
+											<div class="card-header border-bottom text-center bg-white">
+												<div class="mb-3 mx-auto">
+													<%if current_logged_user.profile_picture.attached?%>
+														<%= image_tag current_logged_user.profile_picture.variant(gravity:'Center',resize:"150x150^"  , crop: '150x150+0+0'), :class=> "rounded-circle"%>
+													<%else%>
+														<%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"150x150", :class =>"rounded-circle"%>
+													<%end%>
+												</div>
+												<h4 class="mb-0 name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></h4>
+												<span class="text-muted d-block mb-2 position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+											</div>
+											<ul class="list-group list-group-flush">
+												<li class="list-group-item p-4">
+													<strong class="text-muted d-block mb-2">Sobre</strong>
+													<span class="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-lg-8">
+										<div class="card card-small mb-4">
+											<div class="card-header border-bottom bg-f-green">
+												<h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
+											</div>
+											<ul class="list-group list-group-flush">
+												<li class="list-group-item p-3">
+													<div class="row">
+														<div class="col">
+															<form>
+																<div class="form-row initial_table">
+																	<div class="form-group col-md-12">
+																		<div class="field" id="profile_info">
+																			<label for="feName">Nome</label>
+																			<span class="form-control bg-light name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
+																		</div>
+																	</div>
+																</div>
+																<div class="form-row initial_table">
+																	<div class="form-group col-md-6">
+																		<div class="field" id="profile_info">
+																			<label for="feEmailAddress">E-mail</label>
+																			<span class="form-control bg-light" id="email"><%= @profile.email %></span>
+																		</div>
+																	</div>  
+																	<div class="form-group col-md-6">
+																		<div class="field" id="profile_info">
+																			<label for="feValidated">Status</label>
+																			<span class="form-control bg-light" id="validated"><%= @profile.validated.nil? ? "Diretoria Solicitada" : (@profile.validated? ? "Membro Diretor" : "Membro" ) %></span>
+																		</div>
+																	</div>
+																</div>
+																<div class="form-row initial_table">
+																	<div class="form-group col-md-6">
+																		<div class="field" id="profile_info">
+																			<label for="feJunior_Enterprise">EJ</label>
+																			<span class="form-control bg-light" id="junior_enterprise"><%= @profile.junior_enterprise.nil? ? "Não informado" : @profile.junior_enterprise.name %></span>
+																		</div>
+																	</div>
+																	<div class="form-group col-md-6">
+																		<div class="field" id="profile_info">
+																			<label for="fePosition">Cargo</label>
+																			<span class="form-control bg-light position"><%= @profile.position.nil? ? "Não informado" : @profile.position %></span>
+																		</div>
+																	</div>
+																</div>
+																<div class="form-row initial_table">
+																	<div class="form-group col-md-12">
+																		<div class="field" id="profile_info">
+																			<label for="feAbout">Sobre</label>
+																			<span class="form-control bg-light about" style="height:130px;"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
+																		</div>
+																	</div>
+																</div>
 
-                                <div class="form-row field password">
-                                  <div class="form-group col-md-12">
-                                    <%= password_field_tag :new_password, nil, placeholder: "Nova Senha", class: "input_field form-control" %>
-                                  </div> 
-                                </div>
 
-                                <div class="form-row field password">
-                                  <div class="form-group col-md-12">
-                                    <%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field form-control" %>
-                                  </div> 
-                                </div>
+																<div class="form-row field profile_data">
+																	<div class="form-group col-md-12">
+																		<%= text_field_tag :name_field, nil, placeholder: "Nome", class: "input_field form-control", value: @profile.try(:name) %>
+																	</div>  
+																</div>
 
-                                
-                                <div id="change_information" class="btn btn-f-green text-white">
-                                  ATUALIZAR INFORMAÇÕES
-                                </div>
+																<% if member_signed_in? #EXCLUSIVO MEMBRO%>
+																	<div class="form-row field profile_data">
+																		<div class="form-group col-md-6">
+																			<%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{class: 'select_field custom-select form-control',  style: "height:95%;"})%>
+																		</div>
 
-                                <% if member_signed_in? && current_member.validated == false %>
-                                  <div id="director" class="btn btn-f-green text-white">
-                                    Solicitar Diretoria
-                                  </div>
-                                <% end %>
+																		<div class="form-group col-md-6">
+																			<%= select_tag :position_field, options_for_select(@positions, @profile.position), {class: 'select_field custom-select form-control', style: "height:95%;"}%>
+																		</div>
+																	</div>  
+																<% end %>
 
-                                <div id="change_mail" class="btn btn-f-green text-white">
-                                  Mudar E-mail
-                                </div>
+																<div class="form-row field profile_data">
+																	<div class="form-group col-md-12">
+																		<%= text_area_tag :about_field, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5", value: @profile.try(:description) %>
+																	</div>  
+																</div>
 
-                                <div id="change_password" class="btn btn-f-green text-white">
-                                  Nova Senha
-                                </div>
+																
+																<div class="form-row field profile_data email">
+																	<div class="form-group col-md-6">
+																		<%= text_field_tag :new_email, nil, placeholder: "Novo Email", class: "input_field form-control"%>
+																	</div>
 
-                              </form>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+																	<div class="form-group col-md-6">
+																		<%= text_field_tag :repeat_email, nil, placeholder: "Repetir Email", class: "input_field form-control"  %>
+																	</div>  
+																</div> 
+																<div class="form-group profile_picture">
+																	<div class="form-group col-md-12">
+																		<%= file_field_tag :profile_picture, placeholder:"escolha uma nova imagem de perfil", class:"input_field form-control", id:"profile_picture"%>
+																	</div>
+																</div>
+																<div class="form-row field password">
+																	<div class="form-group col-md-12">
+																		<%= password_field_tag :old_password, nil, placeholder: "Senha Atual", class: "input_field form-control", accept:"image/jpg, image/png, image/jpeg" %>
+																	</div> 
+																</div>
 
-      <br /><br /><br />           
+																<div class="form-row field password">
+																	<div class="form-group col-md-12">
+																		<%= password_field_tag :new_password, nil, placeholder: "Nova Senha", class: "input_field form-control" %>
+																	</div> 
+																</div>
 
-      <%= render '/layouts/member_footer' %>
-      
-      <script src="<%= javascript_path "essencials" %>"></script>
-      <script src="<%= javascript_path "profile" %>"></script>
+																<div class="form-row field password">
+																	<div class="form-group col-md-12">
+																		<%= password_field_tag :confirmation_password, nil, placeholder: "Repetir Nova Senha", class: "input_field form-control" %>
+																	</div> 
+																</div>
 
-      <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
-      <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
-      
-    </body>
-  </html>
+																
+																<div id="change_information" class="btn btn-f-green text-white">
+																	ATUALIZAR INFORMAÇÕES
+																</div>
+
+																<% if member_signed_in? && current_member.validated == false %>
+																	<div id="director" class="btn btn-f-green text-white">
+																		Solicitar Diretoria
+																	</div>
+																<% end %>
+
+																<div id="change_mail" class="btn btn-f-green text-white">
+																	Mudar E-mail
+																</div>
+
+																<div id="change_password" class="btn btn-f-green text-white">
+																	Nova Senha
+																</div>
+
+															</form>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+			<br /><br /><br />           
+
+			<%= render '/layouts/member_footer' %>
+			
+			<script src="<%= javascript_path "essencials" %>"></script>
+			<script src="<%= javascript_path "profile" %>"></script>
+
+			<!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
+			<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+			
+		</body>
+	</html>
