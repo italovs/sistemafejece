@@ -75,47 +75,39 @@ class SiteController < ApplicationController
 		end
 		
 		if @person.valid_password? params[:confirmation_password]
-			if params[:new_email] == params[:repeat_email]
-				if params[:profile_picture].present?
-					@image = params[:profile_picture]
-					
-					if @image.content_type == "image/jpg" || @image.content_type == "image/png" || @image.content_type == "image/jpeg"
-						if @person.profile_picture.attached?
-							@person.profile_picture.purge()
-							@person.profile_picture.attach(params[:profile_picture])
-						else
-							@person.profile_picture.attach(params[:profile_picture])
-						end
+			if params[:profile_picture].present? && params[:profile_picture] != "undefined"
+				@image = params[:profile_picture]
+				
+				if @image.content_type == "image/jpg" || @image.content_type == "image/png" || @image.content_type == "image/jpeg"
+					if @person.profile_picture.attached?
+						@person.profile_picture.purge()
+						@person.profile_picture.attach(params[:profile_picture])
 					else
-						render json: [msg: "formato de arquivo de imagem não suportado, somente jpg, png e jpeg são validos"] and return
-					end
-				end
-
-				@person.name = params[:name] if params[:name].present?
-				@person.about = params[:about] if params[:about].present?
-				#apenas membros
-				if member_signed_in?
-					@person.position = params[:position] if params[:position].present?
-					@person.junior_enterprise_id = params[:junior_enterprise] if params[:junior_enterprise].present?
-				end
-				if @person.save
-					if member_signed_in?
-						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
-					else
-						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person )]
+						@person.profile_picture.attach(params[:profile_picture])
 					end
 				else
-					if member_signed_in?
-						render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
-					else
-						render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person )]
-					end
+					render json: [msg: "formato de arquivo de imagem não suportado, somente jpg, png e jpeg são validos"] and return
+				end
+			end
+
+			@person.name = params[:name] if params[:name].present?
+			@person.about = params[:about] if params[:about].present?
+			#apenas membros
+			if member_signed_in?
+				@person.position = params[:position] if params[:position].present?
+				@person.junior_enterprise_id = params[:junior_enterprise] if params[:junior_enterprise].present?
+			end
+			if @person.save
+				if member_signed_in?
+					render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+				else
+					render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person )]
 				end
 			else
 				if member_signed_in?
-					render json: [msg: "Erro: Campos de novo e-mail não são iguais", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
+					render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 				else
-					render json: [msg: "Erro: Campos de novo e-mail não são iguais", person: person_information( @person )]
+					render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person )]
 				end
 			end
 		else

@@ -118,9 +118,9 @@ function change_information(){
 			type: 'POST',
 			contentType: false,
 			processData:false,
-		}).done(function(){
-				reset_fields()
-				update_data(data[0])
+		}).done(function( data ){
+			reset_fields()
+			update_data(data[0])
 		}).fail(function(){
 			reset_fields()
 		});
@@ -177,7 +177,6 @@ function update_data( new_data ){
 	} else {
 		elemento_do_json = "person"
 	}
-	console.log(new_data[elemento_do_json])
 	$('.name').html(new_data[elemento_do_json]["name"] || "Não informado")
 	$('.about').html(new_data[elemento_do_json]["about"] || "Não informado")
 	$('.position').html(new_data[elemento_do_json]["position"] || "Não informado")
