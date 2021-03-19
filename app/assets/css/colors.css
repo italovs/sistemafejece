@@ -83,3 +83,9 @@ ul.blog-posts-widget .blog-content .blog-thumb a:before,
     background: -o-linear-gradient(bottom, #e27321 0%, #018c77 60%);
     background: linear-gradient(to bottom, #018c77 0%, #e27321 60%);
 }
+.selectize-control.multi .selectize-input > div{
+    background: #018c77;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+}

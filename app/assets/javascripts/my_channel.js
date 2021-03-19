@@ -1,7 +1,14 @@
 //= require jquery
-$(document).on("turbolinks:load",function(){
-	$(".selectize").selectize();
-});
+//= require selectize
+//$(document).on("turbolinks:load",function(){
+	$(".selectize").selectize({
+		plugins: ['remove_button'],
+		persist: false,
+		maxItems: null,
+		valueField: 'id',
+		searchField: 'name'
+	});
+//});
 
 $.ajaxSetup({
     headers: {
@@ -216,16 +223,19 @@ function setting_events(){
 	})
 
 	$("#create_new_video").on("click", function(){
-		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val()) && valid_value($("#season").val()) ){
+		
+		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val())  ){
 			link = sanitarize_youtube_link($("#youtube_link").val())
+			console.log("foi")
 			if(link != null){
+				
 				var formData = new FormData();
 				formData.append('name', $("#youtube_name").val())
 				formData.append('video_link', link)
 				formData.append('description', $("#youtube_description").val())
-				formData.append('season', $("#season").val())
-				formData.append('poster_image', $("#poster_image").prop('files')[0])
-				formData.append('banner_image', $("#banner_image").prop('files')[0])
+				formData.append('categories', $("#category").val())
+				$("#poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#poster_image").prop('files')[0]) : null
+				$("#banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#banner_image").prop('files')[0]) : null
 				$.ajax({
 					url: '/new_video',
 					data: formData,

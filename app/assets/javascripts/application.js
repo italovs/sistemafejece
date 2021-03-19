@@ -2,9 +2,6 @@
 //= require selectize
 //= require rails-ujs
 
-$(document).on("turbolinks:load",function(){
-	$(".selectize").selectize();
-});
 
 $.ajaxSetup({
     headers: {
