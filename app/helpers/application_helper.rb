@@ -52,11 +52,27 @@ module ApplicationHelper
 		end
 	end
 
-	def serie_path(element)
+	def current_user_serie_path(element)
 		if member_signed_in?
 			member_serie_path(element)
 		elsif admin_signed_in?
 			admin_serie_path(element)
 		end
+	end
+
+	def collect_categories_ids(aux)
+		vector = []
+		
+		aux.each do |aux|
+			vector.push(aux[:category_id])
+		end
+
+		string = " ,"
+		
+		vector.each do |element|
+			string += @categories.all.find{|c| c.id == element}.name
+			string += ", "
+		end
+		string = string[2...-2]
 	end
 end

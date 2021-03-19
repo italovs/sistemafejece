@@ -223,24 +223,23 @@
                 <tr >
                   <th >Nome</th>
                   <th >Tipo</th>
+                  <th >Ações</th>
                 </tr>
               </thead>
             </div>
             <div class="card-body p-0 text-center">
               <tbody>
-                <%#cont = 0%>
                 <% @series.each do |serie| %>
-                  <%# cont += 1%>
-                  <%#byebug%>
-
-                  <%= link_to serie_path(serie.id) do%>
-                    <tr>
-                      <td><%=serie.name%></td>
-                      <% aux = @serie_categories.where(tv_serie_id: serie.id)%>
-                      <td><%=@categories.where(id: aux.ids).name%></td>
-                    </tr>
-                  <%end%>
-                  
+                  <tr>
+                    <td><%=serie.name%></td>
+                    <% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
+                    <td><%=collect_categories_ids(aux)%></td>
+                    <td>
+                      <%= link_to current_user_serie_path(serie.id),  class:'tooltips nav-link notification btn btn-info col-3', title: 'Ver Série', data:{placement: 'bottom'} do %>
+                        <i class="fas fa-eye"></i>
+                      <%end%>
+                    </td>
+                  </tr>
                 <%end%>  
               </tbody>
             </div>
