@@ -464,11 +464,17 @@ class SiteController < ApplicationController
 			banner_image: params[:banner_image]
 		)
 
+		if admin_signed_in?
+			post.owner_id = nil
+		else
+			post.owner_id = current_member.junior_enterprise_id
+		end
+
 		if post.save
 			if member_signed_in?
-				PostCategory.create(post_id: post.id, category_id: params[:category], owner_id: current_member.id)
+				PostCategory.create(post_id: post.id, category_id: params[:category])
 			else
-				PostCategory.create(post_id: post.id, category_id: params[:category], owner_id: nil)
+				PostCategory.create(post_id: post.id, category_id: params[:category])
 			end
 				render json: [msg: "Sucesso: post criado"]
 		else
@@ -506,7 +512,11 @@ class SiteController < ApplicationController
 	end
 
 	def serie
-		
+		@serie = TvSerie.find(params[:id])
+		@videos = Post.all.where(kind: 1)
+		@posts = Post.all.where(kind: 0)
+
+		direction_notification
 	end
 
 	#requer id do post e nota

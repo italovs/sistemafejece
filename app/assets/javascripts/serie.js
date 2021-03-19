@@ -1,0 +1,54 @@
+//= require jquery
+$(document).on("turbolinks:load",function(){
+	$(".selectize").selectize();
+});
+
+$.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+$(function(){
+	page_load();
+})
+
+function page_load(){
+    starting_from_videos();
+    setting_events();
+}
+
+function page_reload(){
+	starting_from_videos();
+}
+
+function starting_from_videos(){
+	$(".videos-row").show();
+	$(".posts-row").hide();
+	$("#video").addClass("bg-secondary");
+	$("#post").removeClass("bg-secondary");
+	$("#video").removeClass("btn-f-green");
+	$("#post").addClass("btn-f-green");
+}
+
+function setting_events(){
+    $("#video").on("click", function(){
+        $(".videos-row").show();
+        $(".posts-row").hide();
+        $("#video").addClass("bg-secondary");
+        $("#post").removeClass("bg-secondary");
+        $("#video").removeClass("btn-f-green");
+        $("#post").addClass("btn-f-green");
+
+    })
+
+    $("#post").on("click", function(){
+        $(".videos-row").hide();
+        $(".posts-row").show();
+        $("#post").addClass("bg-secondary");
+        $("#video").removeClass("bg-secondary");
+        $("#post").removeClass("btn-f-green");
+        $("#video").addClass("btn-f-green");
+
+    })
+}    

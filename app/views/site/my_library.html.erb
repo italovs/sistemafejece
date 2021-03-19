@@ -149,6 +149,7 @@
             <div class="row">
               <!-- Movie List Item -->
               <%cont = 0%>
+              <%#byebug%>
               <%@posts.each do |post|%>
                 <%cont += 1%>
                 <div class="col-lg-4 col-md-6 col-sm-12 var-item", value="<%=cont%>">
@@ -168,7 +169,7 @@
 
                           <!-- Play Button -->
                           <div class="play-btn">
-                            <a class="play-video" href="https://www.youtube.com/watch?v=<%=post.link%>">
+                            <a class="play-video" href="<%=post.link%>">
                               <i class="fas fa-link"></i>
                             </a>
                           </div>
