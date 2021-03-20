@@ -1,13 +1,21 @@
 //tabelas
 function refill_table( table_id, dados, kind = "", columns = [] ){
+	alert(table_id)
 	$( table_id ).empty()
+	console.log( dados )
 	if ($(table_id+" tbody").length == 0) {
     $(table_id).append("<tbody></tbody>");
 	}
+	linhas = ""
 	for(i = 0; i < dados.length; i++){
 		line = create_line(dados[i], kind, columns)
+		linhas += line
 		$( 'tbody', table_id).append(line)
+		console.log(i)
 	}
+	console.log(dados.length)
+	console.log(linhas)
+	console.log("============")
 
 }
 
@@ -74,11 +82,12 @@ function clear_forms(){
 
 function ajax_submit(fields, target_path, clear_fields = false, tables = [], columns = [] ){
 	$.post( target_path ,
-		{
-			my_form_data: fields
-		},
-		function(data, status){
-    if(status == "success"){
+	{
+		my_form_data: fields
+	},
+	function(data, status){
+		console.log(data)
+		if(status == "success"){
 			if(clear_fields == true){
 				clear_forms()
 				if(tables.length > 0){
@@ -90,9 +99,8 @@ function ajax_submit(fields, target_path, clear_fields = false, tables = [], col
 
 			// console.log(data)
 			// alert(data[0]["msg"])
-    } else {
+		} else {
 			//ERRO DE REQUISIÇÃO
 		}
-    
-  });
+	});
 }

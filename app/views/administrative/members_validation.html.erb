@@ -1,129 +1,83 @@
 
 
-<br /><br />
+<br><br>
 
 <h1>Diretores Cadastrados</h1>
 
-<br /><br />
-
-<!--
-Verificar diretoria de EJ
-<table id="membros">
-	<thead>
-		<tr>
-			<th>Nome</th>
-			<th>EJ</th>
-			<th colspan="2"></th>
-		</tr>
-	</thead>
-
-	<tbody id="membros_t">
-		<% @not_yet_directors.each do |member| %>
-			<tr>
-				<td><%= member.name %></td>
-				<td><%= member.junior_enterprise.name %></td>
-				<td><div class="btn btn-primary" id="director_<%= "#{member.id}" %>">Tornar Diretor</div></td>
-				<td><div class="btn btn-primary" id="member_<%= "#{member.id}" %>">Tornar Membro</div></td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
--->
+<br><br>
 
 <div class="row">
-<div class="col">
-  <div class="card card-small mb-4">
-	<div class="card-header border-bottom bg-f-green">
-	  <h6 class="m-0 text-white">Verificar diretoria de EJ</h6>
+	<div class="col">
+		<div class="card card-small mb-4">
+		<div class="card-header border-bottom bg-f-green">
+			<h6 class="m-0 text-white">Verificar diretoria de EJ</h6>
+		</div>
+		<div class="card-body p-0 pb-3 text-center">
+			<table class="table mb-0" id="membros">
+				<thead class="bg-light">
+					<tr>
+					<th scope="col" class="border-0">#</th>
+					<th scope="col" class="border-0">Nome</th>
+					<th scope="col" class="border-0">EJ</th>
+					<th scope="col" class="border-0">Ações</th>
+					</tr>
+				</thead>
+				<tbody id="membros_t">
+					<% cont = 1 %>
+					<% @not_yet_directors.each do |member| %>
+						<tr>
+							<td><%= cont %></td>
+							<td><%= member.name %></td>
+							<td><%= member.junior_enterprise.name %></td>
+							<td>
+								<i class="btn btn-success material-icons" title="Tornar diretor" id="director_<%= "#{member.id}" %>">check</i>
+								<i class="btn btn-danger material-icons" title="Tornar membro" id="member_<%= "#{member.id}" %>">close</i>
+							</td>
+							<% cont = cont + 1%>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		</div>
 	</div>
-	<div class="card-body p-0 pb-3 text-center">
-	  <table class="table mb-0" id="membros">
-		<thead class="bg-light">
-		  <tr>
-			<th scope="col" class="border-0">#</th>
-			<th scope="col" class="border-0">Nome</th>
-			<th scope="col" class="border-0">EJ</th>
-			<th scope="col" class="border-0">Ações</th>
-		  </tr>
-		</thead>
-		<tbody id="membros_t">
-			<% cont = 1 %>
-			<% @not_yet_directors.each do |member| %>
-				<tr>
-					<td><%= cont %></td>
-					<td><%= member.name %></td>
-					<td><%= member.junior_enterprise.name %></td>
-					<td>
-						<i class="btn btn-success material-icons" title="Tornar diretor" id="director_<%= "#{member.id}" %>">check</i>
-						<i class="btn btn-danger material-icons" title="Tornar membro" id="member_<%= "#{member.id}" %>">close</i>
-					</td>
-					<% cont = cont + 1%>
-				</tr>
-			<% end %>
-		</tbody>
-	  </table>
-	</div>
-  </div>
-</div>
 </div>
 
-<!--
-Diretores cadastrados
-<table id="diretores">
-	<thead>
-		<tr>
-			<th>Nome</th>
-			<th>EJ</th>
-			<th colspan="2"></th>
-		</tr>
-	</thead>
-
-	<tbody id="diretores_t">
-		<% @directors.each do |member| %>
-			<tr>
-				<td><%= member.name %></td>
-				<td><%= member.junior_enterprise.name %></td>
-				<td><div class="btn btn-primary" id="member_<%= "#{member.id}" %>">Tornar Membro</div></td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
--->
 
 <div class="row">
-<div class="col">
-  <div class="card card-small mb-4">
-	<div class="card-header border-bottom bg-f-green">
-	  <h6 class="m-0 text-white">Diretores Cadastrados</h6>
+	<div class="col">
+		<div class="card card-small mb-4">
+		<div class="card-header border-bottom bg-f-green">
+			<h6 class="m-0 text-white">Diretores Cadastrados</h6>
+		</div>
+		<div class="card-body p-0 pb-3 text-center">
+			<table class="table mb-0" id="diretores">
+				<thead class="bg-light">
+					<tr>
+					<th scope="col" class="border-0">#</th>
+					<th scope="col" class="border-0">Nome</th>
+					<th scope="col" class="border-0">EJ</th>
+					<th scope="col" class="border-0">Ações</th>
+					</tr>
+				</thead>
+				<tbody id="diretores_t">
+					<% cont = 1 %>
+					<% @directors.each do |member| %>
+						<tr>
+							<td><%= cont %></td>
+							<td><%= member.name %></td>
+							<td><%= member.junior_enterprise.name %></td>
+							<td>
+								<i class="btn btn-danger material-icons" title="Tornar membro" id="member_<%= "#{member.id}" %>">close</i>
+							</td>
+							<% cont = cont + 1%>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		</div>
 	</div>
-	<div class="card-body p-0 pb-3 text-center">
-	  <table class="table mb-0" id="membros">
-		<thead class="bg-light">
-		  <tr>
-			<th scope="col" class="border-0">#</th>
-			<th scope="col" class="border-0">Nome</th>
-			<th scope="col" class="border-0">EJ</th>
-			<th scope="col" class="border-0">Ações</th>
-		  </tr>
-		</thead>
-		<tbody id="diretores_t">
-			<% cont = 1 %>
-			<% @directors.each do |member| %>
-				<tr>
-					<td><%= cont %></td>
-					<td><%= member.name %></td>
-					<td><%= member.junior_enterprise.name %></td>
-					<td>
-						<i class="btn btn-danger material-icons" title="Tornar membro" id="member_<%= "#{member.id}" %>">close</i>
-					</td>
-					<% cont = cont + 1%>
-				</tr>
-			<% end %>
-		</tbody>
-	  </table>
-	</div>
-  </div>
-</div>
 </div>
 
 <%= javascript_include_tag 'members_validation.js' %>

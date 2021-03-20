@@ -25,6 +25,7 @@ function fire_ajax( obj ){
     status: director
   },
   function(data, status){
+    console.log(data)
     if(status == "success"){
       refill_table("#membros", data[0]["members"], "member")
       refill_table("#diretores", data[0]["directors"], "director")
