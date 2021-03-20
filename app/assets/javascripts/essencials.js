@@ -1,6 +1,5 @@
 //tabelas
 function refill_table( table_id, dados, kind = "", columns = [] ){
-	alert(table_id)
 	$( table_id ).empty()
 	if ($(table_id+" thead").length == 0) {
 		$(table_id).append('<thead class="bg-light"></thead>');
@@ -9,20 +8,13 @@ function refill_table( table_id, dados, kind = "", columns = [] ){
 	if ($(table_id+" tbody").length == 0) {
     $(table_id).append('<tbody id="'+ table_id.substring(1, table_id.length) +'_t"></tbody>');
 	}
-	linhas = ""
 	for(i = 0; i < dados.length; i++){
-		line = create_line(dados[i], kind, columns)
-		linhas += line
+		line = create_line(i+1, dados[i], kind, columns)
 		$( 'tbody', table_id).append(line)
-		console.log(i)
 	}
-	console.log(dados.length)
-	console.log(linhas)
-	console.log("============")
-
 }
 
-function create_line(dados, kind = "", columns = []){
+function create_line(contador, dados, kind = "", columns = []){
 	if(columns.length > 0){
 		novos_dados = []
 		novos_dados.push("")
@@ -31,16 +23,13 @@ function create_line(dados, kind = "", columns = []){
 		}
 		dados = novos_dados
 	}
-	line = "<tr><td>"+dados[1]+"</td><td>"+dados[2]+"</td>"
+	line = "<tr><td>"+ contador +"</td><td>"+dados[1]+"</td><td>"+dados[2]+"</td>"
 	if(kind == "member"){
-		line += '<td><div id="director_'+dados[0]+'" class="btn btn-primary">Tornar Diretor' 
-		line += '</div></td><td><div id="member_'+dados[0]+'" class="btn btn-primary">Tornar Membro</div></td>';
-
-		
-
-
+		line += '<td><i id="director_'+dados[0]+'" class="btn btn-success material-icons become_director" title="Tornar diretor">check</i>'
+		line += '&nbsp;'
+		line += '<i id="member_'+dados[0]+'" class="btn btn-danger material-icons become_member" title="Tornar membro">close</i></td>'
 	} else if(kind == "director") {
-		line += '<td><div id="member_'+dados[0]+'" class="btn btn-primary">Tornar Membro</div></td>';
+		line += '<td><i id="member_'+dados[0]+'" class="btn btn-danger material-icons become_member" title="Tornar membro">close</i></td>'
 	}
 	line += "</tr>"
 	return line
