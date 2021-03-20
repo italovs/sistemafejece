@@ -25,11 +25,11 @@ function create_line(contador, dados, kind = "", columns = []){
 	}
 	line = "<tr><td>"+ contador +"</td><td>"+dados[1]+"</td><td>"+dados[2]+"</td>"
 	if(kind == "member"){
-		line += '<td><i id="director_'+dados[0]+'" class="btn btn-success material-icons become_director" title="Tornar diretor">check</i>'
+		line += '<td><i id="director_'+dados[0]+'" class="btn btn-success material-icons" title="Tornar diretor">check</i>'
 		line += '&nbsp;'
-		line += '<i id="member_'+dados[0]+'" class="btn btn-danger material-icons become_member" title="Tornar membro">close</i></td>'
+		line += '<i id="member_'+dados[0]+'" class="btn btn-danger material-icons" title="Tornar membro">close</i></td>'
 	} else if(kind == "director") {
-		line += '<td><i id="member_'+dados[0]+'" class="btn btn-danger material-icons become_member" title="Tornar membro">close</i></td>'
+		line += '<td><i id="member_'+dados[0]+'" class="btn btn-danger material-icons" title="Tornar membro">close</i></td>'
 	}
 	line += "</tr>"
 	return line

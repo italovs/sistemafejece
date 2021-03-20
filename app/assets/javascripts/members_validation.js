@@ -6,10 +6,17 @@ $.ajaxSetup({
 });
 
 $(function(){
-	$("i.btn.btn-success").on("click", function(){
+	bind_events()
+})
+
+function bind_events(){
+  $("i.btn.btn-success").on("click", function(){
 		fire_ajax(this)
 	})
-})
+  $("i.btn.btn-danger").on("click", function(){
+		fire_ajax(this)
+	})
+}
 
 function fire_ajax( obj ){
   id = $(obj).attr("id");
@@ -25,13 +32,10 @@ function fire_ajax( obj ){
     status: director
   },
   function(data, status){
-    console.log(data)
     if(status == "success"){
       refill_table("#membros", data[0]["members"], "member")
       refill_table("#diretores", data[0]["directors"], "director")
+      bind_events()
     }
-    $("div.btn.btn-primary").on("click", function(){
-      fire_ajax(this)
-    })
   });
 }

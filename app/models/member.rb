@@ -2,6 +2,7 @@ class Member < ApplicationRecord
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 	devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+	attribute :name, :string, default: ""
 
 	belongs_to :junior_enterprise
 	has_one_attached :profile_picture do |attachable|
