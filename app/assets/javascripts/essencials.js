@@ -2,9 +2,12 @@
 function refill_table( table_id, dados, kind = "", columns = [] ){
 	alert(table_id)
 	$( table_id ).empty()
-	console.log( dados )
+	if ($(table_id+" thead").length == 0) {
+		$(table_id).append('<thead class="bg-light"></thead>');
+	}
+	$('thead', table_id).append( '<tr><th scope="col" class="border-0">#</th><th scope="col" class="border-0">Nome</th><th scope="col" class="border-0">EJ</th><th scope="col" class="border-0">Ações</th></tr>' )
 	if ($(table_id+" tbody").length == 0) {
-    $(table_id).append("<tbody></tbody>");
+    $(table_id).append('<tbody id="'+ table_id.substring(1, table_id.length) +'_t"></tbody>');
 	}
 	linhas = ""
 	for(i = 0; i < dados.length; i++){
@@ -32,6 +35,10 @@ function create_line(dados, kind = "", columns = []){
 	if(kind == "member"){
 		line += '<td><div id="director_'+dados[0]+'" class="btn btn-primary">Tornar Diretor' 
 		line += '</div></td><td><div id="member_'+dados[0]+'" class="btn btn-primary">Tornar Membro</div></td>';
+
+		
+
+
 	} else if(kind == "director") {
 		line += '<td><div id="member_'+dados[0]+'" class="btn btn-primary">Tornar Membro</div></td>';
 	}
