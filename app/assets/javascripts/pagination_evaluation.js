@@ -44,6 +44,52 @@ function initial_paginate(){
 	$('.paginate-item:first').addClass('text-white');
 }
 
+
+
+$(".paginate-item-2").on("click", function(){
+	var this_value = $(this).val();
+	var maxRows = 2;
+	var min = (this_value-1)*maxRows + 1;
+	var max = (this_value-1)*maxRows + maxRows;
+	var trnum = 0;
+	$('.var-item-2').each(function(){
+		trnum++;
+		
+		$(this).hide();
+		if (trnum <= max && trnum >= min ){
+			$(this).show();
+		}
+	
+	})
+	$('.paginate-item-2').removeClass('bg-f-green');
+	$('.paginate-item-2').removeClass('text-white');
+    $(this).addClass('bg-f-green');
+	$(this).addClass('text-white');
+	
+})
+
+
+function initial_paginate_2(){
+	var this_value = 1;
+	var maxRows = 2;
+	var min = (this_value-1)*maxRows + 1;
+	var max = (this_value-1)*maxRows + maxRows;
+	var trnum = 0;
+	$('.var-item-2').each(function(){
+		trnum++;
+		
+		$(this).hide();
+		if (trnum <= max && trnum >= min ){
+			$(this).show();
+		}
+	
+	})
+	$('.paginate-item-2').removeClass('bg-f-green');
+	$('.paginate-item-2').removeClass('text-white');
+	$('.paginate-item-2:first').addClass('bg-f-green');
+	$('.paginate-item-2:first').addClass('text-white');
+}
+
 function stars_evaluation(){
 	var j = 0;
 	$(".rating-input").each(function(){

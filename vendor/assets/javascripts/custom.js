@@ -23,6 +23,7 @@ Author URI: gnodesign.com
         var loading = $('.loading');
         loading.delay(1000).fadeOut(1000); 
         initial_paginate();
+        initial_paginate_2();
         stars_evaluation();       
     }); // end of window load function
 

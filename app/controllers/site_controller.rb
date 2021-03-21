@@ -6,7 +6,8 @@ class SiteController < ApplicationController
 
 	def index
 		direction_notification
-		@posts = Post.all
+		@videos = Post.all.where(kind: 1);
+		@posts = Post.all.where(kind: 0);
 	end
 
 	def profile

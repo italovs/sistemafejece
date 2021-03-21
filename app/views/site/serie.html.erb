@@ -124,7 +124,7 @@
       <%cont = 0%>
       <% @videos.each do |post| %>
         <%cont += 1%>
-        <div class="col-md-12 col-sm-12 var-item" value="<%=cont%>">
+        <div class="col-md-12 col-sm-12 var-item">
           <div class="movie-list-1 mb30">
               <div class="listing-container">
 
@@ -208,7 +208,7 @@
           <%cont = 0%>
           <%@posts.each do |post|%>
             <%cont += 1%>
-            <div class="col-lg-4 col-md-6 col-sm-12 var-item", value="<%=cont%>">
+            <div class="col-lg-4 col-md-6 col-sm-12 var-item-2">
               <div class="movie-box-3 mb30">
                 <div class="listing-container">
 
@@ -270,7 +270,7 @@
         <ul class="paginate d-flex justify-content-center">
           <% i = 1 %>
           <% while (i <= (cont.to_f/2).ceil) %>
-            <button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
+            <button class="paginate-item-2 page-link d-inline" value="<%= i%>"><%=i%></button>
             <%i += 1%>
           <%end%>
         </ul>
