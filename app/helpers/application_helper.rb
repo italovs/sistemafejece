@@ -52,6 +52,14 @@ module ApplicationHelper
 		end
 	end
 
+	def current_user_post_path(element)
+		if member_signed_in?
+			member_post_path(element)
+		elsif admin_signed_in?
+			admin_post_path(element)
+		end
+	end
+
 	def current_user_serie_path(element)
 		if member_signed_in?
 			member_serie_path(element)

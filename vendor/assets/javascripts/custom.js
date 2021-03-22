@@ -644,6 +644,28 @@ Author URI: gnodesign.com
                 }
             }
         });
+
+        var latest_posts = $( 'section.latest-posts .latest-posts-slider');
+
+        latest_posts.owlCarousel({
+            loop: true,
+            margin: 25,
+            autoplay: false, //change this to true if you want the slider to auto play
+            nav: false,
+            dots: true,
+            responsive:{
+                0:{
+                    items: 1,
+                    stagePadding: 10
+                },
+                600:{
+                    items: 3
+                },
+                1000:{
+                    items: 3
+                }
+            }
+        });
         
         
         /***** Latest TV Shows *****/

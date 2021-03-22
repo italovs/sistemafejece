@@ -6,8 +6,11 @@ class SiteController < ApplicationController
 
 	def index
 		direction_notification
-		@videos = Post.all.where(kind: 1);
-		@posts = Post.all.where(kind: 0);
+		@categories = Category.all.select(:id, :name)
+		@videos = Post.all.where(kind: 1)
+		@posts = Post.all.where(kind: 0)
+		@posts_and_videos = Post.all
+		@post_categories = PostCategory.all
 	end
 
 	def profile
@@ -164,8 +167,13 @@ class SiteController < ApplicationController
 		get_user_tv_series
 		@serie_categories = TvSerieCategory.all
 		@categories = Category.all.select(:id, :name)
-		@series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
-		@videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+		if member_signed_in?
+			@series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
+			@videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+		else
+			@series = TvSerie.all.where(owner_id: nil)
+			@videos = Post.all.where(owner_id: nil, kind: 1)
+		end		
 
 		direction_notification
 	end
@@ -446,7 +454,12 @@ class SiteController < ApplicationController
 	#POSTS
 	def my_library
 		@categories = Category.all.select(:id, :name)
-		@posts = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
+		@post_categories = PostCategory.all
+		if member_signed_in?
+			@posts = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
+		else
+			@posts = Post.all.where(owner_id: nil, kind: 0)
+		end	
 
 		direction_notification
 	end
@@ -504,6 +517,7 @@ class SiteController < ApplicationController
 	def post
 		@post = Post.find(params[:id])
 		@posts = Post.all
+		@ejs = JuniorEnterprise.all
 
 		direction_notification
 	end
