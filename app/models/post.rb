@@ -22,6 +22,9 @@ class Post < ApplicationRecord
 		video: 1
 	}
 
+	after_commit :default_images, on: %i[create update]
+
+
 	def rating
 		votes = Vote.where(post_id: self.id)
 		if votes.any?
@@ -55,5 +58,16 @@ class Post < ApplicationRecord
 			self.season_post.owner_id
 		end
 	end
+	
+	private
 
+	def default_images
+		file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/default_post_image.png')
+		unless poster_image.attached?
+			poster_image.attach(io: file, filename: 'default_post_image.png', content_type: 'image/png')
+		end
+		unless banner_image.attached?
+			banner_image.attach(io: file, filename: 'default_post_image.png', content_type: 'image/png')
+		end
+	end
 end
