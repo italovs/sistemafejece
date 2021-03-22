@@ -201,7 +201,6 @@ class SiteController < ApplicationController
 			link: params[:video_link],
 			kind: Post.kinds[:video]
 		)
-		(byebug)
 		post.banner_image.attach(params[:banner_image])	if params[:banner_image].present?
 		post.poster_image.attach(params[:poster_image]) if params[:poster_image].present?
 
