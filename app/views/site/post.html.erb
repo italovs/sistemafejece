@@ -131,7 +131,7 @@
 
 
 											<div class="movie-details">
-													<h3 class="title"><%= @post.name %></h3>
+													<h3 class="title mb-4"><%= @post.name %></h3>
 
 													<!--<ul class="movie-subtext">
 															<li>PG-13</li>
@@ -165,50 +165,87 @@
 
 			<!-- =============== START OF MOVIE DETAIL MAIN SECTION =============== -->
 			<section class="movie-detail-main ptb100">
-					<div class="container">
+				<div class="container">
+					<div class="row">
+						<!-- Start of Movie Main -->
+						<div class="col-lg-8 col-sm-12">
+							<div class="inner pr50">
 
-							<div class="row">
-									<!-- Start of Movie Main -->
-									<div class="col-lg-8 col-sm-12">
-										<div class="inner pr50">
+								<!-- Storyline -->
+								<div class="storyline">
+									<h3 class="title">Descrição</h3>
 
-													<!-- Storyline -->
-													<div class="storyline">
-															<h3 class="title">Descrição</h3>
-
-															<p><%= @post.description %></p>
-													</div>
-											</div>
-									</div>
-							</div>
-					</div>
-
-					<div class="container">
-						<form>
-							<h3 class="title">Deixe sua avaliação</h3>
-
-							<div>
-
-								<i class="fas fa-star bg-warn" style="padding: 12px 10px 0px 0px;"></i>
-
-								<div class="form-group col-1">
-									<%= select_tag :value, 
-											options_for_select(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]), 
-											{:include_blank => " ",  :class => 'select_field custom-select form-control', :style => "height:90%;"} %>
+									<p><%= @post.description %></p>
 								</div>
-
-								<h4 class="title" style="padding-top: 7px;">/10</h4>
-								
 							</div>
+						</div>
 
-							<input type="hidden" id="post_id" value="<%= @post.id %>" />
+						<div class="col-lg-4 col-sm-12">
+							<div class="sidebar shadow">
 
-							<div id="create_new_vote" class="btn btn-f-green text-white">
-								Avaliar
+								<!-- Start of Details Widget -->
+								<aside class="widget widget-movie-details">
+									<h3 class="title">Detalhes</h3>
+
+									<ul>
+										<li style="font-size: 1rem">
+											<span class="far fa-calendar-alt text-info mr-2 mb-3"></span>
+											<strong>Data de Lançamento: </strong><%=@post.created_at.strftime("%d/%m/%Y")%>
+										</li>
+
+										<li style="font-size: 1rem">
+											<span class="far fa-calendar-plus text-success mr-2 mb-3"></span>
+											<strong>Última Atualização: </strong><%=@post.updated_at.strftime("%d/%m/%Y")%>
+										</li>
+
+										<% if @post.owner_id.nil?%>
+											<li style="font-size: 1rem">
+												<span class="fas fa-user-cog text-f-orange mr-2 mb-3"></span>
+												<strong>Criador: </strong>FEJECE
+											</li>
+										<%else%>
+											<li style="font-size: 1rem">
+												<span class="fas fa-user-cog text-f-orange mr-2 mb-3"></span>
+												<strong>Criador: </strong><%= @ejs.find{|ej| ej.id == @post.owner_id}.name %>
+											</li>
+										<%end%>
+
+										<li style="font-size: 1rem">
+											<span class="fas fa-star mr-2 mb-3 text-warning"></span>
+											<strong>Avaliação: </strong><%=@post.rating%>
+										</li>
+
+									</ul>
+								</aside>
+								<!-- End of Details Widget -->
+
 							</div>
-
-						</form>
+                    	</div>
 					</div>
+				</div>
+
+				<div class="container">
+					<form>
+						<h3 class="title">Deixe sua avaliação</h3>
+
+						<div class="make-evaluation mb-5 mt-2">
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="2"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="4"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="6"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="8"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="10"></button>
+							<button type="button" class="button-reset fas fa-undo bg-transparent border-0 ml-4"></button>
+						</div>
+
+						<input type="hidden" id="post_id" value="<%= @post.id %>" />
+						<input type="hidden" id="value" value="0" />
+
+						<div id="create_new_vote" class="btn btn-f-green text-white">
+							Avaliar
+						</div>
+
+					</form>
+				</div>
 			</section>
 			<!-- =============== END OF MOVIE DETAIL MAIN SECTION =============== -->
 

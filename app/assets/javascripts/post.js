@@ -16,12 +16,55 @@ $(function(){
 
 function page_load(){
 	setting_events();
+	reset_fields();
 }
 
 function page_reload(){
-	
+	reset_fields();
 }
 
+function reset_fields(){
+	$("#value").val(0);
+}
+
+function valid_value(value){
+	if( typeof(value) !== "undefined" && value != null && value != "" ){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+$(".button-evaluation").on("click", function(){
+	
+	var val = parseInt($(this).val());
+	$(".button-evaluation").each(function(){
+		
+		$(this).removeClass("fas fa-star");
+		// $(this).removeAttr('id', 'value')
+		$(this).addClass("far fa-star");
+		
+		if (val >= parseInt($(this).val())){
+			$(this).addClass("fas fa-star")
+		}
+	});
+
+	// $(this).attr('id', 'value');
+	$("#value").val(val);
+
+});
+
+$(".button-reset").on("click", function(){
+	
+	$(".button-evaluation").each(function(){
+		$(this).removeClass("fas fa-star");
+		// $(this).removeAttr('id', 'value')
+		$(this).addClass("far fa-star");
+	});
+
+	$("#value").val(0);
+})
 
 function setting_events(){
 
