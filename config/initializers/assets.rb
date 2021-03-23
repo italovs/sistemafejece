@@ -21,6 +21,9 @@ Rails.application.config.assets.precompile += %w(
     magnific-popup.css
     jquery.mmenu.css 
     owl.carousel.min.css
+    colors.css
+    themify-icons.css
+    simple-line-icons.css
     style.css
     pagination_evaluation.js
     responsive.css
