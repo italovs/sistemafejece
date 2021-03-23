@@ -18,14 +18,6 @@ $.ajaxSetup({
 
 $(function(){
 	page_load();
-	//TESTES AJAX
-	//my_series_by_category( 3 )
-	//my_seasons_by_serie(10)
-	//search_for_video( category_id, owner_id, season_id, serie_id, name )
-	//search_for_video( "", "", "", "", "" )
-
-	//search_for_post()
-	//search_for_post()
 })
 
 function page_load(){
@@ -133,7 +125,7 @@ function setting_events(){
 		if(valid_value($("#post_id").val()) && valid_value($("#value").val()) ){
 			$.post( '/new_vote' ,
 			{
-                post_id: $("#post_id").val(),
+        post_id: $("#post_id").val(),
 				value: $("#value").val()
 			},
 			function(data, status){
@@ -223,12 +215,9 @@ function setting_events(){
 	})
 
 	$("#create_new_video").on("click", function(){
-		
 		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val())  ){
 			link = sanitarize_youtube_link($("#youtube_link").val())
-			console.log("foi")
 			if(link != null){
-				
 				var formData = new FormData();
 				formData.append('name', $("#youtube_name").val())
 				formData.append('video_link', link)
@@ -242,8 +231,8 @@ function setting_events(){
 					type: 'POST',
 					contentType: false,
 					processData: false
-				}).done(function(){
-					hide_fields()
+				}).done(function(data){
+					location.reload(); 
 				}).fail(function(){
 					//ERRO DE REQUISIÇÃO
 				});
@@ -299,7 +288,6 @@ function setting_events(){
 		$("#series").removeClass("bg-secondary");
 		$("#video").removeClass("btn-f-green");
 		$("#series").addClass("btn-f-green");
-
 	})
 
 	$("#series").on("click", function(){
@@ -309,7 +297,6 @@ function setting_events(){
 		$("#video").removeClass("bg-secondary");
 		$("#series").removeClass("btn-f-green");
 		$("#video").addClass("btn-f-green");
-
 	})
 }
 
