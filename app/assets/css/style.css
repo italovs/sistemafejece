@@ -86,10 +86,10 @@ Author URI: gnodesign.com
 
 -------------------------------------------------------------------*/
 
-@import url(./font-awesome.min.css);
-@import url(./simple-line-icons.css);
-@import url(./themify-icons.css);
-@import url(./colors.css);
+@import url(font-awesome.min.css);
+@import url(simple-line-icons.css);
+@import url(themify-icons.css);
+@import url(colors.css);
 
 /* --------------------------------------
     1. Default Typography
