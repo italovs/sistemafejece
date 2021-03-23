@@ -202,7 +202,7 @@
       </div>
       
         
-        
+        <div class="container col-8 mx-auto p-0 border-0">
         
           <div class="container series-row">
             <h6>Selecione numero de linhas</h6>
@@ -217,41 +217,42 @@
             </div>
           </div>
         
-        <div class="card card-small series-row col-8 mx-auto p-0 border-0">
-          <table id="mytable" class="table table-hover mb-0 border-0">
-            <div >
-              <thead class="card-header border-bottom bg-f-green text-white">
-                <tr >
-                  <th >Nome</th>
-                  <th >Tipo</th>
-                  <th >Ações</th>
-                </tr>
-              </thead>
-            </div>
-            <div class="card-body p-0 text-center">
-              <tbody>
-                <% @series.each do |serie| %>
-                  <tr>
-                    <td><%=serie.name%></td>
-                    <% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
-                    <td><%=collect_categories_ids(aux)%></td>
-                    <td>
-                      <%= link_to current_user_serie_path(serie.id),  class:'tooltips nav-link notification btn btn-info col-3', title: 'Ver Série', data:{placement: 'bottom'} do %>
-                        <i class="fas fa-eye"></i>
-                      <%end%>
-                    </td>
+          <div class="card card-small series-row">
+            <table id="mytable" class="table table-hover mb-0 border-0">
+              <div >
+                <thead class="card-header border-bottom bg-f-green text-white">
+                  <tr >
+                    <th >Nome</th>
+                    <th >Tipo</th>
+                    <th >Ações</th>
                   </tr>
-                <%end%>  
-              </tbody>
-            </div>
-        </table>
-      </div>
+                </thead>
+              </div>
+              <div class="card-body p-0 text-center">
+                <tbody>
+                  <% @series.each do |serie| %>
+                    <tr>
+                      <td><%=serie.name%></td>
+                      <% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
+                      <td><%=collect_categories_ids(aux)%></td>
+                      <td>
+                        <%= link_to current_user_serie_path(serie.id),  class:'tooltips nav-link notification btn btn-info col-3', title: 'Ver Série', data:{placement: 'bottom'} do %>
+                          <i class="fas fa-eye"></i>
+                        <%end%>
+                      </td>
+                    </tr>
+                  <%end%>  
+                </tbody>
+              </div>
+            </table>
+          </div>
 
-      <div class="pagination-container series-row">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center"></ul>
-        </nav>
-      </div>
+          <div class="pagination-container series-row">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center"></ul>
+            </nav>
+          </div>
+        </div>  
         
       
       <div id="full-content" style="margin: 0 5%;">
@@ -301,7 +302,7 @@
                         -->
                         <!--<div class="form-row video-field"> -->
                           <!--<div class="form-group col-md-12"> -->
-                            <%= select_tag :category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize', style: "height:100%;",multiple: true}%>
+                            <%= select_tag :category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
                          <!-- </div> -->
                        <!-- </div> -->
                         <div class="form-row video-field">
