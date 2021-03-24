@@ -86,10 +86,10 @@ Author URI: gnodesign.com
 
 -------------------------------------------------------------------*/
 
-@import url(font-awesome.min.css);
-@import url(simple-line-icons.css);
-@import url(themify-icons.css);
-@import url(colors.css);
+@import url(<%= asset_path 'font-awesome.min.css.erb' %>);
+@import url(<%= asset_path 'simple-line-icons.css' %>);
+@import url(<%= asset_path 'themify-icons.css' %>);
+@import url(<%= asset_path 'colors.css' %>);
 
 /* --------------------------------------
     1. Default Typography
@@ -2052,6 +2052,7 @@ ul.social-btns li {
     -ms-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease;
+    background: #FF8225;
 }
 
 .play-video:hover {
@@ -2064,6 +2065,7 @@ ul.social-btns li {
     -webkit-box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
     -moz-box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
     box-shadow: 0 0 0 10px rgba(147, 82, 179, .4);
+    background: #fff;
 }
 
 .play-video i {
