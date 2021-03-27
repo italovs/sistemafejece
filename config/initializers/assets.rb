@@ -13,14 +13,33 @@ Rails.application.config.assets.paths << Rails.root.join('vendor')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w( 
-    bootstrap.min.css 
+Rails.application.config.assets.precompile += %w(
+    fontawesome-webfont.eot
+    fontawesome-webfont.svg
+    fontawesome-webfont.ttf
+    fontawesome-webfont.woff
+    fontawesome-webfont.woff2
+    FontAwesome.otf
+    Simple-Line-Icons.svg
+    Simple-Line-Icons.eot
+    Simple-Line-Icons.ttf
+    Simple-Line-Icons.woff
+    Simple-Line-Icons.woff2
+    themify.eot
+    themify.svg
+    themify.ttf
+    themify.woff
+    bootstrap.min.css
     revolution/css/settings.css
     revolution/css/layers.css
     revolution/css/navigation.css
     magnific-popup.css
     jquery.mmenu.css 
     owl.carousel.min.css
+    font-awesome.min.css.erb
+    colors.css
+    themify-icons.css
+    simple-line-icons.css
     style.css
     pagination_evaluation.js
     responsive.css
@@ -49,4 +68,3 @@ Rails.application.config.assets.precompile += %w(
     revolution/revolution.extension.slideanims.min.js
     revolution/revolution.extension.video.min.js
 )
-

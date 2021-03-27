@@ -98,11 +98,6 @@ function stars_evaluation(){
 		var full_star = Math.floor(star/2);
 		var half_star = (star % 2);
 		var empty_star = 5 - (full_star + half_star);
-		console.log(full_star);
-		console.log(half_star);
-		console.log(empty_star);
-		console.log("j = "+j);
-
 
 		for(var i=1; i<= full_star; i++){
 			$(".rating").eq(j).append('<i class="fas fa-star"></i>').show();

@@ -167,13 +167,7 @@ class SiteController < ApplicationController
 		get_user_tv_series
 		@serie_categories = TvSerieCategory.all
 		@categories = Category.all.select(:id, :name)
-		if member_signed_in?
-			@series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
-			@videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
-		else
-			@series = TvSerie.all.where(owner_id: nil)
-			@videos = Post.all.where(owner_id: nil, kind: 1)
-		end		
+		series_and_videos		
 
 		direction_notification
 	end
@@ -223,7 +217,8 @@ class SiteController < ApplicationController
 			categories.each do |category|
 				PostCategory.create(post_id: post.id, category_id: category.to_i)
 			end
-			render json: [msg: "Sucesso: Vídeo criado"]
+			series_and_videos
+			render json: [msg: "Sucesso: Vídeo criado", series: @series, videos: @videos]
 		else
 			render json: [msg: "Erro: Falha ao criar vídeo"]
 		end
@@ -669,6 +664,16 @@ class SiteController < ApplicationController
 			if member.validated == nil
 				@flag = @flag + 1
 			end
+		end
+	end
+
+	def series_and_videos
+		if member_signed_in?
+			@series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
+			@videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+		else
+			@series = TvSerie.all.where(owner_id: nil)
+			@videos = Post.all.where(owner_id: nil, kind: 1)
 		end
 	end
 end
