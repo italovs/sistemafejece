@@ -467,7 +467,7 @@ class SiteController < ApplicationController
 			poster_image: params[:poster_image],
 			banner_image: params[:banner_image]
 		)
-
+		categories = params[:categories].split(",")
 		if admin_signed_in?
 			post.owner_id = nil
 		else
@@ -475,12 +475,15 @@ class SiteController < ApplicationController
 		end
 
 		if post.save
-			if member_signed_in?
-				PostCategory.create(post_id: post.id, category_id: params[:category])
-			else
-				PostCategory.create(post_id: post.id, category_id: params[:category])
+			# if member_signed_in?
+			# 	PostCategory.create(post_id: post.id, category_id: params[:category])
+			# else
+			# 	PostCategory.create(post_id: post.id, category_id: params[:category])
+			# end
+			categories.each do |category|
+				PostCategory.create(post.id, category_id: category.to_i)
 			end
-				render json: [msg: "Sucesso: post criado"]
+			render json: [msg: "Sucesso: post criado"]
 		else
 			render json: [msg: "Erro: Falha ao criar post"]
 		end

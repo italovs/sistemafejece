@@ -7,8 +7,7 @@
 		maxItems: null,
 		valueField: 'id',
 		searchField: 'name'
-	});
-//});
+	  });
 
 $.ajaxSetup({
     headers: {
