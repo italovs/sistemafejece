@@ -7,7 +7,7 @@
 		maxItems: null,
 		valueField: 'id',
 		searchField: 'name'
-	  });
+	});
 
 $.ajaxSetup({
     headers: {
@@ -41,44 +41,43 @@ $("#maxRows").on('change', pagination)
 
 function pagination(){
 	$('.pagination').html('')
-		var trnum = 0;
-		var maxRows = parseInt($('#maxRows').val());
-		var totalRows = $(table+'  tbody tr').length
+	var trnum = 0;
+	var maxRows = parseInt($('#maxRows').val());
+	var totalRows = $(table+'  tbody tr').length
 
+	$(table+' tr:gt(0)').each(function(){
+		trnum++;
+		if(trnum > maxRows){
+			$(this).hide();
+		}
+		if (trnum <= maxRows){
+			$(this).show();
+		}
+	})
+
+	if(totalRows > maxRows){
+		var pagenum = Math.ceil(totalRows/maxRows)
+		for(var i=1; i<=pagenum; ){
+			$('.pagination').append('<li data-page="'+i+'" class="page-item">\<a class="page-link">' + i++ +'<a class="sr-only">(current)</a></a>\</li>').show();
+		}
+	}
+	$('.pagination li:first-child').addClass('active')
+	$('.pagination li').on('click', function(){
+		var pageNum = $(this).attr('data-page');
+		var trIndex = 0;
+		$('.pagination li').removeClass('active')
+		$(this).addClass('active')
 		$(table+' tr:gt(0)').each(function(){
-			trnum++;
-			if(trnum > maxRows){
+			trIndex++;
+			if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
 				$(this).hide();
-			}
-			if (trnum <= maxRows){
+			}else{
 				$(this).show();
 			}
 		})
-
-		if(totalRows > maxRows){
-			var pagenum = Math.ceil(totalRows/maxRows)
-			for(var i=1; i<=pagenum; ){
-				$('.pagination').append('<li data-page="'+i+'" class="page-item">\<a class="page-link">' + i++ +'<a class="sr-only">(current)</a></a>\</li>').show();
-			}
-		}
-		$('.pagination li:first-child').addClass('active')
-		$('.pagination li').on('click', function(){
-			var pageNum = $(this).attr('data-page');
-			var trIndex = 0;
-			$('.pagination li').removeClass('active')
-			$(this).addClass('active')
-			$(table+' tr:gt(0)').each(function(){
-				trIndex++;
-				if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
-					$(this).hide();
-				}else{
-					$(this).show();
-				}
-			})
-		})
-
-	
+	})
 }
+
 $(function(){
 	$('table tr:eq(0)').prepend('<th>ID</th>')
 	var id = 0;
@@ -86,7 +85,8 @@ $(function(){
 		id++
 		$(this).prepend('<td>'+id+'</td>')
 	})
-}) 
+})
+
 function starting_from_videos(){
 	$(".videos-row").show();
 	$(".series-row").hide();
@@ -120,7 +120,6 @@ function hide_fields(){
 }
 
 function setting_events(){
-
 	$("#create_new_vote").on("click", function(){
 		if(valid_value($("#post_id").val()) && valid_value($("#value").val()) ){
 			$.post( '/new_vote' ,
@@ -134,7 +133,6 @@ function setting_events(){
 					refill_select_box( "#value", data[0]["value"] )
 				} else {
 					//ERRO DE REQUISIÇÃO
-					
 				}
 			})
 		} else {
@@ -153,7 +151,6 @@ function setting_events(){
 			hide_fields()
 			console.log('click')
 		}
-		
 		$("#form-fields").show();
 		$("#main_title").text("Novo Vídeo");
 		$(".video-field").show();
@@ -187,7 +184,7 @@ function setting_events(){
 			$.post( '/new_serie' ,
 			{
 				serie_name: $("#serie_name").val(),
-				category: $("#tv_series_category").val() 
+				category: $("#tv_series_category").val()
 			},
 			function(data, status){
 				if(status == "success"){
@@ -195,7 +192,6 @@ function setting_events(){
 					refill_select_box( "#tv_series", data[0]["tv_series"] )
 				} else {
 					//ERRO DE REQUISIÇÃO
-					
 				}
 			})
 		} else {
@@ -237,7 +233,7 @@ function setting_events(){
 					contentType: false,
 					processData: false
 				}).done(function(data){
-					location.reload(); 
+					location.reload();
 				}).fail(function(){
 					//ERRO DE REQUISIÇÃO
 				});
@@ -260,7 +256,6 @@ function setting_events(){
 				}
 			} else {
 				//ERRO DE REQUISIÇÃO
-				
 			}
 		})
 	})
@@ -281,7 +276,6 @@ function setting_events(){
 				}
 			} else {
 				//ERRO DE REQUISIÇÃO
-				
 			}
 		})
 	})
@@ -327,7 +321,6 @@ function search_for_video( category_id, owner_id, season_id, serie_id, name ){
 			}
 		} else {
 			//ERRO DE REQUISIÇÃO
-			
 		}
 	})
 }
@@ -349,7 +342,6 @@ function search_for_post( category_id, owner_id, name ){
 			}
 		} else {
 			//ERRO DE REQUISIÇÃO
-			
 		}
 	})
 }
@@ -368,7 +360,6 @@ function my_series_by_category( category_id ){
 			}
 		} else {
 			//ERRO DE REQUISIÇÃO
-			
 		}
 	})
 }
@@ -387,7 +378,6 @@ function my_seasons_by_serie( serie_id ){
 			}
 		} else {
 			//ERRO DE REQUISIÇÃO
-			
 		}
 	})
 }
@@ -460,7 +450,6 @@ function new_card_area(name, data){
 		html += 	'</div>'
 		html += '</div>'
 	})
-	
 	//fim dos cards
 	html += "</div>"
 	return html
@@ -485,11 +474,11 @@ function new_card_area2(name, data){
 }
 
 function series_from_category(id){
-	
+
 }
 
 function insert_events( full_id ){
-	
+
 }
 
 function insert_card_areas(data){
