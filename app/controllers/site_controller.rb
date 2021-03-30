@@ -178,6 +178,7 @@ class SiteController < ApplicationController
 	#POSTS VIDEO
 	def my_channel #postagens de vídeo
 		get_user_tv_series
+		@videos = Post.all.where(kind: 1)
 		@serie_categories = TvSerieCategory.all
 		@categories = Category.all.select(:id, :name)
 		series_and_videos		
@@ -467,6 +468,7 @@ class SiteController < ApplicationController
 
 	#POSTS
 	def my_library
+		@videos = Post.all.where(kind: 1)
 		@categories = Category.all.select(:id, :name)
 		@post_categories = PostCategory.all
 		if member_signed_in?
@@ -536,6 +538,7 @@ class SiteController < ApplicationController
 	end
 
 	def post
+		@videos = Post.all.where(kind: 1)
 		@post = Post.find(params[:id])
 		@posts = Post.all
 		@ejs = JuniorEnterprise.all
