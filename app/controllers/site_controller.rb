@@ -212,7 +212,7 @@ class SiteController < ApplicationController
 		else
 			post.owner_id = current_member.junior_enterprise_id
 		end
-		
+
 		if post.save
 			categories.each do |category|
 				PostCategory.create(post_id: post.id, category_id: category.to_i)
@@ -308,7 +308,7 @@ class SiteController < ApplicationController
 	def my_series_by_category
 		#reiniciando valores
 		hash_series = Hash.new
-		
+
 		if admin_signed_in?
 			series = Category.find( params[:category_id] ).tv_series.where('"tv_series"."owner_id" IS NULL').order(:name)
 		else
@@ -372,12 +372,12 @@ class SiteController < ApplicationController
 			render json: [msg: "Série inválida"]
 		end
 	end
-	
+
 	#retorna temporadas de uma série e informa quantidade de vídeos em cada série
 	#deve passar via ajax parâmetro da id da série
 	def my_posts_by_season
 		if params[:season_id].present?
-			season = Season.where(id: params[:serie_id]).first 
+			season = Season.where(id: params[:serie_id]).first
 			posts = Season.where(id: params[:serie_id]).first.posts
 			if (posts.count == 1 && posts.count > 0) && (admin_signed_in? && season.tv_serie.owner_id.nil?) || (member_signed_in? && season.tv_serie.owner_id == current_member.id)
 				array_posts = []
@@ -385,7 +385,7 @@ class SiteController < ApplicationController
 				posts.each do |post|
 					array_posts << post.id
 				end
-				
+
 				if hash_seasons.blank?
 					render json: [msg: "Você ainda não possui Vídeos nessa Temporada"]
 				else #nenhuma série
@@ -453,7 +453,7 @@ class SiteController < ApplicationController
 			@posts = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
 		else
 			@posts = Post.all.where(owner_id: nil, kind: 0)
-		end	
+		end
 
 		direction_notification
 	end
@@ -584,7 +584,7 @@ class SiteController < ApplicationController
 		end
 
 		videos = Post.where(kind: "video").left_joins(season_post: [season: [tv_serie: [tv_serie_category: [:category]]]]).where(query)
-		
+
 		if !videos.blank?
 			render json: videos
 		else
@@ -620,14 +620,44 @@ class SiteController < ApplicationController
 		end
 
 		posts = Post.where(kind: "post").left_joins(post_category: [:category]).where(query)
-		
+
 		if !posts.blank?
 			render json: posts
 		else
 			render json: [msg: "Erro: Nenhum resultado encontrado"]
 		end
 	end
-	
+
+	def update_video
+		#params de entrada: name, description, link, video_id
+		video = Post.video.find_by_id(params[:video_id])
+		if !video.video? || video.nil?
+			#id inválida ou tipo inváçido
+			render json: [msg: "Erro: Nenhum resultado encontrado"]
+		else (video.video? || !video.nil?)
+			if !( (admin_signed_in? && video.owner_id.nil?) || (member_signed_in? && (video.owner_id == current_member.id) ) )
+				#vídeo de outro dono
+				render json: [msg: "Erro: Erro ao encontrar o vídeo"]
+			else
+				if !params[:name].nil?
+					video.name = params[:name]
+				end
+				if !params[:description].nil?
+					video.description = params[:description]
+				end
+				if !params[:link].nil?
+					video.link = params[:link]
+				end
+				if video.save
+					# sucesso
+					render json: [msg: "Sucesso: Vídeo foi atualizado", video: video]
+				else
+					#falha
+					render json: [msg: "Erro: Falha ao atualizad o vídeo"]
+				end
+			end
+		end
+	end
 
 	private
 	#recupera rating, total de votos e voto de um usuário
