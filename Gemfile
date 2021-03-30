@@ -20,6 +20,7 @@ gem "google-cloud-storage"
 gem 'image_processing'
 gem 'active_storage_validations'
 gem 'selectize-rails'
+gem 'rails_real_favicon'
 #gem 'sendgrid-ruby'
 #gem 'paperclip', '~> 6.0.0'
 

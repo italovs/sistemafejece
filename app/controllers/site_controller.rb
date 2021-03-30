@@ -25,10 +25,12 @@ class SiteController < ApplicationController
 		ActiveRecord::Base.transaction do
 			@member.validated = nil
 			@member.save
+			flash[:notice] = "Diretoria Solicitada"
 			render json: [msg: "Valeu, meu consagrado!", member: @member, junior_enterprise: @member.junior_enterprise.name]
 		end
 
 		rescue  ActiveRecord::RecordInvalid
+			flash[:alert] = "falha ao solicitar diretoria" + @member.errors
 			render json: [msg: "Erro: "+	@member.errors ]
 	end
 
@@ -43,12 +45,14 @@ class SiteController < ApplicationController
 			if params[:new_password] == params[:confirmation_password]
 				@person.password = params[:new_password]
 				if @person.save
+					flash[:notice] = "Senha alterada com sucesso"
 					if member_signed_in?
 						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 					else
 						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person )]
 					end
 				else
+					flash[:alert] = "falha ao salvar nova senha, tente novamente"
 					if member_signed_in?
 						render json: [msg: "Erro: Falha em salvar nova senha", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 					else
@@ -56,6 +60,7 @@ class SiteController < ApplicationController
 					end
 				end
 			else
+				flash[:alert] = "Erro: Campos de nova senha não são iguais"
 				if member_signed_in?
 					render json: [msg: "Erro: Campos de nova senha não são iguais", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 				else
@@ -63,6 +68,7 @@ class SiteController < ApplicationController
 				end
 			end
 		else
+			flash[:alert] = "Erro: Senha antiga inválida"
 			if member_signed_in?
 				render json: [msg: "Erro: Senha antiga inválida", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name ]
 			else
@@ -102,12 +108,14 @@ class SiteController < ApplicationController
 				@person.junior_enterprise_id = params[:junior_enterprise] if params[:junior_enterprise].present?
 			end
 			if @person.save
+				flash[:notice] = "Informações alteradas com sucesso"
 				if member_signed_in?
 					render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 				else
 					render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person )]
 				end
 			else
+				flash[:alert] = "Erro: Falha em salvar novo e-mail"
 				if member_signed_in?
 					render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 				else
@@ -115,6 +123,7 @@ class SiteController < ApplicationController
 				end
 			end
 		else
+			flash[:alert] = "Erro: Senha inválida"
 			if member_signed_in?
 				render json: [msg: "Erro: Senha inválida", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name ]
 			else
@@ -134,12 +143,14 @@ class SiteController < ApplicationController
 			if params[:new_email] == params[:repeat_email] && !(URI::MailTo::EMAIL_REGEXP =~ params[:repeat_email]).nil?
 				@person.email = params[:new_email]
 				if @person.save
+					flash[:notice]= "Email alterado com sucesso"
 					if member_signed_in?
 						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 					else
 						render json: [msg: "Sucesso: Deu bom, meu bacano", person: person_information( @person )]
 					end
 				else
+					flash[:alert]="Erro: Falha em salvar novo e-mail"
 					if member_signed_in?
 						render json: [msg: "Erro: Falha em salvar novo e-mail", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 					else
@@ -147,6 +158,7 @@ class SiteController < ApplicationController
 					end
 				end
 			else
+				flash[:alert] = "Erro: Campos de novo e-mail não são iguais"
 				if member_signed_in?
 					render json: [msg: "Erro: Campos de novo e-mail não são iguais", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name]
 				else
@@ -154,6 +166,7 @@ class SiteController < ApplicationController
 				end
 			end
 		else
+			flash[:alert] = "Erro: Senha inválida"
 			if member_signed_in?
 				render json: [msg: "Erro: Senha inválida", person: person_information( @person ), junior_enterprise: @person.junior_enterprise.name ]
 			else
@@ -182,7 +195,9 @@ class SiteController < ApplicationController
 		if tv_serie.save
 			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
 			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
+			flash[:notice] = "Nova trilha" + params[:serie_name] + "foi criada com sucesso" 
 		else
+			flash[:alert] = "Ocorreu um erro ao salvar nova trilha"
 			render json: [msg: "Erro: Deu ruim"]
 		end	
 	end
@@ -218,8 +233,10 @@ class SiteController < ApplicationController
 				PostCategory.create(post_id: post.id, category_id: category.to_i)
 			end
 			series_and_videos
+			flash[:notice] = "Vídeo criado com sucesso"
 			render json: [msg: "Sucesso: Vídeo criado", series: @series, videos: @videos]
 		else
+			flash[:alert] = "Erro: Falha ao criar vídeo, tente novamente."
 			render json: [msg: "Erro: Falha ao criar vídeo"]
 		end
 	end
@@ -254,6 +271,7 @@ class SiteController < ApplicationController
 		if series != Hash.new
 			render json: series
 		else
+			flash[:alert]= "Erro: Falha ao recuperar postagens"
 			render json: [msg: "Erro: Falha ao recuperar postagens"]
 		end
 	end
@@ -369,6 +387,7 @@ class SiteController < ApplicationController
 				render json: [msg: "Série inválida para você"]
 			end
 		else
+			flash[:alert] = "Trilha inválida"
 			render json: [msg: "Série inválida"]
 		end
 	end
@@ -395,6 +414,7 @@ class SiteController < ApplicationController
 				render json: [msg: "Temporada inválida para você"]
 			end
 		else
+			flash[:alert]="Temporada inválida"
 			render json: [msg: "Temporada inválida"]
 		end
 	end
@@ -480,11 +500,14 @@ class SiteController < ApplicationController
 			# else
 			# 	PostCategory.create(post_id: post.id, category_id: params[:category])
 			# end
+			
 			categories.each do |category|
 				PostCategory.create(post.id, category_id: category.to_i)
 			end
+			flash[:notice] = "Sucesso: post criado"
 			render json: [msg: "Sucesso: post criado"]
 		else
+			flash[:alert] = "Erro: Falha ao criar post"
 			render json: [msg: "Erro: Falha ao criar post"]
 		end
 	end
@@ -507,6 +530,7 @@ class SiteController < ApplicationController
 		if @@posts != Hash.new
 			render json: posts
 		else
+			flash[:alert] = "Erro: Falha ao recuperar postagens"
 			render json: [msg: "Erro: Falha ao recuperar postagens"]
 		end
 	end
@@ -535,12 +559,14 @@ class SiteController < ApplicationController
 			vote = Vote.new(post_id: params[:post_id], owner: current_member.id, admin: false, value: params[:value])
 		end
 		if vote.save
+			flash[:notice] = "Sucesso: Sua nota foi salva"
 			if admin_signed_in?
 				render json: [msg: "Sucesso: Sua nota foi salva", vote_information: vote.post.vote_information(current_admin, true)]
 			else
 				render json: [msg: "Sucesso: Sua nota foi salva", vote_information: vote.post.vote_information(current_member, false)]
 			end
 		else
+			flash[:alert] = "Erro: Falha ao salvar nota"
 			render json: [msg: "Erro: Falha ao salvar nota"]
 		end
 	end
@@ -653,9 +679,11 @@ class SiteController < ApplicationController
 				end
 				if video.save
 					# sucesso
+					flash[:notice] = "Sucesso: Vídeo foi atualizado"
 					render json: [msg: "Sucesso: Vídeo foi atualizado", video: video]
 				else
 					#falha
+					flash[:alert] = "Erro: Falha ao atualizad o vídeo"
 					render json: [msg: "Erro: Falha ao atualizad o vídeo"]
 				end
 			end
@@ -684,9 +712,11 @@ class SiteController < ApplicationController
 				end
 				if post.save
 					# sucesso
+					flash[:notice] = "Sucesso: Post foi atualizado"
 					render json: [msg: "Sucesso: Post foi atualizado", post: post]
 				else
 					#falha
+					flash[:alert] = "Erro: Falha ao atualizad o post"
 					render json: [msg: "Erro: Falha ao atualizad o post"]
 				end
 			end

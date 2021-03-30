@@ -7,37 +7,59 @@
             <div class="row">
 
                 <!-- Start of Widget 1 -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="widget widget-about">
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
+                    <div class="widget widget-about d-flex align-items-center">
 
                         <!-- INSERT YOUR LOGO HERE -->
-                        <img src="assets/images/logo.svg" alt="logo" class="logo">
+                        <img src="" alt="logo" class="logo">
                         <!-- INSERT YOUR WHITE LOGO HERE -->
-                        <img src="assets/images/logo-white.svg" alt="white logo" class="logo-white">
-                        <p class="nomargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, ducimus, atque. Praesentium suscipit provident explicabo dignissimos nostrum numquam deserunt earum accusantium et fugit.</p>
+                        <img src="https://storage.googleapis.com/farol-fejece-test/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" alt="white logo" style="height: 170px;" class="logo-white">
                     </div>
                 </div>
                 <!-- End of Widget 1 -->
 
                 <!-- Start of Widget 2 -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="widget widget-links">
-                        <h4 class="widget-title">Useful links</h4>
+                        <h4 class="widget-title">Vídeos recentes</h4>
 
-                        <ul class="general-listing">
-                            <li><a href="#">about movify</a></li>
-                            <li><a href="#">blog</a></li>
-                            <li><a href="#">forum</a></li>
-                            <li><a href="#">my account</a></li>
-                            <li><a href="#">watch list</a></li>
-                        </ul>
+                        <%counter = 0%>
+                        <%vector = @videos.sort_by{|h| h[:created_at]}%>
+                        <%vector = vector.reverse()%>
 
+                        <% vector.each do |post| %>
+                            <% while counter < 3 %>
+                                <ul class="recent-posts pl-1">
+                                    <li style="list-style: none;">
+                                        <article class="post-format-standard row mb-3">
+                                            <div class="mini-post-imgb w-auto float-left">
+                                                <a class="alignleft post-rollover this-ready" aria-label="redimensionar imagens">
+                                                    <%if post.poster_image.attached?%>
+                                                        <%= image_tag post.poster_image.variant(gravity:'Center',resize:"80x60^"  , crop: '80x60+0+0')%>
+                                                    <%end%>
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="post-content w-auto p-0">
+                                                <%= link_to current_user_post_path(post.id) do%>
+                                                    <span style="font-size: 18px"><%= post.name %><span>
+                                                <%end%>
+                                            </div>
+                                        </article>
+                                    </li>
+                                </ul>
+
+                                <% counter += 1%>
+
+                            <%end%>    
+                        <%end%>     
                     </div>
                 </div>
+
                 <!-- End of Widget 2 -->
 
                 <!-- Start of Widget 3 -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <!--<div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="widget widget-blog">
                         <h4 class="widget-title">latest news</h4>
 
@@ -47,15 +69,15 @@
                             <li><a href="#">blog post 3</a><small>januar 13, 2018</small></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <!-- End of Widget 3 -->
 
                 <!-- Start of Widget 4 -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="widget widget-social">
-                        <h4 class="widget-title">follow us</h4>
+                        <h4 class="widget-title">Siga-nos!</h4>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, ducimus, atque.</p>
+                        <p> Não fique por fora do que está rolando no MEJ Cearense!</p>
 
                         <!-- Start of Social Buttons -->
                         <ul class="social-btns">
@@ -71,30 +93,30 @@
 
                             <!-- Social Media -->
                             <li>
-                                <a href="#" class="social-btn-roll twitter">
+                                <a href="#" class="social-btn-roll linkedin">
                                     <div class="social-btn-roll-icons">
-                                        <i class="social-btn-roll-icon fab fa-twitter"></i>
-                                        <i class="social-btn-roll-icon fab fa-twitter"></i>
+                                        <i class="social-btn-roll-icon fab fa-linkedin-in"></i>
+                                        <i class="social-btn-roll-icon fab fa-linkedin-in"></i>
                                     </div>
                                 </a>
                             </li>
-
-                            <!-- Social Media -->
-                            <li>
-                                <a href="#" class="social-btn-roll google-plus">
-                                    <div class="social-btn-roll-icons">
-                                        <i class="social-btn-roll-icon fab fa-google-plus"></i>
-                                        <i class="social-btn-roll-icon fab fa-google-plus"></i>
-                                    </div>
-                                </a>
-                            </li>
-
+                            
                             <!-- Social Media -->
                             <li>
                                 <a href="#" class="social-btn-roll instagram">
                                     <div class="social-btn-roll-icons">
                                         <i class="social-btn-roll-icon fab fa-instagram"></i>
                                         <i class="social-btn-roll-icon fab fa-instagram"></i>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <!-- Social Media -->
+                            <li>
+                                <a href="#" class="social-btn-roll twitter">
+                                    <div class="social-btn-roll-icons">
+                                        <i class="social-btn-roll-icon fas fa-globe-americas"></i>
+                                        <i class="social-btn-roll-icon fas fa-globe-americas"></i>
                                     </div>
                                 </a>
                             </li>

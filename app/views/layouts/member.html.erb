@@ -14,7 +14,7 @@
 	<meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
 	<meta name="author" content="GnoDesign">
 	<meta name="turbolinks-visit-control" content="reload">
-
+    <%= render 'application/favicon' %>
 	<!-- ===== Website Title ===== -->
 	<title>Farol</title>
 
@@ -339,7 +339,7 @@
                 <!-- Start of row -->
                 <div class="row justify-content-center">
                     <div class="col-md-7 text-center">
-                        <h2 class="title">Como o Farol Funciona</h2>
+                        <h2 class="title mb-5">Como o Farol Funciona</h2>
                         <h6 class="subtitle"></h6>
                     </div>
                 </div>
@@ -350,7 +350,7 @@
                     <!-- Stage -->
                     <div class="col-md-4 col-sm-12">
                         <div class="icon-box with-line">
-                            <i class="fas fa-sign-in-alt"></i>
+                            <i class="fab fa-youtube" style="color:#ff0000;"></i>
                             <h3>Vídeos</h3>
                             <p>São conteúdos selecionados e escritos pela FEJECE, produzindo capacitações para ajudar a solucionar as dores dos empresários juniores!</p>
                         </div>
@@ -359,7 +359,7 @@
                     <!-- Stage -->
                     <div class="col-md-4 col-sm-12">
                         <div class="icon-box with-line">
-                            <i class="fas fa-layer-group"></i>
+                            <i class="fas fa-layer-group text-success"></i>
                             <h3>Trilhas</h3>
                             <p>São blocos de conteúdo complementares, compilados para uma capacitação mais profunda, feita da FEJECE para você!</p>
                         </div>
@@ -368,7 +368,7 @@
                     <!-- Stage -->
                     <div class="col-md-4 col-sm-12">
                         <div class="icon-box">
-                            <i class="fas fa-smile"></i>
+                            <i class="fas fa-file-alt text-primary"></i>
                             <h3>Materiais complementares</h3>
                             <p>São ferramentas que te ajudam a aplicar o que você aprendeu nas capacitações!
                             </p>
@@ -461,7 +461,7 @@
                                         <p><%=post.description%></p>
 
                                         <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                                            Detlhes
+                                            Detalhes
                                         <%end%>
                                         
                                     </div>
@@ -615,7 +615,6 @@
 
                                 <!-- Rating -->
                                 <div class="stars">
-                                  <%#byebug%>
                                   <input class="rating-input" type="hidden" value="<%=post.rating%>" />
                                   <div class="rating"></div>
 
@@ -634,7 +633,7 @@
                                 <p class="mt-1"><%=post.description%></p>
 
                                 <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                                    Detlhes
+                                    Detalhes
                                 <%end%>
                               </div>
                             </div>
