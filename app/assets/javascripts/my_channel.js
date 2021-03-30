@@ -7,8 +7,7 @@
 		maxItems: null,
 		valueField: 'id',
 		searchField: 'name'
-	});
-//});
+	  });
 
 $.ajaxSetup({
     headers: {
@@ -116,7 +115,8 @@ function hide_fields(){
 	$("#tv_series_category").hide();
 	$("#youtube_name").hide();
 	$("#youtube_description").hide();
-	$("#my_series").hide()
+	$("#my_series").hide();
+	$("#full-content").hide();
 }
 
 function setting_events(){
@@ -151,17 +151,20 @@ function setting_events(){
 	$("#new_video").on("click", function(){
 		if(!$("#youtube_link").is(":visible")){
 			hide_fields()
+			console.log('click')
 		}
-
-		$("#full-content").toggle();
+		
+		$("#form-fields").show();
 		$("#main_title").text("Novo Vídeo");
-		$(".video-field").toggle();
-		$("#youtube_link").toggle();
-		$("#create_new_video").toggle();
-		$("#tv_series").toggle();
-		$("#season").toggle();
-		$("#youtube_name").toggle();
-		$("#youtube_description").toggle();
+		$(".video-field").show();
+		$("#youtube_link").show();
+		$("#create_new_video").show();
+		$("#tv_series").hide();
+		$("#season").hide();
+		$("#youtube_name").show();
+		$("#youtube_description").show();
+		$(".videos-row").hide();
+		$(".series-row").hide();
 	})
 
 	$("#new_serie").on("click", function(){
@@ -169,12 +172,14 @@ function setting_events(){
 			hide_fields()
 		}
 
-		$("#full-content").toggle();
+		$("#form-fields").show();
 		$("#main_title").text("Nova Série");
-		$(".serie-field").toggle();
-		$("#serie_name").toggle();
-		$("#create_new_serie").toggle();
-		$("#tv_series_category").toggle();
+		$(".serie-field").show();
+		$("#serie_name").show();
+		$("#create_new_serie").show();
+		$(".videos-row").hide();
+		$(".video-field").hide();
+		$(".series-row").hide();
 	})
 
 	$("#create_new_serie").on("click", function(){
@@ -241,7 +246,7 @@ function setting_events(){
 	})
 
 	$("#series").on("click", function(){
-		hide_fields()
+		hide_fields();
 		$.post( '/my_series' ,
 		{
 		},
@@ -284,6 +289,7 @@ function setting_events(){
 	$("#video").on("click", function(){
 		$(".videos-row").show();
 		$(".series-row").hide();
+		$("#form-fields").hide();
 		$("#video").addClass("bg-secondary");
 		$("#series").removeClass("bg-secondary");
 		$("#video").removeClass("btn-f-green");
@@ -293,6 +299,7 @@ function setting_events(){
 	$("#series").on("click", function(){
 		$(".videos-row").hide();
 		$(".series-row").show();
+		$("#form-fields").hide();
 		$("#series").addClass("bg-secondary");
 		$("#video").removeClass("bg-secondary");
 		$("#series").removeClass("btn-f-green");

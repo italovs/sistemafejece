@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <%= csrf_meta_tags %>
       <%= csp_meta_tag %>
+      <title>Meu Canal</title>
       <!-- ===== Mobile viewport optimized ===== -->
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
@@ -47,7 +48,7 @@
       <%= stylesheet_link_tag 'style', media: 'all' %>
       <%= stylesheet_link_tag 'responsive', media: 'all' %>
      
-      <title>Meu Canal</title>
+      
     </head>
 
     <style>
@@ -90,6 +91,7 @@
 
     <body class="bg-light">
       
+      
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
@@ -110,6 +112,28 @@
 
 
       <div class="d-flex justify-content-end">
+        <%if notice.nil? == false %>
+          <div id="notice" class="notification">
+            <div class="toast-header succes">          
+              <%= notice%>
+            </div>
+          </div>
+        <% end %>
+        <%if alert.nil? == false%>
+          <div id="notice" class="notification">
+            <div class="toast-header err ">          
+              <%= alert%>
+            </div>
+          </div>
+        <% end %>
+        <div id="new_video" class="btn btn-f-green text-white mr-2">
+          Novo Vídeo
+        </div>
+
+        <div id="new_serie" class="btn btn-f-green text-white mr-2">
+          Nova Série
+        </div>
+      
         <div id="video" class="btn btn-f-green text-white mr-2">
           Meus Vídeos
         </div>
@@ -178,7 +202,7 @@
                             <p><%=post.description%></p>
 
                             <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                                Detlhes
+                                Detalhes
                             <%end%>
                         </div>
                     </div>
@@ -255,7 +279,7 @@
         </div>  
         
       
-      <div id="full-content" style="margin: 0 5%;">
+      <div id="form-fields" style="margin: 0 5%;">
         <div class="row">
           <div class="col-lg-8">
             <div class="card card-small mb-4">
@@ -300,11 +324,11 @@
                           </div>  
                         </div> 
                         -->
-                        <!--<div class="form-row video-field"> -->
-                          <!--<div class="form-group col-md-12"> -->
+                        <div class="form-row video-field">
+                          <div class="form-group col-md-12">
                             <%= select_tag :category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
-                        <!-- </div> -->
-                      <!-- </div> -->
+                          </div> 
+                        </div>
                         <div class="form-row video-field">
                           <div class="form-group col-md-12">
                             <%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
@@ -319,7 +343,7 @@
 
                         <div class="form-row serie-field">
                           <div class="form-group col-md-12">
-                            <%= select_tag :tv_series_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione",  :class => 'select_field custom-select form-control', :style => "height:100%;"} %>
+                            <%= select_tag :tv_series_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
                           </div>  
                         </div>
                         
@@ -342,15 +366,7 @@
 
       <br/><br/><br/><br />
 
-      <div class="d-flex justify-content-end mx-4">
-        <div id="new_video" class="btn btn-f-green text-white mx-3">
-          Novo Vídeo
-        </div>
-
-        <div id="new_serie" class="btn btn-f-green text-white">
-          Nova Série
-        </div>
-      </div>  
+       
 
       <br/><br/>
 

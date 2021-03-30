@@ -14,6 +14,7 @@ Rails.application.config.assets.paths << Rails.root.join('vendor')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w(
+    favicon/browserconfig.xml
     fontawesome-webfont.eot
     fontawesome-webfont.svg
     fontawesome-webfont.ttf

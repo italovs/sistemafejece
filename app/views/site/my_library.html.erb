@@ -122,6 +122,21 @@
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
+      
+      <%if notice.nil? == false %>
+        <div id="notice" class="notification">
+          <div class="toast-header succes">          
+            <%= notice%>
+          </div>
+        </div>
+      <% end %>
+      <%if alert.nil? == false%>
+        <div id="notice" class="notification">
+          <div class="toast-header err ">          
+            <%= alert%>
+          </div>
+        </div>
+      <% end %>
 
       <div class="m-0">
         <section class="page-header overlay-gradient">
@@ -258,15 +273,16 @@
                           </div>
 
                           <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                               <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo", class: "input_field form-control" %>
                             </div>  
-
-                            <div class="form-group col-md-6">
-                              <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {include_blank: 'Selecione', class: 'select_field custom-select form-control', style: "height:100%;"}  %>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <%= select_tag :post_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
                             </div> 
-                            
-                          </div> 
+                          </div>
+                          
 
                           <div class="form-row">
                             <div class="form-group col-md-12">

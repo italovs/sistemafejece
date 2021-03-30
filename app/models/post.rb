@@ -1,22 +1,23 @@
+require 'open-uri'
 class Post < ApplicationRecord
+	
 	attribute :sum_votes, :integer, default: 0
 	attribute :votes, :integer, default: 0
 
 	#post
 	has_many :post_category
-	
+
 	#video
 	has_one :season_post
 	has_one :season, through: :season_post, source: "season"
 	has_one :tv_serie, through: :season, source: "tv_serie"
 
-	
-	
+
 	has_one_attached :poster_image #300x444
 	has_one_attached :banner_image #1600x803
 	validates :poster_image, content_type: ["image/jpg","image/png","image/jpeg"]
 	validates :banner_image, content_type: ["image/jpg","image/png","image/jpeg"]
-	
+
 	enum kind: {
 		post: 0,
 		video: 1
@@ -59,7 +60,6 @@ class Post < ApplicationRecord
 		end
 	end
 	
-	private
 
 	def default_images
 		file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/default_post_image.png')

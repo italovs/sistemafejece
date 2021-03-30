@@ -1,3 +1,12 @@
+//= require selectize
+$(".selectize").selectize({
+	plugins: ['remove_button'],
+	persist: false,
+	maxItems: null,
+	valueField: 'id',
+	searchField: 'name'
+  });
+
 $(function(){
 	page_load();
 })
@@ -30,7 +39,7 @@ function setting_events(){
 		if( valid_value( $("#post_link").val() ) && valid_value( $("#post_category").val() ) && valid_value($("#post_name").val()) && valid_value($("#post_description").val()) ){
 			var formData = new FormData();
 			formData.append('name',$("#post_name").val())
-			formData.append('category', $("#post_category").val())
+			formData.append('categories', $("#post_category").val())
 			formData.append('link',$("#post_link").val())
 			formData.append('description',$("#post_description").val())
 			formData.append('poster_image',$("#poster_image").prop('files')[0])

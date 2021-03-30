@@ -12,7 +12,7 @@ class AdministrativeController < ApplicationController
 
 	def profile_admin
 		@profile = current_admin
-	end	
+	end
 
 	def change_member_validation
 		membro = Member.find(params[:id])
