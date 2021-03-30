@@ -633,7 +633,7 @@ class SiteController < ApplicationController
 
 	def update_video
 		#params de entrada: name, description, link, video_id
-		video = Post.video.find_by_id(params[:video_id])
+		video = Post.find_by_id(params[:video_id])
 		if !video.video? || video.nil?
 			#id inválida ou tipo inváçido
 			render json: [msg: "Erro: Nenhum resultado encontrado"]
@@ -657,6 +657,37 @@ class SiteController < ApplicationController
 				else
 					#falha
 					render json: [msg: "Erro: Falha ao atualizad o vídeo"]
+				end
+			end
+		end
+	end
+
+	def update_post
+		#params de entrada: name, description, link, post_id
+		post = Post.find_by_id(params[:post_id])
+		if !post.post? || post.nil?
+			#id inválida ou tipo inváçido
+			render json: [msg: "Erro: Nenhum resultado encontrado"]
+		else (post.post? || !post.nil?)
+			if !( (admin_signed_in? && post.owner_id.nil?) || (member_signed_in? && (post.owner_id == current_member.id) ) )
+				#post de outro dono
+				render json: [msg: "Erro: Erro ao encontrar o post"]
+			else
+				if !params[:name].nil?
+					post.name = params[:name]
+				end
+				if !params[:description].nil?
+					post.description = params[:description]
+				end
+				if !params[:link].nil?
+					post.link = params[:link]
+				end
+				if post.save
+					# sucesso
+					render json: [msg: "Sucesso: Post foi atualizado", post: post]
+				else
+					#falha
+					render json: [msg: "Erro: Falha ao atualizad o post"]
 				end
 			end
 		end
