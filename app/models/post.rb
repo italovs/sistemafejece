@@ -1,4 +1,6 @@
+require 'open-uri'
 class Post < ApplicationRecord
+	
 	attribute :sum_votes, :integer, default: 0
 	attribute :votes, :integer, default: 0
 
@@ -58,7 +60,6 @@ class Post < ApplicationRecord
 		end
 	end
 	
-	private
 
 	def default_images
 		file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/default_post_image.png')

@@ -218,8 +218,10 @@ class SiteController < ApplicationController
 				PostCategory.create(post_id: post.id, category_id: category.to_i)
 			end
 			series_and_videos
+			flash[:notice] = "Vídeo criado com sucesso"
 			render json: [msg: "Sucesso: Vídeo criado", series: @series, videos: @videos]
 		else
+			flash[:alert] = "Erro: Falha ao criar vídeo, tente novamente."
 			render json: [msg: "Erro: Falha ao criar vídeo"]
 		end
 	end
@@ -485,6 +487,7 @@ class SiteController < ApplicationController
 			end
 			render json: [msg: "Sucesso: post criado"]
 		else
+			flash.now[:notice] = "Erro: Falha ao criar post"
 			render json: [msg: "Erro: Falha ao criar post"]
 		end
 	end

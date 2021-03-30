@@ -122,6 +122,21 @@
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
+      
+      <%if notice.nil? == false %>
+        <div id="notice" class="notification">
+          <div class="toast-header succes">          
+            <%= notice%>
+          </div>
+        </div>
+      <% end %>
+      <%if alert.nil? == false%>
+        <div id="notice" class="notification">
+          <div class="toast-header err ">          
+            <%= alert%>
+          </div>
+        </div>
+      <% end %>
 
       <div class="m-0">
         <section class="page-header overlay-gradient">

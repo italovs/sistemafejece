@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <%= csrf_meta_tags %>
       <%= csp_meta_tag %>
+      <title>Meu Canal</title>
       <!-- ===== Mobile viewport optimized ===== -->
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
@@ -47,7 +48,7 @@
       <%= stylesheet_link_tag 'style', media: 'all' %>
       <%= stylesheet_link_tag 'responsive', media: 'all' %>
      
-      <title>Meu Canal</title>
+      
     </head>
 
     <style>
@@ -90,6 +91,7 @@
 
     <body class="bg-light">
       
+      
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
@@ -110,7 +112,20 @@
 
 
       <div class="d-flex justify-content-end">
-      
+        <%if notice.nil? == false %>
+          <div id="notice" class="notification">
+            <div class="toast-header succes">          
+              <%= notice%>
+            </div>
+          </div>
+        <% end %>
+        <%if alert.nil? == false%>
+          <div id="notice" class="notification">
+            <div class="toast-header err ">          
+              <%= alert%>
+            </div>
+          </div>
+        <% end %>
         <div id="new_video" class="btn btn-f-green text-white mr-2">
           Novo Vídeo
         </div>

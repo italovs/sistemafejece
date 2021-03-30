@@ -15,3 +15,50 @@
  *= require_tree .
  *= require_self
  */
+
+ .notification{
+    
+    display: inline-block;
+    position: fixed !important;
+    width:30%;
+    height: 30px !important;
+    z-index: 9999;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.2)!important;
+    margin-top: 20px;
+    animation-name: myAnimation;
+    animation-duration: 10000ms;
+    animation-fill-mode: forwards;
+  }
+  .toast-header.succes{
+      background: #018c77  !important;
+  }
+  .toast-header.err{
+      background: #f8d7da !important;
+      color: #721c24 !important;
+  }
+  .toast-header{
+      
+      border-radius: 25px;
+      color: white;
+      font-size: 30px;
+  }
+  
+  @keyframes myAnimation{
+    0%{
+      opacity: 1;
+      left:-100%
+    }
+    20%{
+      opacity: 1;
+      left: 20px
+    }
+    30%{
+        opacity: 1;
+        left: 20px
+      }
+    100%{
+      display: none;
+      opacity: 0;
+      left: 20px
+    }
+  }
