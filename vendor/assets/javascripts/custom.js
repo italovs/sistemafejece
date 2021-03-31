@@ -194,6 +194,8 @@ Author URI: gnodesign.com
             } else {
                 $("#backtotop").removeClass('visible');
             }
+
+            $('header').toggleClass('scrolled',$(this).scrollTop()>70);
         });
         
         $('#backtotop a').on('click', function () {
