@@ -124,7 +124,7 @@ function setting_events(){
 		if(valid_value($("#post_id").val()) && valid_value($("#value").val()) ){
 			$.post( '/new_vote' ,
 			{
-        post_id: $("#post_id").val(),
+        		post_id: $("#post_id").val(),
 				value: $("#value").val()
 			},
 			function(data, status){
