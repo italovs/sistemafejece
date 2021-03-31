@@ -103,7 +103,7 @@ function initial_create_table(){
 }
 
 function hide_fields(){
-	$("#full-content").hide();
+	$("#form-fields").hide();
 	$(".video-field").hide();
 	$(".serie-field").hide();
 	$("#youtube_link").hide();
