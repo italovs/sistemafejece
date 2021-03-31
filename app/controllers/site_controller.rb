@@ -541,6 +541,10 @@ class SiteController < ApplicationController
 		@ejs = JuniorEnterprise.all
 
 		direction_notification
+		if @post.video?
+			@post.views += 1
+			@post.save
+		end
 	end
 
 	def serie

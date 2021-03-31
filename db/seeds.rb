@@ -34,7 +34,7 @@ member = Member.create(
           email: 'member@gti.com',
           password: '123123',
           junior_enterprise_id: 1,
-          validated: nil)
+          validated: true)
 member.profile_picture.attach(io: file, filename: "user.png", content_type: 'image/png')
 ejs = Set.new(2..10)
 

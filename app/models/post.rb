@@ -3,6 +3,7 @@ class Post < ApplicationRecord
 	
 	attribute :sum_votes, :integer, default: 0
 	attribute :votes, :integer, default: 0
+	attribute :views, :integer, default: 0
 
 	#post
 	has_many :post_category
