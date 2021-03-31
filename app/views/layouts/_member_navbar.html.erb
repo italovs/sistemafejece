@@ -1,4 +1,10 @@
-<header class="header navbar fixed-top navbar-expand-lg header-transparent text-white justify-content-center">
+<style>
+	.bg-color.scrolled{
+		background-color: #018c77; 
+	}
+</style>
+
+<header class="header navbar fixed-top navbar-expand-lg header-transparent text-white justify-content-center bg-color p-0">
 			<div class="w-100 m-0">
 
 				<!-- ====== Start of Navbar ====== -->
@@ -72,7 +78,7 @@
 							<!-- Menu Item -->
 							<% if admin_signed_in? %>
 								<li class="nav-item notification-wrapper">
-									<%= link_to members_validation_path, class:'tooltips nav-link notification', title: 'Novas solicitações de Diretoria', data:{placement: 'bottom'} do %>
+									<%= link_to members_validation_path, class:'tooltips nav-link', title: 'Novas solicitações de Diretoria', data:{placement: 'bottom'} do %>
 										<i class="fas fa-bell"></i>
 										<% if @flag > 0 %>
 											<span class="notification-count"><%= @flag %></span>

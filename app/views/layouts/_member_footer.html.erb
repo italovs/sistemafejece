@@ -28,7 +28,7 @@
                         <%vector = vector.reverse()%>
 
                         <% vector.each do |post| %>
-                            <% while counter < 3 %>
+                            <% if counter < 3 %>
                                 <ul class="recent-posts pl-1">
                                     <li style="list-style: none;">
                                         <article class="post-format-standard row mb-3">

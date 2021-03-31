@@ -191,18 +191,21 @@
 
                           <h2 class="title"><%=post.name%></h2>
 
-                          <!-- Rating -->
+                          <!-- Start of Rating -->
                           <div class="stars">
-                            <%#byebug%>
                             <input class="rating-input" type="hidden" value="<%=post.rating%>" />
                             <div class="rating"></div>
-
-                            <%if post.rating.class == String%>
+            
+                            <% if post.rating == -1 %>
                               <div class="d-inline-flex">
                                 <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
-                                <h6 style="font-size:12px;" class="text-dark"><%=post.rating%></h6>
-                              </div>  
-                            <%end%> 
+                                <h6 style="font-size:12px;" class="text-dark">Não há avaliações</h6>
+                              </div>
+                            <%else%>
+                              <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                            <%end%>	
+
+                            <!-- End of Rating --> 
 
                             <% aux =  @post_categories.where(post_id: post.id)%>
                             <span class="category text-dark pt-1"><strong><%=collect_categories_ids(aux)%></strong></span>
@@ -211,7 +214,7 @@
 
                           <p class="mt-1"><%=post.description%></p>
 
-                          <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                          <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
                               Detlhes
                           <%end%>
                         </div>
