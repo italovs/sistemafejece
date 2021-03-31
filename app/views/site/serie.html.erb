@@ -176,7 +176,7 @@
 
                           <p><%=post.description%></p>
 
-                          <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                          <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
                               Detlhes
                           <%end%>
                       </div>
@@ -251,7 +251,7 @@
 
                       <p><%=post.description%></p>
 
-                      <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                      <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
                           Detlhes
                       <%end%>
                     </div>

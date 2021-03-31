@@ -83,4 +83,21 @@ module ApplicationHelper
 		end
 		string = string[2...-2]
 	end
+
+	def best_evaluated(vector_2)
+		vector = []
+
+		@posts.each do |post|
+			vector << ({post: post, rating: post.rating})
+		end
+
+		vector = vector.sort_by{|hash| hash[:rating]}
+		vector = vector.reverse()
+		
+		vector.each do |element|
+			vector_2 << (element[:post])
+		end
+
+		vector_2 = vector_2.reverse()
+	end
 end

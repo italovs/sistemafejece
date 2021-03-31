@@ -144,13 +144,18 @@
 													<a href="#" class="btn btn-main btn-effect">watch later</a>
 													<a href="#" class="btn rate-movie"><i class="far fa-heart"></i></a>
 
-													<div class="rating mt10">
-															<i class="fas fa-star"></i>
-															<i class="fas fa-star"></i>
-															<i class="fas fa-star"></i>
-															<i class="fas fa-star"></i>
-															<i class="fas fa-star-half-alt"></i>
-															<span><%= @post.votes%> Avaliações</span>
+													<div class="mt-3">
+														<div class="stars">
+															<input class="rating-input" type="hidden" value="<%=@post.rating%>" />
+															<div class="rating"></div>
+											
+															<% if @post.rating == -1 %>
+																<div class="d-inline-flex">
+																	<p class="fas fa-star text-warning mr-2 pt-1"></p>
+																	<p class="text-white">Não há avaliações</p>
+																</div>
+															<%end%>	
+														</div>
 													</div>
 											</div>
 
@@ -210,10 +215,17 @@
 											</li>
 										<%end%>
 
-										<li style="font-size: 1rem">
-											<span class="fas fa-star mr-2 mb-3 text-warning"></span>
-											<strong>Avaliação: </strong><%=@post.rating%>
-										</li>
+										<% if @post.rating == -1%>
+											<li style="font-size: 1rem">
+												<span class="fas fa-star mr-2 mb-3 text-warning"></span>
+												<strong>Não há avaliações</strong>
+											</li>
+										<%else%>
+											<li style="font-size: 1rem">
+												<span class="fas fa-star mr-2 mb-3 text-warning"></span>
+												<strong>Avaliação: </strong><%=@post.rating%>
+											</li>
+										<%end%>
 
 									</ul>
 								</aside>
@@ -267,16 +279,22 @@
 							<!-- Start of Latest Movies Slider -->
 							<div class="owl-carousel recommended-slider mt20 owl-loaded owl-drag">
 								<!-- === Start of Sliding Item 1 === -->
-								<% @posts.each do |post|%>
-									<% if post.kind = @post.kind %>
-										<div class="item">
+
+								<%counter = 0%>
+								<% vector = [] %>
+								<% best_evaluated(vector)%>
+
+								<% vector.each do |post|%>
+									<% if post.kind = @post.kind and post != @post%>
+										<%if counter < 10 %>
+											<div class="item">
 												<!-- Start of Movie Box -->
 												<div class="movie-box-1">
 
 														<!-- Start of Poster -->
 														<div class="poster">
 																<%if post.poster_image.attached?%>
-																		<%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+																	<%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
 																<%end%>
 														</div>
 														<!-- End of Poster -->
@@ -298,7 +316,9 @@
 														<!-- Start of Movie Details -->
 														<div class="movie-details">
 																<h4 class="movie-title">
-																		<a href="movie-detail.html"><%= post.name %></a>
+																	<%= link_to  current_user_post_path(post.id) do%>
+																		<%= post.name %>
+																	<%end%>
 																</h4>
 																<span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>
 														</div>
@@ -306,23 +326,27 @@
 
 														<!-- Start of Rating -->
 														<div class="stars">
-																<div class="rating">
-																		<i class="fas fa-star"></i>
-																		<i class="fas fa-star"></i>
-																		<i class="fas fa-star"></i>
-																		<i class="fas fa-star"></i>
-																		<i class="far fa-star"></i>
+															<input class="rating-input" type="hidden" value="<%=post.rating%>" />
+															<div class="rating"></div>
+											
+															<% if post.rating == -1 %>
+																<div class="d-inline-flex">
+																	<h6 class="fas fa-star text-warning mr-2 mt-0"></h6>
+																	<h6 class="text-white mt-0">Não há avaliações</h6>
 																</div>
-																<%if post.votes > 0 %>
-																		<span><%=post.rating%>/ 10</span>
-																<% elsif %>
-																		<span>Não há avaliações</span>
-																<%end%>    
+															<%else%>
+																<h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+															<%end%>	
+
 														</div>
 														<!-- End of Rating -->
 
 												</div>
-										</div>
+											</div>
+
+											<%counter += 1%>
+
+										<%end%>		
 									<%end%>  
 								<%end%>
 								<!-- === End of Sliding Item 1 === --> 

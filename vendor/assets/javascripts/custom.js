@@ -607,7 +607,7 @@ Author URI: gnodesign.com
         
         // Init for youtube, vimeo and google maps
         $('.play-video, .popup-gmaps').magnificPopup({
-            disableOn: 0,
+            disableOn: 700,
             type: 'iframe',
             mainClass: 'mfp-fade',
             removalDelay: 160,

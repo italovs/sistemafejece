@@ -31,7 +31,7 @@ class Post < ApplicationRecord
 		if votes.any?
 			votes.average(:value).to_f.round(2)
 		else
-			"Não há avaliações"
+			-1
 		end
 	end
 

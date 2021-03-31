@@ -306,15 +306,16 @@
                                     <div class="stars">
                                         <input class="rating-input" type="hidden" value="<%=post.rating%>" />
                                         <div class="rating"></div>
-
-                                        <%if post.rating.class == String%>
+                        
+                                        <% if post.rating == -1 %>
                                             <div class="d-inline-flex">
-                                                <h6 class="fas fa-star text-warning mr-2"></h6>
-                                                <h6 class="text-white"><%=post.rating%></h6>
-                                            </div>  
+                                                <h6 class="fas fa-star text-warning mr-2 mt-0"></h6>
+                                                <h6 class="text-white mt-0">Não há avaliações</h6>
+                                            </div>
                                         <%else%>
-                                            <h6 class="text-white"><%=post.rating%>/10</h6>
-                                        <%end%>    
+                                            <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                        <%end%>	
+
                                     </div>
                                     <!-- End of Rating -->
 
@@ -438,13 +439,14 @@
 
                                     <!-- Rating -->
                                     <div class="stars">
-                                        <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                                        <div class="rating"></div>
+                                        <%if post.rating >= 0 %>
+                                            <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                            <div class="rating"></div>
 
-                                        <%if post.rating.class == String%>
+                                        <%elsif post.rating == -1 %>
                                             <div class="d-inline-flex">
                                                 <h6 class="fas fa-star text-warning mr-2"></h6>
-                                                <h6 class="text-white"><%=post.rating%></h6>
+                                                <h6 class="text-white">Não há avaliações</h6>
                                             </div>  
                                         <%end%>
                                     </div>
@@ -460,8 +462,8 @@
 
                                         <p><%=post.description%></p>
 
-                                        <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                                            Detlhes
+                                        <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                            Detalhes
                                         <%end%>
                                         
                                     </div>
@@ -546,7 +548,7 @@
                   <h3 class="title text-white">O que é a plataforma ?</h3>
                   <p class="text-light">A Farol é a Plataforma de Educação Empreendedora da FEJECE, um projeto desenvolvido pela federação para capacitar e desenvolver os empresários e empresárias juniores da Rede Cearense, formando líderes que sabem fazer, querem fazer e fazem. 
                   </p>
-                  <a class="btn btn-f-green btn-effect text-white" href="#">Veja Mais</a>
+                  <a class="btn btn-f-orange btn-effect text-white" href="#">Veja Mais</a>
                 </div>
               </div>  
             </div>
@@ -562,8 +564,7 @@
               <!-- Start of row -->
               <div class="row justify-content-center">
                   <div class="col-md-7 text-center">
-                      <h2 class="title">Latest News</h2>
-                      <h6 class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy consectetuer adipiscing.</h6>
+                      <h2 class="title">Materiais Complementares</h2>
                   </div>
               </div>
               <!-- End of row -->
@@ -576,7 +577,7 @@
 
                     <div class="col-md-4 align-self-center text-right">
                         <a href="#" class="btn btn-icon btn-main btn-effect">
-                            view all
+                            ver tudo
                             <i class="fas fa-angle-double-right"></i>
                         </a>
                     </div>
@@ -614,16 +615,25 @@
                                 <h2 class="title"><%=post.name%></h2>
 
                                 <!-- Rating -->
-                                <div class="stars">
-                                  <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                                  <div class="rating"></div>
 
-                                  <%if post.rating.class == String%>
-                                    <div class="d-inline-flex">
-                                      <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
-                                      <h6 style="font-size:12px;" class="text-dark"><%=post.rating%></h6>
-                                    </div>  
-                                  <%end%> 
+
+
+                                <!-- Start of Rating -->
+                                <div class="stars">
+                                    <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                    <div class="rating"></div>
+                    
+                                    <% if post.rating == -1 %>
+                                        <div class="d-inline-flex">
+                                            <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
+                                            <h6 style="font-size:12px;" class="text-dark">Não há avaliações</h6>
+                                        </div>
+                                    <%else%>
+                                        <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                    <%end%>	
+
+                                    <!-- End of Rating -->
+                                
 
                                   <% aux =  @post_categories.where(post_id: post.id)%>
                                   <span class="category text-dark pt-1"><strong><%=collect_categories_ids(aux)%></strong></span>
@@ -632,8 +642,8 @@
 
                                 <p class="mt-1"><%=post.description%></p>
 
-                                <%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                                    Detlhes
+                                <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                    Detalhes
                                 <%end%>
                               </div>
                             </div>
