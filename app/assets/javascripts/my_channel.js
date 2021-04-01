@@ -318,6 +318,16 @@ function setting_events(){
 		$("#new_serie").show();
 		$("#new_video").hide();
 	})
+
+	$(".play-video").on("click", function(){
+		$.post( '/update_views' ,
+		{ id: $(this).attr('id') },
+		function(data, status){
+			if(status == "success"){
+			} else {
+			}
+		})
+	});
 }
 
 // JS DE TESTE

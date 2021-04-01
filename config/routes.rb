@@ -54,6 +54,8 @@ Rails.application.routes.draw do
 			post '/new_vote', to: 'site#new_vote', as: 'admin_new_vote'
 
 			get '/serie/:id', to: 'site#serie', as: 'admin_serie'
+
+			post '/update_views', to: 'site#view_counter_update', as: 'admin_view_counter_update'
 		end
 
 		unauthenticated :admin do
@@ -86,6 +88,8 @@ Rails.application.routes.draw do
 					get '/post/:id', to: 'site#post', as: 'member_post'
 					post '/new_vote', to: 'site#new_vote', as: 'member_new_vote'
 					get '/serie/:id', to: 'site#serie', as: 'member_serie'
+
+					post '/update_views', to: 'site#view_counter_update', as: 'member_view_counter_update'
 				end
 
 				unauthenticated :member  do

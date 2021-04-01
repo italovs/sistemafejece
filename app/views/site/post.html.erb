@@ -119,11 +119,11 @@
 													<%end%>
 
 													<% if @post.kind == 'video'%>
-														<a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>">
+														<a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>" id="<%= @post.id %>">
 															<i class="fas fa-play"></i>
 														</a>
 													<% elsif @post.kind == 'post'%>
-														<a class="play-video" href="<%= @post.link%>">
+														<a class="play-video" href="<%= @post.link%>" id="<%= @post.id %>">
 															<i class="fas fa-link"></i>
 														</a>
 													<% end %>
@@ -302,11 +302,11 @@
 														<!-- Start of Buttons -->
 														<div class="buttons">
 															<% if post.kind == 'video'%>
-																<a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>">
+																<a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>" id="<%= @post.id %>">
 																	<i class="fas fa-play"></i>
 																</a>
 															<% elsif post.kind == 'post'%>
-																<a class="play-video" href="<%= @post.link%>">
+																<a class="play-video" href="<%= @post.link%>" id="<%= @post.id %>">
 																	<i class="fas fa-link"></i>
 																</a>
 															<% end %>
