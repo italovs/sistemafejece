@@ -2,7 +2,7 @@
 			<div class="w-100 m-0">
 
 				<!-- ====== Start of Navbar ====== -->
-				<nav class="navbar navbar-expand-lg bg-color" style="height: 70px;">
+				<nav class="navbar navbar-expand-lg bg-color py-0" style="height: 12vh;">
 
 					<a class="navbar-brand" href="/">
 						<!-- INSERT YOUR LOGO HERE -->
@@ -83,8 +83,8 @@
 	
 							<!-- Menu Item -->
 
-						<div class="btn-group">
-							<button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<div class="btn-group bg-f-orange rounded-pill">
+							<button type="button" class="btn btn-transparent dropdown-toggle text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<%if current_logged_user.profile_picture.attached?%>
 									<%= image_tag current_logged_user.profile_picture.variant(gravity:'Center',resize:"30x30^", crop:'30x30+0+0'),:class=> "rounded-circle"%>
 								<%else%>

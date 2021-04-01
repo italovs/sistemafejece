@@ -105,121 +105,128 @@
 
 	<br/><br/><br/>
 
+	<div class="container p-0">
+		<div class="row">
+			<div class="col d-flex justify-content-start">
+				<div id="new_video" class="btn btn-f-green text-white">
+					Novo Vídeo
+				</div>
 
-	<div class="d-flex justify-content-end">
-		<%if notice.nil? == false %>
-			<div id="notice" class="notification">
-				<div class="toast-header succes">
-					<%= notice%>
+				<div id="new_serie" class="btn btn-f-green text-white">
+					Nova Série
 				</div>
 			</div>
-		<% end %>
-		<%if alert.nil? == false%>
-			<div id="notice" class="notification">
-				<div class="toast-header err ">
-					<%= alert%>
+
+			<div class="col d-flex justify-content-end">
+				
+				<div id="notice" class="notification success-msg">
+					<div class="toast-header succes">
+						
+					</div>
+				</div>
+			
+			
+				<div id="notice" class="notification error-msg">
+					<div class="toast-header err ">
+						
+					</div>
+				</div>
+					
+
+				<div id="video" class="btn btn-f-green text-white">
+					Meus Vídeos
+				</div>
+
+				<div id="series" class="btn btn-f-green text-white">
+					Minhas Séries
 				</div>
 			</div>
-		<% end %>
-		<div id="new_video" class="btn btn-f-green text-white mr-2">
-			Novo Vídeo
-		</div>
+		</div>	
 
-		<div id="new_serie" class="btn btn-f-green text-white mr-2">
-			Nova Série
-		</div>
-		<div id="video" class="btn btn-f-green text-white mr-2">
-			Meus Vídeos
-		</div>
+		<br/><br/><br/>
 
-		<div id="series" class="btn btn-f-green text-white mr-4">
-			Minhas Séries
-		</div>
-	</div>
+		<div class="videos-row">
+			<%cont = 0%>
+			<% @videos.each do |post| %>
+				<%cont += 1%>
+				<div class="col-md-12 col-sm-12 var-item p-0" value="<%=cont%>">
+					<div class="movie-list-1 mb30">
+							<div class="listing-container">
 
-	<br/><br/><br/>
+									<!-- Movie List Image -->
+									<div class="listing-image">
+										<%if post.poster_image.attached?%>
+											<%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+										<%end%>
 
-	<div class="videos-row" style="margin:0 5%">
-		<%cont = 0%>
-		<% @videos.each do |post| %>
-			<%cont += 1%>
-			<div class="col-md-12 col-sm-12 var-item" value="<%=cont%>">
-				<div class="movie-list-1 mb30">
-						<div class="listing-container">
+											<!-- Play Button -->
+											<div class="play-btn">
+													<a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
+														<i class="fas fa-play"></i>
+													</a>
+											</div>
 
-								<!-- Movie List Image -->
-								<div class="listing-image">
-									<%if post.poster_image.attached?%>
-										<%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
-									<%end%>
+											<!-- Buttons -->
+											<div class="buttons">
+													<a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
+															<i class="fas fa-heart"></i>
+													</a>
 
-										<!-- Play Button -->
-										<div class="play-btn">
-												<a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
-													<i class="fas fa-play"></i>
-												</a>
-										</div>
+													<a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
+														<i class="fas fa-share-alt"></i>
+													</a>
+											</div>
 
-										<!-- Buttons -->
-										<div class="buttons">
-												<a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
-														<i class="fas fa-heart"></i>
-												</a>
+											<!-- Rating -->
+											<div class="stars">
+													<input class="rating-input" type="hidden" value="<%=post.rating%>" />
+													<div class="rating"></div>
 
-												<a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-													<i class="fas fa-share-alt"></i>
-												</a>
-										</div>
+													<%if post.rating.class == String%>
+														<div class="d-inline-flex">
+															<h6 class="fas fa-star text-warning mr-2"></h6>
+															<h6 class="text-white"><%=post.rating%></h6>
+														</div>
+													<%end%>
+											</div>
 
-										<!-- Rating -->
-										<div class="stars">
-												<input class="rating-input" type="hidden" value="<%=post.rating%>" />
-												<div class="rating"></div>
+											<!-- Image -->
+											<img src="" alt="">
+									</div>
 
-												<%if post.rating.class == String%>
-													<div class="d-inline-flex">
-														<h6 class="fas fa-star text-warning mr-2"></h6>
-														<h6 class="text-white"><%=post.rating%></h6>
-													</div>
-												<%end%>
-										</div>
+									<!-- Movie List Content -->
+									<div class="listing-content">
+											<div class="inner">
+													<h2 class="title"><%= post.name %></h2>
 
-										<!-- Image -->
-										<img src="" alt="">
-								</div>
+													<p><%=post.description%></p>
 
-								<!-- Movie List Content -->
-								<div class="listing-content">
-										<div class="inner">
-												<h2 class="title"><%= post.name %></h2>
+													<%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+															Detalhes
+													<%end%>
+											</div>
+									</div>
 
-												<p><%=post.description%></p>
-
-												<%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
-														Detalhes
-												<%end%>
-										</div>
-								</div>
-
-						</div>
+							</div>
+					</div>
 				</div>
-			</div>
-		<%end%>
-	</div>
+			<%end%>
+		</div>
 
-	<div class="paginate-container videos-row">
-		<nav>
-			<ul class="paginate d-flex justify-content-center">
-				<% i = 1 %>
-				<% while (i <= (cont.to_f/2).ceil) %>
-					<button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
-					<%i += 1%>
-				<%end%>
-			</ul>
-		</nav>
-	</div>
-		<div class="container col-8 mx-auto p-0 border-0">
-			<div class="container series-row">
+		<div class="paginate-container videos-row">
+			<nav>
+				<ul class="paginate d-flex justify-content-center">
+					<% i = 1 %>
+					<% while (i <= (cont.to_f/2).ceil) %>
+						<button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
+						<%i += 1%>
+					<%end%>
+				</ul>
+			</nav>
+		</div>
+
+		<div class="container col-8 series-row mx-auto p-0 border-0">
+			<div class="container">
 				<h6>Selecione numero de linhas</h6>
 				<div class="form-group">
 					<select name="state" id="maxRows" class="form-control" style="width:150px; height:50px;">
@@ -250,7 +257,7 @@
 									<% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
 									<td><%=collect_categories_ids(aux)%></td>
 									<td>
-										<%= link_to current_user_serie_path(serie.id),  class:'tooltips nav-link notification btn btn-info col-3', title: 'Ver Série', data:{placement: 'bottom'} do %>
+										<%= link_to current_user_serie_path(serie.id),  class:'tooltips nav-link btn btn-info col-3', title: 'Ver Série', data:{placement: 'bottom'}, style: 'width:50px;' do %>
 											<i class="fas fa-eye"></i>
 										<%end%>
 									</td>
@@ -268,89 +275,90 @@
 			</div>
 		</div>
 
-	<div id="form-fields" style="margin: 0 5%;">
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="card card-small mb-4">
-					<div class="card-header border-bottom bg-f-green">
-						<h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item p-3">
-							<div class="row">
-								<div class="col">
-									<form>
+		<div id="form-fields">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="card card-small mb-4">
+						<div class="card-header border-bottom bg-f-green">
+							<h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item p-3">
+								<div class="row">
+									<div class="col">
+										<form>
 
-										<div class="form-row video-field">
-											<div class="form-group col-md-12">
-												<%= text_field_tag :youtube_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+											<div class="form-row video-field">
+												<div class="form-group col-md-12">
+													<%= text_field_tag :youtube_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+												</div>
 											</div>
-										</div>
 
-										<div class="form-row video-field">
-											<div class="form-group col-md-12">
-												<p class="text-muted d-block mb-2">Poster da publicação</p>
-												<%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+											<div class="form-row video-field">
+												<div class="form-group col-md-12">
+													<p class="text-muted d-block mb-2">Poster da publicação</p>
+													<%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+												</div>
 											</div>
-										</div>
 
-										<div class="form-row video-field">
-											<div class="form-group col-md-12">
-												<p class="text-muted d-block mb-2">Banner da publicação</p>
-												<%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+											<div class="form-row video-field">
+												<div class="form-group col-md-12">
+													<p class="text-muted d-block mb-2">Banner da publicação</p>
+													<%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+												</div>
 											</div>
-										</div>
 
-										<div class="form-row video-field">
-											<div class="form-group col-md-12">
-												<%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube", class: "input_field form-control" %>
+											<div class="form-row video-field">
+												<div class="form-group col-md-12">
+													<%= text_field_tag :youtube_link, nil, placeholder: "Link do Vídeo do YouTube", class: "input_field form-control" %>
+												</div>
 											</div>
-										</div>
-										<!--
-										<div class="form-row video-field">
-											<div class="form-group col-md-12">
-												<%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control selectize', style: "height:100%;"}  %>
+											<!--
+											<div class="form-row video-field">
+												<div class="form-group col-md-12">
+													<%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control selectize', style: "height:100%;"}  %>
+												</div>
 											</div>
-										</div>
-										-->
-										<div class="form-row video-field">
-											<div class="form-group col-md-12">
-												<%= select_tag :category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
+											-->
+											<div class="form-row video-field">
+												<div class="form-group col-md-12">
+													<%= select_tag :category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
+												</div>
 											</div>
-										</div>
-										<div class="form-row video-field">
-											<div class="form-group col-md-12">
-												<%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+											<div class="form-row video-field">
+												<div class="form-group col-md-12">
+													<%= text_area_tag :youtube_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+												</div>
 											</div>
-										</div>
 
-										<div class="form-row serie-field">
-											<div class="form-group col-md-12">
-												<%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
+											<div class="form-row serie-field">
+												<div class="form-group col-md-12">
+													<%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
+												</div>
 											</div>
-										</div>
 
-										<div class="form-row serie-field">
-											<div class="form-group col-md-12">
-												<%= select_tag :tv_series_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
+											<div class="form-row serie-field">
+												<div class="form-group col-md-12">
+													<%= select_tag :tv_series_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
+												</div>
 											</div>
-										</div>
-										<div id="create_new_video" class="btn btn-f-green text-white">
-											Criar
-										</div>
+											<div id="create_new_video" class="btn btn-f-green text-white">
+												Criar
+											</div>
 
-										<div id="create_new_serie" class="btn btn-f-green text-white">
-											Criar
-										</div>
-									</form>
+											<div id="create_new_serie" class="btn btn-f-green text-white">
+												Criar
+											</div>
+										</form>
+									</div>
 								</div>
-							</div>
-						</li>
-					</ul>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 
 	<br/><br/><br/><br />
 	<br/><br/>

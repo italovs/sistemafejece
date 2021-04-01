@@ -90,10 +90,10 @@ $(function(){
 function starting_from_videos(){
 	$(".videos-row").show();
 	$(".series-row").hide();
-	$("#video").addClass("bg-secondary");
-	$("#series").removeClass("bg-secondary");
-	$("#video").removeClass("btn-f-green");
-	$("#series").addClass("btn-f-green");
+	$("#video").hide();
+	$("#series").show();
+	$("#new_video").show;
+	$("#new_serie").hide();
 }
 
 function initial_create_table(){
@@ -117,6 +117,8 @@ function hide_fields(){
 	$("#youtube_description").hide();
 	$("#my_series").hide();
 	$("#full-content").hide();
+	$(".success-msg").hide();
+	$(".error-msg").hide();
 }
 
 function setting_events(){
@@ -151,7 +153,7 @@ function setting_events(){
 			hide_fields()
 			console.log('click')
 		}
-		$("#form-fields").show();
+		$("#form-fields").toggle();
 		$("#main_title").text("Novo Vídeo");
 		$(".video-field").show();
 		$("#youtube_link").show();
@@ -160,7 +162,7 @@ function setting_events(){
 		$("#season").hide();
 		$("#youtube_name").show();
 		$("#youtube_description").show();
-		$(".videos-row").hide();
+		$(".videos-row").toggle();
 		$(".series-row").hide();
 	})
 
@@ -169,17 +171,20 @@ function setting_events(){
 			hide_fields()
 		}
 
-		$("#form-fields").show();
+		$("#form-fields").toggle();
 		$("#main_title").text("Nova Série");
 		$(".serie-field").show();
 		$("#serie_name").show();
 		$("#create_new_serie").show();
 		$(".videos-row").hide();
 		$(".video-field").hide();
-		$(".series-row").hide();
+		$(".series-row").toggle();
 	})
 
 	$("#create_new_serie").on("click", function(){
+		$(".success-msg").hide();
+		$(".error-msg").hide();
+
 		if( valid_value($("#serie_name").val()) && valid_value($("#tv_series_category").val()) ){
 			$.post( '/new_serie' ,
 			{
@@ -188,10 +193,15 @@ function setting_events(){
 			},
 			function(data, status){
 				if(status == "success"){
-					page_reload()
-					refill_select_box( "#tv_series", data[0]["tv_series"] )
+					//page_reload();
+					$(".success-msg").show();
+					$(".succes").html(data[0]["msg"]);
+					refill_select_box( "#tv_series", data[0]["tv_series"] );
 				} else {
 					//ERRO DE REQUISIÇÃO
+					//page_reload();
+					$(".error-msg").show();
+					$(".err").html(data[0]["msg"]);
 				}
 			})
 		} else {
@@ -216,6 +226,9 @@ function setting_events(){
 	})
 
 	$("#create_new_video").on("click", function(){
+		$(".success-msg").hide();
+		$(".error-msg").hide();
+		
 		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val())  ){
 			link = sanitarize_youtube_link($("#youtube_link").val())
 			if(link != null){
@@ -233,9 +246,15 @@ function setting_events(){
 					contentType: false,
 					processData: false
 				}).done(function(data){
-					location.reload();
+					//page_reload();
+					$(".success-msg").show();
+					$(".succes").html(data[0]["msg"]);
+					console.log(data)
 				}).fail(function(){
 					//ERRO DE REQUISIÇÃO
+					//page_reload();
+					$(".error-msg").show();
+					$(".err").html(data[0]["msg"]);
 				});
 			}
 		}
@@ -284,20 +303,20 @@ function setting_events(){
 		$(".videos-row").show();
 		$(".series-row").hide();
 		$("#form-fields").hide();
-		$("#video").addClass("bg-secondary");
-		$("#series").removeClass("bg-secondary");
-		$("#video").removeClass("btn-f-green");
-		$("#series").addClass("btn-f-green");
+		$("#video").hide();
+		$("#series").show();
+		$("#new_serie").hide();
+		$("#new_video").show();
 	})
 
 	$("#series").on("click", function(){
 		$(".videos-row").hide();
 		$(".series-row").show();
 		$("#form-fields").hide();
-		$("#series").addClass("bg-secondary");
-		$("#video").removeClass("bg-secondary");
-		$("#series").removeClass("btn-f-green");
-		$("#video").addClass("btn-f-green");
+		$("#series").hide();
+		$("#video").show();
+		$("#new_serie").show();
+		$("#new_video").hide();
 	})
 }
 

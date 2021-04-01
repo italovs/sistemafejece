@@ -196,7 +196,7 @@ class SiteController < ApplicationController
 		if tv_serie.save
 			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
 			render json: [msg: 'Nova série "' + params[:serie_name] + '" foi criada com sucesso!', tv_series: get_user_tv_series]
-			flash[:notice] = "Nova trilha" + params[:serie_name] + "foi criada com sucesso" 
+			flash[:notice] = "Nova trilha " + params[:serie_name] + " foi criada com sucesso" 
 		else
 			flash[:alert] = "Ocorreu um erro ao salvar nova trilha"
 			render json: [msg: "Erro: Deu ruim"]
