@@ -16,14 +16,63 @@ acoes = [
   "Vacinando", "Virando jacaré com", "No Dota com", "Update sem where em",
   "Fazendo pair programming com"
 ]
-
+ejs = ["Accont",
+  "Acens",
+  "ADM Soluções",
+  "Agronômica",
+  "Alquimista",
+  "Ambienteia",
+  "Atêlie Se7e",
+  "CEOS",
+  "Ciclo",
+  "Conalimentos",
+  "Concretiza",
+  "Construtiva",
+  "Consultec",
+  "Container",
+  "Diferencial",
+  "Dual",
+  "Edifica",
+  "Ej7",
+  "EjEPRO",
+  "Ejudi",
+  "Emzootec",
+  "Engene",
+  "EPRO",
+  "FASJUS",
+  "Geocapta",
+  "Geomaps",
+  "GTi",
+  "Harpia",
+  "Impact",
+  "Include",
+  "Index",
+  "Inova",
+  "Inovale",
+  "Inove",
+  "Insight Jr",
+  "Ipharma",
+  "Mata Branca",
+  "Mecaniza",
+  "Metal Soluções",
+  "Polifarma",
+  "Premium",
+  "Proativa",
+  "Progresso",
+  "Projetta",
+  "Proteus",
+  "Psyquê FAS",
+  "Rastro",
+  "Retec",
+  "Tecsys",
+  "Unijus",
+  "Vale jr"]
 
 
 
 puts "#{acoes.sample} EJs..."
-JuniorEnterprise.create(name: 'GTi', description: 'Ases, mestres, guerreiros e exploradores do espaço')
-9.times do |i|
-  JuniorEnterprise.create(name: "EJ #{i}", description: "A #{i+2}ª melhor EJ")
+ejs.each do |ej|
+  JuniorEnterprise.create(name: ej)
 end
 puts "#{acoes.sample} Membros..."
 
