@@ -299,6 +299,16 @@ function setting_events(){
 		$("#series").removeClass("btn-f-green");
 		$("#video").addClass("btn-f-green");
 	})
+
+	$(".play-video").on("click", function(){
+		$.post( '/update_views' ,
+		{ id: $(this).attr('id') },
+		function(data, status){
+			if(status == "success"){
+			} else {
+			}
+		})
+	});
 }
 
 // JS DE TESTE

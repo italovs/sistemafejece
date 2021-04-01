@@ -11,7 +11,6 @@ $.ajaxSetup({
 
 $(function(){
 	page_load();
-	
 })
 
 function page_load(){
@@ -89,4 +88,13 @@ function setting_events(){
 		}
 	})
 
+	$(".play-video").on("click", function(){
+		$.post( '/update_views' ,
+		{ id: $(this).attr('id') },
+		function(data, status){
+			if(status == "success"){
+			} else {
+			}
+		})
+	});
 }

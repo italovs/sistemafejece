@@ -481,30 +481,28 @@ class SiteController < ApplicationController
 	end
 
 	def new_post
-		post = Post.new(
+		file_post = Post.new(
 			name: params[:name],
 			description: params[:description],
 			link: params[:link],
-			kind: Post.kinds[:post],
-			poster_image: params[:poster_image],
-			banner_image: params[:banner_image]
+			kind: Post.kinds[:post]
 		)
+		if params[:poster_image].present? && params[:poster_image] != 'undefined'
+			file_post.poster_image = params[:poster_image]
+		end
+		if params[:banner_image].present? && params[:banner_image] != 'undefined'
+			file_post.banner_image = params[:banner_image]
+		end 
 		categories = params[:categories].split(",")
 		if admin_signed_in?
-			post.owner_id = nil
+			file_post.owner_id = nil
 		else
-			post.owner_id = current_member.junior_enterprise_id
+			file_post.owner_id = current_member.junior_enterprise_id
 		end
-
-		if post.save
-			# if member_signed_in?
-			# 	PostCategory.create(post_id: post.id, category_id: params[:category])
-			# else
-			# 	PostCategory.create(post_id: post.id, category_id: params[:category])
-			# end
-			
+		byebug
+		if file_post.save
 			categories.each do |category|
-				PostCategory.create(post.id, category_id: category.to_i)
+				PostCategory.create(file_post.id, category_id: category.to_i)
 			end
 			flash[:notice] = "Sucesso: post criado"
 			render json: [msg: "Sucesso: post criado"]
@@ -544,10 +542,6 @@ class SiteController < ApplicationController
 		@ejs = JuniorEnterprise.all
 
 		direction_notification
-		if @post.video?
-			@post.views += 1
-			@post.save
-		end
 	end
 
 	def serie
@@ -728,6 +722,12 @@ class SiteController < ApplicationController
 				end
 			end
 		end
+	end
+
+	def view_counter_update
+		post = Post.find(params[:id])
+		post.views += 1
+		post.save
 	end
 
 	private
