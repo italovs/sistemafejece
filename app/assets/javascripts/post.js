@@ -24,6 +24,12 @@ function page_reload(){
 
 function reset_fields(){
 	$("#value").val(0);
+
+	if ($("#final-rating-input").val() > -1){
+		final_evaluation();
+	}else{
+		$(".final-evaluation-form").hide();
+	}
 }
 
 function valid_value(value){
@@ -65,6 +71,41 @@ $(".button-reset").on("click", function(){
 	$("#value").val(0);
 })
 
+function final_evaluation(){
+	var stars = $("#final-rating-input").val();
+	console.log(stars)
+	
+	if (stars > -1){
+		stars = Math.round(stars);
+		var full_star = Math.floor(stars/2);
+		var half_star = (stars % 2);
+		var empty_star = 5 - (full_star + half_star);
+
+		for(var i=1; i<= full_star; i++){
+			$(".final-rating").append('<i class="fas fa-star text-warning px-2"></i>').show();
+		}
+		for(var i=1; i<= half_star; i++){
+			$(".final-rating").append('<i class="fas fa-star-half-alt text-warning px-2"></i>').show();
+		}
+		for(var i=1; i<= empty_star; i++){
+			$(".final-rating").append('<i class="far fa-star text-warning px-2"></i>').show();
+		}
+	}	
+
+		//$(".evaluation-form").hide();
+		//$("final-evaluation-form").show();
+}
+
+function change_evaluation_elements(){
+	$(".evaluation-form .title").text("Sua avaliação foi:");
+	$("#create_new_vote").hide();
+	$(".make-evaluation .fa-undo").hide();
+	$(".make-evaluation .fa-star").each(function(){
+		var input = this
+		input.disabled = true;
+	})
+}
+
 function setting_events(){
 
 	$("#create_new_vote").on("click", function(){
@@ -76,8 +117,10 @@ function setting_events(){
 			},
 			function(data, status){
 				if(status == "success"){
-					page_reload()
-					refill_select_box( "#value", data[0]["value"] )
+					final_evaluation();
+					change_evaluation_elements();
+					//location.reload();
+					//refill_select_box( "#value", data[0]["value"] )
 				} else {
 					//ERRO DE REQUISIÇÃO
 					

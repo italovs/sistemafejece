@@ -237,26 +237,37 @@
 				</div>
 
 				<div class="container">
-					<form>
-						<h3 class="title">Deixe sua avaliação</h3>
+					<% vote = @votes.find{|c| c.post_id == @post.id && c.owner == current_logged_user.id && c.admin == user_is_admin?}%>
+					<% if vote.nil? %>
+						<form class="evaluation-form">
+							<h3 class="title">Deixe sua avaliação</h3>
 
-						<div class="make-evaluation mb-5 mt-2">
-							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="2"></button>
-							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="4"></button>
-							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="6"></button>
-							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="8"></button>
-							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="10"></button>
-							<button type="button" class="button-reset fas fa-undo bg-transparent border-0 ml-4"></button>
-						</div>
+							<div class="make-evaluation mb-5 mt-2">
+								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="2"></button>
+								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="4"></button>
+								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="6"></button>
+								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="8"></button>
+								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="10"></button>
+								<button type="button" class="button-reset fas fa-undo bg-transparent border-0 ml-4"></button>
+							</div>
 
-						<input type="hidden" id="post_id" value="<%= @post.id %>" />
-						<input type="hidden" id="value" value="0" />
+							<input type="hidden" id="post_id" value="<%= @post.id %>" />
+							<input type="hidden" id="value" value="0" />
 
-						<div id="create_new_vote" class="btn btn-f-green text-white">
-							Avaliar
-						</div>
+							<div id="create_new_vote" class="btn btn-f-green text-white">
+								Avaliar
+							</div>
 
-					</form>
+						</form>
+					<%else%>	
+						<form class="final-evaluation-form">
+							<input type="hidden" id="final-rating-input" value="<%= vote.value %>" />
+							<h3 class="title">Sua avaliação foi:</h3>
+
+							<div class="final-rating mt-2"></div>
+
+						</form>
+					<%end%>	
 				</div>
 			</section>
 			<!-- =============== END OF MOVIE DETAIL MAIN SECTION =============== -->

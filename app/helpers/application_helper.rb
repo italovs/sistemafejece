@@ -44,6 +44,14 @@ module ApplicationHelper
 		end
 	end
 
+	def user_is_admin?
+		if member_signed_in?
+			false
+		elsif admin_signed_in?
+			true
+		end
+	end
+
 	def profile_path
 		if member_signed_in?
 			member_profile_path

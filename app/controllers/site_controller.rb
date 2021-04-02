@@ -604,6 +604,7 @@ class SiteController < ApplicationController
     @post = Post.find(params[:id])
     @posts = Post.all
     @ejs = JuniorEnterprise.all
+	@votes = Vote.all
 
     direction_notification
   end
