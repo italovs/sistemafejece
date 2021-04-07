@@ -90,7 +90,19 @@
 	<nav id="main-mobile-nav"></nav>
 	<%= render '/layouts/member_navbar' %>
 	<%= yield %>
-
+	 <div id="notice" class="notification success-msg">
+		<div class="toast-header succes">
+						
+		</div>
+	</div>
+			
+			
+	<div id="notice" class="notification error-msg">
+		<div class="toast-header err ">
+						
+		</div>
+	</div>
+	
 	<section class="page-header overlay-gradient" style="
     z-index: 0;">
 		<div class="container">
@@ -120,18 +132,7 @@
 
 			<div class="col d-flex justify-content-end">
 				
-				<div id="notice" class="notification success-msg">
-					<div class="toast-header succes">
-						
-					</div>
-				</div>
-			
-			
-				<div id="notice" class="notification error-msg">
-					<div class="toast-header err ">
-						
-					</div>
-				</div>
+				
 					
 
 				<div id="video" class="btn btn-f-green text-white">
