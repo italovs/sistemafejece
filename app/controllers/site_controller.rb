@@ -766,10 +766,10 @@ class SiteController < ApplicationController
 	def update_post
 		# params de entrada: name, description, link, post_id
 		post = Post.find_by(id: params[:post_id])
-		if !post.post? || post.nil?
+		if post.nil?
 			# id invalida ou tipo invalido
 			render json: [msg: 'Erro: Nenhum resultado encontrado']
-		elsif post.post? || !post.nil?
+		elsif !post.nil?
 			if !verify_post_onwership( post )
 				# post de outro dono
 				render json: [msg: 'Erro: Erro ao encontrar o post']
@@ -777,6 +777,31 @@ class SiteController < ApplicationController
 				post.name = params[:name] unless params[:name].nil?
 				post.description = params[:description] unless params[:description].nil?
 				post.link = params[:link] unless params[:link].nil?
+
+        if params[:banner_image].present?
+          post.banner_image.purge
+          post.banner_image.attach(params[:banner_image])
+        end
+        
+        if params[:poster_image].present?
+          post.poster_image.purge
+		      post.poster_image.attach(params[:poster_image])
+        end
+
+        post_categories = PostCategory.where(post_id: post.id)
+        post_categories.each do |post_category|
+          post_category.delete
+        end
+
+        categories = params[:categories].split(',')
+
+        categories.each do |category|
+          PostCategory.create(
+            post_id: post.id,
+            category_id: category.to_i
+          )
+        end
+
 				if post.save
 					# sucesso
 					flash[:notice] = 'Sucesso: Post foi atualizado'

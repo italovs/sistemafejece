@@ -170,11 +170,11 @@
 
 											<!-- Buttons -->
 											<div class="buttons">
-												<li class="tooltips edit_video" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
+												<li class="tooltips edit_video d-inline-flex bg-transparent mr-3" type="button" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
 													<i class="fas fa-pencil-alt"></i>
 												</li>
 
-												<li href="" class="tooltips delete_video" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
+												<li class="tooltips delete_video d-inline-flex bg-transparent" type="button" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
 													<i class="fas fa-trash-alt"></i>
 												</li>
 											</div>
@@ -316,14 +316,6 @@
 												</div>
 											</div>
 											
-											<div style="display: none !important;">
-												<div class="form-row video-field" style="display: none !important;">
-													<div class="form-group col-md-12">
-														<%= select_tag :season, options_for_select([ "Selecione", "1"]), {class: 'select_field custom-select form-control selectize', style: "height:100%;"}  %>
-													</div>
-												</div>
-											</div>	
-											
 											<div class="form-row video-field">
 												<div class="form-group col-md-12">
 													<%= select_tag :category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
@@ -352,6 +344,12 @@
 
 											<div id="create_new_serie" class="btn btn-f-green text-white">
 												Criar
+											</div>
+
+											<input id="update_input" type="hidden" value="" />
+
+											<div id="update_video" class="btn btn-f-green text-white">
+												Atualizar
 											</div>
 										</form>
 									</div>
