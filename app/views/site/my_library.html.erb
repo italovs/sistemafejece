@@ -190,6 +190,7 @@
                               <i class="fas fa-link"></i>
                             </a>
                           </div>
+                          
 
                           <h2 class="title"><%=post.name%></h2>
 
@@ -219,6 +220,15 @@
                           <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
                               Detalhes
                           <%end%>
+                          <div class="buttons" style="display: inline-flex; margin-left: 8rem;">
+												    <li class="tooltips edit_video mr-3" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
+													    <i class="fas fa-pencil-alt"></i>
+												    </li>
+
+											    	<li href="" class="tooltips delete_video" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
+													    <i class="fas fa-trash-alt"></i>
+												    </li>
+											    </div>
                         </div>
                       </div>
 

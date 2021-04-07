@@ -75,6 +75,26 @@ function setting_events(){
 			alert("Há campos em branco")
 		}
 	})
+	$(".delete_video").on("click",function(){
+		var post_id = $(this).val()
+		var confirmation = confirm("Tem certeza que quer deletar essa publicação?")
+
+		if (confirmation == true){
+			$.post('/delete_post',
+			{
+				id: post_id
+			},function(data, status){
+				if(status == "success"){
+					//page_reload();
+					$(".success-msg").show();
+					$(".succes").html(data[0]["msg"]);
+				}else{
+					$(".error-msg").show();
+					$(".err").html(data[0]["msg"]);
+				}
+			})
+		}
+	})
 
 	$("#my_posts").on("click", function(){
 		hide_fields();

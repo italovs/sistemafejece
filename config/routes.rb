@@ -48,7 +48,8 @@ Rails.application.routes.draw do
 			post '/my_posts', to: 'site#my_posts', as: 'admin_my_posts'
 			post '/new_post', to: 'site#new_post', as: 'admin_new_post'
 			get '/post/:id', to: 'site#post', as: 'admin_post'
-			post '/post_information', to:'site#post_information', as:'admin_post_information'
+			post '/post_information', to: 'site#post_information', as:'admin_post_information'
+			post '/delete_post', to: 'site#delete_post', as: 'admin_delete_post'
 
 			get '/my_library', to: 'site#my_library', as: 'admin_my_library'
 			root 'site#index', as: 'admin_root'
@@ -87,7 +88,8 @@ Rails.application.routes.draw do
 					post '/my_posts', to: 'site#my_posts', as: 'validated_my_posts'
 					post '/new_post', to: 'site#new_post', as: 'validated_new_post'
 					get '/post/:id', to: 'site#post', as: 'member_post'
-					post '/post_information', to:'site#post_information', as:'member_post_information'
+					post '/post_information', to:'site#post_information', as: 'member_post_information'
+					post '/delete_post', to: 'site#delete_post', as: 'member_delete_post'
 					post '/new_vote', to: 'site#new_vote', as: 'member_new_vote'
 					get '/serie/:id', to: 'site#serie', as: 'member_serie'
 

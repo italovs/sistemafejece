@@ -797,7 +797,7 @@ class SiteController < ApplicationController
 	end
 
 	def delete_post
-		post = Post.find_by(params[:id])
+		post = Post.find_by(id: params[:id])
 		if post.nil?
 			render json: [msg: 'Erro: Post ou Vídeo inválido']
 		else
@@ -810,6 +810,7 @@ class SiteController < ApplicationController
 				post.poster_image.purge
 				post.banner_image.purge
 				post.delete
+				render json: [msg: 'Publicação deletada com sucesso']
 			else
 				render json: [msg: 'Erro: Você não pode excluir esse post']
 			end
