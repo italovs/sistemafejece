@@ -787,6 +787,8 @@ class SiteController < ApplicationController
 				post.post_category.each do |post_category|
 					post_category.delete
 				end
+				post.poster_image.purge
+				post.banner_image.purge
 				post.delete
 			else
 				render json: [msg: 'Erro: Você não pode excluir esse post']
