@@ -139,7 +139,7 @@
       <% end %>
 
       <div class="m-0">
-        <section class="page-header overlay-gradient">
+        <section class="page-header overlay-gradient" style="z-index: 0;">
           <div class="container">
               <div class="inner py-4">
                   <h2 class="title pb-1">Meus Posts</h2>
@@ -151,15 +151,17 @@
           </div>
         </section>
 
-        <br/><br/><br/>
-
+        <br />
         <div class="d-flex justify-content-end mx-4">
+          <div id="new_post" class="btn btn-f-green text-white mx-3">
+            Novo Post
+          </div>
           <div id="my_posts" class="btn btn-f-green text-white mx-3">
             Meus Posts
           </div>
         </div>
 
-        <main id="posts-row" class="ptb100">
+        <main id="posts-row" class="ptb50">
           <div class="container">
             <div class="row">
               <!-- Movie List Item -->
@@ -215,7 +217,7 @@
                           <p class="mt-1"><%=post.description%></p>
 
                           <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                              Detlhes
+                              Detalhes
                           <%end%>
                         </div>
                       </div>
@@ -242,7 +244,7 @@
         </main>    
 
 
-        <div id="full-content" style="margin: 0 5%;">
+        <div id="full-content" style="margin: 0 5%;" class="ptb50">
           <div class="row">
             <div class="col-lg-8">
               <div class="card card-small mb-4">
@@ -308,11 +310,7 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-end mx-4">
-        <div id="new_post" class="btn btn-f-green text-white mx-3">
-          Novo Post
-        </div>
-      </div> 
+       
 
       <br/><br/>
 
@@ -323,7 +321,7 @@
       <%= javascript_include_tag 'my_library.js', 'data-turbolinks-track': 'reload' %>
       <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
       <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'load' %>
       <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>

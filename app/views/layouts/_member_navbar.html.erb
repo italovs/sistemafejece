@@ -1,137 +1,150 @@
 <header class="header navbar fixed-top navbar-expand-lg header-transparent text-white justify-content-center p-0">
-			<div class="w-100 m-0">
+	<div class="w-100 m-0">
 
-				<!-- ====== Start of Navbar ====== -->
-				<nav class="navbar navbar-expand-lg bg-color py-0" style="height: 12vh;">
+		<!-- ====== Start of Navbar ====== -->
+		<nav class="navbar navbar-expand-lg bg-color py-0" style="height: 12vh;">
 
-					<a class="navbar-brand" href="/">
-						<!-- INSERT YOUR LOGO HERE -->
-						<img src="https://storage.googleapis.com/farol-fejece-test/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" alt="logo" width="150" class="logo">
-						<!-- INSERT YOUR WHITE LOGO HERE -->
-						<img src="https://storage.googleapis.com/farol-fejece-test/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" alt="white logo" width="150" class="logo-white">
-					</a>
-					
-					<!-- Login Button on Responsive -->
+			<a class="navbar-brand" href="/">
+				<!-- INSERT YOUR LOGO HERE -->
+				<img src="https://storage.googleapis.com/farol-fejece-test/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg"
+					alt="logo" width="150" class="logo">
+				<!-- INSERT YOUR WHITE LOGO HERE -->
+				<img src="https://storage.googleapis.com/farol-fejece-test/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg"
+					alt="white logo" width="150" class="logo-white">
+			</a>
 
-					<button id="mobile-nav-toggler" class="hamburger hamburger--collapse" type="button">
-						<span class="hamburger-box">
-							<span class="hamburger-inner"></span>
-						</span>
-					</button>
+			<!-- Login Button on Responsive -->
 
-					<!-- ====== Start of #main-nav ====== -->
-					<div class="navbar-collapse" id="main-nav">
+			<button id="mobile-nav-toggler" class="hamburger hamburger--collapse" type="button">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</button>
 
-						<!-- ====== Start of Main Menu ====== -->
-						<ul class="navbar-nav mx-auto" id="main-menu">
-							<!-- Menu Item -->
+			<!-- ====== Start of #main-nav ====== -->
+			<div class="navbar-collapse" id="main-nav">
+
+				<!-- ====== Start of Main Menu ====== -->
+				<ul class="navbar-nav mx-auto" id="main-menu">
+					<!-- Menu Item -->
+					<li class="nav-item dropdown">
+						<%= link_to 'Início' , member_root_path, class: "nav-link" %>
+					</li>
+
+					<% if admin_signed_in? %>
+						<li class="nav-item dropdown">
+							<%= link_to 'Painel' , administrative_index_path, class: "nav-link" %>
+						</li>
+						<% end %>
+
 							<li class="nav-item dropdown">
-								<%= link_to 'Início', member_root_path, class: "nav-link" %>
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">Vídeos</a>
 							</li>
 
-							<% if admin_signed_in? %>
-								<li class="nav-item dropdown">
-									<%= link_to 'Painel', administrative_index_path, class: "nav-link" %>
-								</li>
-							<% end %>
-
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vídeos</a>
-							</li>
-							
-
-							<!-- Menu Item -->
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Trilhas de Conteúdos</a>
-							</li>
 
 							<!-- Menu Item -->
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Materiais Complementares</a>
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">Trilhas de Conteúdos</a>
 							</li>
 
 							<!-- Menu Item -->
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fale Conosco</a>
-							</li>
-
-						</ul>
-						<!-- ====== End of Main Menu ====== -->
-
-
-						<!-- ====== Start of Extra Nav ====== -->
-						<ul class="navbar-nav extra-nav">
-
-							<!-- Menu Item -->
-							<li class="nav-item">
-								<a class="nav-link toggle-search" href="#">
-									<i class="fas fa-search"></i>
-								</a>
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">Materiais Complementares</a>
 							</li>
 
 							<!-- Menu Item -->
-							<% if admin_signed_in? %>
-								<li class="nav-item notification-wrapper">
-									<%= link_to members_validation_path, class:'tooltips nav-link', title: 'Novas solicitações de Diretoria', data:{placement: 'bottom'} do %>
-										<i class="fas fa-bell"></i>
-										<% if @flag > 0 %>
-											<span class="notification-count"><%= @flag %></span>
-										<%end%>	
-									<%end%>
-								</li>
-							<%end%>	
-	
-							<!-- Menu Item -->
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">Fale Conosco</a>
+							</li>
 
-						<div class="btn-group bg-f-orange rounded-pill">
-							<button type="button" class="btn btn-transparent dropdown-toggle text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<%if current_logged_user.profile_picture.attached?%>
-									<%= image_tag current_logged_user.profile_picture.variant(gravity:'Center',resize:"30x30^", crop:'30x30+0+0'),:class=> "rounded-circle"%>
-								<%else%>
-									<%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"30x30", :class =>"rounded-circle"%>
+				</ul>
+				<!-- ====== End of Main Menu ====== -->
+
+
+				<!-- ====== Start of Extra Nav ====== -->
+				<ul class="navbar-nav extra-nav">
+
+					<!-- Menu Item -->
+					<li class="nav-item">
+						<a class="nav-link toggle-search" href="#">
+							<i class="fas fa-search"></i>
+						</a>
+					</li>
+
+					<!-- Menu Item -->
+					<% if admin_signed_in? %>
+						<li class="nav-item notification-wrapper">
+							<%= link_to members_validation_path, class:'tooltips nav-link',
+								title: 'Novas solicitações de Diretoria' , data:{placement: 'bottom' } do %>
+								<i class="fas fa-bell"></i>
+								<% if @flag> 0 %>
+									<span class="notification-count">
+										<%= @flag %>
+									</span>
 								<%end%>
-								<%=logged_name%>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li class="dropdown-item" >
-									<%= link_to profile_path, class: "nav-link" do%>
-										<i class="fas fa-user"></i>
-										Perfil
+							<%end%>
+						</li>
+					<%end%>
+
+							<!-- Menu Item -->
+
+							<div class="btn-group bg-f-orange rounded-pill">
+								<button type="button" class="btn btn-transparent dropdown-toggle text-white"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<%if current_logged_user.profile_picture.attached?%>
+										<%= image_tag current_logged_user.profile_picture.variant(gravity:'Center',resize:"30x30^", crop:'30x30+0+0'),:class=> "rounded-circle"%>
+									<%else%>
+										<%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"30x30", :class	=>"rounded-circle"%>
 									<%end%>
-								</li>
-								<% if valid_member_or_admin? %>
+									<%=logged_name%>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right">
 									<li class="dropdown-item">
-										<%= link_to "/my_channel", class: "nav-link"  do %>
-											<i class="fas fa-tv"></i>
-											Meu canal
-										<% end %>
+										<%= link_to profile_path, class: "nav-link" do%>
+											<i class="fas fa-user"></i>
+											Perfil
+										<%end%>
 									</li>
+									<% if valid_member_or_admin? %>
+										<li class="dropdown-item">
+											<%= link_to "/my_channel" , class: "nav-link" do %>
+												<i class="fas fa-tv"></i>
+												Meu canal
+											<% end %>
+										</li>
 
-									<li class="dropdown-item">
-										<%= link_to "/my_library", class: "nav-link" do %>
-											<i class="fas fa-book"></i>
-											Minha biblioteca
-										<% end %>
-									</li>
-								<%end%>	
+										<li class="dropdown-item">
+											<%= link_to "/my_library" , class: "nav-link" do %>
+												<i class="fas fa-book"></i>
+												Minha biblioteca
+											<% end %>
+										</li>
+										<%end%>
 
-								<li class="divider"></li>
+											<li class="divider"></li>
 
-								<li class="dropdown-item">
-									<%= link_to logout_path, class: "nav-link", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete'  do %>
-										<i class="fas fa-sign-out-alt"></i>
-										logout
-									<% end %>
-								</li>
-							</ul>
-						</div>
+											<li class="dropdown-item">
+												<%= link_to logout_path, class: "nav-link" , 'data-toggle'=> "dropdown",
+													'aria-haspopup' => "true", 'aria-expanded' => "false", method:
+													'delete' do %>
+													<i class="fas fa-sign-out-alt"></i>
+													logout
+												<% end %>
+											</li>
+								</ul>
+							</div>
+				</ul>
 
-						<!-- ====== End of Extra Nav ====== -->
-
-					</div>
-					<!-- ====== End of #main-nav ====== -->
-				</nav>
-				<!-- ====== End of Navbar ====== -->
+				<!-- ====== End of Extra Nav ====== -->
 
 			</div>
-		</header>
+			<!-- ====== End of #main-nav ====== -->
+		</nav>
+		<!-- ====== End of Navbar ====== -->
+
+	</div>
+</header>
