@@ -602,10 +602,30 @@ class SiteController < ApplicationController
     @post = Post.find(params[:id])
     @posts = Post.all
     @ejs = JuniorEnterprise.all
-	@votes = Vote.all
+	  @votes = Vote.all
 
 		direction_notification
 	end
+
+  def post_information
+    @post = Post.find(params[:id])
+
+    post_categories = PostCategory.where(post_id: @post.id)
+
+    categories = []
+
+    post_categories.each do |post_category|
+      categories << post_category.category
+    end
+
+    render json: [post_id: @post.id,
+                  post_image: @post.poster_image,
+                  banner_image: @post.banner_image,
+                  post_name: @post.name,
+                  post_description: @post.description,
+                  post_link: @post.link,
+                  post_categories: categories]
+  end
 
 	def serie
 		@serie = TvSerie.find(params[:id])
