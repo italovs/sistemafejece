@@ -589,7 +589,7 @@ class SiteController < ApplicationController
       end
       sql += category
       sql += "')"
-      @@posts[category] = ActiveRecord::Base.connection.execute(sql)
+      @posts[category] = ActiveRecord::Base.connection.execute(sql)
     end
     if @posts != ({})
       render json: posts

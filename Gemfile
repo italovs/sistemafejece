@@ -5,24 +5,23 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+gem 'active_storage_validations'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise-i18n'
-gem 'rails-i18n'
+gem 'google-cloud-storage'
+gem 'image_processing'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
-gem 'sass-rails', '>= 6'
-gem 'turbolinks'
-gem 'devise'
-gem "google-cloud-storage"
-gem 'image_processing'
-gem 'active_storage_validations'
-gem 'selectize-rails'
+gem 'rails-i18n'
 gem 'rails_real_favicon'
-#gem 'sendgrid-ruby'
-#gem 'paperclip', '~> 6.0.0'
+gem 'sass-rails', '>= 6'
+gem 'selectize-rails'
+gem 'turbolinks'
+# gem 'sendgrid-ruby'
+# gem 'paperclip', '~> 6.0.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
