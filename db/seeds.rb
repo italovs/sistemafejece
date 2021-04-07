@@ -23,7 +23,7 @@ ejs = [
   'Edifica', 'Ej7', 'EjEPRO', 'Ejudi', 'Emzootec', 'Engene', 'EPRO', 'FASJUS', 'Geocapta', 'Geomaps',
   'GTi', 'Harpia', 'Impact', 'Include', 'Index', 'Inova', 'Inovale', 'Inove', 'Insight Jr', 'Ipharma',
   'Mata Branca', 'Mecaniza', 'Metal Soluções', 'Polifarma', 'Premium', 'Proativa', 'Progresso', 'Projetta',
-  'Proteus', 'Psyquê FAS', 'Rastro', 'Retec', 'Tecsys', 'Unijus', 'Vale jr'
+  'Proteus', 'Psyquê FAS', 'Rastro', 'Retec', 'Tecsys', 'Unijus', 'Vale jr', 'Autotech'
 ]
 
 Rails.logger.debug "#{acoes.sample} EJs..."
