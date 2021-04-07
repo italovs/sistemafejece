@@ -1,13 +1,14 @@
 //= require jquery
 //= require selectize
 //$(document).on("turbolinks:load",function(){
-	$(".selectize").selectize({
+	var $select = $(".selectize").selectize({
 		plugins: ['remove_button'],
 		persist: false,
 		maxItems: null,
 		valueField: 'id',
 		searchField: 'name'
 	});
+	var selectize = $select[0].selectize;
 
 $.ajaxSetup({
     headers: {
@@ -164,6 +165,9 @@ function setting_events(){
 		$("#youtube_description").show();
 		$(".videos-row").toggle();
 		$(".series-row").hide();
+		$("#youtube_name").val('')
+		$("#youtube_link").val('')
+		$("#youtube_description").val('')
 	})
 
 	$(".edit_video").on("click", function(){
@@ -175,7 +179,7 @@ function setting_events(){
 		$("#main_title").text("Editar Vídeo");
 		$(".video-field").show();
 		$("#youtube_link").show();
-		$("#create_new_video").show();
+		$("#update_video").show();
 		$("#tv_series").hide();
 		$("#season").hide();
 		$("#youtube_name").show();
@@ -183,7 +187,8 @@ function setting_events(){
 		$(".videos-row").toggle();
 		$(".series-row").hide();
 
-		var post_id = parseInt($(this).val());
+		var post_id = $(this).val();
+		$("#update_input").val(post_id);
 		var post_information;
 
 		$.post('/post_information', 
@@ -191,16 +196,20 @@ function setting_events(){
 			id: post_id
 		},function(data, status){
 			if(status == "success"){
-				console.log('post information======================================')
 				post_information = data[0]
 				$('#youtube_name').val(post_information["post_name"]);
 				$('#youtube_link').val("https://www.youtube.com/watch?v="+post_information["post_link"]);
 				$('#youtube_description').val(post_information["post_description"]);
-				$(".selectize-input").click();
-				$( ".selectize-control" ).off( ".selectize-input" );
-
+				
+				selectize.clear()
+				categories = post_information["post_categories"]
+				
+				for (var i = 0 ; i < categories.length; i++)
+				{
+					selectize.addItem(categories[i]["id"]);
+				}
+				
 			} else {
-				console.log('erro======================================')
 				//ERRO DE REQUISIÇÃO
 			}
 			
@@ -228,6 +237,43 @@ function setting_events(){
 			})
 		}
 	})
+
+	$("#update_video").on("click", function(){
+		$(".success-msg").hide();
+		$(".error-msg").hide();
+		
+		if(valid_value($("#youtube_link").val()) && valid_value($("#youtube_name").val()) && valid_value($("#youtube_description").val())  ){
+			link = sanitarize_youtube_link($("#youtube_link").val())
+			if(link != null){
+				var formData = new FormData();
+				formData.append('post_id', $('#update_input').val())
+				formData.append('name', $("#youtube_name").val())
+				formData.append('link', link)
+				formData.append('description', $("#youtube_description").val())
+				formData.append('categories', $("#category").val())
+				$("#poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#poster_image").prop('files')[0]) : null
+				$("#banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#banner_image").prop('files')[0]) : null
+				$.ajax({
+					url: '/update_post',
+					data: formData,
+					type: 'POST',
+					contentType: false,
+					processData: false
+				}).done(function(data){
+					//page_reload();
+					$(".success-msg").show();
+					$(".succes").html(data[0]["msg"]);
+					console.log(data)
+				}).fail(function(){
+					//ERRO DE REQUISIÇÃO
+					//page_reload();
+					$(".error-msg").show();
+					$(".err").html(data[0]["msg"]);
+				});
+			}
+		}
+	})	
+
 
 	$("#new_serie").on("click", function(){
 		if(!$("#serie_name").is(":visible")){
