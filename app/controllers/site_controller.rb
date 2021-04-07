@@ -604,9 +604,29 @@ class SiteController < ApplicationController
     @post = Post.find(params[:id])
     @posts = Post.all
     @ejs = JuniorEnterprise.all
-	@votes = Vote.all
+	  @votes = Vote.all
 
     direction_notification
+  end
+
+  def post_information
+    @post = Post.find(params[:id])
+
+    post_categories = PostCategory.where(post_id: @post.id)
+
+    categories = []
+
+    post_categories.each do |post_category|
+      categories << post_category.category
+    end
+
+    render json: [post_id: @post.id,
+                  post_image: @post.poster_image,
+                  banner_image: @post.banner_image,
+                  post_name: @post.name,
+                  post_description: @post.description,
+                  post_link: @post.link,
+                  post_categories: categories]
   end
 
   def serie
@@ -824,13 +844,25 @@ class SiteController < ApplicationController
     end
   end
 
-  def series_and_videos
+  def series_and_videos( kind = nil )
     if member_signed_in?
-      @series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
-      @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+        @series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
+        if kind.nil?
+            @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id)
+        elsif kind == 1
+            @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+        elsif kind == 2
+            @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 2)
+        end
     else
-      @series = TvSerie.all.where(owner_id: nil)
-      @videos = Post.all.where(owner_id: nil, kind: 1)
+        @series = TvSerie.all.where(owner_id: nil)
+        if kind.nil?
+            @videos = Post.all.where(owner_id: nil)
+        elsif kind == 1
+            @videos = Post.all.where(owner_id: nil, kind: 1)
+        elsif kind == 2
+            @videos = Post.all.where(owner_id: nil, kind: 2)
+        end
     end
   end
 end
