@@ -99,7 +99,6 @@
         <%= select_tag :post_category, options_from_collection_for_select(@categories, "id", "name"), {:include_blank => "Selecione"} %>
         <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo" %>
         <div id="create_new_post" class="btn btn-primary">CRIAR</div>
-
         <div id="posts_area">
         </div>
         <!--CAMPOS DAS IMAGENS SÓ COLOCAR DENTRO DA NOVA ESTRUTURA LOGO A BAIXO DO NOME DA PUBLICAÇÃO -->
@@ -173,12 +172,11 @@
           </div>
         </div>
 
-        <main id="posts-row" class="ptb50">
+        <main  class="ptb50">
           <div class="container">
-            <div class="row">
+            <div class="row" id="posts-row">
               <!-- Movie List Item -->
               <%cont = 0%>
-              <%#byebug%>
               <%@posts.each do |post|%>
                 <%cont += 1%>
                 <div class="col-lg-4 col-md-6 col-sm-12 var-item">
@@ -233,11 +231,11 @@
                               Detalhes
                           <%end%>
                           <div class="buttons" style="display: inline-flex; margin-left: 8rem;">
-												    <li class="tooltips edit_video mr-3" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
+												    <li class="tooltips edit_post mr-3" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
 													    <i class="fas fa-pencil-alt"></i>
 												    </li>
 
-											    	<li href="" class="tooltips delete_video" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
+											    	<li href="" class="tooltips delete_post" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
 													    <i class="fas fa-trash-alt"></i>
 												    </li>
 											    </div>
@@ -281,7 +279,7 @@
 
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <%= text_field_tag :post_name, nil, placeholder: "Nome", class: "input_field form-control" %>
+                              <%= text_field_tag :post_name, nil, placeholder: "Nome", class: "input_field form-control", id: "post_title"%>
                             </div>  
                           </div>
 
@@ -320,6 +318,11 @@
                           <div id="create_new_post" class="btn btn-f-green text-white">
                             Criar
                           </div>
+                          <input id="update_input" type="hidden" value="" />
+
+											    <div id="update_post" class="btn btn-f-green text-white">
+												    Atualizar
+											    </div>
 
                         </form>
                       </div>

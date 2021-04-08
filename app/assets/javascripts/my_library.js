@@ -1,11 +1,12 @@
 //= require selectize
-$(".selectize").selectize({
+var $select = $(".selectize").selectize({
 	plugins: ['remove_button'],
 	persist: false,
 	maxItems: null,
 	valueField: 'id',
 	searchField: 'name'
   });
+  var selectize = $select[0].selectize;
 
 $(function(){
 	page_load();
@@ -75,7 +76,77 @@ function setting_events(){
 			alert("Há campos em branco")
 		}
 	})
-	$(".delete_video").on("click",function(){
+	$(".edit_post").on("click", function(){
+		$("#full-content").show();
+		$("#main_title").text("Editar Post");
+		$("#post_title").show();
+		$("#update_post").show();
+		$("#create_new_post").hide();
+		$("#post_description").show();
+		$("#posts-row").hide();
+		
+
+		var post_id = $(this).val();
+		$("#update_input").val(post_id);
+		var post_information;
+
+		$.post('/post_information', 
+		{
+			id: post_id
+		},function(data, status){
+			if(status == "success"){
+				post_information = data[0]
+				$('#post_title').val(post_information["post_name"]);
+				$('#post_link').val(post_information["post_link"]);
+				$('#post_description').val(post_information["post_description"]);
+				
+				selectize.clear()
+				categories = post_information["post_categories"]
+				
+				for (var i = 0 ; i < categories.length; i++)
+				{
+					selectize.addItem(categories[i]["id"]);
+				}
+				
+			} else {
+				//ERRO DE REQUISIÇÃO
+			}
+		})
+	})
+	$("#update_post").on("click", function(){
+		$(".success-msg").hide();
+		$(".error-msg").hide();
+		
+		
+		var formData = new FormData();
+		formData.append('post_id', $('#update_input').val())
+		formData.append('name', $("#post_title").val())
+		formData.append('link', $("#post_link").val())
+		formData.append('description', $("#post_description").val())
+		formData.append('categories', $("#post_category").val())
+		$("#poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#poster_image").prop('files')[0]) : null
+		$("#banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#banner_image").prop('files')[0]) : null
+		$.ajax({
+			url: '/update_post',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data){
+			//page_reload();
+			$(".success-msg").show();
+			$(".succes").html(data[0]["msg"]);
+			console.log(data)
+		}).fail(function(){
+			//ERRO DE REQUISIÇÃO
+			//page_reload();
+			$(".error-msg").show();
+			$(".err").html(data[0]["msg"]);
+		});
+			
+		
+	})
+	$(".delete_post").on("click",function(){
 		var post_id = $(this).val()
 		var confirmation = confirm("Tem certeza que quer deletar essa publicação?")
 
