@@ -673,7 +673,8 @@
     <!-- ===== End of Back to Top Button ===== -->
 
 
-    <%= javascript_include_tag 'pagination_evaluation' %>
+    <%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'pagination.min.js', 'data-turbolinks-track': 'reaload' %>
 	<!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>

@@ -42,10 +42,13 @@ Rails.application.config.assets.precompile += %w(
     themify-icons.css
     simple-line-icons.css
     style.css
+    assets/datatables.min.css
+    assets/datatables.min.js
     pagination_evaluation.js
     responsive.css
     jquery-3.2.1.min.js
     bootstrap.min.js
+    pagination.min.js
     jquery.ajaxchimp.js
     jquery.magnific-popup.min.js
     jquery.mmenu.js
