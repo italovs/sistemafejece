@@ -23,36 +23,7 @@
                     <div class="widget widget-links">
                         <h4 class="widget-title">Vídeos recentes</h4>
 
-                        <%counter = 0%>
-                        <%vector = @videos.sort_by{|h| h[:created_at]}%>
-                        <%vector = vector.reverse()%>
-
-                        <% vector.each do |post| %>
-                            <% if counter < 3 %>
-                                <ul class="recent-posts pl-1">
-                                    <li style="list-style: none;">
-                                        <article class="post-format-standard row mb-3">
-                                            <div class="mini-post-imgb w-auto float-left">
-                                                <a class="alignleft post-rollover this-ready" aria-label="redimensionar imagens">
-                                                    <%if post.poster_image.attached?%>
-                                                        <%= image_tag post.poster_image.variant(gravity:'Center',resize:"80x60^"  , crop: '80x60+0+0')%>
-                                                    <%end%>
-                                                </a>
-                                            </div>
-                                            
-                                            <div class="post-content w-auto p-0">
-                                                <%= link_to current_user_post_path(post.id) do%>
-                                                    <span style="font-size: 18px"><%= post.name %><span>
-                                                <%end%>
-                                            </div>
-                                        </article>
-                                    </li>
-                                </ul>
-
-                                <% counter += 1%>
-
-                            <%end%>    
-                        <%end%>     
+                        
                     </div>
                 </div>
 
