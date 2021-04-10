@@ -42,9 +42,11 @@ Rails.application.config.assets.precompile += %w(
     themify-icons.css
     simple-line-icons.css
     style.css
+    shards-dashboards.css
     assets/datatables.min.css
     assets/datatables.min.js
     pagination_evaluation.js
+    shards-dashboards.js
     responsive.css
     jquery-3.2.1.min.js
     bootstrap.min.js
