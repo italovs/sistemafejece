@@ -45,6 +45,7 @@
 	<%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
 	<%= stylesheet_link_tag 'style', media: 'all' %>
 	<%= stylesheet_link_tag 'responsive', media: 'all' %>
+	<%= stylesheet_link_tag 'assets/datatables.min.css', media: 'all' %>
 
 </head>
 
@@ -82,6 +83,11 @@
 			background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
 			background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
 			background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+	}
+
+	td{
+		display: none;
+		border-style: none;
 	}
 
 </style>
@@ -227,55 +233,66 @@
 			</nav>
 		</div>
 
-		<div class="container col-8 series-row mx-auto p-0 border-0">
-			<div class="container">
-				<h6>Selecione numero de linhas</h6>
-				<div class="form-group">
-					<select name="state" id="maxRows" class="form-control" style="width:150px; height:50px;">
-						<option value= "5000"> mostrar todas</option>
-						<option value="2">2</option>
-						<option value="10">10</option>
-						<option value="15">15</option>
-						<option value="20">20</option>
-					</select>
-				</div>
-			</div>
-			<div class="card card-small series-row">
-				<table id="mytable" class="table table-hover mb-0 border-0">
-					<div >
-						<thead class="card-header border-bottom bg-f-green text-white">
-							<tr >
-								<th >Nome</th>
-								<th >Tipo</th>
-								<th >Ações</th>
-							</tr>
-						</thead>
-					</div>
-					<div class="card-body p-0 text-center">
-						<tbody>
-							<% @series.each do |serie| %>
-								<tr>
-									<td><%=serie.name%></td>
-									<% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
-									<td><%=collect_categories_ids(aux)%></td>
-									<td>
-										<%= link_to current_user_serie_path(serie.id),  class:'tooltips nav-link btn btn-info col-3', title: 'Ver Série', data:{placement: 'bottom'}, style: 'width:50px;' do %>
-											<i class="fas fa-eye"></i>
-										<%end%>
-									</td>
-								</tr>
-							<%end%>
-						</tbody>
-					</div>
-				</table>
-			</div>
 
-			<div class="pagination-container series-row">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center"></ul>
-				</nav>
-			</div>
-		</div>
+		<table id="my_channel_series" class="container series-row mx-auto p-0 border-0", data-page-length='2'>
+			
+			<thead>
+				<tr>
+					<th class="border-0"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @series.each do |serie| %>
+					<tr>
+						<th class="border-0">
+							<div class="col-md-12 col-sm-12 p-0">
+								<div class="watch-later-item">
+									<div class="listing-container">
+
+										<!-- Movie List Image -->
+										<div class="listing-image">
+											<img src="assets/images/posters/poster-1.jpg" class="img-shadow" alt="">
+										</div>
+
+										<!-- Movie List Content -->
+										<div class="listing-content">
+											<div class="inner">
+												<h3 class="title"><%= serie.name %></h3>
+
+												<% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
+												<p>Mussum Ipsum, cacilds vidis litro abertis. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Mais vale um bebadis conhecidiss, que um alcoolatra anonimis. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. In elementis mé pra quem é amistosis quis leo.  </p>
+
+												<div class="row">
+													<div class="col">
+														<%= link_to current_user_serie_path(serie.id), class: 'btn btn-main btn-effect' do%>
+															Assistir
+														<% end %>
+													</div>	
+
+													<div class="col d-flex justify-content-end">
+														<div class="tooltips nav-link btn btn-primary mr-2" title="Editar" data-placement="bottom" style="width:50px;">
+															<i class="fas fa-pencil-alt"></i>
+														</div>
+
+														<div class="tooltips nav-link btn btn-danger" title="Deletar" data-placement="bottom" style="width:50px;">
+															<i class="fas fa-trash-alt"></i>
+														</div>
+													</div>
+												</div>	
+												
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</th>
+					</tr>		
+				<% end %>
+					
+			</tbody>		
+		</table>
 
 		<div id="form-fields">
 			<div class="row justify-content-center">
@@ -365,6 +382,9 @@
 	<br/><br/><br/><br />
 	<br/><br/>
 	<%= render '/layouts/member_footer' %>
+
+	<%= javascript_include_tag 'essencials', 'data-turbolinks-track': 'reload'%>
+	<%= javascript_include_tag 'assets/datatables.min.js', 'data-turbolinks-track': 'reload', :defer=>"defer" %>
 	<%= javascript_include_tag 'my_channel', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>

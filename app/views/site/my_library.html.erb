@@ -84,9 +84,8 @@
           background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
           background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
       }
-    </style>  
-
-
+    </style>
+    
     <body class="bg-light">
       <%if true == false %>
         <div id="new_post" class="btn btn-primary">Novo Post</div>
@@ -174,92 +173,90 @@
 
         <main  class="ptb50">
           <div class="container">
-            <div class="row" id="posts-row">
-              <!-- Movie List Item -->
-              <%cont = 0%>
-              <%@posts.each do |post|%>
-                <%cont += 1%>
-                <div class="col-lg-4 col-md-6 col-sm-12 var-item">
-                  <div class="movie-box-3 mb30">
-                    <div class="listing-container">
+            <table class="row border-0" id="my_library_posts" data-page-length='3'>
+              <thead>
+                <tr>
+                  <th class="border-0"></th>
+                </tr>
+              </thead>
 
-                      <!-- Movie List Image -->
-                      <div class="listing-image">
-                        <%if post.poster_image.attached?%>
-                          <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
-                        <%end%>
-                      </div>
+              <tbody>
+                <!-- Movie List Item -->
+                <% @posts.each do |post| %>
+                  <div class="row">
+                    <tr class="col-4 float-left">
+                        <th class="border-0 p-0">
+                          <div class="movie-box-3 mb30">
+                            <div class="listing-container">
 
-                      <!-- Movie List Content -->
-                      <div class="listing-content border-top">
-                        <div class="inner">
-
-                          <!-- Play Button -->
-                          <div class="play-btn">
-                            <a class="play-video" href="<%=post.link%>" id="<%= post.id %>">
-                              <i class="fas fa-link"></i>
-                            </a>
-                          </div>
-                          
-
-                          <h2 class="title"><%=post.name%></h2>
-
-                          <!-- Start of Rating -->
-                          <div class="stars">
-                            <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                            <div class="rating"></div>
-            
-                            <% if post.rating == -1 %>
-                              <div class="d-inline-flex">
-                                <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
-                                <h6 style="font-size:12px;" class="text-dark">Não há avaliações</h6>
+                              <!-- Movie List Image -->
+                              <div class="listing-image">
+                                <%if post.poster_image.attached?%>
+                                  <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
+                                <%end%>
                               </div>
-                            <%else%>
-                              <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
-                            <%end%>	
 
-                            <!-- End of Rating --> 
+                              <!-- Movie List Content -->
+                              <div class="listing-content border-top">
+                                <div class="inner">
 
-                            <% aux =  @post_categories.where(post_id: post.id)%>
-                            <span class="category text-dark pt-1"><strong><%=collect_categories_ids(aux)%></strong></span>
+                                  <!-- Play Button -->
+                                  <div class="play-btn">
+                                    <a class="play-video" href="<%=post.link%>" id="<%= post.id %>">
+                                      <i class="fas fa-link"></i>
+                                    </a>
+                                  </div>
+                                  
 
+                                  <h2 class="title"><%=post.name%></h2>
+
+                                  <!-- Start of Rating -->
+                                  <div class="stars">
+                                    <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                    <div class="rating"></div>
+                    
+                                    <% if post.rating == -1 %>
+                                      <div class="d-inline-flex">
+                                        <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
+                                        <h6 style="font-size:12px;" class="text-dark">Não há avaliações</h6>
+                                      </div>
+                                    <%else%>
+                                      <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                    <%end%>	
+
+                                    <!-- End of Rating --> 
+
+                                    <% aux =  @post_categories.where(post_id: post.id)%>
+                                    <span class="category text-dark pt-1"><strong><%=collect_categories_ids(aux)%></strong></span>
+
+                                  </div>
+
+                                  <p class="mt-1"><%=post.description%></p>
+
+                                  <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                      Detalhes
+                                  <%end%>
+                                  <div class="buttons" style="display: inline-flex; margin-left: 8rem;">
+                                    <li class="tooltips edit_post mr-3" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
+                                      <i class="fas fa-pencil-alt"></i>
+                                    </li>
+
+                                    <li href="" class="tooltips delete_post" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
+                                      <i class="fas fa-trash-alt"></i>
+                                    </li>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
+                        </th>
 
-                          <p class="mt-1"><%=post.description%></p>
-
-                          <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                              Detalhes
-                          <%end%>
-                          <div class="buttons" style="display: inline-flex; margin-left: 8rem;">
-												    <li class="tooltips edit_post mr-3" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
-													    <i class="fas fa-pencil-alt"></i>
-												    </li>
-
-											    	<li href="" class="tooltips delete_post" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
-													    <i class="fas fa-trash-alt"></i>
-												    </li>
-											    </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              <%end%>
-
-              
-              <div class="paginate-container videos-row">
-                <nav>
-                  <ul class="paginate d-flex justify-content-center">
-                    <% i = 1 %>
-                    <% while (i <= (cont.to_f/2).ceil) %>
-                      <button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
-                      <%i += 1%>
-                    <%end%>
-                  </ul>
-                </nav>
-              </div>
-            </div>
+                    </tr>
+                  </div>  
+                <%end%>
+                
+              </tbody>  
+            </table>
           </div>
         </main>    
 
@@ -279,7 +276,7 @@
 
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <%= text_field_tag :post_name, nil, placeholder: "Nome", class: "input_field form-control", id: "post_title"%>
+                              <%= text_field_tag :post_name, nil, placeholder: "Nome", class: "input_field form-control", id: "post_name"%>
                             </div>  
                           </div>
 
@@ -342,6 +339,8 @@
       <%= render '/layouts/member_footer' %>
 
 
+      <script src="<%= javascript_path "essencials" %>"></script>
+      <%= javascript_include_tag 'assets/datatables.min.js', 'data-turbolinks-track': 'reload', :defer=>"defer" %>
       <%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload'%>
       <%= javascript_include_tag 'my_library.js', 'data-turbolinks-track': 'reload' %>
       <!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->

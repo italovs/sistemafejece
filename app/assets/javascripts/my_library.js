@@ -196,6 +196,14 @@ function setting_events(){
 			}
 		})
 	});
+
+	$("#my_library_posts").DataTable({
+		paging: true,
+		ordering: false,
+		language:{
+			url: "/dataTable_portuguese.json"
+		}
+	})
 }
 
 function new_card_area(name, data){
