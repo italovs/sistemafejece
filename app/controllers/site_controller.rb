@@ -220,16 +220,26 @@ class SiteController < ApplicationController
 	end
 
 	def new_serie
-		tv_serie = TvSerie.new(name: params[:serie_name])
+		tv_serie = TvSerie.new(name: params[:serie_name], description: params[:serie_description])
+
+		tv_serie.banner_image.attach(params[:banner_image])	if params[:banner_image].present?
+		tv_serie.poster_image.attach(params[:poster_image]) if params[:poster_image].present?
+
+		categories = params[:categories].split(',')
+
 		tv_serie.owner_id = if admin_signed_in?
 													nil
 												else
 													current_member.junior_enterprise_id
 												end
 		if tv_serie.save
-			TvSerieCategory.create(tv_serie: tv_serie, category_id: params[:category])
+
+			categories.each do |category|
+				TvSerieCategory.create(tv_serie_id: tv_serie.id, category_id: category.to_i)
+			end
+
 			render json: [msg: "Nova trilha #{params[:serie_name]} foi criada com sucesso!",
-										tv_series: user_tv_series]
+																tv_series: user_tv_series]
 
 			flash[:notice] = "Nova trilha  #{params[:serie_name]} foi criada com sucesso"
 		else

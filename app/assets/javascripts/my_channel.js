@@ -294,26 +294,32 @@ function setting_events(){
 		$(".success-msg").hide();
 		$(".error-msg").hide();
 
-		if( valid_value($("#serie_name").val()) && valid_value($("#tv_series_category").val()) ){
-			$.post( '/new_serie' ,
-			{
-				serie_name: $("#serie_name").val(),
-				category: $("#tv_series_category").val()
-			},
-			function(data, status){
-				if(status == "success"){
-					//page_reload();
-					$(".success-msg").show();
-					$(".succes").html(data[0]["msg"]);
-					refill_select_box( "#tv_series", data[0]["tv_series"] );
-				} else {
-					//ERRO DE REQUISIÇÃO
-					//page_reload();
-					$(".error-msg").show();
-					$(".err").html(data[0]["msg"]);
-				}
-			})
-		} else {
+		if( valid_value($("#serie_name").val()) && valid_value($("#tv_series_category").val()) && valid_value($("#serie_description").val())){
+			var formData = new FormData();
+				formData.append('serie_name', $("#serie_name").val())
+				formData.append('serie_description', $("#serie_description").val())
+				formData.append('categories', $("#tv_series_category").val())
+				$("#serie_poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#serie_poster_image").prop('files')[0]) : null
+				$("#serie_banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#serie_banner_image").prop('files')[0]) : null
+			$.ajax({
+				url: '/new_serie',
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				processData: false
+			}).done(function(data){
+				//page_reload();
+				$(".success-msg").show();
+				$(".succes").html(data[0]["msg"]);
+			}).fail(function(data){
+				//ERRO DE REQUISIÇÃO
+				//page_reload();
+				console.log(data)
+				$(".error-msg").show();
+				$(".err").html(data[0]["msg"]);
+			});
+
+		}else {
 			alert("Há campos em branco")
 		}
 	})

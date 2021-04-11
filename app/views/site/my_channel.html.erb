@@ -252,16 +252,18 @@
 
 										<!-- Movie List Image -->
 										<div class="listing-image">
-											<img src="assets/images/posters/poster-1.jpg" class="img-shadow" alt="">
+											<%if serie.poster_image.attached?%>
+												<%= image_tag serie.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+											<%end%>
 										</div>
 
 										<!-- Movie List Content -->
 										<div class="listing-content">
 											<div class="inner">
-												<h3 class="title"><%= serie.name %></h3>
+												<h3 class="title" style="color: #000;"><%= serie.name %></h3>
 
 												<% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
-												<p>Mussum Ipsum, cacilds vidis litro abertis. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Mais vale um bebadis conhecidiss, que um alcoolatra anonimis. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. In elementis mé pra quem é amistosis quis leo.  </p>
+												<p style="color: #3d4555;"><%= serie.description %></p>
 
 												<div class="row">
 													<div class="col">
@@ -352,9 +354,30 @@
 
 											<div class="form-row serie-field">
 												<div class="form-group col-md-12">
+													<p class="text-muted d-block mb-2">Poster da série</p>
+													<%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"serie_poster_image", accept:"image/jpg, image/png, image/jpeg"%>
+												</div>
+											</div>
+
+											<div class="form-row serie-field">
+												<div class="form-group col-md-12">
+													<p class="text-muted d-block mb-2">Banner da série</p>
+													<%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"serie_banner_image", accept:"image/jpg, image/png, image/jpeg" %>
+												</div>
+											</div>
+
+											<div class="form-row serie-field">
+												<div class="form-group col-md-12">
 													<%= select_tag :tv_series_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
 												</div>
 											</div>
+
+											<div class="form-row serie-field">
+												<div class="form-group col-md-12">
+													<%= text_area_tag :serie_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+												</div>
+											</div>
+
 											<div id="create_new_video" class="btn btn-f-green text-white">
 												Criar
 											</div>

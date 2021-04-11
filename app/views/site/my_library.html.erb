@@ -184,7 +184,7 @@
                 <!-- Movie List Item -->
                 <% @posts.each do |post| %>
                   <div class="row">
-                    <tr class="col-4 float-left">
+                    <tr class="col-12 col-md-6 col-xl-4 float-left d-flex justify-content-center">
                         <th class="border-0 p-0">
                           <div class="movie-box-3 mb30">
                             <div class="listing-container">
@@ -192,7 +192,7 @@
                               <!-- Movie List Image -->
                               <div class="listing-image">
                                 <%if post.poster_image.attached?%>
-                                  <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
+                                  <%= image_tag post.poster_image.variant(gravity:'Center',resize:"100x150^"  , crop: '100x150+0+0')%>
                                 <%end%>
                               </div>
 
