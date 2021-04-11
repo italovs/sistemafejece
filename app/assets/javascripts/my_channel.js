@@ -427,6 +427,14 @@ function setting_events(){
 		$("#new_serie").show();
 		$("#new_video").hide();
 	})
+
+	$("#my_channel_series").DataTable({
+		paging: true,
+		ordering: false,
+		language:{
+			url: "/dataTable_portuguese.json"
+		}
+	})
 }
 
 // JS DE TESTE
