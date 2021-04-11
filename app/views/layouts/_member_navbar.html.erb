@@ -96,11 +96,7 @@
 								<button type="button" class="btn btn-transparent dropdown-toggle text-white"
 									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<%if current_logged_user.profile_picture.attached?%>
-<<<<<<< HEAD
-										<%= image_tag current_logged_user.profile_picture.variant(gravity:'Center',resize:"30x30^", crop:'30x30+0+0'), :class=>"rounded-circle"%>
-=======
 										<%= image_tag current_logged_user.profile_picture.variant(gravity:'Center',resize:"30x30^")%>
->>>>>>> ac3c9f60d4f88364145e08c3a6966c2aa499d707
 									<%else%>
 										<%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"30x30", :class	=>"rounded-circle"%>
 									<%end%>
