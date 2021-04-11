@@ -12,13 +12,11 @@ class Members::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do
-      byebug
       if resource.position == Member.positions.key(3)
         resource.validated = nil
       else
         resource.validated = 0
       end
-      byebug
       resource.save
     end
   end

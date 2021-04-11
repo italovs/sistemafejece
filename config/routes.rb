@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
 	devise_for :members, controllers: {
 		sessions: 'members/sessions',
-		registrations: 'members/registrations'
+		registrations: 'members/registrations',
+		confirmations: 'members/confirmations'
 	}
 
 	devise_scope :admin do
