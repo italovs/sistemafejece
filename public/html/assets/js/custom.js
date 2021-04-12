@@ -591,7 +591,7 @@ Author URI: gnodesign.com
             removalDelay: 160,
             preloader: false,
 
-            fixedContentPos: false
+            fixedContentPos: true
         });
         
         

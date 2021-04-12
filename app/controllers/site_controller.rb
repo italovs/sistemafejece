@@ -211,12 +211,16 @@ class SiteController < ApplicationController
 	# postagens de video
 	def my_channel
 		user_tv_series
-		@videos = Post.all.where(kind: 1)
 		@serie_categories = TvSerieCategory.all
 		@categories = Category.all.select(:id, :name)
 		series_and_videos
-
 		direction_notification
+	end
+
+	def my_trails
+		@categories = Category.all.select(:id, :name)
+		series_and_videos
+
 	end
 
 	def new_serie

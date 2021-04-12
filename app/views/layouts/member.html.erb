@@ -37,7 +37,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
     
-
+    
 	<!-- ===== CSS links ===== -->
 	<%= stylesheet_link_tag 'application', media: 'all' %>
 	<%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
@@ -401,8 +401,8 @@
                     </div>
                 </div>
                 <!-- End of row -->
-
-
+                
+                
                 <!-- Start of Movie List -->
                 <div class="row mt20">
                     <%cont = 0%>
@@ -672,12 +672,12 @@
     </div>
     <!-- ===== End of Back to Top Button ===== -->
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'pagination.min.js', 'data-turbolinks-track': 'reaload' %>
 	<!-- ===== All Javascript at the bottom of the page for faster page loading ===== -->
 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
-	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload', defer: 'defer'%>
 	<%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>

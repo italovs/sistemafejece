@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_04_11_182241) do
-=======
-ActiveRecord::Schema.define(version: 2021_04_11_000234) do
->>>>>>> 4a5d533ed855941de707b69acf4b72baf1ad296c
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,10 +46,6 @@ ActiveRecord::Schema.define(version: 2021_04_11_000234) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "about"
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -85,10 +77,6 @@ ActiveRecord::Schema.define(version: 2021_04_11_000234) do
     t.integer "position"
     t.boolean "validated"
     t.string "name"
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

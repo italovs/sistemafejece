@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 			post '/change_mail', to: 'site#change_mail', as: 'change_admin_mail'
 			post '/change_information', to: 'site#change_information', as: 'change_admin_information'
 			get '/my_channel', to: 'site#my_channel', as: 'admin_my_channel'
+			get '/my_trails', to: 'site#my_trails', as: 'admin_my_trails'
 			post '/new_serie', to: 'site#new_serie', as: 'admin_new_serie'
 			post '/serie_seasons', to: 'site#serie_seasons', as: 'admin_serie_seasons'
 			post '/new_video', to: 'site#new_video', as: 'admin_new_video'
@@ -77,6 +78,7 @@ Rails.application.routes.draw do
 					
 					#validated
 					get '/my_channel', to: 'site#my_channel', as: 'validated_my_channel'
+					get '/my_trails', to: 'site#my_trails', as: 'validated_my_trails'
 					post '/new_serie', to: 'site#new_serie', as: 'validated_new_serie'
 					post '/serie_seasons', to: 'site#serie_seasons', as: 'validated_serie_seasons'
 					post '/new_video', to: 'site#new_video', as: 'validated_new_video'
