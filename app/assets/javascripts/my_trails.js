@@ -26,35 +26,15 @@ function page_load(){
 	if( $("#tv_series  option").length > 1 ){
 		$("#tv_series").trigger('change')
 	}
-	starting_from_videos();
-	initial_create_table();
-	pagination();
 }
 
 function page_reload(){
 	hide_fields();
-	starting_from_videos();
-	initial_create_table();
 }
 
-
-function initial_create_table(){
-	$(".form-row").hide();
-	$("#create_new_serie").hide();
-}
 
 function hide_fields(){
 	$("#form-fields").hide();
-	$(".serie-field").hide();
-	$("#serie_name").hide();
-	$("#create_new_serie").hide();
-	$("#tv_series").hide();
-	$("#season").hide();
-	$("#tv_series_category").hide();
-	$("#my_series").hide();
-	$("#full-content").hide();
-	$(".success-msg").hide();
-	$(".error-msg").hide();
 }
 
 function setting_events(){
@@ -70,13 +50,14 @@ function setting_events(){
 		}
 
 		$("#form-fields").toggle();
-		$("#main_title").text("Nova Série");
-		$(".serie-field").show();
-		$("#serie_name").show();
-		$("#create_new_serie").show();
-		$(".videos-row").hide();
-		$(".video-field").hide();
-		$(".series-row").toggle();
+		$("#series_list_wrapper").toggle();
+
+        if ($("#series_list_wrapper").is(":visible")){
+            $(this).text("Nova Série");
+        }
+        else{
+            $(this).text("Minhas Séries");
+        }
 	})
 
 	$("#create_new_serie").on("click", function(){
@@ -129,36 +110,7 @@ function setting_events(){
 		}
 	})
 
-	$("#series").on("click", function(){
-		hide_fields();
-		$.post( '/my_series' ,
-		{
-		},
-		function(data, status){
-			if(status == "success" ){
-				if(!data[0].hasOwnProperty("msg")){
-					$("#my_series").show()
-					insert_card_areas(data)
-				} else {
-					//erro
-				}
-			} else {
-				//ERRO DE REQUISIÇÃO
-			}
-		})
-	})
-
-	$("#series").on("click", function(){
-		$(".videos-row").hide();
-		$(".series-row").show();
-		$("#form-fields").hide();
-		$("#series").hide();
-		$("#video").show();
-		$("#new_serie").show();
-		$("#new_video").hide();
-	})
-
-	$("#my_channel_series").DataTable({
+	$("#series_list").DataTable({
 		paging: true,
 		ordering: false,
 		language:{

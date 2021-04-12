@@ -1,8 +1,8 @@
 class SiteController < ApplicationController
-	layout 'member', except: [:profile, :my_channel, :my_library, :post, :serie]
+	layout 'member', except: [:profile, :my_channel, :my_library, :my_trails, :post, :serie]
 	include ApplicationHelper
 	skip_before_action :verify_authenticity_token
-	before_action :check_if_user_is_director_or_is_admin, only: [:my_channel]
+	before_action :check_if_user_is_director_or_is_admin, only: [:my_channel, :my_library,:my_trails]
 
 	def index
 		direction_notification
@@ -219,8 +219,9 @@ class SiteController < ApplicationController
 
 	def my_trails
 		@categories = Category.all.select(:id, :name)
+		@serie_categories = TvSerieCategory.all
 		series_and_videos
-
+		direction_notification
 	end
 
 	def new_serie
