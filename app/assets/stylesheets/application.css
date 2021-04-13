@@ -16,7 +16,7 @@
  *= require_self
  */
 
- .notification{
+ .notify{
     
     display: inline-block;
     position: fixed !important;

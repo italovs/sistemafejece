@@ -20,6 +20,36 @@ $(function(){
 	page_load();
 })
 
+$(".edit_serie").on('click')
+
+$(".delete_serie").on("click", function(){
+	var serie_id = $(this).data('value')
+	var confirmation = confirm("Tem certeza que quer deletar essa Trilha?")
+	formData = new FormData
+
+	formData.append('id', serie_id)
+	if(confirmation == true){
+		$.ajax({
+			url: '/delete_serie',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data){
+			//page_reload();
+			$(".success-msg").show();
+			$(".succes").html(data[0]["msg"]);
+		}).fail(function(data){
+			//ERRO DE REQUISIÇÃO
+			//page_reload();
+			console.log(data)
+			$(".error-msg").show();
+			$(".err").html(data[0]["msg"]);
+		});
+	}
+
+});
+
 function page_load(){
 	hide_fields();
 	setting_events()

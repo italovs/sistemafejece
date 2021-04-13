@@ -95,14 +95,14 @@
 	<nav id="main-mobile-nav"></nav>
 	<%= render '/layouts/member_navbar' %>
 	<%= yield %>
-	 <div id="notice" class="notification success-msg">
+	 <div id="notice" class="notify success-msg" style="display: none;">
 		<div class="toast-header succes">
 						
 		</div>
 	</div>
 			
 			
-	<div id="notice" class="notification error-msg">
+	<div id="notice" class="notify error-msg" style="display: none;">
 		<div class="toast-header err ">
 						
 		</div>
@@ -174,11 +174,11 @@
 													</div>	
 
 													<div class="col d-flex justify-content-end">
-														<div class="tooltips nav-link btn btn-primary mr-2" title="Editar" data-placement="bottom" style="width:50px;">
+														<div class="tooltips nav-link btn btn-primary mr-2 edit_serie" data-value="<%=serie.id%>" title="Editar" data-placement="bottom" style="width:50px;">
 															<i class="fas fa-pencil-alt"></i>
 														</div>
 
-														<div class="tooltips nav-link btn btn-danger" title="Deletar" data-placement="bottom" style="width:50px;">
+														<div class="tooltips nav-link btn btn-danger delete_serie" data-value="<%=serie.id%>" title="Deletar" data-placement="bottom" style="width:50px;">
 															<i class="fas fa-trash-alt"></i>
 														</div>
 													</div>
