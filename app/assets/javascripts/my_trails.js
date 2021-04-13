@@ -117,6 +117,11 @@ function setting_events(){
 			url: "/dataTable_portuguese.json"
 		}
 	})
+
+    $("#new_season").on("click", function(){
+        $("#seasons").append('<input class="pb-1 mr-1 mb-3" placeholder="Nome da temporada" />');
+        $("#seasons").append('<button type="button" class="btn btn-f-green text-white mr-4" data-toggle="modal" data-target="#episodesModal"> + Episódios</button>');
+    })
 }
 
 // JS DE TESTE

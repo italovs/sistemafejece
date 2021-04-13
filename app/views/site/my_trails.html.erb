@@ -234,6 +234,20 @@
 													<%= select_tag :tv_series_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
 												</div>
 											</div>
+											
+											<div class="form-row serie-field">
+												<div class="form-group col-md-12">
+													<div id="seasons">
+														
+													</div>
+												</div>	
+											</div>	
+
+											<div class="form-row serie-field">
+												<div class="form-group col-md-12">
+													<button id="new_season" type="button" class="btn btn-f-green text-white mb-2">Nova Temporada</button>
+												</div>
+											</div>
 
 											<div class="form-row serie-field">
 												<div class="form-group col-md-12">

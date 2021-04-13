@@ -646,6 +646,7 @@ class SiteController < ApplicationController
 		@serie = TvSerie.find(params[:id])
 		@videos = Post.all.where(kind: 1)
 		@posts = Post.all.where(kind: 0)
+		@series = TvSerie.all
 
 		direction_notification
 	end

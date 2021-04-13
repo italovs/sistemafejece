@@ -1,304 +1,289 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <!-- ===== Mobile viewport optimized ===== -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
 
-    <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
-    <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
-    <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
-    <meta name="author" content="GnoDesign">
-    <meta name="turbolinks-visit-control" content="reload">
+	<html lang="pt-BR">
 
-    
-    <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+		<head>
+			<meta charset="UTF-8">
+			<%= csrf_meta_tags %>
+			<!-- ===== Mobile viewport optimized ===== -->
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
 
-    <!-- ===== Favicon & Different size apple touch icons ===== -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
-    <link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
-    <link rel="icon" sizes="128x128" href="assets/images/icon.png">
+			<!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+			<meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+			<meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+			<meta name="author" content="GnoDesign">
+			<meta name="turbolinks-visit-control" content="reload">
 
-    <!-- ===== Google Fonts ===== -->
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
-      
+			<!-- ===== Website Title ===== -->
+			<title>Farol</title>
 
-    <!-- ===== CSS links ===== -->
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
-    <%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
-    <%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
-    <%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
-    <%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
-    <%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
-    <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
-    <%= stylesheet_link_tag 'style', media: 'all' %>
-    <%= stylesheet_link_tag 'responsive', media: 'all' %>
-    <title>Meu Canal</title>
-  </head>
+			<%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+				<%= stylesheet_link_tag 'application', media: 'all' %>
 
-  <style>
-    .mm-slideout{
-      z-index: 99;
-    }
+			<!-- ===== Favicon & Different size apple touch icons ===== -->
+			<link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+			<link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
+			<link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
+			<link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
+			<link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
+			<link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
+			<link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
+			<link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
+			<link rel="icon" sizes="128x128" href="assets/images/icon.png">
 
-    #main-mobile-nav{
-      z-index: 2
-    }
+			<!-- ===== Google Fonts ===== -->
+			<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+				<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+				<link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+				
 
-    .header{
-      background: trasnparent !important;
-    }
+			<!-- ===== CSS links ===== -->
+			<%= stylesheet_link_tag 'application', media: 'all' %>
+			<%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+			<%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
+			<%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
+			<%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
+			<%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+			<%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+			<%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+			<%= stylesheet_link_tag 'style', media: 'all' %>
+			<%= stylesheet_link_tag 'responsive', media: 'all' %>
+		</head>
 
-    .overlay-gradient .slotholder:after,
-    .overlay-gradient:after {
-      opacity:1.0 !important;
-    }  
+		<style>
 
-    a:visited {
-      color: #fff; }
+			.mm-slideout{
+				z-index: 99;
+			}
 
-    .overlay-gradient .slotholder:after,
-    .overlay-gradient:after,
-    .blog-post .blog-thumb a:before,
-    ul.blog-posts-widget .blog-content .blog-thumb a:before,
-    .celebrity-list-1 .celebrity-image a:before,
-    .celebrity-grid-1 .celebrity-image a:before,
-    .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
-    .movie-box-1 .poster:before,
-    .movie-detail-intro2 .movie-poster:before {
-        background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
-        background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
-        background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
-        background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
-    }
+			#main-mobile-nav{
+				z-index: 2
+			}
 
-  </style>
+			.header{
+				background: trasnparent !important;
+			}
 
-  <body class="bg-light">
-    
-    <nav id="main-mobile-nav"></nav>
-    <%= render '/layouts/member_navbar' %>
-    <%= yield %>
+			.overlay-gradient .slotholder:after,
+			.overlay-gradient:after {
+				opacity:0.6 !important;
+			}
 
-    <section class="page-header overlay-gradient">
-      <div class="container">
-          <div class="inner py-4">
-              <h2 class="title pb-1"><%= @serie.name %></h2>
-              <ol class="breadcrumb">
-                  <li><%=link_to "Home", admin_root_path, class:"text-white" %></li>
-                  <li><%= @serie.name %></li>
-              </ol>
-          </div>
-      </div>
-    </section>
+			a:visited {
+				color: #fff; }
 
-    <br/><br/><br/>
+			.overlay-gradient .slotholder:after,
+			.overlay-gradient:after,
+			.blog-post .blog-thumb a:before,
+			ul.blog-posts-widget .blog-content .blog-thumb a:before,
+			.celebrity-list-1 .celebrity-image a:before,
+			.celebrity-grid-1 .celebrity-image a:before,
+			.bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
+			.movie-box-1 .poster:before,
+			.movie-detail-intro2 .movie-poster:before {
+					background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
+					background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+					background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+					background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+			}
+		</style>
 
 
-    <div class="d-flex justify-content-end">
-      <div id="video" class="btn btn-f-green text-white mr-2">
-        Vídeos
-      </div>
+		<body>
+			<nav id="main-mobile-nav"></nav>
+			<%= render '/layouts/member_navbar' %>
+			<%= yield %>
+			
+			<!-- =============== START OF MOVIE DETAIL INTRO =============== -->
+			<% if @serie.banner_image.attached? %>      
+				<section  class="movie-detail-intro overlay-gradient ptb100" style="height:650px; background-image: url(<%= rails_blob_url(@serie.banner_image) %>);">
+				</section>
+			<% else %>
+				<section  class="movie-detail-intro overlay-gradient ptb100" style="height:650px;">
+				</section>
+			<% end %>	
+			<!-- =============== END OF MOVIE DETAIL INTRO =============== -->
 
-      <div id="post" class="btn btn-f-green text-white mr-4">
-        Posts
-      </div>
-    </div>  
 
-    <br/><br/><br/>
 
-    <div class="videos-row" style="margin:0 5%">
-      <%cont = 0%>
-      <% @videos.each do |post| %>
-        <%cont += 1%>
-        <div class="col-md-12 col-sm-12 var-item">
-          <div class="movie-list-1 mb30">
-              <div class="listing-container">
+			<!-- =============== START OF MOVIE DETAIL INTRO 2 =============== -->
+			<section class="movie-detail-intro2">
+					<div class="container">
+							<div class="row">
+									<div class="col-md-12">
 
-                  <!-- Movie List Image -->
-                  <div class="listing-image">
-                    <%if post.poster_image.attached?%>
-                      <%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
-                    <%end%>
+											<div class="movie-poster">
+                        <%if @serie.poster_image.attached?%>
+                          <%= image_tag @serie.poster_image.variant(gravity:'Center',resize:"300x444^"  , crop: '300x444+0+0')%>
+                        <%end%>
+											</div>
 
-                      <!-- Play Button -->
-                      <div class="play-btn">
-                          <a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
-                            <i class="fas fa-play"></i>
-                          </a>
-                      </div>
 
-                      <!-- Buttons -->
-                      <div class="buttons">
-                          <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom">
-                              <i class="fas fa-heart"></i>
-                          </a>
+											<div class="movie-details">
+													<h3 class="title mb-4"><%= @serie.name %></h3>
 
-                          <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom">
-                            <i class="fas fa-share-alt"></i>
-                          </a>
-                      </div>
+													<!--<ul class="movie-subtext">
+															<li>PG-13</li>
+															<li>2h 32min</li>
+															<li>Action, Adventure, Fantasy</li>
+															<li>15 December 2017 (USA)</li>
+													</ul>-->
 
-                      <!-- Rating -->
-                      <div class="stars">
-                          <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                          <div class="rating"></div>
+													<a href="#" class="btn btn-main btn-effect">trailer</a>
+													<a href="#" class="btn btn-main btn-effect">watch later</a>
+													<a href="#" class="btn rate-movie"><i class="far fa-heart"></i></a>
 
-                          <%if post.rating.class == String%>
-                            <div class="d-inline-flex">
-                              <h6 class="fas fa-star text-warning mr-2"></h6>
-                              <h6 class="text-white"><%=post.rating%></h6>
-                            </div>  
-                          <%end%>
-                      </div>
+											</div>
 
-                      <!-- Image -->
-                      <img src="" alt="">
-                  </div>
+											<div class="clearfix"></div>
 
-                  <!-- Movie List Content -->
-                  <div class="listing-content">
-                      <div class="inner">
-                          <h2 class="title"><%= post.name %></h2>
+									</div>
+							</div>
+					</div>
+			</section>
+			<!-- =============== End OF MOVIE DETAIL INTRO 2 =============== -->
 
-                          <p><%=post.description%></p>
 
-                          <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                              Detlhes
-                          <%end%>
-                      </div>
-                  </div>
+			<!-- =============== START OF MOVIE DETAIL MAIN SECTION =============== -->
+			<section class="movie-detail-main ptb100">
+				<div class="container">
+					<div class="row">
+						<!-- Start of Movie Main -->
+						<div class="col-lg-8 col-sm-12">
+							<div class="inner pr50">
 
-              </div>
-          </div>
-        </div>
-      <%end%>
-    </div>
+								<!-- Storyline -->
+								<div class="storyline">
+									<h3 class="title d-inline-flex">
+                    Descrição
+                    <span type="button" id="description-button" class="bg-transparent border-0 fas fa-sort-down fa-xs ml-2 pt-1"></span>
+                  </h3>  
 
-    <div class="paginate-container videos-row">
-      <nav>
-        <ul class="paginate d-flex justify-content-center">
-          <% i = 1 %>
-          <% while (i <= (cont.to_f/2).ceil) %>
-            <button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
-            <%i += 1%>
-          <%end%>
-        </ul>
-      </nav>
-    </div>
+									<p id="serie_description"><%= @serie.description %></p>
+								</div>
+							</div>
+						</div>
 
-    
-    <main class="ptb100 posts-row">
-      <div class="container">
-        <div class="row">
-          <!-- Movie List Item -->
-          <%cont = 0%>
-          <%@posts.each do |post|%>
-            <%cont += 1%>
-            <div class="col-lg-4 col-md-6 col-sm-12 var-item-2">
-              <div class="movie-box-3 mb30">
-                <div class="listing-container">
+						<div id="details-section" class="col-lg-4 col-sm-12">
+							<div class="sidebar shadow">
 
-                  <!-- Movie List Image -->
-                  <div class="listing-image">
-                    <%if post.poster_image.attached?%>
-                      <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
-                    <%end%>
-                  </div>
+								<!-- Start of Details Widget -->
+								<aside class="widget widget-movie-details">
+									<h3 class="title">Detalhes</h3>
 
-                  <!-- Movie List Content -->
-                  <div class="listing-content border-top">
-                    <div class="inner">
+									<ul>
+										<li style="font-size: 1rem">
+											<span class="far fa-calendar-alt text-info mr-2 mb-3"></span>
+											<strong>Data de Lançamento: </strong><%=@serie.created_at.strftime("%d/%m/%Y")%>
+										</li>
 
-                      <!-- Play Button -->
-                      <div class="play-btn">
-                        <a class="play-video" href="<%=post.link%>">
-                          <i class="fas fa-link"></i>
-                        </a>
-                      </div>
+										<li style="font-size: 1rem">
+											<span class="far fa-calendar-plus text-success mr-2 mb-3"></span>
+											<strong>Última Atualização: </strong><%=@serie.updated_at.strftime("%d/%m/%Y")%>
+										</li>
 
-                      <h2 class="title"><%=post.name%></h2>
+										<% if @serie.owner_id.nil?%>
+											<li style="font-size: 1rem">
+												<span class="fas fa-user-cog text-f-orange mr-2 mb-3"></span>
+												<strong>Criador: </strong>FEJECE
+											</li>
+										<%else%>
+											<li style="font-size: 1rem">
+												<span class="fas fa-user-cog text-f-orange mr-2 mb-3"></span>
+												<strong>Criador: </strong><%= @ejs.find{|ej| ej.id == @post.owner_id}.name %>
+											</li>
+										<%end%>
 
-                      <!-- Rating -->
-                      <div class="stars">
-                        <%#byebug%>
-                        <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                        <div class="rating"></div>
+									</ul>
+								</aside>
+								<!-- End of Details Widget -->
 
-                        <%if post.rating.class == String%>
-                          <div class="d-inline-flex">
-                            <h6 class="fas fa-star text-warning mr-2"></h6>
-                            <h6 class="text-secondary"><%=post.rating%></h6>
-                          </div>  
-                        <%end%> 
-
-                        <span class="category"><%=post.post_category%></span>
-
-                      </div>
-
-                      <p><%=post.description%></p>
-
-                      <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                          Detlhes
-                      <%end%>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
+							</div>
             </div>
-          <%end%>
-        </div>
-      </div>
-    </main>
+					</div>
+				</div>
+			</section>
+			<!-- =============== END OF MOVIE DETAIL MAIN SECTION =============== -->
 
-    <div class="paginate-container posts-row">
-      <nav>
-        <ul class="paginate d-flex justify-content-center">
-          <% i = 1 %>
-          <% while (i <= (cont.to_f/2).ceil) %>
-            <button class="paginate-item-2 page-link d-inline" value="<%= i%>"><%=i%></button>
-            <%i += 1%>
-          <%end%>
-        </ul>
-      </nav>
-    </div>
-    
-      
 
-    <br/><br/><br/><br />
 
-    <br/><br/>
+			<!-- =============== START OF RECOMMENDED MOVIES SECTION =============== -->
+			<section class="recommended-movies bg-light ptb100">
+					<div class="container">
 
-    <%= render '/layouts/member_footer' %>
+							<!-- Start of row -->
+							<div class="row">
+									<div class="col-md-8 col-sm-12">
+											<h2 class="title">Pessoas também gostaram de...</h2>
+									</div>
+							</div>
+							<!-- End of row -->
 
-    
-    <%= javascript_include_tag 'serie', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
-  </body>  
+
+							<!-- Start of Latest Movies Slider -->
+							<div class="owl-carousel recommended-slider mt20 owl-loaded owl-drag">
+								<!-- === Start of Sliding Item 1 === -->
+
+                <%counter = 0%>
+								<% @series.each do |serie|%>
+										<%if counter < 10 %>
+											<div class="item">
+												<!-- Start of Movie Box -->
+												<div class="movie-box-1">
+
+														<!-- Start of Poster -->
+														<div class="poster">
+																<%if serie.poster_image.attached?%>
+																	<%= image_tag serie.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+																<%end%>
+														</div>
+														<!-- End of Poster -->
+
+														<!-- Start of Movie Details -->
+														<div class="movie-details">
+																<h4 class="movie-title">
+																	<%= link_to  current_user_serie_path(serie.id) do%>
+																		<%= serie.name %>
+																	<%end%>
+																</h4>
+																<span class="released"><%= serie.created_at.strftime("%d/%m/%Y") %></span>
+														</div>
+														<!-- End of Movie Details -->
+
+												</div>
+											</div>
+
+											<%counter += 1%>
+
+										<%end%>		  
+								<%end%>
+								<!-- === End of Sliding Item 1 === --> 
+								
+							<!-- End of Latest Movies Slider -->
+
+					</div>
+			</section>
+			<!-- =============== END OF RECOMMENDED MOVIES SECTION =============== -->
+
+			<%= render '/layouts/member_footer' %>
+
+			<!-- =============== JAVASCRIPT FILES =============== -->
+			<%= javascript_include_tag 'serie' %>
+			<%= javascript_include_tag 'pagination_evaluation' %>
+			<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+
+		</body>
+	</html> 

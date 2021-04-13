@@ -51,4 +51,46 @@ function setting_events(){
         $("#video").addClass("btn-f-green");
 
     })
+
+    $("#description-button").on("click", function(){
+        
+        if ($("#details-section").is(":visible")){
+            $("#details-section")
+                .css('opacity', 1)
+                .animate(
+                    { opacity: 0 },
+                    { duration: 'slow' }
+                )
+                .delay(400)
+                .hide('slow');     
+        }else{
+            $("#details-section")
+                .css('opacity', 0)
+                .slideDown('slow')
+                .delay(400)
+                .animate(
+                    { opacity: 1 },
+                    { duration: 'slow' }
+                );
+        }
+
+        if ($("#serie_description").is(":visible")){
+            $("#serie_description")
+                .css('opacity', 1)
+                .animate(
+                    { opacity: 0 },
+                    { duration: 'slow' }
+                )
+                .delay(400)
+                .hide('slow');
+        }else{
+            $("#serie_description")
+                .css('opacity', 0)
+                .slideDown('slow')
+                .animate(
+                    { opacity: 1 },
+                    { duration: 'slow' }
+                );
+        }
+    })
 }    
