@@ -96,21 +96,8 @@
 	<nav id="main-mobile-nav"></nav>
 	<%= render '/layouts/member_navbar' %>
 	<%= yield %>
-	 <div id="notice" class="notification success-msg">
-		<div class="toast-header succes">
-						
-		</div>
-	</div>
-			
-			
-	<div id="notice" class="notification error-msg">
-		<div class="toast-header err ">
-						
-		</div>
-	</div>
 	
-	<section class="page-header overlay-gradient" style="
-    z-index: 0;">
+	<section class="page-header overlay-gradient" style="z-index: 0;">
 		<div class="container">
 				<div class="inner py-4">
 						<h2 class="title pb-1">Meus Vídeos</h2>
@@ -125,176 +112,93 @@
 	<br/><br/><br/>
 
 	<div class="container p-0">
-		<div class="row">
-			<div class="col d-flex justify-content-start">
-				<div id="new_video" class="btn btn-f-green text-white">
-					Novo Vídeo
-				</div>
 
-				<div id="new_serie" class="btn btn-f-green text-white">
-					Nova Série
-				</div>
-			</div>
-
-			<div class="col d-flex justify-content-end">
-				
-				
-					
-
-				<div id="video" class="btn btn-f-green text-white">
-					Meus Vídeos
-				</div>
-
-				<div id="series" class="btn btn-f-green text-white">
-					Minhas Séries
-				</div>
-			</div>
-		</div>	
+		<div class="d-flex justify-content-end">
+            <div id="new_video" class="btn btn-f-green text-white mx-3">
+            	Novo Vídeo
+            </div>
+        </div>	
 
 		<br/><br/><br/>
 
 		<div class="videos-row">
-			<%cont = 0%>
-			<% @videos.each do |post| %>
-				<%cont += 1%>
-				<div class="col-md-12 col-sm-12 var-item p-0" value="<%=cont%>">
-					<div class="movie-list-1 mb30">
-							<div class="listing-container">
-
-									<!-- Movie List Image -->
-									<div class="listing-image">
-										<%if post.poster_image.attached?%>
-											<%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
-										<%end%>
-
-											<!-- Play Button -->
-											<div class="play-btn">
-													<a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
-														<i class="fas fa-play"></i>
-													</a>
-											</div>
-
-											<!-- Buttons -->
-											<div class="buttons">
-												<li class="tooltips edit_video d-inline-flex bg-transparent mr-3" type="button" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
-													<i class="fas fa-pencil-alt"></i>
-												</li>
-
-												<li class="tooltips delete_video d-inline-flex bg-transparent" type="button" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
-													<i class="fas fa-trash-alt"></i>
-												</li>
-											</div>
-
-											<!-- Rating -->
-											<div class="stars">
-													<input class="rating-input" type="hidden" value="<%=post.rating%>" />
-													<div class="rating"></div>
-
-													<%if post.rating.class == String%>
-														<div class="d-inline-flex">
-															<h6 class="fas fa-star text-warning mr-2"></h6>
-															<h6 class="text-white"><%=post.rating%></h6>
-														</div>
-													<%end%>
-											</div>
-
-											<!-- Image -->
-											<img src="" alt="">
-									</div>
-
-									<!-- Movie List Content -->
-									<div class="listing-content">
-											<div class="inner">
-													<h2 class="title"><%= post.name %></h2>
-
-													<p><%=post.description%></p>
-
-													<%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
-															Detalhes
-													<%end%>
-											</div>
-									</div>
-
-							</div>
-					</div>
-				</div>
-			<%end%>
-		</div>
-
-		<div class="paginate-container videos-row">
-			<nav>
-				<ul class="paginate d-flex justify-content-center">
-					<% i = 1 %>
-					<% while (i <= (cont.to_f/2).ceil) %>
-						<button class="paginate-item page-link d-inline" value="<%= i%>"><%=i%></button>
-						<%i += 1%>
-					<%end%>
-				</ul>
-			</nav>
-		</div>
-
-
-		<table id="my_channel_series" class="container series-row mx-auto p-0 border-0", data-page-length='2'>
-			
-			<thead>
-				<tr>
-					<th class="border-0"></th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<% @series.each do |serie| %>
+			<table class="row border-0" id="my_channel_videos" data-page-length='3'>
+				<thead>
 					<tr>
-						<th class="border-0">
-							<div class="col-md-12 col-sm-12 p-0">
-								<div class="watch-later-item">
-									<div class="listing-container">
+						<th class="border-0"></th>
+					</tr>
+				</thead>
 
-										<!-- Movie List Image -->
-										<div class="listing-image">
-											<%if serie.poster_image.attached?%>
-												<%= image_tag serie.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
-											<%end%>
-										</div>
+				<tbody>
+					<% @videos.each do |post| %>
+						<tr class="col-12 d-flex justify-content-center">
+                        	<th class="col-12 border-0 p-0">
+								<div class="col-md-12 col-sm-12 p-0">
+									<div class="movie-list-1 mb30">
+										<div class="listing-container">
+											<!-- Movie List Image -->
+											<div class="listing-image">
+												<%if post.poster_image.attached?%>
+													<%= image_tag post.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+												<%end%>
 
-										<!-- Movie List Content -->
-										<div class="listing-content">
-											<div class="inner">
-												<h3 class="title" style="color: #000;"><%= serie.name %></h3>
-
-												<% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
-												<p style="color: #3d4555;"><%= serie.description %></p>
-
-												<div class="row">
-													<div class="col">
-														<%= link_to current_user_serie_path(serie.id), class: 'btn btn-main btn-effect' do%>
-															Assistir
-														<% end %>
-													</div>	
-
-													<div class="col d-flex justify-content-end">
-														<div class="tooltips nav-link btn btn-primary mr-2" title="Editar" data-placement="bottom" style="width:50px;">
-															<i class="fas fa-pencil-alt"></i>
-														</div>
-
-														<div class="tooltips nav-link btn btn-danger" title="Deletar" data-placement="bottom" style="width:50px;">
-															<i class="fas fa-trash-alt"></i>
-														</div>
+													<!-- Play Button -->
+													<div class="play-btn">
+															<a href="https://www.youtube.com/watch?v=<%= post.link %>" class="play-video">
+																<i class="fas fa-play"></i>
+															</a>
 													</div>
-												</div>	
-												
+
+													<!-- Buttons -->
+													<div class="buttons">
+														<li class="tooltips edit_video d-inline-flex bg-transparent mr-3" type="button" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
+															<i class="fas fa-pencil-alt"></i>
+														</li>
+
+														<li class="tooltips delete_video d-inline-flex bg-transparent" type="button" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
+															<i class="fas fa-trash-alt"></i>
+														</li>
+													</div>
+
+													<!-- Rating -->
+													<div class="stars">
+															<input class="rating-input" type="hidden" value="<%=post.rating%>" />
+															<div class="rating"></div>
+
+															<%if post.rating.class == String%>
+																<div class="d-inline-flex">
+																	<h6 class="fas fa-star text-warning mr-2"></h6>
+																	<h6 class="text-white"><%=post.rating%></h6>
+																</div>
+															<%end%>
+													</div>
+
+													<!-- Image -->
+													<img src="" alt="">
+											</div>
+
+											<!-- Movie List Content -->
+											<div class="listing-content">
+													<div class="inner">
+															<h2 class="title"><%= post.name %></h2>
+
+															<p><%=post.description%></p>
+
+															<%= link_to  admin_post_path(post.id), class: "btn btn-main btn-effect" do%>
+																	Detalhes
+															<%end%>
+													</div>
 											</div>
 										</div>
-
 									</div>
-								</div>
-							</div>
-						</th>
-					</tr>		
-				<% end %>
-					
-			</tbody>		
-		</table>
+								</th>
+							</tr>		
+						</div>
+					<%end%>
+				</tbody>	
+			</table>	
+		</div>
+
 
 		<div id="form-fields">
 			<div class="row justify-content-center">
@@ -346,43 +250,7 @@
 												</div>
 											</div>
 
-											<div class="form-row serie-field">
-												<div class="form-group col-md-12">
-													<%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
-												</div>
-											</div>
-
-											<div class="form-row serie-field">
-												<div class="form-group col-md-12">
-													<p class="text-muted d-block mb-2">Poster da série</p>
-													<%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"serie_poster_image", accept:"image/jpg, image/png, image/jpeg"%>
-												</div>
-											</div>
-
-											<div class="form-row serie-field">
-												<div class="form-group col-md-12">
-													<p class="text-muted d-block mb-2">Banner da série</p>
-													<%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"serie_banner_image", accept:"image/jpg, image/png, image/jpeg" %>
-												</div>
-											</div>
-
-											<div class="form-row serie-field">
-												<div class="form-group col-md-12">
-													<%= select_tag :tv_series_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
-												</div>
-											</div>
-
-											<div class="form-row serie-field">
-												<div class="form-group col-md-12">
-													<%= text_area_tag :serie_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
-												</div>
-											</div>
-
 											<div id="create_new_video" class="btn btn-f-green text-white">
-												Criar
-											</div>
-
-											<div id="create_new_serie" class="btn btn-f-green text-white">
 												Criar
 											</div>
 

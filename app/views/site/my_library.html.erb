@@ -120,33 +120,7 @@
       <nav id="main-mobile-nav"></nav>
       <%= render '/layouts/member_navbar' %>
       <%= yield %>
-      <div id="notice" class="notification success-msg">
-			  <div class="toast-header succes">
-						
-			  </div>
-		  </div>
-			
-			
-		  <div id="notice" class="notification error-msg">
-			  <div class="toast-header err ">
-						
-			  </div>
-		  </div>
 
-      <!-- <%if notice.nil? == false %>
-        <div id="notice" class="notification">
-          <div class="toast-header succes">          
-            <%= notice%>
-          </div>
-        </div>
-      <% end %>
-      <%if alert.nil? == false%>
-        <div id="notice" class="notification">
-          <div class="toast-header err ">          
-            <%= alert%>
-          </div>
-        </div>
-      <% end %> -->
 
       <div class="m-0">
         <section class="page-header overlay-gradient" style="z-index: 0;">
@@ -162,107 +136,109 @@
         </section>
 
         <br />
-        <div class="d-flex justify-content-end mx-4">
-          <div id="new_post" class="btn btn-f-green text-white mx-3">
-            Novo Post
+        <br />
+        <br />
+        
+        <div class="container p-0">
+          <div class="d-flex justify-content-end">
+            <div id="new_post" class="btn btn-f-green text-white mx-3">
+              Novo Post
+            </div>
           </div>
-          <div id="my_posts" class="btn btn-f-green text-white mx-3">
-            Meus Posts
-          </div>
-        </div>
 
-        <main  class="ptb50">
-          <div class="container">
-            <table class="row border-0" id="my_library_posts" data-page-length='3'>
-              <thead>
-                <tr>
-                  <th class="border-0"></th>
-                </tr>
-              </thead>
+          <main class="ptb50">
+            <div class="container">
+              <table class="row border-0" id="my_library_posts" data-page-length='3'>
+                <thead>
+                  <tr>
+                    <th class="border-0"></th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <!-- Movie List Item -->
-                <% @posts.each do |post| %>
-                  <div class="row">
-                    <tr class="col-12 col-md-6 col-xl-4 float-left d-flex justify-content-center">
-                        <th class="border-0 p-0">
-                          <div class="movie-box-3 mb30">
-                            <div class="listing-container">
+                <tbody>
+                  <!-- Movie List Item -->
+                  <% @posts.each do |post| %>
+                    <div class="row">
+                      <tr class="col-12 col-md-6 col-xl-4 float-left d-flex justify-content-center">
+                          <th class="border-0 p-0">
+                            <div class="movie-box-3 mb30">
+                              <div class="listing-container">
 
-                              <!-- Movie List Image -->
-                              <div class="listing-image">
-                                <%if post.poster_image.attached?%>
-                                  <%= image_tag post.poster_image.variant(gravity:'Center',resize:"100x150^"  , crop: '100x150+0+0')%>
-                                <%end%>
-                              </div>
-
-                              <!-- Movie List Content -->
-                              <div class="listing-content border-top">
-                                <div class="inner">
-
-                                  <!-- Play Button -->
-                                  <div class="play-btn">
-                                    <a class="play-video" href="<%=post.link%>" id="<%= post.id %>">
-                                      <i class="fas fa-link"></i>
-                                    </a>
-                                  </div>
-                                  
-
-                                  <h2 class="title"><%=post.name%></h2>
-
-                                  <!-- Start of Rating -->
-                                  <div class="stars">
-                                    <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                                    <div class="rating"></div>
-                    
-                                    <% if post.rating == -1 %>
-                                      <div class="d-inline-flex">
-                                        <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
-                                        <h6 style="font-size:12px;" class="text-dark">Não há avaliações</h6>
-                                      </div>
-                                    <%else%>
-                                      <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
-                                    <%end%>	
-
-                                    <!-- End of Rating --> 
-
-                                    <% aux =  @post_categories.where(post_id: post.id)%>
-                                    <span class="category text-dark pt-1"><strong><%=collect_categories_ids(aux)%></strong></span>
-
-                                  </div>
-
-                                  <p class="mt-1"><%=post.description%></p>
-
-                                  <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                                      Detalhes
+                                <!-- Movie List Image -->
+                                <div class="listing-image">
+                                  <%if post.poster_image.attached?%>
+                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"100x150^"  , crop: '100x150+0+0')%>
                                   <%end%>
-                                  <div class="buttons" style="display: inline-flex; margin-left: 8rem;">
-                                    <li class="tooltips edit_post mr-3" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
-                                      <i class="fas fa-pencil-alt"></i>
-                                    </li>
+                                </div>
 
-                                    <li href="" class="tooltips delete_post" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
-                                      <i class="fas fa-trash-alt"></i>
-                                    </li>
+                                <!-- Movie List Content -->
+                                <div class="listing-content border-top">
+                                  <div class="inner">
+
+                                    <!-- Play Button -->
+                                    <div class="play-btn">
+                                      <a class="play-video" href="<%=post.link%>" id="<%= post.id %>">
+                                        <i class="fas fa-link"></i>
+                                      </a>
+                                    </div>
+                                    
+
+                                    <h2 class="title"><%=post.name%></h2>
+
+                                    <!-- Start of Rating -->
+                                    <div class="stars">
+                                      <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                      <div class="rating"></div>
+                      
+                                      <% if post.rating == -1 %>
+                                        <div class="d-inline-flex">
+                                          <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
+                                          <h6 style="font-size:12px;" class="text-dark">Não há avaliações</h6>
+                                        </div>
+                                      <%else%>
+                                        <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                      <%end%>	
+
+                                      <!-- End of Rating --> 
+
+                                      <% aux =  @post_categories.where(post_id: post.id)%>
+                                      <span class="category text-dark pt-1"><strong><%=collect_categories_ids(aux)%></strong></span>
+
+                                    </div>
+
+                                    <p class="mt-1"><%=post.description%></p>
+
+                                    <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                        Detalhes
+                                    <%end%>
+                                    <div class="buttons" style="display: inline-flex; margin-left: 8rem;">
+                                      <li class="tooltips edit_post mr-3" value="<%=post.id%>" title="Editar" data-placement="bottom" style="list-style:none">
+                                        <i class="fas fa-pencil-alt"></i>
+                                      </li>
+
+                                      <li href="" class="tooltips delete_post" value="<%=post.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
+                                        <i class="fas fa-trash-alt"></i>
+                                      </li>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </th>
+                          </th>
 
-                    </tr>
-                  </div>  
-                <%end%>
-                
-              </tbody>  
-            </table>
-          </div>
-        </main>    
+                      </tr>
+                    </div>  
+                  <%end%>
+                  
+                </tbody>  
+              </table>
+            </div>
+          </main>
+        </div>      
 
 
         <div id="full-content" style="margin: 0 5%;" class="ptb50">
-          <div class="row">
+          <div class="row d-flex justify-content-center">
             <div class="col-lg-8">
               <div class="card card-small mb-4">
                 <div class="card-header border-bottom bg-f-green">

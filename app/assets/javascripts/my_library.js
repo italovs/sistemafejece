@@ -34,9 +34,20 @@ function setting_events(){
 			$("#posts-row").hide();
 		}
 		$("#full-content").toggle();
+		$("main").toggle();
+
+		if ($("main").is(":visible")){
+            $(this).text("Novo Post");
+        }
+        else{
+            $(this).text("Meus Posts");
+        }
 	})
 
 	$("#create_new_post").on("click", function(){
+		$(".success-msg").hide();
+		$(".error-msg").hide();
+
 		if( valid_value( $("#post_link").val() ) && valid_value( $("#post_category").val() ) && valid_value($("#post_name").val()) && valid_value($("#post_description").val()) ){
 			var formData = new FormData();
 			formData.append('name',$("#post_name").val())
@@ -51,11 +62,17 @@ function setting_events(){
 				type: 'POST',
 				contentType:false,
 				processData:false
-			}).done(function(){
-				page_reload()
-			}).fail(function(){
+			}).done(function(data){
+				//page_reload();
+				$(".success-msg").show();
+				$(".succes").html(data[0]["msg"]);
+			}).fail(function(data){
 				//ERRO DE REQUISIÇÃO
-			})
+				//page_reload();
+				console.log(data)
+				$(".error-msg").show();
+				$(".err").html(data[0]["msg"]);
+			});
 			
 			// $.post( '/new_post' ,
 			// {

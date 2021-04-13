@@ -23,101 +23,14 @@ $(function(){
 function page_load(){
 	hide_fields();
 	setting_events()
-	if( $("#tv_series  option").length > 1 ){
-		$("#tv_series").trigger('change')
-	}
-	starting_from_videos();
-	initial_create_table();
-	pagination();
 }
 
 function page_reload(){
 	hide_fields();
-	starting_from_videos();
-	initial_create_table();
-}
-
-var table = "#mytable";
-$("#maxRows").on('change', pagination)
-
-function pagination(){
-	$('.pagination').html('')
-	var trnum = 0;
-	var maxRows = parseInt($('#maxRows').val());
-	var totalRows = $(table+'  tbody tr').length
-
-	$(table+' tr:gt(0)').each(function(){
-		trnum++;
-		if(trnum > maxRows){
-			$(this).hide();
-		}
-		if (trnum <= maxRows){
-			$(this).show();
-		}
-	})
-
-	if(totalRows > maxRows){
-		var pagenum = Math.ceil(totalRows/maxRows)
-		for(var i=1; i<=pagenum; ){
-			$('.pagination').append('<li data-page="'+i+'" class="page-item">\<a class="page-link">' + i++ +'<a class="sr-only">(current)</a></a>\</li>').show();
-		}
-	}
-	$('.pagination li:first-child').addClass('active')
-	$('.pagination li').on('click', function(){
-		var pageNum = $(this).attr('data-page');
-		var trIndex = 0;
-		$('.pagination li').removeClass('active')
-		$(this).addClass('active')
-		$(table+' tr:gt(0)').each(function(){
-			trIndex++;
-			if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
-				$(this).hide();
-			}else{
-				$(this).show();
-			}
-		})
-	})
-}
-
-$(function(){
-	$('table tr:eq(0)').prepend('<th>ID</th>')
-	var id = 0;
-	$('table tr:gt(0)').each(function(){
-		id++
-		$(this).prepend('<td>'+id+'</td>')
-	})
-})
-
-function starting_from_videos(){
-	$(".videos-row").show();
-	$(".series-row").hide();
-	$("#video").hide();
-	$("#series").show();
-	$("#new_video").show;
-	$("#new_serie").hide();
-}
-
-function initial_create_table(){
-	$(".form-row").hide();
-	$("#create_new_video").hide();
-	$("#create_new_serie").hide();
 }
 
 function hide_fields(){
 	$("#form-fields").hide();
-	$(".video-field").hide();
-	$(".serie-field").hide();
-	$("#youtube_link").hide();
-	$("#serie_name").hide();
-	$("#create_new_serie").hide();
-	$("#create_new_video").hide();
-	$("#tv_series").hide();
-	$("#season").hide();
-	$("#tv_series_category").hide();
-	$("#youtube_name").hide();
-	$("#youtube_description").hide();
-	$("#my_series").hide();
-	$("#full-content").hide();
 	$(".success-msg").hide();
 	$(".error-msg").hide();
 }
@@ -140,12 +53,6 @@ function setting_events(){
 			})
 		} else {
 			alert("Há campos em branco")
-		}
-	})
-
-	$("#series").on("click", function(){
-		if( $("#my_series").is(":visible") ){
-			//COMPLETAR
 		}
 	})
 
@@ -218,6 +125,9 @@ function setting_events(){
 	})
 
 	$(".delete_video").on("click",function(){
+		$(".success-msg").hide();
+		$(".error-msg").hide();
+		
 		var post_id = $(this).val()
 		var confirmation = confirm("Tem certeza que quer deletar essa publicação?")
 
@@ -274,72 +184,6 @@ function setting_events(){
 		}
 	})	
 
-
-	$("#new_serie").on("click", function(){
-		if(!$("#serie_name").is(":visible")){
-			hide_fields()
-		}
-
-		$("#form-fields").toggle();
-		$("#main_title").text("Nova Série");
-		$(".serie-field").show();
-		$("#serie_name").show();
-		$("#create_new_serie").show();
-		$(".videos-row").hide();
-		$(".video-field").hide();
-		$(".series-row").toggle();
-	})
-
-	$("#create_new_serie").on("click", function(){
-		$(".success-msg").hide();
-		$(".error-msg").hide();
-
-		if( valid_value($("#serie_name").val()) && valid_value($("#tv_series_category").val()) && valid_value($("#serie_description").val())){
-			var formData = new FormData();
-				formData.append('serie_name', $("#serie_name").val())
-				formData.append('serie_description', $("#serie_description").val())
-				formData.append('categories', $("#tv_series_category").val())
-				$("#serie_poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#serie_poster_image").prop('files')[0]) : null
-				$("#serie_banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#serie_banner_image").prop('files')[0]) : null
-			$.ajax({
-				url: '/new_serie',
-				data: formData,
-				type: 'POST',
-				contentType: false,
-				processData: false
-			}).done(function(data){
-				//page_reload();
-				$(".success-msg").show();
-				$(".succes").html(data[0]["msg"]);
-			}).fail(function(data){
-				//ERRO DE REQUISIÇÃO
-				//page_reload();
-				console.log(data)
-				$(".error-msg").show();
-				$(".err").html(data[0]["msg"]);
-			});
-
-		}else {
-			alert("Há campos em branco")
-		}
-	})
-
-	$("#tv_series").on("change", function(){
-		if(valid_value($("#tv_series").val())){
-			$.post( '/serie_seasons' ,
-			{
-				serie: $("#tv_series").val()
-			},
-			function(data, status){
-				if(status == "success" && (data[0]["seasons"].length > 0) ){
-					refill_select_box( "#season", data[0]["seasons"] )
-				} else {
-					//ERRO DE REQUISIÇÃO
-				}
-			})
-		}
-	})
-
 	$("#create_new_video").on("click", function(){
 		$(".success-msg").hide();
 		$(".error-msg").hide();
@@ -352,8 +196,8 @@ function setting_events(){
 				formData.append('video_link', link)
 				formData.append('description', $("#youtube_description").val())
 				formData.append('categories', $("#category").val())
-				$("#poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#poster_image").prop('files')[0]) : null
-				$("#banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#banner_image").prop('files')[0]) : null
+				formData.append('poster_image',$("#poster_image").prop('files')[0])
+				formData.append('banner_image',$("#banner_image").prop('files')[0])
 				$.ajax({
 					url: '/new_video',
 					data: formData,
@@ -365,33 +209,16 @@ function setting_events(){
 					$(".success-msg").show();
 					$(".succes").html(data[0]["msg"]);
 					console.log(data)
-				}).fail(function(){
+				}).fail(function(data){
 					//ERRO DE REQUISIÇÃO
 					//page_reload();
 					$(".error-msg").show();
 					$(".err").html(data[0]["msg"]);
 				});
 			}
+		} else {
+			alert("Há campos em branco")
 		}
-	})
-
-	$("#series").on("click", function(){
-		hide_fields();
-		$.post( '/my_series' ,
-		{
-		},
-		function(data, status){
-			if(status == "success" ){
-				if(!data[0].hasOwnProperty("msg")){
-					$("#my_series").show()
-					insert_card_areas(data)
-				} else {
-					//erro
-				}
-			} else {
-				//ERRO DE REQUISIÇÃO
-			}
-		})
 	})
 
 	$("#videos").on("click", function(){
@@ -414,27 +241,7 @@ function setting_events(){
 		})
 	})
 
-	$("#video").on("click", function(){
-		$(".videos-row").show();
-		$(".series-row").hide();
-		$("#form-fields").hide();
-		$("#video").hide();
-		$("#series").show();
-		$("#new_serie").hide();
-		$("#new_video").show();
-	})
-
-	$("#series").on("click", function(){
-		$(".videos-row").hide();
-		$(".series-row").show();
-		$("#form-fields").hide();
-		$("#series").hide();
-		$("#video").show();
-		$("#new_serie").show();
-		$("#new_video").hide();
-	})
-
-	$("#my_channel_series").DataTable({
+	$("#my_channel_videos").DataTable({
 		paging: true,
 		ordering: false,
 		language:{
@@ -467,62 +274,6 @@ function search_for_video( category_id, owner_id, season_id, serie_id, name ){
 	})
 }
 
-function search_for_post( category_id, owner_id, name ){
-	$.post( '/search_for_post' ,
-	{
-		category_id: category_id,
-		owner_id: owner_id,
-		name: name
-	},
-	function(data, status){
-		if(status == "success" ){
-			if(!data[0].hasOwnProperty("msg")){
-				console.log(data)
-			} else {
-				//erro
-				console.log(data[0]["msg"])
-			}
-		} else {
-			//ERRO DE REQUISIÇÃO
-		}
-	})
-}
-
-function my_series_by_category( category_id ){
-	$.post( '/my_series_by_category' ,
-	{
-		category_id: category_id
-	},
-	function(data, status){
-		if(status == "success" ){
-			if(!data[0].hasOwnProperty("msg")){
-				console.log(data)
-			} else {
-				//erro
-			}
-		} else {
-			//ERRO DE REQUISIÇÃO
-		}
-	})
-}
-
-function my_seasons_by_serie( serie_id ){
-	$.post( '/my_seasons_by_serie' ,
-	{
-		serie_id: serie_id
-	},
-	function(data, status){
-		if(status == "success" ){
-			if(!data[0].hasOwnProperty("msg")){
-				console.log(data)
-			} else {
-				//erro
-			}
-		} else {
-			//ERRO DE REQUISIÇÃO
-		}
-	})
-}
 // FIM JS DE TESTE
 
 //JS em uso

@@ -4,6 +4,8 @@ class Member < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable
   attribute :name, :string, default: ''
 
+  before_destroy :delete_images
+
   belongs_to :junior_enterprise
   has_one_attached :profile_picture do |attachable|
     attachable.variant(combine_options: {gravity: 'Center', crop: '100x100+0+0'})
@@ -18,4 +20,8 @@ class Member < ApplicationRecord
     Coordenador: 2,
     Diretor: 3
   }
+
+  def delete_images
+    profile_picture.purge
+  end
 end
