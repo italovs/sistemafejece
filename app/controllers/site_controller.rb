@@ -213,14 +213,14 @@ class SiteController < ApplicationController
     user_tv_series
     @serie_categories = TvSerieCategory.all
     @categories = Category.all.select(:id, :name)
-    series_and_videos
+    series_and_posts
     direction_notification
   end
 
   def my_trails
     @categories = Category.all.select(:id, :name)
     @serie_categories = TvSerieCategory.all
-    series_and_videos
+    series_and_posts
     direction_notification
   end
 
@@ -348,9 +348,9 @@ class SiteController < ApplicationController
       categories.each do |category|
         PostCategory.create(post_id: post.id, category_id: category.to_i)
       end
-      series_and_videos
+  
       flash[:notice] = 'Vídeo criado com sucesso'
-      render json: [msg: 'Sucesso: Vídeo criado', series: @series, videos: @videos]
+      render json: [msg: 'Sucesso: Vídeo criado']
     else
       flash[:alert] = 'Erro: Falha ao criar vídeo, tente novamente.'
       render json: [msg: 'Erro: Falha ao criar vídeo']
@@ -629,7 +629,7 @@ class SiteController < ApplicationController
       categories.each do |category|
         PostCategory.create(post_id: file_post.id, category_id: category.to_i)
       end
-	  series_and_videos
+	
       flash[:notice] = 'Sucesso: post criado'
       render json: [msg: 'Sucesso: post criado']
     else
@@ -697,7 +697,7 @@ class SiteController < ApplicationController
     end
 
     render json: [post_id: @post.id,
-                  post_image: @post.poster_image,
+                  post_image: url_for(@post.poster_image),
                   banner_image: @post.banner_image,
                   post_name: @post.name,
                   post_description: @post.description,
@@ -979,24 +979,24 @@ class SiteController < ApplicationController
     end
   end
 
-  def series_and_videos(kind = nil)
+  def series_and_posts(kind = nil)
     if member_signed_in?
       @series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
       if kind.nil?
-        @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id)
+        @all_posts = Post.all.where(owner_id: current_logged_user.junior_enterprise_id)
+      elsif kind == 0
+        @posts = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
       elsif kind == 1
         @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
-      elsif kind == 2
-        @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 2)
       end
     else
       @series = TvSerie.all.where(owner_id: nil)
       if kind.nil?
-        @videos = Post.all.where(owner_id: nil)
+        @all_posts = Post.all.where(owner_id: nil)
+      elsif kind == 0
+        @posts = Post.all.where(owner_id: nil, kind: 0)
       elsif kind == 1
         @videos = Post.all.where(owner_id: nil, kind: 1)
-      elsif kind == 2
-        @videos = Post.all.where(owner_id: nil, kind: 2)
       end
     end
   end

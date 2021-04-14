@@ -224,10 +224,8 @@
 											</div>
 											
 											<div class="form-row serie-field">
-												<div class="form-group col-md-12">
-													<div id="seasons">
-														
-													</div>
+												<div id="seasons" class="form-group col-md-12">
+													<%= select_tag :seasons_post, options_from_collection_for_select(@all_posts,'id','name','post_image'), {class: 'select_field custom-select form-control selectize mb-3', style: "height:100%; display:grid;", multiple: true} %>
 												</div>	
 											</div>	
 
@@ -266,6 +264,14 @@
 	<br/><br/><br/><br />
 	<br/><br/>
 	<%= render '/layouts/member_footer' %>
+
+	<input id="aux-input" type="hidden" value="" />
+
+	<script>
+		aux = ('<%=@all_posts%>');
+		$("#aux-input").val(aux);
+
+	</script>
 
 	<%= javascript_include_tag 'essencials', 'data-turbolinks-track': 'reload'%>
 	<%= javascript_include_tag 'assets/datatables.min.js', 'data-turbolinks-track': 'reload', :defer=>"defer" %>

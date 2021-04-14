@@ -1,7 +1,7 @@
 //= require jquery
 //= require selectize
 //$(document).on("turbolinks:load",function(){
-	var $select = $(".selectize").selectize({
+	var $select = $("#tv_series_category").selectize({
 		plugins: ['remove_button'],
 		persist: false,
 		maxItems: null,
@@ -9,6 +9,50 @@
 		searchField: 'name'
 	});
 	var selectize = $select[0].selectize;
+
+	var $select_posts = $("#seasons_post").selectize({
+		plugins: ['remove_button'],
+		persist: false,
+		maxItems: null,
+		valueField: 'id',
+		searchField: 'text',
+		render: {	
+			item: function(item, escape) {
+				var poster_image ;
+				formData = new FormData;
+				formData.append('id',item.id);
+				$.ajax({
+					url: '/post_information',
+					data: formData,
+					type: 'POST',
+					contentType: false,
+					processData: false
+				}).done(function(data){
+					console.log(data[0]['post_image']);
+					poster_image = data[0]['post_image']
+				})
+				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
+			},
+			option: function(item, escape) {
+				var poster_image ;
+				formData = new FormData;
+				formData.append('id',item.id);
+				$.ajax({
+					url: '/post_information',
+					data: formData,
+					type: 'POST',
+					contentType: false,
+					processData: false
+				}).done(function(data){
+					console.log(data[0]['post_image']);
+					poster_image = data[0]['post_image']
+				})
+				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
+			}
+		}	
+	});
+	var selectize_posts = $select_posts[0].selectize;
+
 
 $.ajaxSetup({
     headers: {
@@ -38,6 +82,8 @@ function hide_fields(){
 }
 
 function setting_events(){
+	$(".selectize-input").eq(1).css("display", "grid");
+
 	$("#series").on("click", function(){
 		if( $("#my_series").is(":visible") ){
 			//COMPLETAR
@@ -222,10 +268,7 @@ function setting_events(){
 		}
 	})
 
-    $("#new_season").on("click", function(){
-        $("#seasons").append('<input class="pb-1 mr-1 mb-3" placeholder="Nome da temporada" />');
-        $("#seasons").append('<button type="button" class="btn btn-f-green text-white mr-4" data-toggle="modal" data-target="#episodesModal"> + Episódios</button>');
-    })
+
 }
 
 // JS DE TESTE
