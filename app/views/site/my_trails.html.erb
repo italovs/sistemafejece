@@ -162,13 +162,13 @@
 													</div>	
 
 													<div class="col d-flex justify-content-end">
-														<div class="tooltips nav-link btn btn-primary mr-2 edit_serie" data-value="<%=serie.id%>" title="Editar" data-placement="bottom" style="width:50px;">
+														<li class="tooltips nav-link btn btn-primary mr-2 edit_serie" type="button" value="<%=serie.id%>" title="Editar" data-placement="bottom" style="width:50px;">
 															<i class="fas fa-pencil-alt"></i>
-														</div>
+														</li>
 
-														<div class="tooltips nav-link btn btn-danger delete_serie" data-value="<%=serie.id%>" title="Deletar" data-placement="bottom" style="width:50px;">
+														<li class="tooltips nav-link btn btn-danger delete_serie" type="button" value="<%=serie.id%>" title="Deletar" data-placement="bottom" style="width:50px;">
 															<i class="fas fa-trash-alt"></i>
-														</div>
+														</li>
 													</div>
 												</div>	
 												
@@ -190,7 +190,7 @@
 				<div class="col-lg-8">
 					<div class="card card-small mb-4">
 						<div class="card-header border-bottom bg-f-green">
-							<h6 id="main_title" class="m-0 text-white">Detalhes do Perfil</h6>
+							<h6 id="main_title" class="m-0 text-white">Nova Série</h6>
 						</div>
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item p-3">
@@ -242,11 +242,14 @@
 													<%= text_area_tag :serie_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
 												</div>
 											</div>
+
 											<div id="create_new_serie" class="btn btn-f-green text-white">
 												Criar
 											</div>
+
 											<input id="update_input" type="hidden" value="" />
-											<div id="update_video" class="btn btn-f-green text-white">
+
+											<div id="update_serie" class="btn btn-f-green text-white">
 												Atualizar
 											</div>
 										</form>

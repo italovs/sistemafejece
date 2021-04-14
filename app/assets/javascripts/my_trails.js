@@ -60,7 +60,45 @@ function setting_events(){
         }
 	})
 
-    $(".edit_serie").on('click')
+    $(".edit_serie").on("click", function(){
+		if(!$("#serie_name").is(":visible")){
+			hide_fields()
+		}
+
+		$("#form-fields").show();
+		$("#series_list_wrapper").hide();
+        $("#new_serie").text("Minhas Séries");
+		$("#main_title").text("Editar Série");
+
+		var tv_serie_id = $(this).val();
+		$("#update_input").val(tv_serie_id);
+		var tv_serie_information;
+
+		$.post('/serie_information', 
+		{
+			id: tv_serie_id
+		},function(data, status){
+			if(status == "success"){
+				tv_serie_information = data[0]
+				$('#serie_name').val(tv_serie_information["tv_serie_name"]);
+				$('#serie_description').val(tv_serie_information["tv_serie_description"]);
+				
+				selectize.clear()
+				categories = tv_serie_information["tv_serie_categories"]
+				
+				for (var i = 0 ; i < categories.length; i++)
+				{
+					selectize.addItem(categories[i]["id"]);
+				}
+				
+			} else {
+				//ERRO DE REQUISIÇÃO
+			}
+			
+		});
+
+
+	})
 
     $(".delete_serie").on("click", function(){
         var serie_id = $(this).data('value')
@@ -103,6 +141,42 @@ function setting_events(){
 				$("#serie_banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#serie_banner_image").prop('files')[0]) : null
 			$.ajax({
 				url: '/new_serie',
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				processData: false
+			}).done(function(data){
+				//page_reload();
+				$(".success-msg").show();
+				$(".succes").html(data[0]["msg"]);
+			}).fail(function(data){
+				//ERRO DE REQUISIÇÃO
+				//page_reload();
+				console.log(data)
+				$(".error-msg").show();
+				$(".err").html(data[0]["msg"]);
+			});
+
+		}else {
+			alert("Há campos em branco")
+		}
+	})
+
+	$("#update_serie").on("click", function(){
+		$(".success-msg").hide();
+		$(".error-msg").hide();
+
+		if( valid_value($("#serie_name").val()) && valid_value($("#tv_series_category").val()) && valid_value($("#serie_description").val())){
+				var formData = new FormData();
+				console.log("entrou===============")
+				formData.append('tv_serie_id', $('#update_input').val())
+				formData.append('name', $("#serie_name").val())
+				formData.append('description', $("#serie_description").val())
+				formData.append('categories', $("#tv_series_category").val())
+				$("#serie_poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#serie_poster_image").prop('files')[0]) : null
+				$("#serie_banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#serie_banner_image").prop('files')[0]) : null
+			$.ajax({
+				url: '/update_serie',
 				data: formData,
 				type: 'POST',
 				contentType: false,

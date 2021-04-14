@@ -253,6 +253,57 @@ class SiteController < ApplicationController
     end
   end
 
+  def update_serie
+    # params de entrada: name, description, tv_serie_id
+    tv_serie = TvSerie.find_by(id: params[:tv_serie_id])
+    if tv_serie.nil?
+      # id invalida ou tipo invalido
+      render json: [msg: 'Erro: Nenhum resultado encontrado']
+    elsif !tv_serie.nil?
+      if !verify_onwership(tv_serie)
+        # post de outro dono
+        render json: [msg: 'Erro: Erro ao encontrar o post']
+      else
+        tv_serie.name = params[:name] unless params[:name].nil?
+        tv_serie.description = params[:description] unless params[:description].nil?
+
+        if params[:banner_image].present?
+          tv_serie.banner_image.purge
+          tv_serie.banner_image.attach(params[:banner_image])
+        end
+
+        if params[:poster_image].present?
+          tv_serie.poster_image.purge
+          tv_serie.poster_image.attach(params[:poster_image])
+        end
+
+        tv_series_categories = TvSerieCategory.where(tv_serie_id: tv_serie.id)
+        tv_series_categories.each do |tv_serie_category|
+          tv_serie_category.destroy
+        end
+
+        categories = params[:categories].split(',')
+
+        categories.each do |category|
+          TvSerieCategory.create(
+            tv_serie_id: tv_serie.id,
+            category_id: category.to_i
+          )
+        end
+
+        if tv_serie.save
+          # sucesso
+          flash[:notice] = 'Sucesso: Post foi atualizado'
+          render json: [msg: 'Sucesso: Post foi atualizado', tv_serie: tv_serie]
+        else
+          # falha
+          flash[:alert] = 'Erro: Falha ao atualizad o post'
+          render json: [msg: 'Erro: Falha ao atualizad o post']
+        end
+      end
+    end
+  end
+
   def delete_tv_serie
     tv_serie = TvSerie.find(params[:id])
     if tv_serie.nil?
@@ -661,6 +712,25 @@ class SiteController < ApplicationController
 	@series = TvSerie.all
 
     direction_notification
+  end
+
+  def serie_information
+    @serie = TvSerie.find(params[:id])
+
+    tv_serie_categories = TvSerieCategory.where(tv_serie_id: @serie.id)
+
+    categories = []
+
+    tv_serie_categories.each do |tv_serie_category|
+      categories << tv_serie_category.category
+    end
+
+    render json: [tv_serie_id: @serie.id,
+                  poster_image: @serie.poster_image,
+                  banner_image: @serie.banner_image,
+                  tv_serie_name: @serie.name,
+                  tv_serie_description: @serie.description,
+                  tv_serie_categories: categories]
   end
 
   # requer id do post e nota

@@ -51,8 +51,10 @@ Rails.application.routes.draw do
       post '/new_post', to: 'site#new_post', as: 'admin_new_post'
       get '/post/:id', to: 'site#post', as: 'admin_post'
       post '/post_information', to: 'site#post_information', as: 'admin_post_information'
+      post '/serie_information', to: 'site#serie_information', as: 'admin_serie_information'
       post '/delete_post', to: 'site#delete_post', as: 'admin_delete_post'
       post '/delete_serie', to: 'site#delete_tv_serie', as: 'admin_delete_serie'
+      post '/update_serie', to: 'site#update_serie', as: 'admin_update_serie'
       post '/update_post', to: 'site#update_post', as: 'admin_update_post'
 
       get '/my_library', to: 'site#my_library', as: 'admin_my_library'
@@ -93,9 +95,11 @@ Rails.application.routes.draw do
           post '/new_post', to: 'site#new_post', as: 'validated_new_post'
           get '/post/:id', to: 'site#post', as: 'member_post'
           post '/post_information', to: 'site#post_information', as: 'member_post_information'
+          post '/serie_information', to: 'site#serie_information', as: 'member_serie_information'
           post '/update_post', to: 'site#update_post', as: 'validated_update_post'
           post '/delete_post', to: 'site#delete_post', as: 'validated_delete_post'
           post '/delete_serie', to: 'site#delete_tv_serie', as: 'validated_delete_serie'
+          post '/update_serie', to: 'site#update_serie', as: 'validated_update_serie'
           post '/new_vote', to: 'site#new_vote', as: 'member_new_vote'
           get '/serie/:id', to: 'site#serie', as: 'member_serie'
 
