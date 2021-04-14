@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_182241) do
+ActiveRecord::Schema.define(version: 2021_04_14_090450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,10 @@ ActiveRecord::Schema.define(version: 2021_04_11_182241) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "about"
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -77,6 +81,10 @@ ActiveRecord::Schema.define(version: 2021_04_11_182241) do
     t.integer "position"
     t.boolean "validated"
     t.string "name"
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -112,15 +120,16 @@ ActiveRecord::Schema.define(version: 2021_04_11_182241) do
     t.bigint "season_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order", null: false
     t.index ["post_id"], name: "index_season_posts_on_post_id"
     t.index ["season_id"], name: "index_season_posts_on_season_id"
   end
 
   create_table "seasons", force: :cascade do |t|
-    t.string "name"
     t.bigint "tv_serie_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order", null: false
     t.index ["tv_serie_id"], name: "index_seasons_on_tv_serie_id"
   end
 

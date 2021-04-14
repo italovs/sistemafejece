@@ -326,6 +326,7 @@ class SiteController < ApplicationController
       render json: [msg: 'Erro: Série inválida']
     end
   end
+  
 
   def new_video
     post = Post.new(
@@ -521,26 +522,20 @@ class SiteController < ApplicationController
   # deve passar via ajax parametro da id da serie
   def my_posts_by_season
     if params[:season_id].present?
-      season = Season.where(id: params[:serie_id]).first
-      posts = Season.where(id: params[:serie_id]).first.posts
-      if (posts.count == 1 && posts.count.positive?) &&
-         (admin_signed_in? && season.tv_serie.owner_id.nil?) ||
-         (member_signed_in? && season.tv_serie.owner_id == current_member.id)
-        array_posts = []
-        posts.each do |post|
-          array_posts << post.id
-        end
-
-        if hash_seasons.blank?
+      @season = Season.find(params[:season_id].to_i)
+      @posts = SeasonPost.where(season_id: params[:season_id].to_i)
+      if (@posts.length == 1 && @posts.length.positive?) &&
+         (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
+         (member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
+        if @posts.blank?
           render json: [msg: 'Você ainda não possui Vídeos nessa Temporada']
         else # nenhuma serie
-          render json: array_posts
+          render json: [posts: @posts]
         end
       else
         render json: [msg: 'Temporada inválida para você']
       end
     else
-      flash[:alert] = 'Temporada inválida'
       render json: [msg: 'Temporada inválida']
     end
   end
@@ -724,13 +719,18 @@ class SiteController < ApplicationController
     tv_serie_categories.each do |tv_serie_category|
       categories << tv_serie_category.category
     end
+    @first_season = @serie.seasons.where(order: 1)
+    @posts_from_first_season = SeasonPost.where(season_id: @first_season[0].id)
 
     render json: [tv_serie_id: @serie.id,
                   poster_image: @serie.poster_image,
                   banner_image: @serie.banner_image,
                   tv_serie_name: @serie.name,
                   tv_serie_description: @serie.description,
-                  tv_serie_categories: categories]
+                  tv_serie_categories: categories,
+                  tv_serie_seasons: @serie.seasons,
+                  first_season_posts: @posts_from_first_season
+                ]
   end
 
   # requer id do post e nota

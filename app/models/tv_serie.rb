@@ -1,3 +1,4 @@
+require 'open-uri'
 class TvSerie < ApplicationRecord
   has_many :seasons, dependent: :destroy
 
@@ -16,7 +17,7 @@ class TvSerie < ApplicationRecord
 
   # métodos
   def create_first_season
-    Season.create(name: 'Primeira Temporada', tv_serie_id: id)
+    Season.create(order: 1, tv_serie_id: id)
   end
 
   def default_images
