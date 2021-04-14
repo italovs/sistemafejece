@@ -22,6 +22,7 @@
 				formData = new FormData;
 				formData.append('id',item.id);
 				$.ajax({
+					async: false,
 					url: '/post_information',
 					data: formData,
 					type: 'POST',
@@ -38,13 +39,13 @@
 				formData = new FormData;
 				formData.append('id',item.id);
 				$.ajax({
+					async:false,
 					url: '/post_information',
 					data: formData,
 					type: 'POST',
 					contentType: false,
 					processData: false
 				}).done(function(data){
-					console.log(data[0]['post_image']);
 					poster_image = data[0]['post_image']
 				})
 				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
@@ -400,4 +401,9 @@ function insert_card_areas(data){
     }
 	}
 	$("#my_series").html(html)
+}
+
+function passing_variable(data){
+	var image = data[0]['post_image']
+	return image;
 }
