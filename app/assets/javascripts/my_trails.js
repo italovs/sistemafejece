@@ -18,7 +18,7 @@
 		searchField: 'text',
 		render: {	
 			item: function(item, escape) {
-				var poster_image ;
+				var poster_image;
 				formData = new FormData;
 				formData.append('id',item.id);
 				$.ajax({
@@ -28,10 +28,12 @@
 					contentType: false,
 					processData: false
 				}).done(function(data){
-					console.log(data[0]['post_image']);
+					//console.log(data[0]['post_image']);
 					poster_image = data[0]['post_image']
+					console.log(String(poster_image));
+					return '<div><img src="' + data[0]['post_image'] + '" style="width:30px;" data-value='+ item.id +' />&nbsp;' + item.text + '</div>';
 				})
-				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
+				
 			},
 			option: function(item, escape) {
 				var poster_image ;
@@ -44,10 +46,10 @@
 					contentType: false,
 					processData: false
 				}).done(function(data){
-					console.log(data[0]['post_image']);
+					//console.log(data[0]['post_image']);
 					poster_image = data[0]['post_image']
+					return '<div><img src="' + data[0]['post_image'] + '" style="width:30px;" data-value='+ item.id +' />&nbsp;' + item.text + '</div>';
 				})
-				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
 			}
 		}	
 	});
