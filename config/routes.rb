@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get '/my_trails', to: 'site#my_trails', as: 'admin_my_trails'
       post '/new_serie', to: 'site#new_serie', as: 'admin_new_serie'
       post '/serie_seasons', to: 'site#serie_seasons', as: 'admin_serie_seasons'
+      post '/season', to: 'site#my_posts_by_season', as: 'admin_season'
       post '/new_video', to: 'site#new_video', as: 'admin_new_video'
       get '/video/:id', to: 'site#video', as: 'admin_video'
       post '/my_series', to: 'site#my_series', as: 'admin_my_series'
@@ -64,6 +65,11 @@ Rails.application.routes.draw do
       get '/serie/:id', to: 'site#serie', as: 'admin_serie'
 
       post '/update_views', to: 'site#view_counter_update', as: 'admin_view_counter_update'
+      get '/all_content', to: 'site#all_content', as: 'admin_all_content'
+      get '/all_videos', to: 'site#all_videos', as: 'admin_all_videos'
+      get '/all_posts', to: 'site#all_posts', as: 'admin_all_posts'
+      get '/all_series', to: 'site#all_series', as: 'admin_all_series'
+      
     end
 
     unauthenticated :admin do
@@ -83,6 +89,7 @@ Rails.application.routes.draw do
           get '/my_trails', to: 'site#my_trails', as: 'validated_my_trails'
           post '/new_serie', to: 'site#new_serie', as: 'validated_new_serie'
           post '/serie_seasons', to: 'site#serie_seasons', as: 'validated_serie_seasons'
+          post '/season', to: 'site#my_posts_by_season', as: 'member_season'
           post '/new_video', to: 'site#new_video', as: 'validated_new_video'
           post '/my_series', to: 'site#my_series', as: 'validated_my_series'
           post '/my_videos', to: 'site#my_videos', as: 'validated_my_videos' # candidato a ser removido
@@ -104,6 +111,11 @@ Rails.application.routes.draw do
           get '/serie/:id', to: 'site#serie', as: 'member_serie'
 
           post '/update_views', to: 'site#view_counter_update', as: 'member_view_counter_update'
+
+          get '/all_content', to: 'site#all_content', as: 'member_all_content'
+          get '/all_videos', to: 'site#all_videos', as: 'member_all_videos'
+          get '/all_posts', to: 'site#all_posts', as: 'member_all_posts'
+          get '/all_series', to: 'site#all_series', as: 'member_all_series'
         end
 
         unauthenticated :member do

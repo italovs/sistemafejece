@@ -27,21 +27,10 @@ ejs = [
 ]
 
 Rails.logger.debug "#{acoes.sample} EJs..."
+
 ejs.each do |ej|
   JuniorEnterprise.create(name: ej)
 end
-Rails.logger.debug "#{acoes.sample} Membros..."
-
-file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
-
-member = Member.create(
-  email: 'member@gti.com',
-  password: '123123',
-  junior_enterprise_id: 1,
-  validated: true
-)
-member.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
-ejs = Set.new(2..10)
 
 case Rails.env
 when 'development'
@@ -50,73 +39,12 @@ when 'development'
                        password: 'voagti')
   admin.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-  4.times do |i|
-    ej_id = ejs.to_a.sample
-    ejs = ejs.delete(ej_id)
-    member = Member.create(
-      name: "membro#{i + 2}",
-      email: "quero_ser_diretor_#{i}@gti.com",
-      password: '123123',
-      junior_enterprise_id: ej_id,
-      validated: nil
-    )
-    file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
-    member.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
-  end
-
 when 'production'
   file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
   admin = Admin.create(email: 'admin@gti.com',
                        password: 'voagti')
   admin.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-  4.times do |i|
-    ej_id = ejs.to_a.sample
-    ejs = ejs.delete(ej_id)
-    member = Member.create(
-      name: "membro#{i + 2}",
-      email: "quero_ser_diretor_#{i}@gti.com",
-      password: '123123',
-      junior_enterprise_id: ej_id,
-      validated: nil
-    )
-    file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
-    member.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
-  end
-end
-member = Member.create(
-  email: 'member@gti.com',
-  password: '123123',
-  junior_enterprise_id: 1,
-  validated: nil
-)
-file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
-member.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
-ejs = Set.new(2..10)
-
-# 5 membros que desejam ser diretores
-4.times do |i|
-  ej_id = ejs.to_a.sample
-  ejs = ejs.delete(ej_id)
-  member = Member.create(
-    name: "membro#{i + 2}",
-    email: "quero_ser_diretor_#{i}@gti.com",
-    password: '123123',
-    junior_enterprise_id: ej_id,
-
-    # fieldpicture: File.new(Rails.root.join('app', 'assets', 'images', 'user.png'), 'r'),
-
-    validated: nil
-  )
-  file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
-  member.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
-end
-
-# 5 diretores de EJ
-5.times do |i|
-  ej_id = ejs.to_a.sample
-  ejs = ejs.delete(ej_id)
-  Member.create(name: "membro#{i + 6}", email: "diretor_#{i}@gti.com", password: '123123', junior_enterprise_id: ej_id, validated: true)
 end
 
 Rails.logger.debug "#{acoes.sample} Categorias..."
