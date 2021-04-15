@@ -28,7 +28,10 @@ class SiteController < ApplicationController
   end
 
   def all_videos
-    @videos = Post.all.where(kind: 1)
+    @ejs = JuniorEnterprise.all  
+    @q = Post.where(kind: 1).ransack(params[:q])
+    @videos = @q.result(distinct: true)
+
     direction_notification
   end
 
