@@ -89,3 +89,7 @@ ul.blog-posts-widget .blog-content .blog-thumb a:before,
     border-radius: 5px;
     font-weight: bold;
 }
+.selectize-control.multi .selectize-input > div.active{
+    background: #018c77;
+    color: #fff
+}

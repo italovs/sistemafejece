@@ -253,6 +253,17 @@ class SiteController < ApplicationController
     end
   end
 
+  def update_season(season_and_posts_hash)
+    season_and_posts_hash.each do |season, posts_ids|
+      SeasonPost.where(season_id: season.to_i).destroy_all
+
+      posts_for_save = posts_ids.split(',')
+      (0..posts_for_save.length).each do |i|
+        SeasonPost.create(season_id: season.to_i, post_id: posts_for_save[i].to_i, order: i+1)
+      end
+    end
+  end
+
   def update_serie
     # params de entrada: name, description, tv_serie_id
     tv_serie = TvSerie.find_by(id: params[:tv_serie_id])
@@ -277,10 +288,7 @@ class SiteController < ApplicationController
           tv_serie.poster_image.attach(params[:poster_image])
         end
 
-        tv_series_categories = TvSerieCategory.where(tv_serie_id: tv_serie.id)
-        tv_series_categories.each do |tv_serie_category|
-          tv_serie_category.destroy
-        end
+        TvSerieCategory.where(tv_serie_id: tv_serie.id).destroy_all
 
         categories = params[:categories].split(',')
 
@@ -293,6 +301,8 @@ class SiteController < ApplicationController
 
         if tv_serie.save
           # sucesso
+          season_and_posts_hash = JSON.parse(params[:seasons_and_posts])
+          update_season(season_and_posts_hash)
           flash[:notice] = 'Sucesso: Post foi atualizado'
           render json: [msg: 'Sucesso: Post foi atualizado', tv_serie: tv_serie]
         else
@@ -326,7 +336,6 @@ class SiteController < ApplicationController
       render json: [msg: 'Erro: Série inválida']
     end
   end
-  
 
   def new_video
     post = Post.new(
@@ -349,7 +358,7 @@ class SiteController < ApplicationController
       categories.each do |category|
         PostCategory.create(post_id: post.id, category_id: category.to_i)
       end
-  
+
       flash[:notice] = 'Vídeo criado com sucesso'
       render json: [msg: 'Sucesso: Vídeo criado']
     else
@@ -523,13 +532,14 @@ class SiteController < ApplicationController
   def my_posts_by_season
     if params[:season_id].present?
       @season = Season.find(params[:season_id].to_i)
+      @posts = []
       @posts = SeasonPost.where(season_id: params[:season_id].to_i)
-      if (@posts.length == 1 && @posts.length.positive?) &&
-         (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
+      if (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
          (member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
-        if @posts.blank?
-          render json: [msg: 'Você ainda não possui Vídeos nessa Temporada']
+        if @posts.nil?
+          render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts]
         else # nenhuma serie
+          
           render json: [posts: @posts]
         end
       else
@@ -624,7 +634,7 @@ class SiteController < ApplicationController
       categories.each do |category|
         PostCategory.create(post_id: file_post.id, category_id: category.to_i)
       end
-	
+
       flash[:notice] = 'Sucesso: post criado'
       render json: [msg: 'Sucesso: post criado']
     else
@@ -704,7 +714,7 @@ class SiteController < ApplicationController
     @serie = TvSerie.find(params[:id])
     @videos = Post.all.where(kind: 1)
     @posts = Post.all.where(kind: 0)
-	@series = TvSerie.all
+    @series = TvSerie.all
 
     direction_notification
   end
@@ -714,23 +724,21 @@ class SiteController < ApplicationController
 
     tv_serie_categories = TvSerieCategory.where(tv_serie_id: @serie.id)
 
-    categories = []
+    @categories = []
 
     tv_serie_categories.each do |tv_serie_category|
-      categories << tv_serie_category.category
+      @categories << tv_serie_category.category
     end
     @first_season = @serie.seasons.where(order: 1)
     @posts_from_first_season = SeasonPost.where(season_id: @first_season[0].id)
-
     render json: [tv_serie_id: @serie.id,
                   poster_image: @serie.poster_image,
                   banner_image: @serie.banner_image,
                   tv_serie_name: @serie.name,
                   tv_serie_description: @serie.description,
-                  tv_serie_categories: categories,
+                  tv_serie_categories: @categories,
                   tv_serie_seasons: @serie.seasons,
-                  first_season_posts: @posts_from_first_season
-                ]
+                  first_season_posts: @posts_from_first_season]
   end
 
   # requer id do post e nota
