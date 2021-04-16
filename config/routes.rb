@@ -65,6 +65,11 @@ Rails.application.routes.draw do
       get '/serie/:id', to: 'site#serie', as: 'admin_serie'
 
       post '/update_views', to: 'site#view_counter_update', as: 'admin_view_counter_update'
+      get '/all_content', to: 'site#all_content', as: 'admin_all_content'
+      get '/all_videos', to: 'site#all_videos', as: 'admin_all_videos'
+      get '/all_posts', to: 'site#all_posts', as: 'admin_all_posts'
+      get '/all_series', to: 'site#all_series', as: 'admin_all_series'
+      
     end
 
     unauthenticated :admin do
@@ -106,6 +111,11 @@ Rails.application.routes.draw do
           get '/serie/:id', to: 'site#serie', as: 'member_serie'
 
           post '/update_views', to: 'site#view_counter_update', as: 'member_view_counter_update'
+
+          get '/all_content', to: 'site#all_content', as: 'member_all_content'
+          get '/all_videos', to: 'site#all_videos', as: 'member_all_videos'
+          get '/all_posts', to: 'site#all_posts', as: 'member_all_posts'
+          get '/all_series', to: 'site#all_series', as: 'member_all_series'
         end
 
         unauthenticated :member do

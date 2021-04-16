@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-  layout 'member', except: [:profile, :my_channel, :my_library, :my_trails, :post, :serie]
+  layout 'member', except: [:profile, :my_channel, :my_library, :my_trails, :post, :serie, :all_content, :all_videos, :all_posts, :all_series]
   include ApplicationHelper
   skip_before_action :verify_authenticity_token
   before_action :check_if_user_is_director_or_is_admin, only: [:my_channel, :my_library, :my_trails]
@@ -18,6 +18,31 @@ class SiteController < ApplicationController
     @profile = current_member
     @positions = Member.positions.map { |k, _v| [k.capitalize, k] }
     @directories = [['Membro', false], ['Diretoria', true], ['Solicitar Dirertoria', '']]
+  end
+
+  def all_content
+    @posts = Post.all
+    @series = TvSerie.all
+
+    direction_notification
+  end
+
+  def all_videos
+    @ejs = JuniorEnterprise.all  
+    @q = Post.where(kind: 1).ransack(params[:q])
+    @videos = @q.result(distinct: true)
+
+    direction_notification
+  end
+
+  def all_posts
+    @posts = Post.all.where(kind: 0)
+    direction_notification
+  end
+
+  def all_series
+    @series = TvSerie.all
+    direction_notification
   end
 
   def request_to_become_a_director
@@ -213,7 +238,12 @@ class SiteController < ApplicationController
     user_tv_series
     @serie_categories = TvSerieCategory.all
     @categories = Category.all.select(:id, :name)
-    series_and_posts
+    if user_is_admin?
+      @videos = Post.all.where(owner_id: nil, kind: 1)
+    else  
+      @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+    end  
+    
     direction_notification
   end
 

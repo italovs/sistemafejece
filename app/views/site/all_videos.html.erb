@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <!-- ===== Mobile viewport optimized ===== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+
+    <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+    <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+    <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+    <meta name="author" content="GnoDesign">
+    <meta name="turbolinks-visit-control" content="reload">
+
+    
+    <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+
+    <!-- ===== Favicon & Different size apple touch icons ===== -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-ipad-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="assets/images/apple-touch-icon-ipad-pro.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-iphone-6-plus.png">
+    <link rel="icon" sizes="192x192" href="assets/images/icon-hd.png">
+    <link rel="icon" sizes="128x128" href="assets/images/icon.png">
+
+    <!-- ===== Google Fonts ===== -->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+      
+
+    <!-- ===== CSS links ===== -->
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'bootstrap.min', media: 'all' %>
+    <%= stylesheet_link_tag 'revolution/css/settings', media: 'all' %>
+    <%= stylesheet_link_tag 'revolution/css/layers', media: 'all' %>
+    <%= stylesheet_link_tag 'revolution/css/navigation', media: 'all' %>
+    <%= stylesheet_link_tag 'magnific-popup', media: 'all' %>
+    <%= stylesheet_link_tag 'jquery.mmenu', media: 'all' %>
+    <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
+    <%= stylesheet_link_tag 'style', media: 'all' %>
+    <%= stylesheet_link_tag 'responsive', media: 'all' %>
+    <title>Meu Canal</title>
+  </head>
+
+  <style>
+    .mm-slideout{
+      z-index: 99;
+    }
+
+    #main-mobile-nav{
+      z-index: 2
+    }
+
+    .header{
+      background: trasnparent !important;
+    }
+
+    .overlay-gradient .slotholder:after,
+    .overlay-gradient:after {
+      opacity:1.0 !important;
+    }  
+
+    a:visited {
+      color: #fff; }
+
+    .overlay-gradient .slotholder:after,
+    .overlay-gradient:after,
+    .blog-post .blog-thumb a:before,
+    ul.blog-posts-widget .blog-content .blog-thumb a:before,
+    .celebrity-list-1 .celebrity-image a:before,
+    .celebrity-grid-1 .celebrity-image a:before,
+    .bloglist-post-holder .bloglist-thumb-link .bloglist-post-thumbnail:after,
+    .movie-box-1 .poster:before,
+    .movie-detail-intro2 .movie-poster:before {
+        background: -webkit-gradient(linear, left top, left bottom, from(#018c77), to(#e27321));
+        background: -webkit-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+        background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
+        background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
+    }
+
+    .movie-box-1:hover .poster::before{
+        opacity: .9;
+        /*background: #343a40;*/
+    }
+
+  </style>
+
+  <body class="bg-light">
+    
+    <nav id="main-mobile-nav"></nav>
+    <%= render '/layouts/member_navbar' %>
+    <%= yield %>
+
+    <section class="page-header overlay-gradient">
+      <div class="container">
+          <div class="inner py-4">
+              <h2 class="title pb-1">Vídeos</h2>
+              <ol class="breadcrumb">
+                  <li><%=link_to "Home", logged_root, class:"text-white" %></li>
+                  <li>Vídeos</li>
+              </ol>
+          </div>
+      </div>
+    </section>
+
+    <br/><br/><br/>
+
+
+    <div class="container">
+
+        <%= search_form_for @q, url: 'all_videos', html: { method: :get } do |f| %>
+
+            <p class="m-1">Pesquise por vídeos</p>
+            <%= f.search_field :name_cont %>
+
+            <%= f.select :owner_id_eq, options_from_collection_for_select(@ejs, "id", "name", @q.owner_id_eq) %>
+
+
+            <%= f.submit %>
+        <% end %>
+
+        <div class="row mt80">
+            <!-- === Start of Sliding Item 1 === -->
+                <% @videos.each do |post|%>    
+                    <div class="item col-3">
+                        <!-- Start of Movie Box -->
+                        <div class="movie-box-1">
+
+                            <!-- Start of Poster -->
+                            <div class="poster mb-5">
+                                <%if post.poster_image.attached?%>
+                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+                                <%end%>
+                            </div>
+                            <!-- End of Poster -->
+
+                            <!-- Start of Buttons -->
+                            <div class="buttons">
+                                <a class="play-video" href="https://www.youtube.com/watch?v=<%= post.link%>">
+                                    <i class="fas fa-play"></i>
+                                </a>
+                            </div>
+                            <!-- End of Buttons -->
+
+                            <!-- Start of Movie Details -->
+                            <div class="movie-details">
+                                <h4 class="movie-title">
+                                    <%= link_to current_user_post_path(post.id) do%>
+                                        <%= post.name %>
+                                    <%end%>    
+                                </h4>
+                                <span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>
+                            </div>
+                            <!-- End of Movie Details -->
+
+                            <!-- Start of Rating -->
+                            <div class="stars">
+                                <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                <div class="rating"></div>
+                
+                                <% if post.rating == -1 %>
+                                    <div class="d-inline-flex">
+                                        <h6 class="fas fa-star text-warning mr-2 mt-0"></h6>
+                                        <h6 class="text-white mt-0">Não há avaliações</h6>
+                                    </div>
+                                <%else%>
+                                    <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                <%end%>	
+
+                            </div>
+                            <!-- End of Rating -->
+
+                        </div>
+                        <!-- End of Movie Box -->
+                    </div>
+                <%end%>
+            <!-- === End of Sliding Item 1 === -->   
+        </div>
+    </div>    
+    
+
+    <br/><br/><br/><br />
+
+    <br/><br/>
+
+    <%= render '/layouts/member_footer' %>
+
+    
+    <%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
