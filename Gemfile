@@ -21,6 +21,7 @@ gem 'ransack'
 gem 'sass-rails', '>= 6'
 gem 'selectize-rails'
 gem 'turbolinks'
+gem 'yui-compressor'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

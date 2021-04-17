@@ -107,7 +107,7 @@ function setting_events(){
 		if(!$("#serie_name").is(":visible")){
 			hide_fields()
 		}
-
+		$("#create_new_serie").show()
 		$("#form-fields").toggle();
 		$("#series_list_wrapper").toggle();
 		$("#seasons").hide();
@@ -131,6 +131,7 @@ function setting_events(){
             $(this).text("Minhas Séries");
         }
 		$("#seasons").show();
+		$("#create_new_serie").hide()
 
 		var tv_serie_id = $(this).val();
 		$("#update_input").val(tv_serie_id);
