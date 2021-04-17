@@ -2,7 +2,6 @@
 <html class="no-js h-100" lang="pt-BR">
   <head>
     <%= render 'application/favicon' %>
-    <%= csrf_meta_tag %>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <%# TODO: colocar um título %>
@@ -34,7 +33,7 @@
       </div>
     </div>
     <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js" defer></script>
-    <%= javascript_include_tag 'application.js' %>
-    <%= javascript_include_tag 'shards-dashboards.js' %>
+    <%= javascript_include_tag 'administrative.js', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'shards-dashboards.js', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

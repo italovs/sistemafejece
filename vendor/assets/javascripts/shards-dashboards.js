@@ -28,7 +28,7 @@
             $(this).find(".dropdown-menu").first().stop(!0, !0).slideUp(t);
           }
         ),
-        $(".toggle-sidebar").click(function (t) {
+        $(".toggle-sidebar").unbind().click(function (t) {
           $(".main-sidebar").toggleClass("open");
         });
     });
