@@ -30,8 +30,8 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-  config.assets.css_compressor = :yui
-  config.assets.js_compressor = :yui
+  config.assets.css_compressor = YUI::CssCompressor.new
+  config.assets.js_compressor = YUI::JavaScriptCompressor.new
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
