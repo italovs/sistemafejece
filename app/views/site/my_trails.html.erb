@@ -15,7 +15,7 @@
 	<meta name="turbolinks-visit-control" content="reload">
 
 	<%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
-	<%= stylesheet_link_tag 'application', media: 'all' %>
+	
 
 	<!-- ===== Favicon & Different size apple touch icons ===== -->
 	<link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
@@ -241,7 +241,7 @@
 												<div class="form-row serie-field col-md-12">
 													<div id="seasons" class="form-group col-md-12">
 														<p class="text-muted d-block mb-2">Escolher as Publicações</p>
-														<%= select_tag :seasons_post, options_from_collection_for_select(@all_posts,'id','name','post_image'), {class: 'select_field custom-select form-control selectize mb-3', style: "height:100%; display:grid;", multiple: true} %>
+														<%= select_tag :seasons_post, options_from_collection_for_select(@all_posts,'id','name', 'poster_image'), {class: 'select_field custom-select form-control selectize mb-3', style: "height:100%; display:grid;", multiple: true} %>
 													</div>	
 												</div>	
 											</div>
@@ -279,11 +279,6 @@
 
 	<input id="aux-input" type="hidden" value="" />
 
-	<script>
-		aux = ('<%=@all_posts%>');
-		$("#aux-input").val(aux);
-
-	</script>
 
 	<%= javascript_include_tag 'essencials', 'data-turbolinks-track': 'reload'%>
 	<%= javascript_include_tag 'assets/datatables.min.js', 'data-turbolinks-track': 'reload', :defer=>"defer" %>

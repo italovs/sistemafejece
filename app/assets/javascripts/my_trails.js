@@ -16,6 +16,7 @@
 	var selectize = $select[0].selectize;
 
 	var $select_posts = $("#seasons_post").selectize({
+		plugins: ['remove_button'],
 		plugins: ['remove_button','drag_drop'],
 		persist: false,
 		maxItems: null,
@@ -23,7 +24,7 @@
 		searchField: 'text',
 		render: {	
 			item: function(item, escape) {
-				var poster_image;
+				var poster_image ;
 				formData = new FormData;
 				formData.append('id',item.id);
 				$.ajax({
@@ -35,10 +36,8 @@
 					processData: false
 				}).done(function(data){
 					poster_image = data[0]['post_image']
-					console.log(String(poster_image));
-					return '<div><img src="' + data[0]['post_image'] + '" style="width:30px;" data-value='+ item.id +' />&nbsp;' + item.text + '</div>';
 				})
-				
+				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
 			},
 			option: function(item, escape) {
 				var poster_image ;
@@ -53,19 +52,19 @@
 					processData: false
 				}).done(function(data){
 					poster_image = data[0]['post_image']
-					return '<div><img src="' + data[0]['post_image'] + '" style="width:30px;" data-value='+ item.id +' />&nbsp;' + item.text + '</div>';
 				})
+				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
 			}
 		},
 		onChange: function(){
 			if (flag_verify_posts_selectize_ready == true){
 				selected_season = "season"+$("#season-select").val()
 				sessionStorage.setItem(selected_season, $("#seasons_post").val())
-				console.log("teste");
 			}
 		}
 	});
 	var selectize_posts = $select_posts[0].selectize;
+
 
 
 $.ajaxSetup({
@@ -155,10 +154,11 @@ function setting_events(){
 				{
 					selectize.addItem(categories[i]["id"]);
 				}
+				
 				for (var i =0; i< posts_first_season.length; i++){
 					selectize_posts.addItem(posts_first_season[i]["post_id"]);
 				}
-
+				
 				tv_serie_information["tv_serie_seasons"].forEach(function(season){
 					var option = document.createElement("option");
 					option.setAttribute("value", season.order);
@@ -178,6 +178,9 @@ function setting_events(){
 	$("#season-select").on('mousedown',function(){ 
 		sessionStorage.setItem('previous',$("#season-select").val());
 	});
+	$("#new_season").on('click',function(){
+		
+	})
 
 	$("#season-select").on('change', function(){
 		flag_verify_posts_selectize_ready = false;
@@ -203,8 +206,6 @@ function setting_events(){
 				processData: false
 			}).done(function(data){
 				posts  = data[0]["posts"];
-				console.log(data)
-				console.log(data[0]["posts"])
 				posts_id = [];
 				for (var i = 0; i<posts.length; i++){
 					posts_id.push(posts[i]["post_id"]);
@@ -228,11 +229,11 @@ function setting_events(){
 
 
     $(".delete_serie").on("click", function(){
-        var serie_id = $(this).data('value')
-        var confirmation = confirm("Tem certeza que quer deletar essa Trilha?")
-        formData = new FormData
+        var serie_id = $(this).data('value');
+        var confirmation = confirm("Tem certeza que quer deletar essa Trilha?");
+        formData = new FormData;
 
-        formData.append('id', serie_id)
+        formData.append('id', serie_id);
         if(confirmation == true){
             $.ajax({
                 url: '/delete_serie',

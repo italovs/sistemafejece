@@ -1,5 +1,5 @@
 //= require jquery
-
+//= require turbolinks
 
 
 

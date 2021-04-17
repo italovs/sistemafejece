@@ -723,12 +723,12 @@ class SiteController < ApplicationController
   def post_information
     @post = Post.find(params[:id])
 
-    post_categories = PostCategory.where(post_id: @post.id)
+    @post_categories = PostCategory.where(post_id: @post.id)
 
-    categories = []
+    @categories = []
 
-    post_categories.each do |post_category|
-      categories << post_category.category
+    @post_categories.each do |post_category|
+      @categories << post_category.category
     end
 
     render json: [post_id: @post.id,
@@ -737,7 +737,7 @@ class SiteController < ApplicationController
                   post_name: @post.name,
                   post_description: @post.description,
                   post_link: @post.link,
-                  post_categories: categories]
+                  post_categories: @categories]
   end
 
   def serie
