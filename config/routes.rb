@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       post '/new_serie', to: 'site#new_serie', as: 'admin_new_serie'
       post '/serie_seasons', to: 'site#serie_seasons', as: 'admin_serie_seasons'
       post '/season', to: 'site#my_posts_by_season', as: 'admin_season'
+      post '/new_season', to: 'site#new_season', as: 'admin_new_season'
       post '/new_video', to: 'site#new_video', as: 'admin_new_video'
       get '/video/:id', to: 'site#video', as: 'admin_video'
       post '/my_series', to: 'site#my_series', as: 'admin_my_series'
@@ -90,6 +91,7 @@ Rails.application.routes.draw do
           post '/new_serie', to: 'site#new_serie', as: 'validated_new_serie'
           post '/serie_seasons', to: 'site#serie_seasons', as: 'validated_serie_seasons'
           post '/season', to: 'site#my_posts_by_season', as: 'member_season'
+          post '/new_season', to: 'site#new_season', as: 'validated_new_season'
           post '/new_video', to: 'site#new_video', as: 'validated_new_video'
           post '/my_series', to: 'site#my_series', as: 'validated_my_series'
           post '/my_videos', to: 'site#my_videos', as: 'validated_my_videos' # candidato a ser removido

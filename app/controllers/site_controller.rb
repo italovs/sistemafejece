@@ -283,6 +283,18 @@ class SiteController < ApplicationController
     end
   end
 
+  def new_season
+    if TvSerie.find(params[:id]).nil?
+      render json: [msg: 'a trilha atual não foi encontrada']
+    else
+      @tv_serie = params[:id]
+      @last_season = Season.where(tv_serie_id: @tv_serie).maximum('order')
+      @new_season = Season.create(tv_serie_id: @tv_serie, order: @last_season + 1)
+      render json: [msg: 'Nova temporada adicionada com sucesso', new_season_id: @new_season.id, new_season_order: @new_season.order]
+    end
+
+  end
+
   def update_season(season_and_posts_hash)
     season_and_posts_hash.each do |season, posts_ids|
       SeasonPost.where(season_id: season.to_i).destroy_all

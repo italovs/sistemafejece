@@ -180,6 +180,22 @@ function setting_events(){
 		sessionStorage.setItem('previous',$("#season-select").val());
 	});
 	$("#new_season").on('click',function(){
+		formData = new FormData
+		formData.append('id', $('#update_input').val())
+		var new_option
+		$.ajax({
+			url: '/new_season',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data) {
+			console.log(data);
+			console.log(data[0]['new_season_id']);
+			console.log(data[0]['new_season_order']);
+			$("#season-select").append(new_option = new Option(data[0]['new_season_order'] +"ª temporada", data[0]['new_season_order']));
+			$(new_option).data('value', data[0]['new_season_id']);
+		});
 		
 	})
 
@@ -206,27 +222,34 @@ function setting_events(){
 				contentType: false,
 				processData: false
 			}).done(function(data){
+				console.log(data[0]["posts"])
 				posts  = data[0]["posts"];
 				posts_id = [];
 				for (var i = 0; i<posts.length; i++){
 					posts_id.push(posts[i]["post_id"]);
 				}
 			});
+		}else{
+			posts_id = posts_id.split(',').map(function (item) {
+				return parseInt(item)
+			})
 		}
 
 		if(posts_id.length == 0){
 			selectize_posts.clear();
 		}else{
 			for (var i =0; i< posts_id.length; i++){
+				console.log(posts_id[i]);
 				selectize_posts.addItem(posts_id[i]);
 			}
 		}
+		season_to_storage = "season" + $(this).val();
+		posts = $("#seasons_post").val();
+		sessionStorage.setItem(season_to_storage,posts);
 		flag_verify_posts_selectize_ready = true;
 	})
 
-	$("#seasons_post option").on('change',function(){
-		console.log('bundão');
-	});
+	
 
 
     $(".delete_serie").on("click", function(){
