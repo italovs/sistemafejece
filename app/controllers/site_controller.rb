@@ -28,7 +28,7 @@ class SiteController < ApplicationController
   end
 
   def all_videos
-    @ejs = JuniorEnterprise.all  
+    @ejs = JuniorEnterprise.all
     @q = Post.where(kind: 1).ransack(params[:q])
     @videos = @q.result(distinct: true)
 
@@ -238,12 +238,12 @@ class SiteController < ApplicationController
     user_tv_series
     @serie_categories = TvSerieCategory.all
     @categories = Category.all.select(:id, :name)
-    if user_is_admin?
-      @videos = Post.all.where(owner_id: nil, kind: 1)
-    else  
-      @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
-    end  
-    
+    @videos = if user_is_admin?
+                Post.all.where(owner_id: nil, kind: 1)
+              else
+                Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+              end
+
     direction_notification
   end
 
@@ -292,7 +292,6 @@ class SiteController < ApplicationController
       @new_season = Season.create(tv_serie_id: @tv_serie, order: @last_season + 1)
       render json: [msg: 'Nova temporada adicionada com sucesso', new_season_id: @new_season.id, new_season_order: @new_season.order]
     end
-
   end
 
   def delete_season
@@ -310,7 +309,7 @@ class SiteController < ApplicationController
 
       posts_for_save = posts_ids.split(',')
       (0..posts_for_save.length).each do |i|
-        SeasonPost.create(season_id: season.to_i, post_id: posts_for_save[i].to_i, order: i+1)
+        SeasonPost.create(season_id: season.to_i, post_id: posts_for_save[i].to_i, order: i + 1)
       end
     end
   end
@@ -590,7 +589,7 @@ class SiteController < ApplicationController
         if @posts.nil?
           render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts]
         else # nenhuma serie
-          
+
           render json: [posts: @posts]
         end
       else
@@ -665,35 +664,6 @@ class SiteController < ApplicationController
     direction_notification
   end
 
-  def new_post
-    file_post = Post.new(
-      name: params[:name],
-      description: params[:description],
-      link: params[:link],
-      kind: Post.kinds[:post]
-    )
-    file_post.banner_image.attach(params[:banner_image]) if params[:banner_image].present?
-    file_post.poster_image.attach(params[:poster_image]) if params[:poster_image].present?
-
-    categories = params[:categories].split(',')
-    file_post.owner_id = if admin_signed_in?
-                           nil
-                         else
-                           current_member.junior_enterprise_id
-                         end
-    if file_post.save
-      categories.each do |category|
-        PostCategory.create(post_id: file_post.id, category_id: category.to_i)
-      end
-
-      flash[:notice] = 'Sucesso: post criado'
-      render json: [msg: 'Sucesso: post criado']
-    else
-      flash[:alert] = 'Erro: Falha ao criar post'
-      render json: [msg: 'Erro: Falha ao criar post']
-    end
-  end
-
   def my_posts
     categories = Category.all.pluck(:name)
     @posts = {}
@@ -731,36 +701,6 @@ class SiteController < ApplicationController
     end
   end
 
-  def post
-    @videos = Post.all.where(kind: 1)
-    @post = Post.find(params[:id])
-    @posts = Post.all
-    @ejs = JuniorEnterprise.all
-    @votes = Vote.all
-
-    direction_notification
-  end
-
-  def post_information
-    @post = Post.find(params[:id])
-
-    @post_categories = PostCategory.where(post_id: @post.id)
-
-    @categories = []
-
-    @post_categories.each do |post_category|
-      @categories << post_category.category
-    end
-
-    render json: [post_id: @post.id,
-                  post_image: url_for(@post.poster_image),
-                  banner_image: @post.banner_image,
-                  post_name: @post.name,
-                  post_description: @post.description,
-                  post_link: @post.link,
-                  post_categories: @categories]
-  end
-
   def serie
     @serie = TvSerie.find(params[:id])
     @videos = Post.all.where(kind: 1)
@@ -782,7 +722,7 @@ class SiteController < ApplicationController
     end
     @seasons = Season.where(tv_serie_id: params[:id])
     @first_season = @seasons.each do |season|
-       season if season.order == 1
+      season if season.order == 1
     end
     @posts_from_first_season = SeasonPost.where(season_id: @first_season[0].id)
     render json: [tv_serie_id: @serie.id,
@@ -895,105 +835,38 @@ class SiteController < ApplicationController
     end
   end
 
-  def update_video
-    # params de entrada: name, description, link, video_id
-    video = Post.find_by(id: params[:video_id])
-    if !video.video? || video.nil?
-      # id invalida ou tipo invalido
-      render json: [msg: 'Erro: Nenhum resultado encontrado']
-    elsif video.video? || !video.nil?
-      if !((admin_signed_in? && video.owner_id.nil?) ||
-          (member_signed_in? && (video.owner_id == current_member.id)))
-        # video de outro dono
-        render json: [msg: 'Erro: Erro ao encontrar o vídeo']
-      else
-        video.name = params[:name] unless params[:name].nil?
-        video.description = params[:description] unless params[:description].nil?
-        video.link = params[:link] unless params[:link].nil?
-        if video.save
-          # sucesso
-          flash[:notice] = 'Sucesso: Vídeo foi atualizado'
-          render json: [msg: 'Sucesso: Vídeo foi atualizado', video: video]
-        else
-          # falha
-          flash[:alert] = 'Erro: Falha ao atualizad o vídeo'
-          render json: [msg: 'Erro: Falha ao atualizad o vídeo']
-        end
-      end
-    end
-  end
-
-  def update_post
-    # params de entrada: name, description, link, post_id
-    post = Post.find_by(id: params[:post_id])
-    if post.nil?
-      # id invalida ou tipo invalido
-      render json: [msg: 'Erro: Nenhum resultado encontrado']
-    elsif !post.nil?
-      if !verify_onwership(post)
-        # post de outro dono
-        render json: [msg: 'Erro: Erro ao encontrar o post']
-      else
-        post.name = params[:name] unless params[:name].nil?
-        post.description = params[:description] unless params[:description].nil?
-        post.link = params[:link] unless params[:link].nil?
-
-        if params[:banner_image].present?
-          post.banner_image.purge
-          post.banner_image.attach(params[:banner_image])
-        end
-
-        if params[:poster_image].present?
-          post.poster_image.purge
-          post.poster_image.attach(params[:poster_image])
-        end
-
-        post_categories = PostCategory.where(post_id: post.id)
-        post_categories.each do |post_category|
-          post_category.destroy
-        end
-
-        categories = params[:categories].split(',')
-
-        categories.each do |category|
-          PostCategory.create(
-            post_id: post.id,
-            category_id: category.to_i
-          )
-        end
-
-        if post.save
-          # sucesso
-          flash[:notice] = 'Sucesso: Post foi atualizado'
-          render json: [msg: 'Sucesso: Post foi atualizado', post: post]
-        else
-          # falha
-          flash[:alert] = 'Erro: Falha ao atualizad o post'
-          render json: [msg: 'Erro: Falha ao atualizad o post']
-        end
-      end
-    end
-  end
+  # def update_video
+  #   # params de entrada: name, description, link, video_id
+  #   video = Post.find_by(id: params[:video_id])
+  #   if !video.video? || video.nil?
+  #     # id invalida ou tipo invalido
+  #     render json: [msg: 'Erro: Nenhum resultado encontrado']
+  #   elsif video.video? || !video.nil?
+  #     if !((admin_signed_in? && video.owner_id.nil?) ||
+  #         (member_signed_in? && (video.owner_id == current_member.id)))
+  #       # video de outro dono
+  #       render json: [msg: 'Erro: Erro ao encontrar o vídeo']
+  #     else
+  #       video.name = params[:name] unless params[:name].nil?
+  #       video.description = params[:description] unless params[:description].nil?
+  #       video.link = params[:link] unless params[:link].nil?
+  #       if video.save
+  #         # sucesso
+  #         flash[:notice] = 'Sucesso: Vídeo foi atualizado'
+  #         render json: [msg: 'Sucesso: Vídeo foi atualizado', video: video]
+  #       else
+  #         # falha
+  #         flash[:alert] = 'Erro: Falha ao atualizad o vídeo'
+  #         render json: [msg: 'Erro: Falha ao atualizad o vídeo']
+  #       end
+  #     end
+  #   end
+  # end
 
   def view_counter_update
     post = Post.find(params[:id])
     post.views += 1
     post.save
-  end
-
-  def delete_post
-    post = Post.find_by(id: params[:id])
-    if post.nil?
-      render json: [msg: 'Erro: Post ou Vídeo inválido']
-    else
-      if verify_onwership(post) || admin_signed_in?
-        # verificar aqui se o post está em alguma série
-        post.destroy
-        render json: [msg: 'Publicação deletada com sucesso']
-      else
-        render json: [msg: 'Erro: Você não pode excluir esse post']
-      end
-    end
   end
 
   private
@@ -1033,14 +906,6 @@ class SiteController < ApplicationController
                  end
   end
 
-  def direction_notification
-    @flag = 0
-
-    Member.all.each do |member|
-      @flag += 1 if member.validated.nil?
-    end
-  end
-
   def series_and_posts(kind = nil)
     if member_signed_in?
       @series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
@@ -1060,16 +925,6 @@ class SiteController < ApplicationController
       elsif kind == 1
         @videos = Post.all.where(owner_id: nil, kind: 1)
       end
-    end
-  end
-
-  def verify_onwership(object)
-    if admin_signed_in?
-      object.owner_id.nil?
-    elsif current_member.validated?
-      object.owner_id == current_member.junior_enterprise_id
-    else
-      false
     end
   end
 end

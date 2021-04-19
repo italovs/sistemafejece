@@ -1,9 +1,16 @@
 class Member < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable
+  devise :database_authenticatable,
+    :registerable,
+    :recoverable,
+    :rememberable,
+    :validatable,
+    :confirmable
+
   attribute :name, :string, default: ''
 
+  before_create :director
   before_destroy :delete_images
 
   belongs_to :junior_enterprise
@@ -23,5 +30,13 @@ class Member < ApplicationRecord
 
   def delete_images
     profile_picture.purge
+  end
+
+  def director
+    self.validated = if position == positions.key(3)
+                       nil
+                     else
+                       0
+                     end
   end
 end
