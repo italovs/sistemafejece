@@ -6,12 +6,10 @@ class Season < ApplicationRecord
   before_destroy :reorder_seasons
 
   def reorder_seasons
-    byebug
     unless order == Season.where(tv_serie_id: tv_serie_id).maximum('order')
       @seasons = Season.where(tv_serie_id: tv_serie_id)
       @next_seasons = []
       @seasons.each do |season|
-        byebug
         if season.order > order
           @next_seasons << season
         end
@@ -21,7 +19,6 @@ class Season < ApplicationRecord
         season.order = season.order - 1
         season.save
       end
-      byebug
     end
   end
 end
