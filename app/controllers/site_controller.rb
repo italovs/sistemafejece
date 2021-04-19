@@ -297,11 +297,9 @@ class SiteController < ApplicationController
 
   def delete_season
     season = Season.find(params[:season_id])
-    byebug
     if season.nil?
       render json: [msg: 'temporada não encontrada']
     elsif season.destroy
-      byebug
       render json: [msg: 'Temporada deletada com sucesso']
     end
   end
@@ -786,7 +784,6 @@ class SiteController < ApplicationController
     @first_season = @seasons.each do |season|
        season if season.order == 1
     end
-    byebug
     @posts_from_first_season = SeasonPost.where(season_id: @first_season[0].id)
     render json: [tv_serie_id: @serie.id,
                   poster_image: @serie.poster_image,
