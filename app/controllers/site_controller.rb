@@ -295,6 +295,17 @@ class SiteController < ApplicationController
 
   end
 
+  def delete_season
+    season = Season.find(params[:season_id])
+    byebug
+    if season.nil?
+      render json: [msg: 'temporada não encontrada']
+    elsif season.destroy
+      byebug
+      render json: [msg: 'Temporada deletada com sucesso']
+    end
+  end
+
   def update_season(season_and_posts_hash)
     season_and_posts_hash.each do |season, posts_ids|
       SeasonPost.where(season_id: season.to_i).destroy_all
@@ -771,7 +782,11 @@ class SiteController < ApplicationController
     tv_serie_categories.each do |tv_serie_category|
       @categories << tv_serie_category.category
     end
-    @first_season = @serie.seasons.where(order: 1)
+    @seasons = Season.where(tv_serie_id: params[:id])
+    @first_season = @seasons.each do |season|
+       season if season.order == 1
+    end
+    byebug
     @posts_from_first_season = SeasonPost.where(season_id: @first_season[0].id)
     render json: [tv_serie_id: @serie.id,
                   poster_image: @serie.poster_image,

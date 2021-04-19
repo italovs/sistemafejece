@@ -190,15 +190,67 @@ function setting_events(){
 			contentType: false,
 			processData: false
 		}).done(function(data) {
-			console.log(data);
-			console.log(data[0]['new_season_id']);
-			console.log(data[0]['new_season_order']);
-			$("#season-select").append(new_option = new Option(data[0]['new_season_order'] +"ª temporada", data[0]['new_season_order']));
-			$(new_option).data('value', data[0]['new_season_id']);
+
+			var option = document.createElement("option");
+			option.setAttribute("value", data[0]['new_season_order']);
+			option.setAttribute("data-value", data[0]['new_season_id']);
+			var text_option = document.createTextNode(data[0]['new_season_order'] + "ª temporada")
+			option.appendChild(text_option);
+			$("#season-select").append(option)
+			
 		});
 		
 	})
 
+	$("#delete-season").on('click', function() {
+		selected_season = $("#season-select").val();
+		var confirmation = confirm("Tem certeza que quer deletar a " + selected_season + "ª temporada?");
+		if (confirmation){
+			flag_verify_posts_selectize_ready = false;
+			formData = new FormData
+			formData.append('season_id', $("#season-select :selected").data('value'))
+
+			$.ajax({
+				url: '/delete_season',
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				processData: false
+			})
+			.done(function(data){
+				$.post('/serie_information', {
+						id: $("#update_input").val()
+					},
+					function(data, status){
+						if(status == "success"){
+							console.log(data);
+							tv_serie_information = data[0]
+							posts_first_season = tv_serie_information["first_season_posts"]
+
+							selectize_posts.clear()
+							$("#season-select").empty();
+
+							tv_serie_information["tv_serie_seasons"].forEach(function(season){
+								var option = document.createElement("option");
+								option.setAttribute("value", season.order);
+								option.setAttribute("data-value", season.id);
+								var text_option = document.createTextNode(season.order + "ª temporada")
+								option.appendChild(text_option);
+								$("#season-select").append(option)
+							});
+
+							for (var i =0; i< posts_first_season.length; i++){
+								selectize_posts.addItem(posts_first_season[i]["post_id"]);
+							}
+							sessionStorage.clear()
+						}
+					}
+				);
+
+			});
+			flag_verify_posts_selectize_ready = true;
+		}
+	});
 	$("#season-select").on('change', function(){
 		flag_verify_posts_selectize_ready = false;
 		season_before_change = sessionStorage.getItem('previous');
@@ -253,7 +305,7 @@ function setting_events(){
 
 
     $(".delete_serie").on("click", function(){
-        var serie_id = $(this).data('value');
+        var serie_id = $(this).val();
         var confirmation = confirm("Tem certeza que quer deletar essa Trilha?");
         formData = new FormData;
 
@@ -322,6 +374,7 @@ function setting_events(){
 			season = "season" + $(this).val();
 			if(sessionStorage.getItem(season) != null){
 				seasons_and_posts["" + $(this).attr('data-value')] = sessionStorage.getItem(season);
+				sessionStorage.removeItem(season);
 			}
 		})
 		

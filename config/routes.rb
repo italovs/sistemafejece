@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       post '/new_serie', to: 'site#new_serie', as: 'admin_new_serie'
       post '/serie_seasons', to: 'site#serie_seasons', as: 'admin_serie_seasons'
       post '/season', to: 'site#my_posts_by_season', as: 'admin_season'
+      post '/delete_season', to: 'site#delete_season', as: 'admin_delete_season'
       post '/new_season', to: 'site#new_season', as: 'admin_new_season'
       post '/new_video', to: 'site#new_video', as: 'admin_new_video'
       get '/video/:id', to: 'site#video', as: 'admin_video'
@@ -77,20 +78,21 @@ Rails.application.routes.draw do
       devise_scope :member do
         authenticated :member do
           root 'site#index', as: 'member_root'
-          get '/profile', to: 'site#profile', as: 'member_profile'
+          get  '/profile', to: 'site#profile', as: 'member_profile'
           post '/request_to_become_a_director', to: 'site#request_to_become_a_director', as: 'request_to_become_a_director'
           post '/change_password', to: 'site#change_password', as: 'change_member_password'
           post '/change_mail', to: 'site#change_mail', as: 'change_member_mail'
           post '/change_information', to: 'site#change_information', as: 'change_member_information'
-          get '/video/:id', to: 'site#video', as: 'member_video'
+          get  '/video/:id', to: 'site#video', as: 'member_video'
           post '/search_for_video', to: 'site#search_for_video', as: 'member_search_for_video'
           post '/search_for_post', to: 'site#search_for_post', as: 'member_search_for_post'
           # validated
-          get '/my_channel', to: 'site#my_channel', as: 'validated_my_channel'
-          get '/my_trails', to: 'site#my_trails', as: 'validated_my_trails'
+          get  '/my_channel', to: 'site#my_channel', as: 'validated_my_channel'
+          get  '/my_trails', to: 'site#my_trails', as: 'validated_my_trails'
           post '/new_serie', to: 'site#new_serie', as: 'validated_new_serie'
           post '/serie_seasons', to: 'site#serie_seasons', as: 'validated_serie_seasons'
           post '/season', to: 'site#my_posts_by_season', as: 'member_season'
+          post '/delete_season', to: 'site#delete_season', as: 'validated_delete_season'
           post '/new_season', to: 'site#new_season', as: 'validated_new_season'
           post '/new_video', to: 'site#new_video', as: 'validated_new_video'
           post '/my_series', to: 'site#my_series', as: 'validated_my_series'
@@ -99,10 +101,10 @@ Rails.application.routes.draw do
           post '/my_series_by_category', to: 'site#my_series_by_category', as: 'validated_my_series_by_category'
           post '/my_seasons_by_serie', to: 'site#my_seasons_by_serie', as: 'validated_my_seasons_by_serie'
 
-          get '/my_library', to: 'site#my_library', as: 'validated_my_library'
+          get  '/my_library', to: 'site#my_library', as: 'validated_my_library'
           post '/my_posts', to: 'site#my_posts', as: 'validated_my_posts'
           post '/new_post', to: 'site#new_post', as: 'validated_new_post'
-          get '/post/:id', to: 'site#post', as: 'member_post'
+          get  '/post/:id', to: 'site#post', as: 'member_post'
           post '/post_information', to: 'site#post_information', as: 'member_post_information'
           post '/serie_information', to: 'site#serie_information', as: 'member_serie_information'
           post '/update_post', to: 'site#update_post', as: 'validated_update_post'
@@ -110,14 +112,14 @@ Rails.application.routes.draw do
           post '/delete_serie', to: 'site#delete_tv_serie', as: 'validated_delete_serie'
           post '/update_serie', to: 'site#update_serie', as: 'validated_update_serie'
           post '/new_vote', to: 'site#new_vote', as: 'member_new_vote'
-          get '/serie/:id', to: 'site#serie', as: 'member_serie'
+          get  '/serie/:id', to: 'site#serie', as: 'member_serie'
 
           post '/update_views', to: 'site#view_counter_update', as: 'member_view_counter_update'
 
-          get '/all_content', to: 'site#all_content', as: 'member_all_content'
-          get '/all_videos', to: 'site#all_videos', as: 'member_all_videos'
-          get '/all_posts', to: 'site#all_posts', as: 'member_all_posts'
-          get '/all_series', to: 'site#all_series', as: 'member_all_series'
+          get  '/all_content', to: 'site#all_content', as: 'member_all_content'
+          get  '/all_videos', to: 'site#all_videos', as: 'member_all_videos'
+          get  '/all_posts', to: 'site#all_posts', as: 'member_all_posts'
+          get  '/all_series', to: 'site#all_series', as: 'member_all_series'
         end
 
         unauthenticated :member do
