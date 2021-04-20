@@ -54,8 +54,8 @@ function setting_events(){
 			formData.append('categories', $("#post_category").val())
 			formData.append('link',$("#post_link").val())
 			formData.append('description',$("#post_description").val())
-			formData.append('poster_image',$("#poster_image").prop('files')[0])
-			formData.append('banner_image',$("#banner_image").prop('files')[0])
+			$("#poster_image").prop('files').length == 1 ? formData.append('poster_image',$("#poster_image").prop('files')[0]) : null
+			$("#banner_image").prop('files').length == 1 ? formData.append('banner_image',$("#banner_image").prop('files')[0]) : null
 			$.ajax({
 				url:'/new_post',
 				data: formData,

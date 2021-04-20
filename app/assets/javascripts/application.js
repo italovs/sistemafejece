@@ -1,6 +1,6 @@
 //= require jquery
-//= require selectize
-
+//= require rails-ujs
+//= require turbolinks
 
 
 

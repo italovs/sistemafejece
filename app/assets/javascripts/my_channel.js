@@ -196,8 +196,8 @@ function setting_events(){
 				formData.append('video_link', link)
 				formData.append('description', $("#youtube_description").val())
 				formData.append('categories', $("#category").val())
-				formData.append('poster_image',$("#poster_image").prop('files')[0])
-				formData.append('banner_image',$("#banner_image").prop('files')[0])
+				$("#poster_image").prop('files').length == 1 ? formData.append('poster_image',$("#poster_image").prop('files')[0]) : null
+				$("#poster_image").prop('files').length == 1 ? formData.append('banner_image',$("#banner_image").prop('files')[0]) : null
 				$.ajax({
 					url: '/new_video',
 					data: formData,

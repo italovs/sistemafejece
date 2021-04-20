@@ -57,6 +57,9 @@ Rails.application.config.assets.precompile += %w(
     jquery.inview.min.js
     jquery.countTo.min.js
     jquery.countdown.min.js
+    assets/jqueryui.min.css
+    assets/jqueryui.js
+    assets/jqueryui.min.js
     owl.carousel.min.js
     imagesloaded.pkgd.min.js
     isotope.pkgd.min.js

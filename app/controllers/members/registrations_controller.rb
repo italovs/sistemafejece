@@ -10,16 +10,9 @@ class Members::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super do
-      if resource.position == Member.positions.key(3)
-        resource.validated = nil
-      else
-        resource.validated = 0
-      end
-      resource.save
-    end
-  end
+  # def create
+  #  super
+  # end
 
   # GET /resource/edit
   # def edit

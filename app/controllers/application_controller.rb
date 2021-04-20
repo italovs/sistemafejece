@@ -18,4 +18,22 @@ class ApplicationController < ActionController::Base
       redirect_to member_root_path
     end
   end
+
+  def verify_onwership(object)
+    if admin_signed_in?
+      object.owner_id.nil?
+    elsif current_member.validated?
+      object.owner_id == current_member.junior_enterprise_id
+    else
+      false
+    end
+  end
+
+  def direction_notification
+    @flag = 0
+
+    Member.all.each do |member|
+      @flag += 1 if member.validated.nil?
+    end
+  end
 end

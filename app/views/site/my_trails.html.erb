@@ -15,7 +15,7 @@
 	<meta name="turbolinks-visit-control" content="reload">
 
 	<%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
-	<%= stylesheet_link_tag 'application', media: 'all' %>
+	
 
 	<!-- ===== Favicon & Different size apple touch icons ===== -->
 	<link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
@@ -44,6 +44,7 @@
 	<%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
 	<%= stylesheet_link_tag 'style', media: 'all' %>
 	<%= stylesheet_link_tag 'responsive', media: 'all' %>
+	<%= stylesheet_link_tag 'assets/jqueryui.min.css', media: 'all' %>
 	<%= stylesheet_link_tag 'assets/datatables.min.css', media: 'all' %>
 
 </head>
@@ -232,6 +233,9 @@
   														</select>
   														<div class="input-group-append">
     														<button id="new_season" type="button" class="btn btn-f-green text-white mb-2 ml-auto h-100">Nova Temporada</button>
+															<button id="delete-season" type="button" class="btn btn-danger text-white mb-2 ml-auto h-100" >
+																<i class="fas fa-trash-alt" style="font-size: 18px;"></i>
+															</button>
   														</div>
 													</div>
 												</div>
@@ -240,7 +244,7 @@
 												<div class="form-row serie-field col-md-12">
 													<div id="seasons" class="form-group col-md-12">
 														<p class="text-muted d-block mb-2">Escolher as Publicações</p>
-														<%= select_tag :seasons_post, options_from_collection_for_select(@all_posts,'id','name','post_image'), {class: 'select_field custom-select form-control selectize mb-3', style: "height:100%; display:grid;", multiple: true} %>
+														<%= select_tag :seasons_post, options_from_collection_for_select(@all_posts,'id','name', 'poster_image'), {class: 'select_field custom-select form-control selectize mb-3', style: "height:100%; display:grid;", multiple: true} %>
 													</div>	
 												</div>	
 											</div>
@@ -278,11 +282,6 @@
 
 	<input id="aux-input" type="hidden" value="" />
 
-	<script>
-		aux = ('<%=@all_posts%>');
-		$("#aux-input").val(aux);
-
-	</script>
 
 	<%= javascript_include_tag 'essencials', 'data-turbolinks-track': 'reload'%>
 	<%= javascript_include_tag 'assets/datatables.min.js', 'data-turbolinks-track': 'reload', :defer=>"defer" %>
@@ -296,6 +295,7 @@
 	<%= javascript_include_tag 'jquery.inview.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'jquery.countTo.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'jquery.countdown.min', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'assets/jqueryui.min.js', 'data-turbolinks-track': 'reload', :defer => "defer"%>
 	<%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>

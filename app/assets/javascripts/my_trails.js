@@ -1,6 +1,11 @@
 //= require jquery
+//= require assets/jqueryui
 //= require selectize
+
+
+
 //$(document).on("turbolinks:load",function(){
+	var flag_verify_posts_selectize_ready = false;
 	var $select = $("#tv_series_category").selectize({
 		plugins: ['remove_button'],
 		persist: false,
@@ -12,13 +17,14 @@
 
 	var $select_posts = $("#seasons_post").selectize({
 		plugins: ['remove_button'],
+		plugins: ['remove_button','drag_drop'],
 		persist: false,
 		maxItems: null,
 		valueField: 'id',
 		searchField: 'text',
 		render: {	
 			item: function(item, escape) {
-				var poster_image;
+				var poster_image ;
 				formData = new FormData;
 				formData.append('id',item.id);
 				$.ajax({
@@ -29,12 +35,9 @@
 					contentType: false,
 					processData: false
 				}).done(function(data){
-					//console.log(data[0]['post_image']);
 					poster_image = data[0]['post_image']
-					console.log(String(poster_image));
-					return '<div><img src="' + data[0]['post_image'] + '" style="width:30px;" data-value='+ item.id +' />&nbsp;' + item.text + '</div>';
 				})
-				
+				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
 			},
 			option: function(item, escape) {
 				var poster_image ;
@@ -49,12 +52,19 @@
 					processData: false
 				}).done(function(data){
 					poster_image = data[0]['post_image']
-					return '<div><img src="' + data[0]['post_image'] + '" style="width:30px;" data-value='+ item.id +' />&nbsp;' + item.text + '</div>';
 				})
+				return "<div><img src=" + poster_image + " style='width:30px;' class='flag flag-" + item.id + "' alt='flag' />&nbsp;" + item.text + "</div>";
 			}
-		}	
+		},
+		onChange: function(){
+			if (flag_verify_posts_selectize_ready == true){
+				selected_season = "season"+$("#season-select").val()
+				sessionStorage.setItem(selected_season, $("#seasons_post").val())
+			}
+		}
 	});
 	var selectize_posts = $select_posts[0].selectize;
+
 
 
 $.ajaxSetup({
@@ -97,7 +107,7 @@ function setting_events(){
 		if(!$("#serie_name").is(":visible")){
 			hide_fields()
 		}
-
+		$("#create_new_serie").show()
 		$("#form-fields").toggle();
 		$("#series_list_wrapper").toggle();
 		$("#seasons").hide();
@@ -106,10 +116,12 @@ function setting_events(){
 	})
 
     $(".edit_serie").on("click", function(){
+		flag_verify_posts_selectize_ready = false;
 		if(!$("#serie_name").is(":visible")){
 			hide_fields()
 		}
-
+		
+		sessionStorage.clear();
 		$("#form-fields").toggle();
 		$("#series_list_wrapper").toggle();
         if ($("#series_list_wrapper").is(":visible")){
@@ -119,6 +131,7 @@ function setting_events(){
             $(this).text("Minhas Séries");
         }
 		$("#seasons").show();
+		$("#create_new_serie").hide()
 
 		var tv_serie_id = $(this).val();
 		$("#update_input").val(tv_serie_id);
@@ -142,10 +155,11 @@ function setting_events(){
 				{
 					selectize.addItem(categories[i]["id"]);
 				}
+				
 				for (var i =0; i< posts_first_season.length; i++){
-					selectize_posts.addItem(posts_first_season[i]["id"]);
+					selectize_posts.addItem(posts_first_season[i]["post_id"]);
 				}
-
+				
 				tv_serie_information["tv_serie_seasons"].forEach(function(season){
 					var option = document.createElement("option");
 					option.setAttribute("value", season.order);
@@ -158,42 +172,144 @@ function setting_events(){
 			} else {
 				//ERRO DE REQUISIÇÃO
 			}
-			
+			flag_verify_posts_selectize_ready = true;
 		});
 
 	})
-
-	$("#season-select").on('change', function(){
-		season = "season" + $(this).val();
-		posts = $("#seasons_post").val();
-		sessionStorage.setItem(season,posts);
-
-		selectize_posts.clear()
+	$("#season-select").on('mousedown',function(){ 
+		sessionStorage.setItem('previous',$("#season-select").val());
+	});
+	$("#new_season").on('click',function(){
 		formData = new FormData
-		formData.append('season_id', $('option:selected',this).data('value'))
+		formData.append('id', $('#update_input').val())
+		var new_option
 		$.ajax({
-			url: '/season',
+			url: '/new_season',
 			data: formData,
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data){
-			posts = data[0]["posts"]
-			for (var i =0; i< posts.length; i++){
-				selectize_posts.addItem(posts[i]["id"]);
-			}
-		})
+		}).done(function(data) {
 
+			var option = document.createElement("option");
+			option.setAttribute("value", data[0]['new_season_order']);
+			option.setAttribute("data-value", data[0]['new_season_id']);
+			var text_option = document.createTextNode(data[0]['new_season_order'] + "ª temporada")
+			option.appendChild(text_option);
+			$("#season-select").append(option)
+			
+		});
+		
 	})
 
+	$("#delete-season").on('click', function() {
+		selected_season = $("#season-select").val();
+		var confirmation = confirm("Tem certeza que quer deletar a " + selected_season + "ª temporada?");
+		if (confirmation){
+			flag_verify_posts_selectize_ready = false;
+			formData = new FormData
+			formData.append('season_id', $("#season-select :selected").data('value'))
+
+			$.ajax({
+				url: '/delete_season',
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				processData: false
+			})
+			.done(function(data){
+				$.post('/serie_information', {
+						id: $("#update_input").val()
+					},
+					function(data, status){
+						if(status == "success"){
+							console.log(data);
+							tv_serie_information = data[0]
+							posts_first_season = tv_serie_information["first_season_posts"]
+
+							selectize_posts.clear()
+							$("#season-select").empty();
+
+							tv_serie_information["tv_serie_seasons"].forEach(function(season){
+								var option = document.createElement("option");
+								option.setAttribute("value", season.order);
+								option.setAttribute("data-value", season.id);
+								var text_option = document.createTextNode(season.order + "ª temporada")
+								option.appendChild(text_option);
+								$("#season-select").append(option)
+							});
+
+							for (var i =0; i< posts_first_season.length; i++){
+								selectize_posts.addItem(posts_first_season[i]["post_id"]);
+							}
+							sessionStorage.clear()
+						}
+					}
+				);
+
+			});
+			flag_verify_posts_selectize_ready = true;
+		}
+	});
+	$("#season-select").on('change', function(){
+		flag_verify_posts_selectize_ready = false;
+		season_before_change = sessionStorage.getItem('previous');
+		season_to_storage = "season" + season_before_change;
+		posts = $("#seasons_post").val();
+		sessionStorage.setItem(season_to_storage,posts);
+
+		actual_season = "season" + $("#season-select").val();
+
+		selectize_posts.clear();
+		formData = new FormData;
+		formData.append('season_id', $('option:selected',this).data('value'));
+		var posts_id = sessionStorage.getItem(actual_season);
+
+		if (posts_id == null){
+			$.ajax({
+				async: false,
+				url: '/season',
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				processData: false
+			}).done(function(data){
+				console.log(data[0]["posts"])
+				posts  = data[0]["posts"];
+				posts_id = [];
+				for (var i = 0; i<posts.length; i++){
+					posts_id.push(posts[i]["post_id"]);
+				}
+			});
+		}else{
+			posts_id = posts_id.split(',').map(function (item) {
+				return parseInt(item)
+			})
+		}
+
+		if(posts_id.length == 0){
+			selectize_posts.clear();
+		}else{
+			for (var i =0; i< posts_id.length; i++){
+				console.log(posts_id[i]);
+				selectize_posts.addItem(posts_id[i]);
+			}
+		}
+		season_to_storage = "season" + $(this).val();
+		posts = $("#seasons_post").val();
+		sessionStorage.setItem(season_to_storage,posts);
+		flag_verify_posts_selectize_ready = true;
+	})
+
+	
 
 
     $(".delete_serie").on("click", function(){
-        var serie_id = $(this).data('value')
-        var confirmation = confirm("Tem certeza que quer deletar essa Trilha?")
-        formData = new FormData
+        var serie_id = $(this).val();
+        var confirmation = confirm("Tem certeza que quer deletar essa Trilha?");
+        formData = new FormData;
 
-        formData.append('id', serie_id)
+        formData.append('id', serie_id);
         if(confirmation == true){
             $.ajax({
                 url: '/delete_serie',
@@ -208,7 +324,7 @@ function setting_events(){
             }).fail(function(data){
                 //ERRO DE REQUISIÇÃO
                 //page_reload();
-                console.log(data)
+                
                 $(".error-msg").show();
                 $(".err").html(data[0]["msg"]);
             });
@@ -240,7 +356,7 @@ function setting_events(){
 			}).fail(function(data){
 				//ERRO DE REQUISIÇÃO
 				//page_reload();
-				console.log(data)
+				
 				$(".error-msg").show();
 				$(".err").html(data[0]["msg"]);
 			});
@@ -253,16 +369,25 @@ function setting_events(){
 	$("#update_serie").on("click", function(){
 		$(".success-msg").hide();
 		$(".error-msg").hide();
-
+		var seasons_and_posts = {};
+		$("#season-select option").each(function(){
+			season = "season" + $(this).val();
+			if(sessionStorage.getItem(season) != null){
+				seasons_and_posts["" + $(this).attr('data-value')] = sessionStorage.getItem(season);
+				sessionStorage.removeItem(season);
+			}
+		})
+		
 		if( valid_value($("#serie_name").val()) && valid_value($("#tv_series_category").val()) && valid_value($("#serie_description").val())){
 				var formData = new FormData();
-				console.log("entrou===============")
-				formData.append('tv_serie_id', $('#update_input').val())
-				formData.append('name', $("#serie_name").val())
-				formData.append('description', $("#serie_description").val())
-				formData.append('categories', $("#tv_series_category").val())
-				$("#serie_poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#serie_poster_image").prop('files')[0]) : null
-				$("#serie_banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#serie_banner_image").prop('files')[0]) : null
+				formData.append('tv_serie_id', $('#update_input').val());
+				formData.append('name', $("#serie_name").val());
+				formData.append('description', $("#serie_description").val());
+				formData.append('categories', $("#tv_series_category").val());
+				formData.append('seasons_and_posts', JSON.stringify(seasons_and_posts));
+				
+				$("#serie_poster_image").prop('files').length == 1 ? formData.append('poster_image', $("#serie_poster_image").prop('files')[0]) : null;
+				$("#serie_banner_image").prop('files').length == 1 ? formData.append('banner_image', $("#serie_banner_image").prop('files')[0]) : null;
 			$.ajax({
 				url: '/update_serie',
 				data: formData,
@@ -276,7 +401,7 @@ function setting_events(){
 			}).fail(function(data){
 				//ERRO DE REQUISIÇÃO
 				//page_reload();
-				console.log(data)
+				
 				$(".error-msg").show();
 				$(".err").html(data[0]["msg"]);
 			});

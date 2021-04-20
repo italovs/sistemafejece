@@ -14,15 +14,15 @@ gem 'image_processing'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
-gem 'ransack'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 gem 'rails-i18n'
 gem 'rails_real_favicon'
+gem 'ransack'
 gem 'sass-rails', '>= 6'
 gem 'selectize-rails'
 gem 'turbolinks'
-# gem 'sendgrid-ruby'
-# gem 'paperclip', '~> 6.0.0'
+gem 'cssminify'
+gem 'uglifier'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
