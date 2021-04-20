@@ -47,10 +47,14 @@ when 'production'
 
 end
 
+JuniorEnterprise.create(name: 'FEJECE', id: 0, description: "Os piratas!")
+
 Rails.logger.debug "#{acoes.sample} Categorias..."
 categorias = ['Time', 'Marketing', 'Projetos', 'Liderança', 'Organização']
 categorias.each do |c|
   Category.create(name: c, description: "Sobre #{c}")
 end
+
+
 
 Rails.logger.debug '##### FIM #####'
