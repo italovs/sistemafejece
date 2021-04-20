@@ -38,6 +38,7 @@ when 'development'
   admin = Admin.create(email: 'admin@gti.com',
                        password: 'voagti')
   admin.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
+    
 
 when 'production'
   file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')

@@ -21,14 +21,35 @@ class SiteController < ApplicationController
   end
 
   def all_content
-    @posts = Post.all
-    @series = TvSerie.all
+    # @all = []
+    # Post.all.each do |post|
+    #   @all << post
+    # end
+
+    # TvSerie.all.each do |serie|
+    #   @all << serie
+    # end
+
+    @ejs = JuniorEnterprise.all
+    @categories = Category.all
+    
+    @q = Post.all.ransack(params[:q]) 
+    @all_content = @q.result(distinct: true)
 
     direction_notification
   end
 
   def all_videos
-    @ejs = JuniorEnterprise.all  
+    # @custom_ejs = []
+    # @custom_ejs << ({id: nil, name: "Todas as EJs"})
+    # JuniorEnterprise.all.each do |ej|
+    #   @custom_ejs << ({id: ej.id, name: ej.name})
+    # end
+    #@custom_ejs << ({id: nil, name: "FEJECE"})
+    
+    @ejs = JuniorEnterprise.all
+    @categories = Category.all
+    
     @q = Post.where(kind: 1).ransack(params[:q])
     @videos = @q.result(distinct: true)
 
@@ -36,12 +57,22 @@ class SiteController < ApplicationController
   end
 
   def all_posts
-    @posts = Post.all.where(kind: 0)
+    @ejs = JuniorEnterprise.all
+    @categories = Category.all
+
+    @q = Post.all.where(kind: 0).ransack(params[:q])
+    @posts = @q.result(distinct: true)
+
     direction_notification
   end
 
   def all_series
-    @series = TvSerie.all
+    @ejs = JuniorEnterprise.all
+    @categories = Category.all
+
+    @q = TvSerie.all.ransack(params[:q])
+    @series = @q.result(distinct: true)
+
     direction_notification
   end
 

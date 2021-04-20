@@ -101,10 +101,10 @@
     <section class="page-header overlay-gradient">
       <div class="container">
           <div class="inner py-4">
-              <h2 class="title pb-1">Vídeos</h2>
+              <h2 class="title pb-1">Posts</h2>
               <ol class="breadcrumb">
                   <li><%=link_to "Home", logged_root, class:"text-white" %></li>
-                  <li>Vídeos</li>
+                  <li>Posts</li>
               </ol>
           </div>
       </div>
@@ -114,7 +114,23 @@
 
 
     <div class="container">
-        <div class="row mt-20">
+
+        <%= search_form_for @q, url: 'all_posts', html: { method: :get } do |f| %>
+
+            <p class="m-1">Pesquise por posts</p>
+            <%= f.search_field :name_cont, class: 'col-3 mr-3', style: 'height: 40px;' %>
+
+            <%= f.select :owner_id_eq, options_for_select(@ejs.map { |obj| [obj[:name], obj[:id]] }), {:include_blank => "Todas as Ejs" }, {class: 'col-3 mr-3'} %>
+
+            <%#= f.select :id_eq, options_from_collection_for_select(@post_categories, "id", "name", @search.project_id_eq) %>
+
+            <%= f.select :post_category_category_id_eq, options_from_collection_for_select(Category.all, "id", "name", @q.post_category_category_id_eq), {:include_blank => "Todas as Categorias" }, {class: 'col-3 mr-3'}%>
+
+
+            <%= f.submit class:'btn-f-green border-0 text-white rounded col-2', style: "height: 45px; font-weight:600" %>
+        <% end %>
+
+        <div class="row mt80">
 
             <!-- === Start of Sliding Item 1 === -->
                 <% @posts.each do |post|%>    

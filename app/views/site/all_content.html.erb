@@ -113,57 +113,93 @@
     <br/><br/><br/>
 
 
+
     <div class="container">
-        <div class="row mt-20">
+
+
+        <%= search_form_for @q, url: 'all_content', html: { method: :get } do |f| %>
+
+            <p class="m-1">Pesquise por algum conteúdo</p>
+            <%= f.search_field :name_cont, class: 'col-3 mr-3', style: 'height: 40px;' %>
+
+            <%= f.select :owner_id_eq, options_for_select(@ejs.map { |obj| [obj[:name], obj[:id]] }), {:include_blank => "Todas as Ejs" }, {class: 'col-3 mr-3'} %>
+
+            <%#= f.select :id_eq, options_from_collection_for_select(@post_categories, "id", "name", @search.project_id_eq) %>
+
+            <%#= f.select :post_category_category_id_eq, options_from_collection_for_select(Category.all, "id", "name", @q.post_category_category_id_eq), {:include_blank => "Todas as Categorias" }, {class: 'col-3 mr-3'}%>
+
+
+            <%= f.submit class:'btn-f-green border-0 text-white rounded col-2', style: "height: 45px; font-weight:600" %>
+        <% end %>
+
+
+        <div class="row mt80">
 
             <!-- === Start of Sliding Item 1 === -->
-                <% @posts.each do |post|%>    
+                <% @all_content.each do |content|%>    
                     <div class="item col-3">
                         <!-- Start of Movie Box -->
                         <div class="movie-box-1">
 
                             <!-- Start of Poster -->
                             <div class="poster mb-5">
-                                <%if post.poster_image.attached?%>
-                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+                                <%if content.poster_image.attached?%>
+                                    <%= image_tag content.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
                                 <%end%>
                             </div>
                             <!-- End of Poster -->
 
                             <!-- Start of Buttons -->
                             <div class="buttons">
-                                <a class="play-video" href="<%= post.link%>">
+                            <% if content.class == Post && content.kind == 0%>
+                                <a class="play-video" href="<%= content.link%>">
                                     <i class="fas fa-link"></i>
                                 </a>
+                            <% elsif content.class == Post && content.kind == 1%> 
+                                <a class="play-video" href="<%= content.link%>">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            <% else %>
+                                <%= link_to  current_user_serie_path(content.id), class: "play-video" do%>
+                                    <i class="fas fa-mouse-pointer"></i>								
+                                <%end%>
+                            <% end %>
                             </div>
                             <!-- End of Buttons -->
 
                             <!-- Start of Movie Details -->
                             <div class="movie-details">
                                 <h4 class="movie-title">
-                                    <%= link_to current_user_post_path(post.id) do%>
-                                        <%= post.name %>
-                                    <%end%>    
+                                    <% if content.class == Post %>
+                                        <%= link_to current_user_post_path(content.id) do%>
+                                            <%= content.name %>
+                                        <%end%>
+                                    <% else %>
+                                        <%=link_to  current_user_serie_path(content.id) do%>
+                                            <%= content.name %>
+                                        <%end%>
+                                    <% end %>    
                                 </h4>
-                                <span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>
+                                <span class="released"><%= content.created_at.strftime("%d/%m/%Y") %></span>
                             </div>
                             <!-- End of Movie Details -->
 
                             <!-- Start of Rating -->
-                            <div class="stars">
-                                <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                                <div class="rating"></div>
-                
-                                <% if post.rating == -1 %>
-                                    <div class="d-inline-flex">
-                                        <h6 class="fas fa-star text-warning mr-2 mt-0"></h6>
-                                        <h6 class="text-white mt-0">Não há avaliações</h6>
-                                    </div>
-                                <%else%>
-                                    <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
-                                <%end%>	
-
-                            </div>
+                            <% if content.class == Post %>
+                                <div class="stars">
+                                    <input class="rating-input" type="hidden" value="<%=content.rating%>" />
+                                    <div class="rating"></div>
+                    
+                                    <% if content.rating == -1 %>
+                                        <div class="d-inline-flex">
+                                            <h6 class="fas fa-star text-warning mr-2 mt-0"></h6>
+                                            <h6 class="text-white mt-0">Não há avaliações</h6>
+                                        </div>
+                                    <%else%>
+                                        <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                    <%end%>	
+                                </div>
+                            <% end %>    
                             <!-- End of Rating -->
 
                         </div>
@@ -171,7 +207,7 @@
                     </div>
                 <%end%>
             <!-- === End of Sliding Item 1 === -->
-
+            <%if true == false%>
                 <% @series.each do |serie|%>    
                     <div class="item col-3">
                         <!-- Start of Movie Box -->
@@ -208,6 +244,7 @@
                         <!-- End of Movie Box -->
                     </div>
                 <%end%>
+            <%end%>    
             
         </div>
     </div>    
