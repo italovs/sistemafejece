@@ -21,7 +21,6 @@ gem 'ransack'
 gem 'sass-rails', '>= 6'
 gem 'selectize-rails'
 gem 'turbolinks'
-gem 'cssminify'
 gem 'uglifier'
 
 group :development, :test do

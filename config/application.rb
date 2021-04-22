@@ -18,7 +18,6 @@ module Example
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.assets.compress = true
-    config.assets.css_compressor = CSSminify.new
     config.assets.js_compressor = Uglifier.new(harmony: true)
     config.active_storage.variant_processor = :MiniMagick
     config.i18n.default_locale = :"pt-BR"

@@ -631,6 +631,42 @@ class SiteController < ApplicationController
 		end
 	end
 
+	def posts_from_season
+		if params[:season_id].present?
+			@season = Season.find(params[:season_id].to_i)
+			@season_posts = []
+			@posts =[]
+			@poster_image = []
+			@posts_rating = []
+			@season_posts = SeasonPost.where(season_id: params[:season_id])
+
+			@season_posts.each do |season_post|
+				@posts << season_post.post
+			end
+
+			@posts.each do |post|
+				@poster_image << url_for(post.poster_image).to_s
+				@posts_rating << post.rating
+			end
+
+			# byebug
+
+			if (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
+				(member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
+				if @posts.nil?
+					render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts]
+				else # nenhuma serie
+
+					render json: [posts: @posts, poster_image: @poster_image, rating: @posts_rating]
+				end
+			else
+				render json: [msg: 'Temporada inválida para você']
+			end
+		else
+			render json: [msg: 'Temporada inválida']
+		end
+	end
+
 	# retorna categorias e informa quantidade de series, temporadas e videos em cada categoria
 	def my_categories
 		# reiniciando valores
@@ -737,6 +773,9 @@ class SiteController < ApplicationController
 		@videos = Post.all.where(kind: 1)
 		@posts = Post.all.where(kind: 0)
 		@series = TvSerie.all
+
+		@seasons = Season.all.where(tv_serie_id: @serie.id)
+		@seasons = @seasons.sort_by{|season| season.order}
 
 		direction_notification
 	end

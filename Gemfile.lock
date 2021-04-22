@@ -86,7 +86,6 @@ GEM
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
-    cssminify (1.0.2)
     declarative (0.0.20)
     declarative-option (0.1.0)
     descendants_tracker (0.0.4)
@@ -406,7 +405,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
-  cssminify
   devise
   devise-i18n
   google-cloud-storage

@@ -66,4 +66,8 @@
     }
   }
 
+  fas.fa, .fab, .fad, .fal, .far, .fas{
+    line-height: inherit;
+  }
+
   

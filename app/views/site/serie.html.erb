@@ -208,6 +208,19 @@
 
 
 
+			<section class="mb120">
+				<div class="container">
+					<div class="row mb-4">
+						<%=select_tag :seasons_select, options_for_select( @seasons.map{ |season| ["#{season[:order]}ª Temporada", season[:id]] }), {class: 'col-2'}%>
+					</div>
+
+					<div id="posts-list" class="row p-0"></div>
+
+				</div>
+			</section>
+
+
+
 			<!-- =============== START OF RECOMMENDED MOVIES SECTION =============== -->
 			<section class="recommended-movies bg-light ptb100">
 					<div class="container">
@@ -225,7 +238,7 @@
 							<div class="owl-carousel recommended-slider mt20 owl-loaded owl-drag">
 								<!-- === Start of Sliding Item 1 === -->
 
-                <%counter = 0%>
+                				<%counter = 0%>
 								<% @series.each do |serie|%>
 										<%if counter < 10 %>
 											<div class="item">

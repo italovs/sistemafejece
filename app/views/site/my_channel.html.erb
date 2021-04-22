@@ -162,13 +162,15 @@
 
 													<!-- Rating -->
 													<div class="stars">
-															<input class="rating-input" type="hidden" value="<%=post.rating%>" />
-															<div class="rating"></div>
 
-															<%if post.rating.class == String%>
+															<% if post.rating > -1 %>
+																<input class="rating-input" type="hidden" value="<%=post.rating%>" />
+																<div class="rating"></div>
+
+															<%elsif post.rating == -1%>
 																<div class="d-inline-flex">
 																	<h6 class="fas fa-star text-warning mr-2"></h6>
-																	<h6 class="text-white"><%=post.rating%></h6>
+																	<h6 class="text-white">Não há avaliações</h6>
 																</div>
 															<%end%>
 													</div>
