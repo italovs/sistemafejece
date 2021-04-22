@@ -36,4 +36,18 @@ class ApplicationController < ActionController::Base
       @flag += 1 if member.validated.nil?
     end
   end
+
+  def user_tv_series
+    @tv_series = if admin_signed_in?
+                   TvSerie.where(owner_id: nil).select(:id, :name)
+                 else
+                   TvSerie.where(owner_id: current_member.id).select(:id, :name)
+                 end
+  end
+
+  def check_if_user_is_director_or_is_admin
+    if member_signed_in? && !current_member.validated?
+      redirect_back(fallback_location: member_root_path)
+    end
+  end
 end
