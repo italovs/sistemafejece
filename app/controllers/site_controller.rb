@@ -46,7 +46,7 @@ class SiteController < ApplicationController
     #   @custom_ejs << ({id: ej.id, name: ej.name})
     # end
     #@custom_ejs << ({id: nil, name: "FEJECE"})
-    
+		byebug
     @ejs = JuniorEnterprise.all
     @categories = Category.all
     
@@ -270,7 +270,7 @@ class SiteController < ApplicationController
 		@serie_categories = TvSerieCategory.all
 		@categories = Category.all.select(:id, :name)
 		@videos = if user_is_admin?
-								Post.all.where(owner_id: nil, kind: 1)
+								Post.all.where(owner_id: 0, kind: 1)
 							else
 								Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
 							end
