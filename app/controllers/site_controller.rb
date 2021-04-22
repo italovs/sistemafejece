@@ -21,20 +21,19 @@ class SiteController < ApplicationController
   end
 
   def all_content
-    # @all = []
-    # Post.all.each do |post|
-    #   @all << post
-    # end
-
-    # TvSerie.all.each do |serie|
-    #   @all << serie
-    # end
 
     @ejs = JuniorEnterprise.all
     @categories = Category.all
     
-    @q = Post.all.ransack(params[:q]) 
-    @all_content = @q.result(distinct: true)
+    q0 = params[:q0]
+	q1 = params[:q1]
+	q2 = params[:q2]
+	@series   = TvSerie.ransack(name_cont: q0, owner_id_eq: q1).result
+	@posts = Post.ransack(name_cont: q0, owner_id_eq: q1).result
+
+	@all_content = []
+	@all_content << @series
+	@all_content << @posts
 
     direction_notification
   end
@@ -46,7 +45,7 @@ class SiteController < ApplicationController
     #   @custom_ejs << ({id: ej.id, name: ej.name})
     # end
     #@custom_ejs << ({id: nil, name: "FEJECE"})
-		byebug
+	# byebug
     @ejs = JuniorEnterprise.all
     @categories = Category.all
     
