@@ -66,7 +66,7 @@ class TvSeriesController < ApplicationController
     categories = params[:categories].split(',')
 
     tv_serie.owner_id = if admin_signed_in?
-                          nil
+                          0
                         else
                           current_member.junior_enterprise_id
                         end
@@ -229,9 +229,9 @@ class TvSeriesController < ApplicationController
         @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
       end
     else
-      @series = TvSerie.all.where(owner_id: nil)
+      @series = TvSerie.all.where(owner_id: 0)
       if kind.nil?
-        @all_posts = Post.all.where(owner_id: nil)
+        @all_posts = Post.all.where(owner_id: 0)
       elsif kind.zero?
         @posts = Post.all.where(owner_id: nil, kind: 0)
       elsif kind == 1

@@ -1,6 +1,7 @@
 class SiteController < ApplicationController
   layout 'member', except: [:profile, :all_content]
   include ApplicationHelper
+  before_action :search
   skip_before_action :verify_authenticity_token
 
   def index
@@ -10,6 +11,10 @@ class SiteController < ApplicationController
     @posts = Post.all.where(kind: 0)
     @posts_and_videos = Post.all
     @post_categories = PostCategory.all
+
+	q = params[:q]
+	@series_search   = TvSerie.ransack(name_or_tv_serie_category_category_name_cont: q).result
+	@posts_search = Post.ransack(name_or_post_category_category_name_cont: q).result
   end
 
   def profile
@@ -20,17 +25,32 @@ class SiteController < ApplicationController
   end
 
   def all_content
-    # @all = []
-    # Post.all.each do |post|
-    #   @all << post
-    # end
-
-    # TvSerie.all.each do |serie|
-    #   @all << serie
-    # end
 
     @ejs = JuniorEnterprise.all
     @categories = Category.all
+    
+    q0 = params[:q0]
+	q1 = params[:q1]
+	q2 = params[:q2]
+	@series   = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2).result
+	@posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2).result
+
+    direction_notification
+  end
+
+  def all_videos
+    # @custom_ejs = []
+    # @custom_ejs << ({id: nil, name: "Todas as EJs"})
+    # JuniorEnterprise.all.each do |ej|
+    #   @custom_ejs << ({id: ej.id, name: ej.name})
+    # end
+    #@custom_ejs << ({id: nil, name: "FEJECE"})
+	# byebug
+    @ejs = JuniorEnterprise.all
+    @categories = Category.all
+    
+    @q = Post.where(kind: 1).ransack(params[:q])
+    @videos = @q.result(distinct: true)
 
     @q = Post.all.ransack(params[:q])
     @all_content = @q.result(distinct: true)
@@ -439,4 +459,11 @@ class SiteController < ApplicationController
         validated: person.validated }
     end
   end
+
+    def search
+      if params[:q]
+        search_params = CGI::escapeHTML(params[:q]) 
+        redirect_to ("/all_content?q0=#{search_params}")
+      end
+    end
 end
