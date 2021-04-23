@@ -222,10 +222,13 @@
                         <div class="row justify-content-center">
                             <div class="col-md-8 col-sm-10 col-12">
                                 <div class="form-group">
-                                    <input name="search-keyword" type="text" id="search-keyword" value="" class="form-control" placeholder="Enter Movies or Series Title">
-                                    <%= link_to  member_search_for_post_path do%>
-                                        <button type="submit" class="btn btn-main btn-effect"><i class="fas fa-search text-white"></i></button>
-                                    <%end%>    
+                                    <%= form_tag logged_user_all_content_path, method: :get do %>
+                                        <%= text_field_tag :q, nil, {placeholder: 'Pesquise por algum conteúdo'} %>
+                                        <button type="submit" class="btn btn-main btn-effect">
+                                            <i class="fa fa-search text-white"></i>
+                                        </button>
+                                    <%end%>
+                                        
                                 </div>
                             </div>
                         </div>

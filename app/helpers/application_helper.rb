@@ -28,6 +28,14 @@ module ApplicationHelper
 		end
 	end
 
+	def logged_user_all_content_path
+		if member_signed_in?
+			member_all_content_path
+		elsif admin_signed_in?
+			admin_all_content_path
+		end
+	end
+
 	def current_logged_user
 		if member_signed_in?
 			current_member
