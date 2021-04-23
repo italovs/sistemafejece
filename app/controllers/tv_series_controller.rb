@@ -54,7 +54,7 @@ class TvSeriesController < ApplicationController
                   tv_serie_description: @serie.description,
                   tv_serie_categories: @categories,
                   tv_serie_seasons: @serie.seasons,
-                  first_season_posts: @posts_from_first_season]
+                  first_season_posts: @posts_from_first_season], status: :ok
   end
 
   def new_serie
@@ -77,12 +77,10 @@ class TvSeriesController < ApplicationController
       end
 
       render json: [msg: "Nova trilha #{params[:serie_name]} foi criada com sucesso!",
-                    tv_series: user_tv_series]
+                    tv_series: user_tv_series], status: :ok
 
-      flash[:notice] = "Nova trilha  #{params[:serie_name]} foi criada com sucesso"
     else
-      flash[:alert] = 'Ocorreu um erro ao salvar nova trilha'
-      render json: [msg: 'Erro: Deu ruim']
+      render json: [msg: 'Erro: falha ao criar nova trilha'], status: :unprocessable_entity
     end
   end
 
@@ -91,11 +89,11 @@ class TvSeriesController < ApplicationController
     tv_serie = TvSerie.find_by(id: params[:tv_serie_id])
     if tv_serie.nil?
       # id invalida ou tipo invalido
-      render json: [msg: 'Erro: Nenhum resultado encontrado']
+      render json: [msg: 'Erro: Nenhum resultado encontrado'], status: :not_found
     elsif !tv_serie.nil?
       if !verify_onwership(tv_serie)
         # post de outro dono
-        render json: [msg: 'Erro: Erro ao encontrar o post']
+        render json: [msg: 'Erro: Erro ao encontrar o post'], status: :unauthorized
       else
         tv_serie.name = params[:name] unless params[:name].nil?
         tv_serie.description = params[:description] unless params[:description].nil?
@@ -125,12 +123,10 @@ class TvSeriesController < ApplicationController
           # sucesso
           season_and_posts_hash = JSON.parse(params[:seasons_and_posts])
           SeasonsController.update_season(season_and_posts_hash)
-          flash[:notice] = 'Sucesso: Post foi atualizado'
-          render json: [msg: 'Sucesso: Post foi atualizado', tv_serie: tv_serie]
+          render json: [msg: 'Sucesso: Post foi atualizado', tv_serie: tv_serie], status: :ok
         else
           # falha
-          flash[:alert] = 'Erro: Falha ao atualizad o post'
-          render json: [msg: 'Erro: Falha ao atualizad o post']
+          render json: [msg: 'Erro: Falha ao atualizad o post'], status: :unprocessable_entity
         end
       end
     end
@@ -139,21 +135,21 @@ class TvSeriesController < ApplicationController
   def delete_tv_serie
     tv_serie = TvSerie.find(params[:id])
     if tv_serie.nil?
-      render json: [msg: 'Erro: Trilha não encontrada']
+      render json: [msg: 'Erro: Trilha não encontrada'], status: :not_found
     elsif verify_onwership(tv_serie) || admin_signed_in?
       tv_serie.destroy
-      render json: [msg: 'Trilha deletada com sucesso']
+      render json: [msg: 'Trilha deletada com sucesso'], status: :ok
     else
-      render json: [msg: 'Erro: Você não pode excluir esse post']
+      render json: [msg: 'Erro: Você não pode excluir esse post'], status: :unauthorized
     end
   end
 
   def serie_seasons
     if admin_signed_in? || (member_signed_in? && current_member.validated?)
       seasons = TvSerie.find(params[:serie]).seasons.select(:id, :name)
-      render json: [seasons: seasons]
+      render json: [seasons: seasons], status: :ok
     else
-      render json: [msg: 'Erro: Série inválida']
+      render json: [msg: 'Erro: Série inválida'], status: :unauthorized
     end
   end
 
@@ -176,16 +172,15 @@ class TvSeriesController < ApplicationController
 
         if hash_seasons.blank?
           # isso nunca deveria acontecer, pois toda temporada tem pelo menos uma serie... maaaaaas..
-          render json: [msg: 'Você ainda não possui Temporadas nessa Série']
+          render json: [msg: 'Você ainda não possui Temporadas nessa Série'], status: :no_content
         else # nenhuma serie
-          render json: [series: hash_seasons]
+          render json: [series: hash_seasons], status: :ok
         end
       else
-        render json: [msg: 'Série inválida para você']
+        render json: [msg: 'Série inválida para você'], status: :unauthorized
       end
     else
-      flash[:alert] = 'Trilha inválida'
-      render json: [msg: 'Série inválida']
+      render json: [msg: 'Série inválida'], status: :not_found
     end
   end
 
@@ -217,10 +212,9 @@ class TvSeriesController < ApplicationController
       series[category] = ActiveRecord::Base.connection.execute(sql)
     end
     if series != ({})
-      render json: series
+      render json: series, status: :ok
     else
-      flash[:alert] = 'Erro: Falha ao recuperar postagens'
-      render json: [msg: 'Erro: Falha ao recuperar postagens']
+      render json: [msg: 'Erro: Falha ao recuperar postagens'], status: :not_found
     end
   end
 

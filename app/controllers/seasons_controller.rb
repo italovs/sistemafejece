@@ -4,13 +4,13 @@ class SeasonsController < ApplicationController
 
   def new_season
     if TvSerie.find(params[:id]).nil?
-      render json: [msg: 'a trilha atual não foi encontrada']
+      render json: [msg: 'a trilha atual não foi encontrada'], status: :not_found
     else
       @tv_serie = params[:id]
       @last_season = Season.where(tv_serie_id: @tv_serie).maximum('order')
       @new_season = Season.create(tv_serie_id: @tv_serie, order: @last_season + 1)
       render json: [msg: 'Nova temporada adicionada com sucesso',
-                    new_season_id: @new_season.id, new_season_order: @new_season.order]
+                    new_season_id: @new_season.id, new_season_order: @new_season.order], status: :ok
     end
   end
 
@@ -46,16 +46,18 @@ class SeasonsController < ApplicationController
       if (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
          (member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
         if @posts.nil?
-          render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts]
+          render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts],
+                 status: :no_content
         else # nenhuma serie
 
-          render json: [posts: @posts, poster_image: @poster_image, rating: @posts_rating]
+          render json: [posts: @posts, poster_image: @poster_image, rating: @posts_rating],
+                 status: :ok
         end
       else
-        render json: [msg: 'Temporada inválida para você']
+        render json: [msg: 'Temporada inválida para você'], status: :unauthorized
       end
     else
-      render json: [msg: 'Temporada inválida']
+      render json: [msg: 'Temporada inválida'], status: :not_found
     end
   end
 
@@ -67,25 +69,26 @@ class SeasonsController < ApplicationController
       if (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
          (member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
         if @posts.nil?
-          render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts]
+          render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts],
+                 status: :no_content
         else # nenhuma serie
 
-          render json: [posts: @posts]
+          render json: [posts: @posts], status: :ok
         end
       else
-        render json: [msg: 'Temporada inválida para você']
+        render json: [msg: 'Temporada inválida para você'], status: :unauthorized
       end
     else
-      render json: [msg: 'Temporada inválida']
+      render json: [msg: 'Temporada inválida'], status: :not_found
     end
   end
 
   def delete_season
     season = Season.find(params[:season_id])
     if season.nil?
-      render json: [msg: 'temporada não encontrada']
+      render json: [msg: 'temporada não encontrada'], status: :not_found
     elsif season.destroy
-      render json: [msg: 'Temporada deletada com sucesso']
+      render json: [msg: 'Temporada deletada com sucesso'], status: :ok
     end
   end
 end

@@ -86,7 +86,7 @@ class PostsController < ApplicationController
                   post_name: @post.name,
                   post_description: @post.description,
                   post_link: @post.link,
-                  post_categories: @categories]
+                  post_categories: @categories], status: :ok
   end
 
   def new_post
@@ -109,9 +109,9 @@ class PostsController < ApplicationController
       categories.each do |category|
         PostCategory.create(post_id: file_post.id, category_id: category.to_i)
       end
-      render json: [msg: 'Sucesso: post criado']
+      render json: [msg: 'Sucesso: post criado'], status: :created
     else
-      render json: [msg: 'Erro: Falha ao criar post']
+      render json: [msg: 'Erro: Falha ao criar post'], status: :unprocessable_entity
     end
   end
 
@@ -137,11 +137,9 @@ class PostsController < ApplicationController
         PostCategory.create(post_id: post.id, category_id: category.to_i)
       end
 
-      flash[:notice] = 'Vídeo criado com sucesso'
-      render json: [msg: 'Sucesso: Vídeo criado']
+      render json: [msg: 'Sucesso: Vídeo criado'], status: :created
     else
-      flash[:alert] = 'Erro: Falha ao criar vídeo, tente novamente.'
-      render json: [msg: 'Erro: Falha ao criar vídeo']
+      render json: [msg: 'Erro: Falha ao criar vídeo'], status: :unprocessable_entity
     end
   end
 
@@ -184,10 +182,10 @@ class PostsController < ApplicationController
 
         if post.save
           # sucesso
-          render json: [msg: 'Sucesso: Post foi atualizado', post: post]
+          render json: [msg: 'Sucesso: Post foi atualizado', post: post], status: :ok
         else
           # falha
-          render json: [msg: 'Erro: Falha ao atualizad o post']
+          render json: [msg: 'Erro: Falha ao atualizar o post'], status: :unprocessable_entity
         end
       end
     end
@@ -227,10 +225,9 @@ class PostsController < ApplicationController
       @posts[category] = ActiveRecord::Base.connection.execute(sql)
     end
     if @posts != ({})
-      render json: posts
+      render json: posts, status: :ok
     else
-      flash[:alert] = 'Erro: Falha ao recuperar postagens'
-      render json: [msg: 'Erro: Falha ao recuperar postagens']
+      render json: [msg: 'Erro: Falha ao recuperar postagens'], status: :not_found
     end
   end
 
@@ -272,23 +269,23 @@ class PostsController < ApplicationController
       videos[category.name] = my_series
     end
     if videos.blank?
-      render json: [msg: 'Você ainda não possui séries']
+      render json: [msg: 'Você ainda não possui séries'], status: :no_content
     else # nenhuma serie
-      render json: [series: videos]
+      render json: [series: videos], status: :ok
     end
   end
 
   def delete_post
     post = Post.find_by(id: params[:id])
     if post.nil?
-      render json: [msg: 'Erro: Post ou Vídeo inválido']
+      render json: [msg: 'Erro: Post ou Vídeo inválido'], status: :bad_request
     else
       if verify_onwership(post) || admin_signed_in?
         # verificar aqui se o post está em alguma série
         post.destroy
-        render json: [msg: 'Publicação deletada com sucesso']
+        render json: [msg: 'Publicação deletada com sucesso'], status: :ok
       else
-        render json: [msg: 'Erro: Você não pode excluir esse post']
+        render json: [msg: 'Erro: Você não pode excluir esse post'], status: :unauthorized
       end
     end
   end
