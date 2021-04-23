@@ -123,7 +123,7 @@ class SiteController < ApplicationController
           @person.profile_picture.attach(params[:profile_picture])
         else
           render json: [msg: 'formato de arquivo de imagem não suportado,
-						somente jpg, png e jpeg são validos'] and return
+						somente jpg, png e jpeg são validos'], status: :unsupported_media_type and return
         end
       end
 
@@ -137,35 +137,32 @@ class SiteController < ApplicationController
         end
       end
       if @person.save
-        flash[:notice] = 'Informações alteradas com sucesso'
         if member_signed_in?
           render json: [msg: 'Sucesso: Deu bom, meu bacano',
                         person: person_information(@person),
-                        junior_enterprise: @person.junior_enterprise.name]
+                        junior_enterprise: @person.junior_enterprise.name], status: :ok
         else
           render json: [msg: 'Sucesso: Deu bom, meu bacano',
-                        person: person_information(@person)]
+                        person: person_information(@person)], status: :ok
         end
       else
-        flash[:alert] = 'Erro: Falha em salvar novo e-mail'
         if member_signed_in?
           render json: [msg: 'Erro: Falha em salvar novo e-mail',
                         person: person_information(@person),
-                        junior_enterprise: @person.junior_enterprise.name]
+                        junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
         else
           render json: [msg: 'Erro: Falha em salvar novo e-mail',
-                        person: person_information(@person)]
+                        person: person_information(@person)], status: :unprocessable_entity
         end
       end
     else
-      flash[:alert] = 'Erro: Senha inválida'
       if member_signed_in?
         render json: [msg: 'Erro: Senha inválida',
                       person: person_information(@person),
-                      junior_enterprise: @person.junior_enterprise.name]
+                      junior_enterprise: @person.junior_enterprise.name], status: :unauthorized
       else
         render json: [msg: 'Erro: Senha inválida',
-                      person: person_information(@person)]
+                      person: person_information(@person)], status: :unauthorized
       end
     end
   end
@@ -186,31 +183,29 @@ class SiteController < ApplicationController
           if member_signed_in?
             render json: [msg: 'Sucesso: Deu bom, meu bacano',
                           person: person_information(@person),
-                          junior_enterprise: @person.junior_enterprise.name]
+                          junior_enterprise: @person.junior_enterprise.name], status: :ok
           else
             render json: [msg: 'Sucesso: Deu bom, meu bacano',
-                          person: person_information(@person)]
+                          person: person_information(@person)], status: :ok
           end
         else
-          flash[:alert] = 'Erro: Falha em salvar novo e-mail'
           if member_signed_in?
             render json: [msg: 'Erro: Falha em salvar novo e-mail',
                           person: person_information(@person),
-                          junior_enterprise: @person.junior_enterprise.name]
+                          junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
           else
             render json: [msg: 'Erro: Falha em salvar novo e-mail',
-                          person: person_information(@person)]
+                          person: person_information(@person)], status: :unprocessable_entity
           end
         end
       else
-        flash[:alert] = 'Erro: Campos de novo e-mail não são iguais'
         if member_signed_in?
           render json: [msg: 'Erro: Campos de novo e-mail não são iguais',
                         person: person_information(@person),
-                        junior_enterprise: @person.junior_enterprise.name]
+                        junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
         else
           render json: [msg: 'Erro: Campos de novo e-mail não são iguais',
-                        person: person_information(@person)]
+                        person: person_information(@person)], status: :unprocessable_entity
         end
       end
     else
@@ -218,9 +213,9 @@ class SiteController < ApplicationController
       if member_signed_in?
         render json: [msg: 'Erro: Senha inválida',
                       person: person_information(@person),
-                      junior_enterprise: @person.junior_enterprise.name]
+                      junior_enterprise: @person.junior_enterprise.name], status: :unauthorized
       else
-        render json: [msg: 'Erro: Senha inválida', person: person_information(@person)]
+        render json: [msg: 'Erro: Senha inválida', person: person_information(@person)], status: :unauthorized
       end
     end
   end
@@ -262,9 +257,9 @@ class SiteController < ApplicationController
     end
 
     if hash_series.blank?
-      render json: [msg: 'Você ainda não possui séries nessa categoria']
+      render json: [msg: 'Você ainda não possui séries nessa categoria'], status: :no_content
     else # nenhuma serie
-      render json: [series: hash_series]
+      render json: [series: hash_series], status: :ok
     end
   end
 
@@ -312,9 +307,9 @@ class SiteController < ApplicationController
     end
 
     if hash_categories.blank?
-      render json: [msg: 'Você ainda não possui séries']
+      render json: [msg: 'Você ainda não possui séries'], status: :no_content
     else # nenhuma serie
-      render json: [categories: hash_categories]
+      render json: [categories: hash_categories], status: :ok
     end
   end
 
@@ -332,17 +327,15 @@ class SiteController < ApplicationController
                       value: params[:value])
            end
     if vote.save
-      flash[:notice] = 'Sucesso: Sua nota foi salva'
       if admin_signed_in?
         render json: [msg: 'Sucesso: Sua nota foi salva',
-                      vote_information: vote.post.vote_information(current_admin, true)]
+                      vote_information: vote.post.vote_information(current_admin, true)], status: :ok
       else
         render json: [msg: 'Sucesso: Sua nota foi salva',
-                      vote_information: vote.post.vote_information(current_member, false)]
+                      vote_information: vote.post.vote_information(current_member, false)], status: :ok
       end
     else
-      flash[:alert] = 'Erro: Falha ao salvar nota'
-      render json: [msg: 'Erro: Falha ao salvar nota']
+      render json: [msg: 'Erro: Falha ao salvar nota'], status: :unprocessable_entity
     end
   end
 
@@ -382,9 +375,9 @@ class SiteController < ApplicationController
       .where(query)
 
     if videos.present?
-      render json: videos
+      render json: videos, status: :ok
     else
-      render json: [msg: 'Erro: Nenhum resultado encontrado']
+      render json: [msg: 'Erro: Nenhum resultado encontrado'], status: :not_found
     end
   end
 
@@ -412,9 +405,9 @@ class SiteController < ApplicationController
     posts = Post.where(kind: 'post').left_joins(post_category: [:category]).where(query)
 
     if posts.present?
-      render json: posts
+      render json: posts, status: :ok
     else
-      render json: [msg: 'Erro: Nenhum resultado encontrado']
+      render json: [msg: 'Erro: Nenhum resultado encontrado'], status: :not_found
     end
   end
 
