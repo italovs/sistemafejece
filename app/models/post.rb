@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   # post
   has_many :post_category, dependent: :destroy
   has_many :categories, through: :post_category
+  belongs_to :junior_enterprise, foreign_key: 'owner_id'
 
   # video
   has_many :season_post, dependent: :destroy

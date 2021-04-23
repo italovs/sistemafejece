@@ -13,8 +13,8 @@ class SiteController < ApplicationController
     @post_categories = PostCategory.all
 
 	q = params[:q]
-	@series_search   = TvSerie.ransack(name_or_tv_serie_category_category_name_cont: q).result
-	@posts_search = Post.ransack(name_or_post_category_category_name_cont: q).result
+	@series_search   = TvSerie.ransack(junior_enterprise_name_cont: q).result
+	@posts_search = Post.ransack(junior_enterprise_name_cont: q).result
   end
 
   def profile
@@ -32,8 +32,11 @@ class SiteController < ApplicationController
     q0 = params[:q0]
 	q1 = params[:q1]
 	q2 = params[:q2]
-	@series   = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2).result
-	@posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2).result
+	q3 = params[:q3]
+	@posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
+							name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
+	@series   = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
+								name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
 
     direction_notification
   end
@@ -51,9 +54,6 @@ class SiteController < ApplicationController
     
     @q = Post.where(kind: 1).ransack(params[:q])
     @videos = @q.result(distinct: true)
-
-    @q = Post.all.ransack(params[:q])
-    @all_content = @q.result(distinct: true)
 
     direction_notification
   end
@@ -470,7 +470,7 @@ class SiteController < ApplicationController
     def search
       if params[:q]
         search_params = CGI::escapeHTML(params[:q]) 
-        redirect_to ("/all_content?q0=#{search_params}")
+        redirect_to ("/all_content?q3=#{search_params}")
       end
     end
 end

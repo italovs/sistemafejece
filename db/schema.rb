@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_090450) do
+ActiveRecord::Schema.define(version: 2021_04_23_183010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,8 +103,9 @@ ActiveRecord::Schema.define(version: 2021_04_14_090450) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "kind"
-    t.integer "owner_id"
     t.integer "views"
+    t.bigint "owner_id"
+    t.index ["owner_id"], name: "index_posts_on_owner_id"
   end
 
   create_table "season_posts", force: :cascade do |t|
@@ -139,8 +140,9 @@ ActiveRecord::Schema.define(version: 2021_04_14_090450) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "owner_id"
     t.string "description"
+    t.bigint "owner_id"
+    t.index ["owner_id"], name: "index_tv_series_on_owner_id"
   end
 
   create_table "votes", force: :cascade do |t|
@@ -157,10 +159,12 @@ ActiveRecord::Schema.define(version: 2021_04_14_090450) do
   add_foreign_key "members", "junior_enterprises"
   add_foreign_key "post_categories", "categories"
   add_foreign_key "post_categories", "posts"
+  add_foreign_key "posts", "junior_enterprises", column: "owner_id"
   add_foreign_key "season_posts", "posts"
   add_foreign_key "season_posts", "seasons"
   add_foreign_key "seasons", "tv_series", column: "tv_serie_id"
   add_foreign_key "tv_serie_categories", "categories"
   add_foreign_key "tv_serie_categories", "tv_series", column: "tv_serie_id"
+  add_foreign_key "tv_series", "junior_enterprises", column: "owner_id"
   add_foreign_key "votes", "posts"
 end

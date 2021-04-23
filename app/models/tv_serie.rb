@@ -7,6 +7,7 @@ class TvSerie < ApplicationRecord
 
   has_many :tv_serie_category, dependent: :destroy
   has_many :categories, through: :tv_serie_category, source: 'categories'
+  belongs_to :junior_enterprise, foreign_key: 'owner_id'
 
   has_one_attached :poster_image # 300x444
   has_one_attached :banner_image # 1600x803
