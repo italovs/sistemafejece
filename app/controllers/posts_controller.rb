@@ -24,10 +24,10 @@ class PostsController < ApplicationController
     @videos = Post.all.where(kind: 1)
     @categories = Category.all.select(:id, :name)
     @post_categories = PostCategory.all
-    @posts = if member_signed_in?
-               Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
+    @posts = if user_is_admin?
+                Post.all.where(owner_id: 0, kind: 0)
              else
-               Post.all.where(owner_id: nil, kind: 0)
+              Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
              end
 
     direction_notification
@@ -37,8 +37,10 @@ class PostsController < ApplicationController
     @videos = Post.all.where(kind: 1)
     @post = Post.find(params[:id])
     @posts = Post.all
-    @ejs = JuniorEnterprise.all
+    @ej = JuniorEnterprise.all.find{|ej| ej.id == @post.owner_id}
     @votes = Vote.all
+    @post_categories = PostCategory.where(post_id: @post.id)
+    @categories = Category.all
 
     direction_notification
   end

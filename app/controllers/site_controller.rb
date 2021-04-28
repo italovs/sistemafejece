@@ -30,13 +30,13 @@ class SiteController < ApplicationController
     @categories = Category.all
     
     q0 = params[:q0]
-	q1 = params[:q1]
-	q2 = params[:q2]
-	q3 = params[:q3]
-	@posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
-							name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
-	@series   = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
-								name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
+    q1 = params[:q1]
+    q2 = params[:q2]
+    q3 = params[:q3]
+    @posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
+                name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
+    @series   = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
+                  name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
 
     direction_notification
   end

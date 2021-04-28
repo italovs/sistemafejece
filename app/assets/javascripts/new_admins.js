@@ -1,3 +1,5 @@
+//= require jquery
+
 $(function(){
 	$("#send").on("click", function(){
 		response = collect_data([ "email", "senha" ]);

@@ -133,9 +133,7 @@
 							<li class="divider"></li>
 
 							<li class="dropdown-item">
-								<%= link_to logout_path, class: "nav-link" , 'data-toggle'=> "dropdown",
-									'aria-haspopup' => "true", 'aria-expanded' => "false", method:
-									'delete' do %>
+								<%= link_to logout_path, class: "nav-link" , method: 'delete' do %>
 									<i class="fas fa-sign-out-alt"></i>
 									logout
 								<% end %>

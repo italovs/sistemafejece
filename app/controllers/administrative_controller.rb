@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AdministrativeController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   layout 'administrative'
   include ApplicationHelper
   def index

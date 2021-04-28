@@ -2034,7 +2034,7 @@ ul.social-btns li {
 
 /*** ====== 6.3.4 Play Button ====== ***/
 
-.play-video {
+.play-video, .open-post {
     position: relative;
     display: block;
     height: 60px;
@@ -2054,7 +2054,7 @@ ul.social-btns li {
     background: #FF8225;
 }
 
-.play-video:hover {
+.play-video:hover, .open-post:hover {
     color: #FF8225;
     -webkit-transform: scale(1.05);
     -moz-transform: scale(1.05);
@@ -2067,7 +2067,7 @@ ul.social-btns li {
     background: #fff;
 }
 
-.play-video i {
+.play-video i, .open-post i {
     margin-left: 4px;
 }
 
@@ -4882,7 +4882,7 @@ main .col-md-12:last-of-type .movie-list-2 {
     opacity: .5;
 }
 
-.movie-detail-intro2 .movie-poster .play-video {
+.movie-detail-intro2 .movie-poster .play-video, .movie-detail-intro2 .movie-poster .open-post {
     opacity: 0;
     visibility: hidden;
     position: absolute;
@@ -4896,7 +4896,7 @@ main .col-md-12:last-of-type .movie-list-2 {
     transform: scale(0);
 }
 
-.movie-detail-intro2 .movie-poster:hover .play-video {
+.movie-detail-intro2 .movie-poster:hover .play-video, .movie-detail-intro2 .movie-poster .open-post {
     opacity: 1;
     visibility: visible;
     -webkit-transform: scale(1);
@@ -4909,7 +4909,7 @@ main .col-md-12:last-of-type .movie-list-2 {
     box-shadow: 0 0 0 10px rgba(147, 82, 179, 0);
 }
 
-.movie-detail-intro2 .movie-poster:hover .play-video:hover {
+.movie-detail-intro2 .movie-poster:hover .play-video:hover, .movie-detail-intro2 .movie-poster:hover .open-post:hover {
     -webkit-transform: scale(1.05);
     -moz-transform: scale(1.05);
     -ms-transform: scale(1.05);

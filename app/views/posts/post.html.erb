@@ -123,7 +123,7 @@
 															<i class="fas fa-play"></i>
 														</a>
 													<% elsif @post.kind == 'post'%>
-														<a class="play-video" href="<%= @post.link%>" id="<%= @post.id %>">
+														<a class="open-post" href="<%= @post.link%>" id="<%= @post.id %>">
 															<i class="fas fa-link"></i>
 														</a>
 													<% end %>
@@ -131,7 +131,9 @@
 
 
 											<div class="movie-details">
-													<h3 class="title mb-4"><%= @post.name %></h3>
+													<h3 class="title mb-2"><%= @post.name %></h3>
+													
+                                  					<div class="category text-white mb-3"><%=collect_categories_ids(@post_categories)%></div>
 
 													<!--<ul class="movie-subtext">
 															<li>PG-13</li>
@@ -317,7 +319,7 @@
 																	<i class="fas fa-play"></i>
 																</a>
 															<% elsif post.kind == 'post'%>
-																<a class="play-video" href="<%= @post.link%>" id="<%= @post.id %>">
+																<a class="open-post" href="<%= @post.link%>" id="<%= @post.id %>">
 																	<i class="fas fa-link"></i>
 																</a>
 															<% end %>

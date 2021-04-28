@@ -157,7 +157,7 @@ class TvSeriesController < ApplicationController
     if params[:serie_id].present?
       serie = TvSerie.where(id: params[:serie_id])
       if serie.count == 1 &&
-         (admin_signed_in? && serie.first.owner_id.nil?) ||
+         (admin_signed_in? && serie.first.owner_id == 0) ||
          (member_signed_in? && serie.first.owner_id == current_member.id)
         hash_seasons = {}
         serie = serie.first
@@ -195,8 +195,8 @@ class TvSeriesController < ApplicationController
 									ON "series"."id" = "serie_category"."tv_serie_id"
 									JOIN "categories"
 									ON "categories"."id" = "serie_category"."category_id"
-									WHERE "series"."owner_id" is NULL
-									AND "categories"."name" = '
+									WHERE "series"."owner_id" = '"#{0}"'
+									AND "categories"."name" = '          
       else
         sql =	'SELECT "series".*, "categories"."name" as "category_name"
 									FROM "tv_series" as "series"
@@ -233,9 +233,9 @@ class TvSeriesController < ApplicationController
       if kind.nil?
         @all_posts = Post.all.where(owner_id: 0)
       elsif kind.zero?
-        @posts = Post.all.where(owner_id: nil, kind: 0)
+        @posts = Post.all.where(owner_id: 0, kind: 0)
       elsif kind == 1
-        @videos = Post.all.where(owner_id: nil, kind: 1)
+        @videos = Post.all.where(owner_id: 0, kind: 1)
       end
     end
   end

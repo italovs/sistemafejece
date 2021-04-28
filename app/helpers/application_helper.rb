@@ -91,11 +91,11 @@ module ApplicationHelper
 			vector.push(aux[:category_id])
 		end
 
-		string = " ,"
+		string = " |"
 		
 		vector.each do |element|
 			string += @categories.all.find{|c| c.id == element}.name
-			string += ", "
+			string += " | "
 		end
 		string = string[2...-2]
 	end

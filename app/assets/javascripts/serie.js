@@ -44,7 +44,7 @@ function post_from_list(post, poster_image, rating, i){
     }
     else if (post["kind"] == "post")
     {
-        $(".play-btn").eq(i).append("<a href='"+post["link"]+"' class='play-video'><i class='fas fa-link'></i></a>")
+        $(".play-btn").eq(i).append("<a href='"+post["link"]+"' class='open-post'><i class='fas fa-link'></i></a>")
     }
 
     if (rating == -1)
