@@ -52,6 +52,59 @@
 						<%= link_to "Fale Conosco", "/all_posts", {class: "nav-link"}%>
 					</li>
 
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Usuário</a>
+
+						<ul class="dropdown-menu">
+							<% if admin_signed_in? %>
+								<li class="dropdown-item">
+									<%= link_to administrative_index_path, class: "nav-link" do%>
+										<i class="fas fa-chart-bar"></i>
+										Painel
+									<%end%>
+								</li>
+							<% end %>
+
+							<li class="dropdown-item">
+								<%= link_to profile_path, class: "nav-link" do%>
+									<i class="fas fa-user"></i>
+									Perfil
+								<%end%>
+							</li>
+
+							<% if valid_member_or_admin? %>
+								<li class="dropdown-item">
+									<%= link_to "/my_channel" , class: "nav-link" do %>
+										<i class="fas fa-tv"></i>
+										Meu canal
+									<% end %>
+								</li>
+								
+								<li class="dropdown-item">
+									<%= link_to "/my_trails" , class: "nav-link" do %>
+										<i class="fas fa-layer-group"></i>
+										Minhas trilhas
+									<% end %>
+								</li>
+
+								<li class="dropdown-item">
+									<%= link_to "/my_library" , class: "nav-link" do %>
+										<i class="fas fa-book"></i>
+										Minha biblioteca
+									<% end %>
+								</li>
+							<%end%>
+
+							<li class="dropdown-item">
+								<%= link_to logout_path, class: "nav-link" , method: 'delete' do %>
+									<i class="fas fa-sign-out-alt"></i>
+									logout
+								<% end %>
+							</li>
+							
+						</ul>	
+					</li>
+
 				</ul>
 				<!-- ====== End of Main Menu ====== -->
 

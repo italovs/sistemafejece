@@ -55,7 +55,7 @@
     }
 
     #main-mobile-nav{
-      z-index: 2
+      z-index: 9999;
     }
 
     .header{
@@ -120,7 +120,7 @@
             <p class="m-1">Pesquise por posts</p>
             <%= f.search_field :name_cont, class: 'col-3 mr-3', style: 'height: 40px;' %>
 
-            <%= f.select :owner_id_eq, options_for_select(@ejs.map { |obj| [obj[:name], obj[:id]] }), {:include_blank => "Todas as Ejs" }, {class: 'col-3 mr-3'} %>
+            <%#= f.select :owner_id_eq, options_for_select(@ejs.map { |obj| [obj[:name], obj[:id]] }), {:include_blank => "Todas as Ejs" }, {class: 'col-3 mr-3'} %>
 
             <%#= f.select :id_eq, options_from_collection_for_select(@post_categories, "id", "name", @search.project_id_eq) %>
 
