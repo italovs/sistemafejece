@@ -1,7 +1,6 @@
 //= require jquery
 
 $(function(){
-	console.log("=====================")
 	$("#send").on("click", function(){
 		response = collect_data();
 		if( response[0] == true ){
