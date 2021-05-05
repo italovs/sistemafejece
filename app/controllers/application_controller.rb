@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   def verify_onwership(object)
     if admin_signed_in?
-      object.owner_id.nil?
+      object.owner_id.zero?
     elsif current_member.validated?
       object.owner_id == current_member.junior_enterprise_id
     else
@@ -48,6 +48,17 @@ class ApplicationController < ActionController::Base
   def check_if_user_is_director_or_is_admin
     if member_signed_in? && !current_member.validated?
       redirect_back(fallback_location: member_root_path)
+    end
+  end
+
+  def update_season(season_and_posts_hash)
+    season_and_posts_hash.each do |season, posts_ids|
+      SeasonPost.where(season_id: season.to_i).destroy_all
+
+      posts_for_save = posts_ids.split(',')
+      (0..posts_for_save.length).each do |i|
+        SeasonPost.create(season_id: season.to_i, post_id: posts_for_save[i].to_i, order: i + 1)
+      end
     end
   end
 end

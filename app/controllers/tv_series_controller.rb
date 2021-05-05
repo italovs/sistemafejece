@@ -122,7 +122,7 @@ class TvSeriesController < ApplicationController
         if tv_serie.save
           # sucesso
           season_and_posts_hash = JSON.parse(params[:seasons_and_posts])
-          SeasonsController.update_season(season_and_posts_hash)
+          update_season(season_and_posts_hash)
           render json: [msg: 'Sucesso: Post foi atualizado', tv_serie: tv_serie], status: :ok
         else
           # falha
