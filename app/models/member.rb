@@ -33,8 +33,8 @@ class Member < ApplicationRecord
   end
 
   def director
-    self.validated = if position == positions.key(3)
-                       nil
+    self.validated = if position == "Diretor"
+                       1
                      else
                        0
                      end
