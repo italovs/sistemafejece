@@ -205,7 +205,7 @@
 											<strong>Última Atualização: </strong><%=@post.updated_at.strftime("%d/%m/%Y")%>
 										</li>
 
-										<% if @post.owner_id.nil?%>
+										<% if @post.owner_id.zero?%>
 											<li style="font-size: 1rem">
 												<span class="fas fa-user-cog text-f-orange mr-2 mb-3"></span>
 												<strong>Criador: </strong>FEJECE
@@ -213,7 +213,7 @@
 										<%else%>
 											<li style="font-size: 1rem">
 												<span class="fas fa-user-cog text-f-orange mr-2 mb-3"></span>
-												<strong>Criador: </strong><%= @ejs.find{|ej| ej.id == @post.owner_id}.name %>
+												<strong>Criador: </strong><%= @ejs.find{|ej| ej.id == @post.owner_id.name} %>
 											</li>
 										<%end%>
 
