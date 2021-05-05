@@ -14,16 +14,7 @@ class SeasonsController < ApplicationController
     end
   end
 
-  def update_season(season_and_posts_hash)
-    season_and_posts_hash.each do |season, posts_ids|
-      SeasonPost.where(season_id: season.to_i).destroy_all
-
-      posts_for_save = posts_ids.split(',')
-      (0..posts_for_save.length).each do |i|
-        SeasonPost.create(season_id: season.to_i, post_id: posts_for_save[i].to_i, order: i + 1)
-      end
-    end
-  end
+  
 
   def posts_from_season
     if params[:season_id].present?
@@ -43,7 +34,7 @@ class SeasonsController < ApplicationController
         @posts_rating << post.rating
       end
 
-      if (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
+      if (admin_signed_in? && @season.tv_serie.owner_id.zero?) ||
          (member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
         if @posts.nil?
           render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts],
@@ -66,7 +57,7 @@ class SeasonsController < ApplicationController
       @season = Season.find(params[:season_id].to_i)
       @posts = []
       @posts = SeasonPost.where(season_id: params[:season_id].to_i)
-      if (admin_signed_in? && @season.tv_serie.owner_id.nil?) ||
+      if (admin_signed_in? && @season.tv_serie.owner_id.zero?) ||
          (member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
         if @posts.nil?
           render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts],
