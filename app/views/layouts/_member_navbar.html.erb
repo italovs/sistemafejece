@@ -26,37 +26,31 @@
 
 				<!-- ====== Start of Main Menu ====== -->
 				<ul class="navbar-nav mx-auto" id="main-menu">
+					
 					<!-- Menu Item -->
 					<li class="nav-item dropdown">
 						<%= link_to 'Início' , member_root_path, class: "nav-link" %>
 					</li>
 
-					<% if admin_signed_in? %>
-						<li class="nav-item dropdown">
-							<%= link_to 'Painel' , administrative_index_path, class: "nav-link" %>
-						</li>
-						<% end %>
-
-							<li class="nav-item dropdown">
-								<%= link_to "Vídeos", "/all_videos", {class: "nav-link dropdown-toggle"}%>
-							</li>
+					<li class="nav-item">
+						<%= link_to "Vídeos", all_videos_path, {class: "nav-link"}%>
+					</li>
 
 
-							<!-- Menu Item -->
-							<li class="nav-item dropdown">
-								<%= link_to "Trilhas de Conteúdos", "/all_series", {class: "nav-link dropdown-toggle"}%>
-							</li>
+					<!-- Menu Item -->
+					<li class="nav-item">
+						<%= link_to "Trilhas de Conteúdos", all_series_path, {class: "nav-link"}%>
+					</li>
 
-							<!-- Menu Item -->
-							<li class="nav-item dropdown">
-								<%= link_to "Materiais Complementares", "/all_posts", {class: "nav-link dropdown-toggle"}%>
-							</li>
+					<!-- Menu Item -->
+					<li class="nav-item">
+						<%= link_to "Materiais Complementares", all_posts_path, {class: "nav-link"}%>
+					</li>
 
-							<!-- Menu Item -->
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">Fale Conosco</a>
-							</li>
+					<!-- Menu Item -->
+					<li class="nav-item">
+						<%= link_to "Fale Conosco", "/all_posts", {class: "nav-link"}%>
+					</li>
 
 				</ul>
 				<!-- ====== End of Main Menu ====== -->
@@ -100,12 +94,22 @@
 							<%=logged_name%>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right">
+							<% if admin_signed_in? %>
+								<li class="dropdown-item">
+									<%= link_to administrative_index_path, class: "nav-link" do%>
+										<i class="fas fa-chart-bar"></i>
+										Painel
+									<%end%>
+								</li>
+							<% end %>
+
 							<li class="dropdown-item">
 								<%= link_to profile_path, class: "nav-link" do%>
 									<i class="fas fa-user"></i>
 									Perfil
 								<%end%>
 							</li>
+
 							<% if valid_member_or_admin? %>
 								<li class="dropdown-item">
 									<%= link_to "/my_channel" , class: "nav-link" do %>
@@ -127,7 +131,6 @@
 										Minha biblioteca
 									<% end %>
 								</li>
-
 							<%end%>
 
 							<li class="divider"></li>

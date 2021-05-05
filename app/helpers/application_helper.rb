@@ -10,6 +10,30 @@ module ApplicationHelper
 		end
 	end
 
+	def all_videos_path
+		if member_signed_in?
+			member_all_videos_path
+		elsif admin_signed_in?
+			admin_all_videos_path
+		end
+	end
+
+	def all_series_path
+		if member_signed_in?
+			member_all_series_path
+		elsif admin_signed_in?
+			admin_all_series_path
+		end
+	end
+
+	def all_posts_path
+		if member_signed_in?
+			member_all_posts_path
+		elsif admin_signed_in?
+			admin_all_posts_path
+		end
+	end
+
 	#recebe até 2 arrays de strings como parâmetros
 	def verifica_controller_ativo( controllers, view = [controller.action_name] )
 		if( controllers.include?( controller_name ) && ( view.include?(controller.action_name) ) )

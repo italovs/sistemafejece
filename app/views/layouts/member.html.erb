@@ -249,15 +249,15 @@
                 <!-- Start of row -->
                 <div class="row">
                     <div class="col-md-8">
-                        <h2 class="title">Mais Vistos</h2>
+                        <h2 class="title">Mais vistos</h2>
                     </div>
 
 
                     <div class="col-md-4 align-self-center text-right">
-                        <a href="#" class="btn btn-icon btn-main btn-effect">
+                        <%= link_to all_videos_path, class: 'btn btn-icon btn-main btn-effect' do%>
                             Ver Tudo
                             <i class="fas fa-angle-double-right"></i>
-                        </a>
+                        <%end%>
                     </div>
                 </div>
                 <!-- End of row -->
@@ -397,10 +397,10 @@
 
 
                     <div class="col-md-4 align-self-center text-right">
-                        <a href="#" class="btn btn-icon btn-main btn-effect">
+                        <%= link_to all_series_path, class: 'btn btn-icon btn-main btn-effect' do%>
                             Ver Tudo
                             <i class="fas fa-angle-double-right"></i>
-                        </a>
+                        <%end%>
                     </div>
                 </div>
                 <!-- End of row -->
@@ -579,10 +579,10 @@
 
 
                     <div class="col-md-4 align-self-center text-right">
-                        <a href="#" class="btn btn-icon btn-main btn-effect">
-                            ver tudo
+                        <%= link_to all_posts_path, class: 'btn btn-icon btn-main btn-effect' do%>
+                            Ver Tudo
                             <i class="fas fa-angle-double-right"></i>
-                        </a>
+                        <%end%>
                     </div>
                 </div>
                 <!-- End of row -->
