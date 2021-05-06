@@ -16,6 +16,17 @@
 
 <body>
 
+  <style>
+    body{
+      background: rgb(216,117,46);
+      background: linear-gradient(145deg, rgba(216,117,46,1) 40%, rgba(1,140,119,1) 60%);
+    }
+
+    a{
+      margin-bottom: 20px;
+    }
+  </style>
+
   <div class="col-lg-4 col-md-4 auth-form mx-auto mt-3">
     <div class="card">
       <div class="card-body">
@@ -42,7 +53,7 @@
               <% end %>
             </div>
           </div>
-          <%= f.submit "Entrar", class: "btn btn-pill btn-accent d-table mx-auto" %>
+          <%= f.submit "Entrar", class: "btn btn-pill btn-f-orange text-white d-table mx-auto" %>
         <% end %>
       </div>
 

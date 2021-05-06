@@ -1,3 +1,11 @@
+<style>
+	@media (min-width: 1025px){
+		#user-dropdown{
+			display:none;
+		}
+	}
+</style>
+
 <header class="header navbar fixed-top navbar-expand-lg header-transparent text-white justify-content-center p-0">
 	<div class="w-100 m-0">
 
@@ -52,7 +60,7 @@
 						<%= link_to "Fale Conosco", "/all_posts", {class: "nav-link"}%>
 					</li>
 
-					<li class="nav-item dropdown">
+					<li id="user-dropdown" class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Usuário</a>
 
 						<ul class="dropdown-menu">

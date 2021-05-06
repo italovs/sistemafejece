@@ -11,6 +11,7 @@ class SiteController < ApplicationController
     @posts = Post.all.where(kind: 0)
     @posts_and_videos = Post.all
     @post_categories = PostCategory.all
+    @series = TvSerie.all
 
 	q = params[:q]
 	@series_search   = TvSerie.ransack(junior_enterprise_name_cont: q).result
