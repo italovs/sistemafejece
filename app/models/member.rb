@@ -34,7 +34,7 @@ class Member < ApplicationRecord
 
   def director
     self.validated = if position == "Diretor"
-                       1
+                       nil
                      else
                        0
                      end

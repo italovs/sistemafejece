@@ -258,27 +258,28 @@
 
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <p class="text-muted d-block mb-2">Poster da publicação</p>
-                              <small class= "form-text text-muted" style="font-size: 12px !important">tamanho recomendado 300x444</small>
+                              <p class="text-muted d-block mb-2 d-inline-flex">Poster da publicação</p>
+                              <small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">dimensão recomendado 300x444|tamanho máximo 5 mb</small>
                               <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
                             </div>  
                           </div>
 
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <p class="text-muted d-block mb-2">Banner da publicação</p>
-                              <small class= "form-text text-muted ">tamanho recomendado 1600x803</small>
+                              <p class="text-muted d-block mb-2 d-inline-flex">Banner da publicação</p>
+                              <small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">dimensão recomendado 1600x803|tamanho máximo 5 mb</small>
                               <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
                             </div>  
                           </div>
 
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo", class: "input_field form-control" %>
+                              <%= text_field_tag :post_link, nil, placeholder: "Link do Arquivo começando com www", class: "input_field form-control" %>
                             </div>  
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-12">
+                            <p class="text-muted d-block mb-2 d-inline-flex">Categorias</p>
                               <%= select_tag :post_category, options_from_collection_for_select(Category.all,'id','name'),{class: 'select_field custom-select form-control selectize mb-3', style: "height:100%;",multiple: true}%>
                             </div> 
                           </div>

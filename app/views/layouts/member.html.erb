@@ -90,7 +90,7 @@
         <div class="loading-inner">
             <div class="loading-effect">
                 <div class="object">
-                    <i class="fas fa-spinner" style="animation: fa-spin 2s infinite linear; margin-top:24.5%; margin-left:24.5%; color: white; font-size:2em;"></i>
+                    <i class="fas fa-spinner" style="animation: fa-spin 2s infinite linear; margin-top: 12%; margin-left:24.5%; color: white; font-size:2em;"></i>
                 </div>
             </div>
         </div>
@@ -291,7 +291,7 @@
                                                 <i class="fas fa-play"></i>
                                             </a>
                                         <% elsif post.kind == 'post'%>
-                                            <a class="open-post" href="<%= post.link%>">
+                                            <a class="open-post" target="_blank" href="https://<%= post.link%>">
                                                 <i class="fas fa-link"></i>
                                             </a>
                                         <% end %>
