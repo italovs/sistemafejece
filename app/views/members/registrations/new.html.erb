@@ -16,7 +16,7 @@
 
 <body>
   <main class="main-content col">
-    <div class="main-content-container container-fluid px4 h-100">
+    <div class="main-content-container container-fluid px4">
       <div class="row no gutters h-100">
         <div class="col-lg-5 col-md-5 auth-form mx-auto mt-3">
           <div class="card">
@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                   <label>Escolha sua empresa júnior</label>
-                  <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.order(:name) ,:id,:name, {},{:class =>'form-control custom-select custom-select-sm'})%>
+                  <%= collection_select(:member,:junior_enterprise_id, JuniorEnterprise.all.where.not(id: 0).order(:name) ,:id,:name, {},{:class =>'form-control custom-select custom-select-sm'})%>
                 </div>
                 <div class="form-group">
                   <label>Qual o seu cargo?</label>
@@ -57,9 +57,18 @@
                   <%= f.password_field :password_confirmation, autocomplete: "Confirme a senha",class:"form-control" %>
                 </div>
 
+                <div class="form-group">
+                  <h6 id="warn-text" style="display:none; font-size:14px; color:#CC0000;">É preciso aceitar os termos de uso</h6>
+                  <input type="checkbox" class="custom-control-input d-inline" id="accept_informations" name="admin[remember_me]">
+                  <label class="custom-control-label d-inline" for="customCheck2">Acito os Termos de Uso</label>
+                </div>  
+
                 <div class="actions">
-                  <%= f.submit "Cadastrar", class:"mb-2 btn btn-sm btn-pill btn-outline-primary mr-2" %>
+                  <%= f.submit "Cadastrar", class:"mb-2 btn btn-sm btn-pill btn-outline-primary mr-2", id: 'submit-button-1',  style:'display: none;' %>
+                  <input value="Cadastrar" style="width: 78.3px;" id="submit-button-2" name="commit" 
+                          type="button" class="mb-2 btn btn-sm btn-pill btn-outline-primary mr-2" data-disable-with="Cadastrar">
                 </div>
+
                 <%= render "devise/shared/links" %>
             </div>
           </div>
@@ -69,4 +78,14 @@
   </main>
 
     <% end %>
+
+    <%= javascript_include_tag 'registration.js' %>
+
+
+
+
+
+
+
+
 </body>

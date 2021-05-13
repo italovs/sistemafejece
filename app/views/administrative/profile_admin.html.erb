@@ -35,6 +35,11 @@
 
 
 <div style="margin: 0 5%;">
+
+  <%= link_to '/admins', method: :delete, data: { confirm: "Você tem certeza?"}, class:'btn btn-danger rounded mb-5' do %>
+    <i class="fas fa-times text-white" style="font-size: 16px;"> DELETAR CONTA </i>
+  <%end%>
+
   <div class="row">
     <div class="col-lg-4">
       <div class="card card-small mb-4 pt-3">

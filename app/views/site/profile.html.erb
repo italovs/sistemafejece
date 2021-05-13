@@ -105,32 +105,7 @@
 
 		<br /><br /><br /><br /><br />
 
-		<%if true==false%>    
-			Seus Dados
-			<br>
-			<br>
-
-			<div class="field" id="profile_info">
-				<strong>
-					Nome: 
-				</strong>
-				<span id="name"><%= @profile.name.nil? ? "Não informado" : @profile.name %></span>
-			</div>
-
-			<div class="field">
-				<strong>
-					E-mail: 
-				</strong>
-				<span id="email"><%= @profile.email %></span>
-			</div>
-			<div class="field">
-				<strong>
-					Sobre: 
-				</strong>
-				<span id="about"><%= @profile.about.nil? ? "Não informado" : @profile.about %></span>
-			</div>
-		<%end%>
-		  
+		
 		<%if notice.nil? == false %>
 			<div id="notice" class="notification">
 			<div class="toast-header succes">          
@@ -146,7 +121,13 @@
 			</div>
 		<% end %>
 
+
 		<div style="margin: 0 5%;">
+
+			<%= link_to '/members', method: :delete, data: { confirm: "Você tem certeza?"}, class:'btn btn-danger rounded mb-5' do %>
+				<i class="fas fa-times text-white" style="font-size: 16px;"> DELETAR CONTA </i>
+			<%end%>
+
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="card card-small mb-4 pt-3">
