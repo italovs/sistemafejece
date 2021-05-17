@@ -9,6 +9,7 @@ class Member < ApplicationRecord
     :confirmable
 
   attribute :name, :string, default: ''
+  encrypts :email, migrating: true
 
   before_create :director
   before_destroy :delete_images
