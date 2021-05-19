@@ -31,6 +31,7 @@ Rails.logger.debug "#{acoes.sample} EJs..."
 ejs.each do |ej|
   JuniorEnterprise.create(name: ej)
 end
+JuniorEnterprise.create(name: 'FEJECE', id: 0, description: "Os piratas!")
 
 case Rails.env
 when 'development'
@@ -48,7 +49,7 @@ when 'production'
 
 end
 
-JuniorEnterprise.create(name: 'FEJECE', id: 0, description: "Os piratas!")
+
 
 Rails.logger.debug "#{acoes.sample} Categorias..."
 categorias = ['Time', 'Marketing', 'Projetos', 'Liderança', 'Organização']

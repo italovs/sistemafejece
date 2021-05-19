@@ -61,6 +61,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  ENV['LOCKBOX_MASTER_KEY'] = "6bafcb0943623c333ec72bc9c474fb91b0ea9f277db48716d557c9d73aff303d"
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
