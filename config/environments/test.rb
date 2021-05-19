@@ -7,7 +7,8 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  TEMPLATE_IMAGE_FOR_PROFILE = "https://storage.googleapis.com/farol-fejece/fotos/user.png"
+  TEMPLATE_IMAGE_FOR_PROFILE_SEED = "https://storage.googleapis.com/farol-fejece/fotos/user.png"
   config.cache_classes = true
   config.action_view.cache_template_loading = true
 

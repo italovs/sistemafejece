@@ -35,14 +35,14 @@ JuniorEnterprise.create(name: 'FEJECE', id: 0, description: "Os piratas!")
 
 case Rails.env
 when 'development'
-  file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
+  file = URI.open('https://storage.googleapis.com/farol-fejece/fotos/user.png')
   admin = Admin.create(email: 'admin@gti.com',
                        password: 'voagti')
   admin.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')
     
 
 when 'production'
-  file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/user.png')
+  file = URI.open('https://storage.googleapis.com/farol-fejece/fotos/user.png')
   admin = Admin.create(email: 'admin@gti.com',
                        password: 'voagti')
   admin.profile_picture.attach(io: file, filename: 'user.png', content_type: 'image/png')

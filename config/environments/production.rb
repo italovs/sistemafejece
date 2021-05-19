@@ -2,8 +2,8 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  TEMPLATE_IMAGE_FOR_PROFILE = "https://storage.googleapis.com/farol-fejece-test/fotos/user.png"
-  TEMPLATE_IMAGE_FOR_PROFILE_SEED = "https://storage.googleapis.com/farol-fejece-test/fotos/user.png"
+  TEMPLATE_IMAGE_FOR_PROFILE = "https://storage.googleapis.com/farol-fejece/fotos/user.png"
+  TEMPLATE_IMAGE_FOR_PROFILE_SEED = "https://storage.googleapis.com/farol-fejece/fotos/user.png"
   # Code is not reloaded between requests.
   config.cache_classes = true
 
