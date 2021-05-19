@@ -19,7 +19,7 @@ google:
   service: GCS
   project: Farol Fejece
   credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'].as_json %>
-  bucket: farol-fejece-test
+  bucket: farol-fejece
 
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:
