@@ -62,7 +62,7 @@ class Post < ApplicationRecord
   end
 
   def default_images
-    file = URI.open('https://storage.googleapis.com/farol-fejece-test/fotos/default_post_image.png')
+    file = URI.open('https://storage.googleapis.com/farol-fejece/fotos/default_post_image.png')
     unless poster_image.attached?
       poster_image.attach(io: file, filename: 'default_post_image.png', content_type: 'image/png')
     end
