@@ -1,6 +1,8 @@
 test:
-  service: Disk
-  root: <%= Rails.root.join("tmp/storage") %>
+  service: GCS
+  project: Farol Fejece
+  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'].as_json %>
+  bucket: farol-fejece-teste
 
 local:
   service: Disk

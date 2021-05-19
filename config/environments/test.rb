@@ -37,11 +37,22 @@ Rails.application.configure do
   config.active_storage.service = :test
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = {host: "https://farol-fejece-teste.herokuapp.com"}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    domain: 'farol-fejece-teste.herokuapp.com',
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain,
+    user_name: 'apikey',
+    password: ENV['SENDGRID_API_KEY']
+  }
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
