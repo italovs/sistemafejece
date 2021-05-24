@@ -72,9 +72,10 @@ function setting_events(){
 		$("#youtube_description").show();
 		$(".videos-row").toggle();
 		$(".series-row").hide();
-		$("#youtube_name").val('')
-		$("#youtube_link").val('')
-		$("#youtube_description").val('')
+		$("#youtube_name").val('');
+		$("#youtube_link").val('');
+		$("#youtube_description").val('');
+		$("#update_video").hide();
 	})
 
 	$(".edit_video").on("click", function(){
@@ -87,6 +88,7 @@ function setting_events(){
 		$(".video-field").show();
 		$("#youtube_link").show();
 		$("#update_video").show();
+		$("#create_new_video").hide();
 		$("#tv_series").hide();
 		$("#season").hide();
 		$("#youtube_name").show();
