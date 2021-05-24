@@ -35,6 +35,8 @@ function setting_events(){
 		}
 		$("#full-content").toggle();
 		$("main").toggle();
+		$("#update_post").hide();
+		$("#create_new_post").show();
 
 		if ($("main").is(":visible")){
             $(this).text("Novo Post");
@@ -97,6 +99,7 @@ function setting_events(){
 		$("#full-content").show();
 		$("#main_title").text("Editar Post");
 		$("#post_title").show();
+		$("main").toggle();
 		$("#update_post").show();
 		$("#create_new_post").hide();
 		$("#post_description").show();
@@ -113,7 +116,7 @@ function setting_events(){
 		},function(data, status){
 			if(status == "success"){
 				post_information = data[0]
-				$('#post_title').val(post_information["post_name"]);
+				$('#post_name').val(post_information["post_name"]);
 				$('#post_link').val(post_information["post_link"]);
 				$('#post_description').val(post_information["post_description"]);
 				
@@ -154,7 +157,7 @@ function setting_events(){
 			$(".success-msg").show();
 			$(".succes").html(data[0]["msg"]);
 			console.log(data)
-		}).fail(function(){
+		}).fail(function(data){
 			//ERRO DE REQUISIÇÃO
 			//page_reload();
 			$(".error-msg").show();

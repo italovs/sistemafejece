@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_183010) do
+ActiveRecord::Schema.define(version: 2021_05_19_170833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,16 +37,18 @@ ActiveRecord::Schema.define(version: 2021_04_23_183010) do
   end
 
   create_table "admins", force: :cascade do |t|
-    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.string "about"
-    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.text "email_ciphertext"
+    t.string "email_bidx"
+    t.text "name_ciphertext"
+    t.string "name_bidx"
+    t.text "about_ciphertext"
+    t.string "about_bidx"
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
@@ -65,23 +67,26 @@ ActiveRecord::Schema.define(version: 2021_04_23_183010) do
   end
 
   create_table "members", force: :cascade do |t|
-    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "about"
     t.bigint "junior_enterprise_id", null: false
     t.integer "position"
     t.boolean "validated"
-    t.string "name"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.text "email_ciphertext"
+    t.string "email_bidx"
+    t.text "name_ciphertext"
+    t.text "about_ciphertext"
+    t.string "name_bidx"
+    t.string "about_bidx"
     t.index ["confirmation_token"], name: "index_members_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_members_on_email", unique: true
+    t.index ["email_bidx"], name: "index_members_on_email_bidx", unique: true
     t.index ["junior_enterprise_id"], name: "index_members_on_junior_enterprise_id"
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end

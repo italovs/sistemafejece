@@ -6,12 +6,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 gem 'active_storage_validations'
+gem 'blind_index'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise-i18n'
 gem 'google-cloud-storage'
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 gem 'image_processing'
 gem 'jbuilder', '~> 2.7'
+gem 'lockbox'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'

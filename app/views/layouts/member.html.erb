@@ -126,7 +126,7 @@
                         <!-- ===== SLIDE NR. 1 ===== -->
                         <li data-transition="fade">
                             <!-- MAIN IMAGE -->
-                            <img src="https://storage.googleapis.com/farol-fejece-test/fotos pro farol/fejece banner.png"
+                            <img src="https://storage.googleapis.com/farol-fejece/fotos pro farol/fejece banner.png"
                                  alt="Image"
                                  title="slider-bg"
                                  data-bgposition="center center"
@@ -157,10 +157,10 @@
                             data-easeout="default"
                             data-masterspeed="2000">
                             <!-- MAIN IMAGE -->
-                            <img src="https://storage.googleapis.com/farol-fejece-test/fotos%20pro%20farol/fejece%204.png"
+                            <img src="https://storage.googleapis.com/farol-fejece/fotos%20pro%20farol/2.jpg"
                                  alt="Image"
                                  title="slider-bg"
-                                 data-bgposition="center top"
+                                 data-bgposition="center bottom"
                                  data-bgfit="cover"
                                  data-bgrepeat="no-repeat"
                                  data-bgparallax="10"
@@ -188,9 +188,9 @@
                             data-easeout="default"
                             data-masterspeed="2000">
                             <!-- MAIN IMAGE -->
-                            <img src="https://storage.googleapis.com/farol-fejece-test/fotos%20pro%20farol/fejece%207.png"
+                            <img src="https://storage.googleapis.com/farol-fejece/fotos%20pro%20farol/3.jpg"
                                  alt="Image"
-                                 data-bgposition="center top"
+                                 data-bgposition="center bottom"
                                  data-bgfit="cover"
                                  data-bgrepeat="no-repeat"
                                  data-bgparallax="3"
@@ -433,6 +433,7 @@
                                                         <%end%>
 
                                                             <!-- Buttons -->
+                                                            <!--
                                                             <div class="buttons">
                                                                 <li class="tooltips edit_video d-inline-flex bg-transparent mr-3" type="button" value="<%=serie.id%>" title="Editar" data-placement="bottom" style="list-style:none">
                                                                     <i class="fas fa-pencil-alt"></i>
@@ -442,6 +443,7 @@
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </li>
                                                             </div>
+                                                            -->
 
                                                             <!-- Image -->
                                                             <img src="" alt="">
@@ -450,13 +452,13 @@
                                                     <!-- Movie List Content -->
                                                     <div class="listing-content">
                                                             <div class="inner">
-                                                                    <h2 class="title"><%= serie.name %></h2>
+                                                                <h2 class="title"><%= serie.name %></h2>
 
-                                                                    <p><%=serie.description%></p>
+                                                                <p><%=serie.description%></p>
 
-                                                                    <%= link_to  "/serie/#{serie.id}", class: "btn btn-main btn-effect" do%>
-                                                                            Detalhes
-                                                                    <%end%>
+                                                                <%= link_to  "/serie/#{serie.id}", class: "btn btn-main btn-effect" do%>
+                                                                        Detalhes
+                                                                <%end%>
                                                             </div>
                                                     </div>
                                                 </div>
@@ -475,7 +477,7 @@
 
 
         <!-- =============== START OF UPCOMING MOVIES SECTION =============== -->
-        <section class="upcoming-movies parallax ptb100" data-background="https://storage.googleapis.com/farol-fejece-test/fotos%20pro%20farol/lighthouse-2372461_1920.jpg" 
+        <section class="upcoming-movies parallax ptb100" data-background="https://storage.googleapis.com/farol-fejece/fotos%20pro%20farol/lighthouse-2372461_1920.jpg" 
                 data-color="#018c77" data-color-opacity="0.6" style="z-index: 0;">
           <div class="m-0 w-100">
 
@@ -502,7 +504,7 @@
 
                   <!-- Start of Poster -->
                   <div class="poster">
-                    <img src="https://storage.googleapis.com/farol-fejece-test/fotos%20pro%20farol/people-4050698_1920.jpg" alt="">
+                    <img src="https://storage.googleapis.com/farol-fejece/fotos%20pro%20farol/people-4050698_1920.jpg" alt="">
                   </div>
                   <!-- End of Poster -->
 

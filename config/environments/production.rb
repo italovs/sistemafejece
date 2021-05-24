@@ -2,8 +2,8 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  TEMPLATE_IMAGE_FOR_PROFILE = "https://storage.googleapis.com/farol-fejece-test/fotos/user.png"
-  TEMPLATE_IMAGE_FOR_PROFILE_SEED = "https://storage.googleapis.com/farol-fejece-test/fotos/user.png"
+  TEMPLATE_IMAGE_FOR_PROFILE = 'https://storage.googleapis.com/farol-fejece/fotos/user.png'
+  TEMPLATE_IMAGE_FOR_PROFILE_SEED = 'https://storage.googleapis.com/farol-fejece/fotos/user.png'
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -30,7 +30,6 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-  
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
@@ -48,7 +47,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-   config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -65,10 +64,10 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "example_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = {host: "https://farol-fejece-teste.herokuapp.com"}
+  config.action_mailer.default_url_options = {host: 'https://farol-fejece.herokuapp.com'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    domain: 'farol-fejece-teste.herokuapp.com',
+    domain: 'farol-fejece.herokuapp.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,

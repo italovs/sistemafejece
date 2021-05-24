@@ -124,7 +124,7 @@
 
           <%#= f.select :id_eq, options_from_collection_for_select(@post_categories, "id", "name", @search.project_id_eq) %>
 
-          <%= f.select :tv_serie_category_category_id_eq, options_from_collection_for_select(Category.all, "id", "name", @q.tv_serie_category_category_id_eq), {:include_blank => "Todas as Categorias" }, {class: 'col-3 mr-3'}%>
+          <%= select_tag :tv_serie_category_category_id_eq, options_from_collection_for_select(Category.all, "id", "name", @q.tv_serie_category_category_id_eq), {class: 'select_field custom-select form-control selectize mb-3', style:'height:100%; width: 50%;'}%>
 
 
           <%= f.submit class:'btn-f-green border-0 text-white rounded col-2', style: "height: 45px; font-weight:600" %>
@@ -196,3 +196,4 @@
     <%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'selectize_for_categories', 'data-turbolinks-track': 'reload' %>

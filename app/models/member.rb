@@ -8,7 +8,9 @@ class Member < ApplicationRecord
     :validatable,
     :confirmable
 
-  attribute :name, :string, default: ''
+  
+  encrypts :email, :name, :about
+  blind_index :email, :name
 
   before_create :director
   before_destroy :delete_images

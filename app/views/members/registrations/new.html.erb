@@ -25,6 +25,7 @@
               <h5 class="auth-form__title text-center mb-4">Crie sua conta</h5>
               <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
                 <%= render "devise/shared/error_messages", resource: resource %>
+                <%= notice || alert%>
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nome completo</label>

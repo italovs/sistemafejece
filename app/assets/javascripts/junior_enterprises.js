@@ -24,7 +24,10 @@ $(document).ready(function () {
 			quantityofItens.style.marginLeft = "50%";
 			quantityofItens.style.width = "20%";
 			
-		}
+		},
+		"columnDefs": [{
+			"type": "html-num", "targets":0
+		}]
 	});
 	
 }); 
