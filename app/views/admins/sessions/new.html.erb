@@ -30,9 +30,11 @@
       <div class="card-body">
         <img class="auth-form__logo d-table mx-auto " src="/images/fejece_logo_fundo_branco.jpg" alt="Logo FEJECE">
         <h5 class="auth-form__title text-center">Acesse sua Conta</h5>
-        <%= render "devise/shared/error_messages", resource: resource %>
+        
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= notice || alert %>
           <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
@@ -57,7 +59,7 @@
 
       <div class="card-footer border-top">
         <div class="auth-form__meta d-flex">
-          <%= render "devise/shared/links" %>
+          
         </div>
       </div>  
 

@@ -32,9 +32,10 @@
       <div class="card-body">
         <img class="auth-form__logo d-table mx-auto mb-3" src="/images/fejece_logo_fundo_branco.jpg" alt="Logo FEJECE">
         <h5 class="auth-form__title text-center mb-4">Acesse sua Conta</h5>
-        <%= render "devise/shared/error_messages", resource: resource %>
+        
 
-        <%= form_with(model: @member, url: member_session_path) do |f| %>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= notice || alert %>
           <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
