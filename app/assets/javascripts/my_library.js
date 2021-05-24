@@ -157,7 +157,7 @@ function setting_events(){
 			$(".success-msg").show();
 			$(".succes").html(data[0]["msg"]);
 			console.log(data)
-		}).fail(function(){
+		}).fail(function(data){
 			//ERRO DE REQUISIÇÃO
 			//page_reload();
 			$(".error-msg").show();

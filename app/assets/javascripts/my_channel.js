@@ -176,7 +176,7 @@ function setting_events(){
 					$(".success-msg").show();
 					$(".succes").html(data[0]["msg"]);
 					console.log(data)
-				}).fail(function(){
+				}).fail(function(data){
 					//ERRO DE REQUISIÇÃO
 					//page_reload();
 					$(".error-msg").show();
@@ -205,18 +205,13 @@ function setting_events(){
 					data: formData,
 					type: 'POST',
 					contentType: false,
-					processData: false
-				}).done(function(data){
-					//page_reload();
-					$(".success-msg").show();
-					$(".succes").html(data[0]["msg"]);
-					console.log(data)
-				}).fail(function(data){
-					//ERRO DE REQUISIÇÃO
-					//page_reload();
-					$(".error-msg").show();
-					$(".err").html(data[0]["msg"]);
-				});
+					processData: false,
+					success: function(data, statusCode,xhr){
+						RequestSuccess(data, statusCode,xhr)},
+					error: function(data,statusCode, xhr){
+						 RequestError(data,statusCode, xhr)
+						}
+				})
 			}
 		} else {
 			alert("Há campos em branco")
