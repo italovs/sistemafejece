@@ -11,3 +11,21 @@ $(function(){
 		}
 	});
 });
+
+$(".remove_admin").click(function(){
+	$.post( '/pirates/remove_pirate',
+		{
+			id: $(this).attr('id').replace("admin_","") 
+		},
+		function(data, status){
+			if(status == "success"){
+				//Colocar notificação
+				console.log(data[0])
+			} else {
+				//ERRO DE REQUISIÇÃO
+
+			}
+		});
+})
+
+

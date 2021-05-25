@@ -32,6 +32,7 @@ class AdministrativeController < ApplicationController
   end
 
   def new_admins
+    @admins = Admin.all
   end
 
   def create_admin
@@ -43,6 +44,12 @@ class AdministrativeController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid
     render json: [msg: 'Erro: ' + @admin.errors], status: :unprocessable_entity
+  end
+
+  def remove_admin
+    admin = Admin.find(params[:id]) if params[:id].present?
+    admin.destroy
+    render json: ["Pirata removido com sucesso!"]
   end
 
   # EJS

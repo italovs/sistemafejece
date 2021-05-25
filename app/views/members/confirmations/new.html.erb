@@ -1,16 +1,60 @@
-<h2>Resend confirmation instructions</h2>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <%# TODO: colocar um título %>
+    <title>App Exemplo</title>
+    <%# TODO: mudar com descrição do sistema %>
+    <meta name="description" content="Mudar com a descrição do sistema.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+</head>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "members/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
 
-<%= render "members/shared/links" %>
+<body>
+
+  <style>
+    body{
+        background: rgb(216,117,46);
+        background: linear-gradient(145deg, rgba(216,117,46,1) 40%, rgba(1,140,119,1) 60%);
+        background-repeat: no-repeat;
+      }
+  </style>
+  
+  <main class="main-content col">
+    <div class="main-content-container container-fluid px4 h-100">
+      <div class="row no gutters h-100">
+        <div class="col-lg-4 col-md-4 auth-form mx-auto mt-3">
+          <div class="card">
+            <div class="card-body">
+              <img class="auth-form__logo d-table mx-auto mb-3" src="/images/fejece_logo_fundo_branco.jpg" alt="Logo FEJECE">
+              <h5 class="auth-form__title text-center mb-4">Esqueceu sua Senha?</h5>
+              <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+                <%= render "admins/shared/error_messages", resource: resource %>
+
+                <div class="field">
+                  <%= f.label :email %><br />
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-100", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+                </div>
+
+                <div class="actions">
+                  <%= f.submit "Reenviar e-mail", class:"btn btn-pill btn-f-orange text-white d-table mx-auto mt-5" %>
+                </div>
+              <% end %>
+
+              <%= render "devise/shared/links" %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
