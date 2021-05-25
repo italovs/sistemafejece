@@ -12,11 +12,11 @@ $(function(){
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data, statusCode, xhr){
-			RequestSuccess(data, statusCode, xhr);
+		}).done(function(data,  xhr){
+			RequestSuccess(data, xhr, true);
 			
-		}). fail(function(data, statusCode, xhr){
-			RequestError(data, statusCode, xhr);
+		}). fail(function(data, xhr){
+			RequestError(data, xhr, false);
 		});
 	});
 });

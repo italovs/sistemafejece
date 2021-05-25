@@ -33,7 +33,5 @@ function RequestSuccess(data, xhr, reload=false){
     setTimeout(function(){
       location.reload();
     }, 2000);
-    
   }
-  //page_reload();  
 }

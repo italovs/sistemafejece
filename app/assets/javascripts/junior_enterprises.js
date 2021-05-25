@@ -42,11 +42,11 @@ $(function(){
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data, statusCode, xhr){
-			RequestSuccess(data, statusCode, xhr);
+		}).done(function(data, xhr){
+			RequestSuccess(data, xhr, true);
 			
-		}). fail(function(data, statusCode, xhr){
-			RequestError(data, statusCode, xhr);
+		}). fail(function(data, xhr){
+			RequestError(data, xhr, false);
 		});
 	});
 
@@ -66,8 +66,8 @@ function ajax_action( obj ){
 		type: 'POST',
 		contentType: false,
 		processData: false
-	}).done(function(data, statusCode, xhr){
-		RequestSuccess(data, statusCode, xhr);
+	}).done(function(data, xhr){
+		RequestSuccess(data, xhr, true);
 		if( data[0].hasOwnProperty("ejs") ){
 			//refill_table(["#junior_enterprises"], data[0]["ejs"], "", ["name", "description"])
 			$( "#junior_enterprises" ).empty()
@@ -84,8 +84,8 @@ function ajax_action( obj ){
 			})
 		}
 		
-	}). fail(function(data, statusCode, xhr){
-		RequestError(data, statusCode, xhr);
+	}). fail(function(data, xhr){
+		RequestError(data, xhr, false);
 	});
 	
 }

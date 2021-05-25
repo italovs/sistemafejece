@@ -42,13 +42,13 @@ function im_a_director(){
 		type: 'POST',
 		contentType: false,
 		processData: false
-	}).done(function(data, statusCode, xhr){
-		RequestSuccess(data, statusCode, xhr);
+	}).done(function(data, xhr){
+		RequestSuccess(data, xhr, false);
 		reset_fields();
 		update_data(data[0]);
 		$("#director").hide();
-	}). fail(function(data, statusCode, xhr){
-		RequestError(data, statusCode, xhr);
+	}). fail(function(data,  xhr){
+		RequestError(data, xhr, false);
 		reset_fields();
 		
 	})
@@ -86,11 +86,11 @@ function change_mail(){
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data, statusCode, xhr){
-			RequestSuccess(data, statusCode, xhr);
+		}).done(function(data, xhr){
+			RequestSuccess(data, xhr, false);
 			reset_fields();
-		}). fail(function(data, statusCode, xhr){
-			RequestError(data, statusCode, xhr);
+		}). fail(function(data, xhr){
+			RequestError(data, xhr, false);
 			reset_fields();
 		});
 		
@@ -125,12 +125,12 @@ function change_information(){
 			type: 'POST',
 			contentType: false,
 			processData:false,
-		}).done(function( data, statusCode, xhr ){
+		}).done(function( data, xhr ){
 			reset_fields()
-			RequestSuccess(data, statusCode, xhr)
+			RequestSuccess(data, xhr, true)
 			update_data(data[0])
-		}).fail(function(data, statusCode, xhr){
-			RequestError(data, statusCode, xhr)
+		}).fail(function(data, xhr){
+			RequestError(data, xhr, false)
 			reset_fields()
 		});
 		$("#change_information").html("ATUALIZAR DADOS")
@@ -162,11 +162,11 @@ function change_password(){
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data, statusCode, xhr){
-			RequestSuccess(data, statusCode, xhr);
+		}).done(function(data,xhr){
+			RequestSuccess(data, xhr, false);
 			reset_fields();
-		}). fail(function(data, statusCode, xhr){
-			RequestError(data, statusCode, xhr);
+		}). fail(function(data, xhr){
+			RequestError(data, xhr, false);
 			reset_fields();
 		})
 		
