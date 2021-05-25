@@ -7,15 +7,41 @@ class SiteController < ApplicationController
   def index
     direction_notification
     @categories = Category.all.select(:id, :name)
-    @videos = Post.all.where(kind: 1)
-    @posts = Post.all.where(kind: 0)
-    @posts_and_videos = Post.all
     @post_categories = PostCategory.all
-    @series = TvSerie.all
+    @videos = []
+    @posts = []
+    @series = []
+    series_count = TvSerie.count
+    @last_videos = Post.where(kind: 1).select(:id,
+      :name,
+      :created_at,
+      :link,
+      :description,
+      :kind).last(30)
+    @last_posts = Post.where(kind: 0).select(:id,
+      :name,
+      :created_at,
+      :link,
+      :description,
+      :kind).last(30)
+    @posts_and_videos = Post.order(views: :desc).select(:id,
+      :name,
+      :created_at,
+      :link,
+      :kind).last(12)
+    9.times do
+      @sample = @last_posts.sample
+      @posts << @sample unless @posts.include? @sample
+      @sample = @last_videos.sample
+      @videos << @sample unless @videos.include? @sample
+      random_offset = rand(series_count)
+      @serie = TvSerie.offset(random_offset).first
+      @series << @serie unless @series.include? @serie
+    end
 
-	q = params[:q]
-	@series_search   = TvSerie.ransack(junior_enterprise_name_cont: q).result
-	@posts_search = Post.ransack(junior_enterprise_name_cont: q).result
+    q = params[:q]
+    @series_search = TvSerie.ransack(junior_enterprise_name_cont: q).result
+    @posts_search = Post.ransack(junior_enterprise_name_cont: q).result
   end
 
   def profile
@@ -26,18 +52,17 @@ class SiteController < ApplicationController
   end
 
   def all_content
-
     @ejs = JuniorEnterprise.all
     @categories = Category.all
-    
+
     q0 = params[:q0]
     q1 = params[:q1]
     q2 = params[:q2]
     q3 = params[:q3]
     @posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
-                name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
-    @series   = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
-                  name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
+                          name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
+    @series = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
+                              name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
 
     direction_notification
   end
@@ -48,11 +73,11 @@ class SiteController < ApplicationController
     # JuniorEnterprise.all.each do |ej|
     #   @custom_ejs << ({id: ej.id, name: ej.name})
     # end
-    #@custom_ejs << ({id: nil, name: "FEJECE"})
-	# byebug
+    # @custom_ejs << ({id: nil, name: "FEJECE"})
+    # byebug
     @ejs = JuniorEnterprise.all
     @categories = Category.all
-    
+
     @q = Post.where(kind: 1).ransack(params[:q])
     @videos = @q.result(distinct: true)
 
@@ -461,10 +486,10 @@ class SiteController < ApplicationController
     end
   end
 
-    def search
-      if params[:q]
-        search_params = CGI::escapeHTML(params[:q]) 
-        redirect_to ("/all_content?q3=#{search_params}")
-      end
+  def search
+    if params[:q]
+      search_params = CGI.escapeHTML(params[:q])
+      redirect_to("/all_content?q3=#{search_params}")
     end
+  end
 end

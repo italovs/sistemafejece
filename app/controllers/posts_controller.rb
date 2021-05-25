@@ -111,6 +111,7 @@ class PostsController < ApplicationController
       categories.each do |category|
         PostCategory.create(post_id: file_post.id, category_id: category.to_i)
       end
+      
       render json: [msg: 'Sucesso: post criado'], status: :created
     else
       render json: [msg: 'Erro: Falha ao criar post'], status: :unprocessable_entity

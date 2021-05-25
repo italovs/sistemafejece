@@ -18,7 +18,7 @@
 
  .notify{
     
-    display: inline-block;
+    display: none;
     position: fixed !important;
     width:30%;
     height: 30px !important;
@@ -60,7 +60,7 @@
         left: 20px
       }
     100%{
-      display: none;
+      display: none !important;
       opacity: 0;
       left: 20px
     }

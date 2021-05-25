@@ -189,8 +189,8 @@ function setting_events(){
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data) {
-
+		}).done(function(data,statusCode, xhr) {
+			RequestSuccess(data,statusCode, xhr);
 			var option = document.createElement("option");
 			option.setAttribute("value", data[0]['new_season_order']);
 			option.setAttribute("data-value", data[0]['new_season_id']);
@@ -198,6 +198,8 @@ function setting_events(){
 			option.appendChild(text_option);
 			$("#season-select").append(option)
 			
+		}).fail(function(data, statusCode, xhr){
+			RequestError(data,statusCode,xhr);
 		});
 		
 	})
@@ -217,7 +219,8 @@ function setting_events(){
 				contentType: false,
 				processData: false
 			})
-			.done(function(data){
+			.done(function(data,statusCode,xhr){
+				RequestSuccess(data, statusCode, xhr);
 				$.post('/serie_information', {
 						id: $("#update_input").val()
 					},
@@ -247,6 +250,8 @@ function setting_events(){
 					}
 				);
 
+			}).fail(function(data,statusCode, xhr){
+				RequestError(data, statusCode, xhr);
 			});
 			flag_verify_posts_selectize_ready = true;
 		}
@@ -317,16 +322,13 @@ function setting_events(){
                 type: 'POST',
                 contentType: false,
                 processData: false
-            }).done(function(data){
+            }).done(function(data, statusCode, xhr){
                 //page_reload();
-                $(".success-msg").show();
-                $(".succes").html(data[0]["msg"]);
-            }).fail(function(data){
+				RequestSuccess(data, statusCode, xhr);
+            }).fail(function(data, statusCode, xhr){
                 //ERRO DE REQUISIÇÃO
                 //page_reload();
-                
-                $(".error-msg").show();
-                $(".err").html(data[0]["msg"]);
+                RequestError(data, statusCode, xhr);
             });
         }
 
@@ -349,16 +351,13 @@ function setting_events(){
 				type: 'POST',
 				contentType: false,
 				processData: false
-			}).done(function(data){
+			}).done(function(data, statusCode, xhr){
 				//page_reload();
-				$(".success-msg").show();
-				$(".succes").html(data[0]["msg"]);
-			}).fail(function(data){
+				RequestSuccess(data,statusCode,xhr)
+			}).fail(function(data,statusCode,xhr){
 				//ERRO DE REQUISIÇÃO
 				//page_reload();
-				
-				$(".error-msg").show();
-				$(".err").html(data[0]["msg"]);
+				RequestError(data,statusCode,xhr)
 			});
 
 		}else {
@@ -394,16 +393,13 @@ function setting_events(){
 				type: 'POST',
 				contentType: false,
 				processData: false
-			}).done(function(data){
+			}).done(function(data, statusCode, xhr){
 				//page_reload();
-				$(".success-msg").show();
-				$(".succes").html(data[0]["msg"]);
-			}).fail(function(data){
+				RequestSuccess(data, statusCode, xhr);
+			}).fail(function(data, statusCode, xhr){
 				//ERRO DE REQUISIÇÃO
 				//page_reload();
-				
-				$(".error-msg").show();
-				$(".err").html(data[0]["msg"]);
+				RequestError(data, statusCode, xhr)
 			});
 
 		}else {

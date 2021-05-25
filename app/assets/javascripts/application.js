@@ -12,17 +12,17 @@ $.ajaxSetup({
   });
 
 function RequestError(data,statusCode, xhr){
-  $(".error-msg").show();
-  if(data.length != 0){
-    $(".err").html(data[0]["msg"]);
-  }else{
-    $(".err").html(xhr.status);
-    console.log(statusCode);
-    console.log(xhr.responseText);
+  $(".err").html("código: " + data.status)
+  if(data.responseJSON != 0){
+    $(".err").append(" "+ data.responseJSON[0]["msg"]);
   }
+  $(".notify.error-msg").css("display","none");
+  $(".notify.error-msg").show();
+  
 }
 function RequestSuccess(data, statusCode, xhr){
-  $(".success-msg").show();
   $(".succes").html(data[0]["msg"]);
+  $(".notify.success-msg").css("display","none");
+  $(".notify.success-msg").show();
   //page_reload();  
 }
