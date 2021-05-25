@@ -15,7 +15,17 @@
 </head>
 
 
+
 <body>
+
+  <style>
+    body{
+        background: rgb(216,117,46);
+        background: linear-gradient(145deg, rgba(216,117,46,1) 40%, rgba(1,140,119,1) 60%);
+        background-repeat: no-repeat;
+      }
+  </style>
+  
   <main class="main-content col">
     <div class="main-content-container container-fluid px4 h-100">
       <div class="row no gutters h-100">
@@ -33,11 +43,11 @@
                 </div>
               
                 <div class="actions">
-                  <%= f.submit "Recuperar senha",  class:"btn btn-pill btn-accent d-table mx-auto mt-5" %>
+                  <%= f.submit "Recuperar senha",  class:"btn btn-pill btn-f-orange text-white d-table mx-auto mt-5" %>
                 </div>
               <% end %>
               
-              <%= render "members/shared/links" %> 
+              <%= render "devise/shared/links" %> 
             </div>
           </div>
         </div>

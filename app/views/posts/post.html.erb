@@ -123,7 +123,7 @@
 															<i class="fas fa-play"></i>
 														</a>
 													<% elsif @post.kind == 'post'%>
-														<a class="open-post" href="<%= @post.link%>" id="<%= @post.id %>">
+														<a class="open-post" target="_blank" href="https://<%= @post.link%>" id="<%= @post.id %>">
 															<i class="fas fa-link"></i>
 														</a>
 													<% end %>
@@ -277,7 +277,7 @@
 
 
 			<!-- =============== START OF RECOMMENDED MOVIES SECTION =============== -->
-			<section class="recommended-movies bg-light ptb100">
+			<section class="latest-movies bg-light ptb100">
 					<div class="container">
 
 							<!-- Start of row -->
@@ -290,7 +290,7 @@
 
 
 							<!-- Start of Latest Movies Slider -->
-							<div class="owl-carousel recommended-slider mt20 owl-loaded owl-drag">
+							<div class="row owl-carousel latest-movies-slider mt-20">
 								<!-- === Start of Sliding Item 1 === -->
 
 								<%counter = 0%>
@@ -319,7 +319,7 @@
 																	<i class="fas fa-play"></i>
 																</a>
 															<% elsif post.kind == 'post'%>
-																<a class="open-post" href="<%= @post.link%>" id="<%= @post.id %>">
+																<a class="open-post" target="_blank" href="https://<%= @post.link%>" id="<%= @post.id %>">
 																	<i class="fas fa-link"></i>
 																</a>
 															<% end %>
@@ -363,7 +363,7 @@
 									<%end%>  
 								<%end%>
 								<!-- === End of Sliding Item 1 === --> 
-								
+							</div>	
 							<!-- End of Latest Movies Slider -->
 
 					</div>

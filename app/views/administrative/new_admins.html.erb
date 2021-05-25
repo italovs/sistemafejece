@@ -1,6 +1,3 @@
-<script src="<%= javascript_path "essencials" %>"></script>
-<script src="<%= javascript_path "new_admins" %>"></script>
-
 <% if true == false %>
   <% if testis.errors.any? %>
     <div id="error_explanation">
@@ -14,6 +11,49 @@
     </div>
   <% end %>
 <% end %>
+
+
+<h1>Piratas Cadastrados</h1>
+<br>
+
+<div class="row">
+	<div class="col">
+		<div class="card card-small mb-4">
+			<div class="card-header border-bottom bg-f-green">
+				<h6 class="m-0 text-white">Piratas</h6>
+			</div>
+			<div class="card-body p-0 pb-3 text-center">
+				<table class="table mb-0" id="junior_enterprises">
+					<thead class="bg-light">
+						<tr>
+						<th scope="col" class="border-0">#</th>
+						<th scope="col" class="border-0">Nome</th>
+						<th scope="col" class="border-0">E-mail</th>
+						<th scope="col" class="border-0">Ações</th>
+						</tr>
+					</thead>
+					<tbody id="membros_t">
+						<% cont = 1 %>
+						<% @admins.each do |admin| %>
+							<tr>
+								<td><%= cont %></td>
+								<td><%= admin.name %></td>
+								<td><%= admin.email %></td>
+								<td>
+									<i class="btn btn-danger material-icons remove_admin" type="button" title="Remover Pirata" id="admin_<%= "#{admin.id}" %>">close</i>
+								</td>
+								<% cont = cont + 1%>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
   <title>Novo Pirata</title>
   <br />
   <h2>Novo Pirata</h2>
@@ -41,4 +81,7 @@
   <div id="send" class="btn btn-f-green text-white mb-4">
     Enviar
   </div>
+
+  <script src="<%= javascript_path "essencials" %>"></script>
+  <script src="<%= javascript_path "new_admins" %>"></script>
 
