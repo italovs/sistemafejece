@@ -12,9 +12,13 @@ class PostsController < ApplicationController
     @serie_categories = TvSerieCategory.all
     @categories = Category.all.select(:id, :name)
     @videos = if user_is_admin?
-                Post.all.where(owner_id: 0, kind: 1)
+                Post.all
+                  .where(owner_id: 0, kind: 1)
+                  .order(updated_at: :desc)
               else
-                Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+                Post.all
+                  .where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
+                  .order(updated_at: :desc)
               end
 
     direction_notification
@@ -25,9 +29,13 @@ class PostsController < ApplicationController
     @categories = Category.all.select(:id, :name)
     @post_categories = PostCategory.all
     @posts = if user_is_admin?
-                Post.all.where(owner_id: 0, kind: 0)
+               Post.all
+                 .where(owner_id: 0, kind: 0)
+                 .order(updated_at: :desc)
              else
-              Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
+               Post.all
+                 .where(owner_id: current_logged_user.junior_enterprise_id, kind: 0)
+                 .order(updated_at: :desc)
              end
 
     direction_notification
@@ -37,7 +45,7 @@ class PostsController < ApplicationController
     @videos = Post.all.where(kind: 1)
     @post = Post.find(params[:id])
     @posts = Post.all
-    @ej = JuniorEnterprise.all.find{|ej| ej.id == @post.owner_id}
+    @ej = JuniorEnterprise.all.find { |ej| ej.id == @post.owner_id }
     @votes = Vote.all
     @post_categories = PostCategory.where(post_id: @post.id)
     @categories = Category.all
@@ -111,7 +119,7 @@ class PostsController < ApplicationController
       categories.each do |category|
         PostCategory.create(post_id: file_post.id, category_id: category.to_i)
       end
-      
+
       render json: [msg: 'Sucesso: post criado'], status: :created
     else
       render json: [msg: 'Erro: Falha ao criar post'], status: :unprocessable_entity

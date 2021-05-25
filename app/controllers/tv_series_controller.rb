@@ -93,7 +93,7 @@ class TvSeriesController < ApplicationController
     elsif !tv_serie.nil?
       if !verify_onwership(tv_serie)
         # post de outro dono
-        render json: [msg: 'Erro: Erro ao encontrar o post'], status: :unauthorized
+        render json: [msg: 'Erro: Erro ao encontrar a trilha'], status: :unauthorized
       else
         tv_serie.name = params[:name] unless params[:name].nil?
         tv_serie.description = params[:description] unless params[:description].nil?
@@ -123,10 +123,10 @@ class TvSeriesController < ApplicationController
           # sucesso
           season_and_posts_hash = JSON.parse(params[:seasons_and_posts])
           update_season(season_and_posts_hash)
-          render json: [msg: 'Sucesso: Post foi atualizado', tv_serie: tv_serie], status: :ok
+          render json: [msg: 'Sucesso: Trilha foi atualizado', tv_serie: tv_serie], status: :ok
         else
           # falha
-          render json: [msg: 'Erro: Falha ao atualizad o post'], status: :unprocessable_entity
+          render json: [msg: 'Erro: Falha ao atualizar a trilha'], status: :unprocessable_entity
         end
       end
     end
@@ -149,7 +149,7 @@ class TvSeriesController < ApplicationController
       seasons = TvSerie.find(params[:serie]).seasons.select(:id, :name)
       render json: [seasons: seasons], status: :ok
     else
-      render json: [msg: 'Erro: Série inválida'], status: :unauthorized
+      render json: [msg: 'Erro: Trilha inválida'], status: :unauthorized
     end
   end
 
@@ -172,15 +172,15 @@ class TvSeriesController < ApplicationController
 
         if hash_seasons.blank?
           # isso nunca deveria acontecer, pois toda temporada tem pelo menos uma serie... maaaaaas..
-          render json: [msg: 'Você ainda não possui Temporadas nessa Série'], status: :no_content
+          render json: [msg: 'Você ainda não possui Temporadas nessa Trilha'], status: :no_content
         else # nenhuma serie
           render json: [series: hash_seasons], status: :ok
         end
       else
-        render json: [msg: 'Série inválida para você'], status: :unauthorized
+        render json: [msg: 'Trilha inválida para você'], status: :unauthorized
       end
     else
-      render json: [msg: 'Série inválida'], status: :not_found
+      render json: [msg: 'Trilha inválida'], status: :not_found
     end
   end
 
@@ -195,8 +195,8 @@ class TvSeriesController < ApplicationController
 									ON "series"."id" = "serie_category"."tv_serie_id"
 									JOIN "categories"
 									ON "categories"."id" = "serie_category"."category_id"
-									WHERE "series"."owner_id" = '"#{0}"'
-									AND "categories"."name" = '          
+									WHERE "series"."owner_id" = ''0''
+									AND "categories"."name" = '
       else
         sql =	'SELECT "series".*, "categories"."name" as "category_name"
 									FROM "tv_series" as "series"
@@ -220,7 +220,9 @@ class TvSeriesController < ApplicationController
 
   def series_and_posts(kind = nil)
     if member_signed_in?
-      @series = TvSerie.all.where(owner_id: current_logged_user.junior_enterprise_id)
+      @series = TvSerie.all
+        .where(owner_id: current_logged_user.junior_enterprise_id)
+        .order(updated_at: :desc)
       if kind.nil?
         @all_posts = Post.all.where(owner_id: current_logged_user.junior_enterprise_id)
       elsif kind.zero?
@@ -229,7 +231,9 @@ class TvSeriesController < ApplicationController
         @videos = Post.all.where(owner_id: current_logged_user.junior_enterprise_id, kind: 1)
       end
     else
-      @series = TvSerie.all.where(owner_id: 0)
+      @series = TvSerie.all
+        .where(owner_id: 0)
+        .order(updated_at: :desc)
       if kind.nil?
         @all_posts = Post.all.where(owner_id: 0)
       elsif kind.zero?

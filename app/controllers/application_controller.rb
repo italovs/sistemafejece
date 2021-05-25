@@ -39,9 +39,9 @@ class ApplicationController < ActionController::Base
 
   def user_tv_series
     @tv_series = if admin_signed_in?
-                   TvSerie.where(owner_id: nil).select(:id, :name)
+                   TvSerie.where(owner_id: 0).select(:id, :name)
                  else
-                   TvSerie.where(owner_id: current_member.id).select(:id, :name)
+                   TvSerie.where(owner_id: current_logged_user.junior_enterprise_id).select(:id, :name)
                  end
   end
 
