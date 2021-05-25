@@ -56,7 +56,7 @@ class AdministrativeController < ApplicationController
   end
 
   def new_junior_enterprise
-    @ej = JuniorEnterprise.new(name: params[:my_form_data][:name], description: params[:my_form_data][:description])
+    @ej = JuniorEnterprise.new(name: params[:name], description: params[:description])
     if @ej.save
       render json: [msg: 'Empresa Junior criada com sucesso', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
     else

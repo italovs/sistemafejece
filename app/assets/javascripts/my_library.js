@@ -1,4 +1,5 @@
 //= require selectize
+
 var $select = $(".selectize").selectize({
 	plugins: ['remove_button'],
 	persist: false,
@@ -148,16 +149,13 @@ function setting_events(){
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data){
+		}).done(function(data, statusCode, xhr){
 			//page_reload();
-			$(".success-msg").show();
-			$(".succes").html(data[0]["msg"]);
-			console.log(data)
-		}).fail(function(data){
+			RequestSuccess( data, statusCode, xhr)
+		}).fail(function(data, statusCode, xhr){
 			//ERRO DE REQUISIÇÃO
 			//page_reload();
-			$(".error-msg").show();
-			$(".err").html(data[0]["msg"]);
+			RequestError(data, statusCode, xhr)
 		});
 			
 		
@@ -167,19 +165,20 @@ function setting_events(){
 		var confirmation = confirm("Tem certeza que quer deletar essa publicação?")
 
 		if (confirmation == true){
-			$.post('/delete_post',
-			{
-				id: post_id
-			},function(data, status){
-				if(status == "success"){
-					//page_reload();
-					$(".success-msg").show();
-					$(".succes").html(data[0]["msg"]);
-				}else{
-					$(".error-msg").show();
-					$(".err").html(data[0]["msg"]);
-				}
-			})
+			formData = new FormData
+			formData.append('id', $(this).val())
+			$.ajax({
+				url: '/delete_post',
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				processData: false
+			}).done(function(data, statusCode, xhr){
+				RequestSuccess(data, statusCode, xhr);
+				
+			}). fail(function(data, statusCode, xhr){
+				RequestError(data, statusCode, xhr);
+			});
 		}
 	})
 
