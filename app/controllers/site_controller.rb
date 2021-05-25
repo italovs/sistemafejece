@@ -89,14 +89,12 @@ class SiteController < ApplicationController
     ActiveRecord::Base.transaction do
       @member.validated = nil
       @member.save
-      flash[:notice] = 'Diretoria Solicitada'
-      render json: [msg: 'Valeu, meu consagrado!',
+      render json: [msg: 'Diretoria Solicitada',
                     member: @member,
                     junior_enterprise: @member.junior_enterprise.name]
     end
   rescue ActiveRecord::RecordInvalid
-    flash[:alert] = "falha ao solicitar diretoria + #{@member.errors}"
-    render json: [msg: "Erro:  #{@member.errors}"]
+    render json: [msg: "falha ao solicitar diretoria + #{@member.errors}"]
   end
 
   def change_password
@@ -110,45 +108,41 @@ class SiteController < ApplicationController
       if params[:new_password] == params[:confirmation_password]
         @person.password = params[:new_password]
         if @person.save
-          flash[:notice] = 'Senha alterada com sucesso'
           if member_signed_in?
-            render json: [msg: 'Sucesso: Deu bom, meu bacano',
+            render json: [msg: 'Senha alterada com sucesso',
                           person: person_information(@person),
-                          junior_enterprise: @person.junior_enterprise.name]
+                          junior_enterprise: @person.junior_enterprise.name], status: :ok
           else
-            render json: [msg: 'Sucesso: Deu bom, meu bacano', person: person_information(@person)]
+            render json: [msg: 'Senha alterada com sucesso', person: person_information(@person)], status: :ok
           end
         else
-          flash[:alert] = 'falha ao salvar nova senha, tente novamente'
           if member_signed_in?
             render json: [msg: 'Erro: Falha em salvar nova senha',
                           person: person_information(@person),
-                          junior_enterprise: @person.junior_enterprise.name]
+                          junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
           else
             render json: [msg: 'Erro: Falha em salvar nova senha',
-                          person: person_information(@person)]
+                          person: person_information(@person)], status: :unprocessable_entity
           end
         end
       else
-        flash[:alert] = 'Erro: Campos de nova senha não são iguais'
         if member_signed_in?
           render json: [msg: 'Erro: Campos de nova senha não são iguais',
                         person: person_information(@person),
-                        junior_enterprise: @person.junior_enterprise.name]
+                        junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
         else
           render json: [msg: 'Erro: Campos de nova senha não são iguais',
-                        person: person_information(@person)]
+                        person: person_information(@person)], status: :unprocessable_entity
         end
       end
     else
-      flash[:alert] = 'Erro: Senha antiga inválida'
       if member_signed_in?
         render json: [msg: 'Erro: Senha antiga inválida',
                       person: person_information(@person),
-                      junior_enterprise: @person.junior_enterprise.name]
+                      junior_enterprise: @person.junior_enterprise.name], status: :unauthorized
       else
         render json: [msg: 'Erro: Senha antiga inválida',
-                      person: person_information(@person)]
+                      person: person_information(@person)], status: :unauthorized
       end
     end
   end
@@ -184,11 +178,11 @@ class SiteController < ApplicationController
       end
       if @person.save
         if member_signed_in?
-          render json: [msg: 'Sucesso: Deu bom, meu bacano',
+          render json: [msg: 'Informações alteradas com sucesso',
                         person: person_information(@person),
                         junior_enterprise: @person.junior_enterprise.name], status: :ok
         else
-          render json: [msg: 'Sucesso: Deu bom, meu bacano',
+          render json: [msg: 'Informações alteradas com sucesso',
                         person: person_information(@person)], status: :ok
         end
       else
@@ -225,13 +219,12 @@ class SiteController < ApplicationController
          !(URI::MailTo::EMAIL_REGEXP =~ params[:repeat_email]).nil?
         @person.email = params[:new_email]
         if @person.save
-          flash[:notice] = 'Email alterado com sucesso'
           if member_signed_in?
-            render json: [msg: 'Sucesso: Deu bom, meu bacano',
+            render json: [msg: 'Email alterado com sucesso',
                           person: person_information(@person),
                           junior_enterprise: @person.junior_enterprise.name], status: :ok
           else
-            render json: [msg: 'Sucesso: Deu bom, meu bacano',
+            render json: [msg: 'Email alterado com sucesso',
                           person: person_information(@person)], status: :ok
           end
         else
@@ -255,7 +248,6 @@ class SiteController < ApplicationController
         end
       end
     else
-      flash[:alert] = 'Erro: Senha inválida'
       if member_signed_in?
         render json: [msg: 'Erro: Senha inválida',
                       person: person_information(@person),

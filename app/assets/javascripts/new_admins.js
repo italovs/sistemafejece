@@ -2,30 +2,42 @@
 
 $(function(){
 	$("#send").on("click", function(){
-		response = collect_data([ "email", "senha" ]);
-		if( response[0] == true ){
-			ajax_submit(response[1], "/pirates/new_pirates", true)
-		} else {
-			// alert(response[1])
-			//EXIBIR ERROS NA TELA
-		}
+
+		formData = new FormData
+		formData.append('name', $("#name").val())
+		formData.append('email',$("#email").val());
+		formData.append('password', $("#password").val());
+		$.ajax({
+			url: '/pirates/new_pirates',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data, statusCode, xhr){
+			RequestSuccess(data, statusCode, xhr);
+			
+		}). fail(function(data, statusCode, xhr){
+			RequestError(data, statusCode, xhr);
+		});
 	});
 });
 
-$(".remove_admin").click(function(){
-	$.post( '/pirates/remove_pirate',
-		{
-			id: $(this).attr('id').replace("admin_","") 
-		},
-		function(data, status){
-			if(status == "success"){
-				//Colocar notificação
-				console.log(data[0])
-			} else {
-				//ERRO DE REQUISIÇÃO
-
-			}
-		});
+$(".remove_admin").on("click",function(){
+	formData = new FormData
+	formData.append('id', $(this).attr('id').replace("admin_",""))
+	$.ajax({
+		url: '/pirates/remove_pirate',
+		data: formData,
+		type: 'POST',
+		contentType: false,
+		processData: false
+	}).done(function(data, statusCode, xhr){
+		RequestSuccess(data, statusCode, xhr);
+		
+	}). fail(function(data, statusCode, xhr){
+		RequestError(data, statusCode, xhr);
+	});
+	
 })
 
 

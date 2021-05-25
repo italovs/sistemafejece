@@ -1,5 +1,6 @@
 //= require jquery
 
+
 $(function(){
 	$("#send").on("click", function(){
 		response = collect_data([ "email", "senha" ]);
@@ -33,20 +34,24 @@ $(function(){
 });
 
 function im_a_director(){
-	$.post( '/request_to_become_a_director' ,
-		{
-			email: $("#member_email").val() 
-		},
-		function(data, status){
-		if(status == "success"){
-			reset_fields()
-			update_data(data[0])
-			$("#director").hide()
-		} else {
-			//ERRO DE REQUISIÇÃO
-			reset_fields()
-		}
-	});
+	formData = new FormData
+	formData.append('email',$("#member_email").val())
+	$.ajax({
+		url: '/request_to_become_a_director',
+		data: formData,
+		type: 'POST',
+		contentType: false,
+		processData: false
+	}).done(function(data, statusCode, xhr){
+		RequestSuccess(data, statusCode, xhr);
+		reset_fields();
+		update_data(data[0]);
+		$("#director").hide();
+	}). fail(function(data, statusCode, xhr){
+		RequestError(data, statusCode, xhr);
+		reset_fields();
+		
+	})
 }
 
 function reset_fields(){
@@ -71,20 +76,22 @@ function change_mail(){
 		$(".password").first().show();
 		$("#change_mail").html("ENVIAR");
 	} else {
-		$.post( '/change_mail' ,
-		{
-			new_email: $("#new_email").val(),
-			repeat_email: $("#repeat_email").val(),
-			confirmation_password: $("#old_password").val() 
-		},
-		function(data, status){
-			if(status == "success"){
-				reset_fields()
-				//update_data(data[0])
-			} else {
-				//ERRO DE REQUISIÇÃO
-				reset_fields()
-			}
+		formData = new FormData
+		formData.append('new_email',$("#new_email").val());
+		formData.append('repeat_email', $("#repeat_email").val());
+		formData.append('confirmation_password',$("#old_password").val());
+		$.ajax({
+			url: '/change_mail',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data, statusCode, xhr){
+			RequestSuccess(data, statusCode, xhr);
+			reset_fields();
+		}). fail(function(data, statusCode, xhr){
+			RequestError(data, statusCode, xhr);
+			reset_fields();
 		});
 		
 		$("#change_mail").html("MUDAR E-MAIL")
@@ -118,10 +125,12 @@ function change_information(){
 			type: 'POST',
 			contentType: false,
 			processData:false,
-		}).done(function( data ){
+		}).done(function( data, statusCode, xhr ){
 			reset_fields()
+			RequestSuccess(data, statusCode, xhr)
 			update_data(data[0])
-		}).fail(function(){
+		}).fail(function(data, statusCode, xhr){
+			RequestError(data, statusCode, xhr)
 			reset_fields()
 		});
 		$("#change_information").html("ATUALIZAR DADOS")
@@ -143,21 +152,23 @@ function change_password(){
 		$(".password").show()
 		$("#change_password").html("ENVIAR")
 	} else {
-		$.post( '/change_password' ,
-		{
-			old_password: $("#old_password").val(),
-			new_password: $("#change_password").val(),
-			confirmation_password: $("#confirmation_password").val() 
-		},
-		function(data, status){
-			if(status == "success"){
-				reset_fields()
-				//update_data(data[0])
-			} else {
-				//ERRO DE REQUISIÇÃO
-				reset_fields()
-			}
-		});
+		formData = new FormData
+		formData.append('old_password',$("#old_password").val());
+		formData.append('new_password',$("#new_password").val());
+		formData.append('confirmation_password',$("#confirmation_password").val());
+		$.ajax({
+			url: '/change_password',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data, statusCode, xhr){
+			RequestSuccess(data, statusCode, xhr);
+			reset_fields();
+		}). fail(function(data, statusCode, xhr){
+			RequestError(data, statusCode, xhr);
+			reset_fields();
+		})
 		
 		$("#change_password").html("NOVA SENHA")
 	}

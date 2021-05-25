@@ -2,12 +2,21 @@
 
 $(function(){
 	$("#send").on("click", function(){
-		response = collect_data();
-		if( response[0] == true ){
-			ajax_submit(response[1], "/pirates/categories", true, ["#categories"], ["name", "description"])			
-		} else {
-			alert(response[1])
-			//EXIBIR ERROS NA TELA
-		}
+		
+		formData = new FormData
+		formData.append('name', $("#name").val())
+		formData.append('description',$("#description").val());
+		$.ajax({
+			url: '/pirates/categories',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data, statusCode, xhr){
+			RequestSuccess(data, statusCode, xhr);
+			
+		}). fail(function(data, statusCode, xhr){
+			RequestError(data, statusCode, xhr);
+		});
 	});
 });

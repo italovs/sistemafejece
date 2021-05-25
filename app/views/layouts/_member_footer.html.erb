@@ -22,7 +22,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="widget widget-links">
                         <h4 class="widget-title">Vídeos recentes</h4>
-                        <% if @videos != [nil] %>
+                        <% if @videos != nil %>
                             <%counter = 0%>
                             <%vector = @videos.sort_by{|h| h[:created_at]}%>
                             <%vector = vector.reverse()%>

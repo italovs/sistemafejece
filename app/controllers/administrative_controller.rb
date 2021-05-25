@@ -36,20 +36,18 @@ class AdministrativeController < ApplicationController
   end
 
   def create_admin
-    puts params[:my_form_data]
-    @admin = Admin.create(name: params[:my_form_data][:name], email: params[:my_form_data][:email], password: params[:my_form_data][:password])
-    ActiveRecord::Base.transaction do
-      @admin.save
-      render json: [msg: 'Valeu, meu consagrado!'], status: :ok
+    @admin = Admin.new(name: params[:name], email: params[:email], password: params[:password])
+    if @admin.save
+      render json: [msg: 'Administrador criado com sucesso'], status: :ok
+    else
+      render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordInvalid
-    render json: [msg: 'Erro: ' + @admin.errors], status: :unprocessable_entity
   end
 
   def remove_admin
     admin = Admin.find(params[:id]) if params[:id].present?
     admin.destroy
-    render json: ["Pirata removido com sucesso!"]
+    render json: [msg: 'Pirata removido com sucesso!'], status: :ok
   end
 
   # EJS
@@ -58,21 +56,20 @@ class AdministrativeController < ApplicationController
   end
 
   def new_junior_enterprise
-    @ej = JuniorEnterprise.create(name: params[:my_form_data][:name], description: params[:my_form_data][:description])
-    ActiveRecord::Base.transaction do
-      @ej.save
-      render json: [msg: 'Valeu, meu consagrado!', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
+    @ej = JuniorEnterprise.new(name: params[:my_form_data][:name], description: params[:my_form_data][:description])
+    if @ej.save
+      render json: [msg: 'Empresa Junior criada com sucesso', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
+    else
+      render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordInvalid
-    render json: [msg: 'Erro: ' + @admin.errors], status: :unprocessable_entity
   end
 
   def remove_junior_enterprise
     ej = JuniorEnterprise.find(params[:id]) if params[:id].present?
 
-    if ej.members.count == 0
+    if ej.members.count.zero?
       ej.destroy
-      render json: [msg: 'Valeu, meu consagrado!', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
+      render json: [msg: 'Empresa junior deletada com sucesso', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
     else
       render json: [msg: ej.members.count == 1 ? 'Erro: Há 1 membro associado a esta EJ' : "Erro: Há #{ej.members.count} membros associados a esta EJ"],
              status: :not_acceptable
@@ -85,14 +82,16 @@ class AdministrativeController < ApplicationController
   end
 
   def new_category
-    @category = Category.create(name: params[:my_form_data][:name], description: params[:my_form_data][:description])
+    @category = Category.create(name: params[:name], description: params[:description])
     ActiveRecord::Base.transaction do
       @category.save
-      render json: [msg: 'Valeu, meu consagrado!', ejs: Category.all.select(:name, :description)], status: :ok
+      render json: [msg: 'Categoria criada com sucesso', ejs: Category.all.select(:name, :description)], status: :ok
     end
   rescue ActiveRecord::RecordInvalid
-    render json: [msg: 'Erro: ' + @admin.errors], status: :unprocessable_entity
+    render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
   end
+
+
 
   private
 
