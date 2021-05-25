@@ -65,11 +65,11 @@ function setting_events(){
 				type: 'POST',
 				contentType:false,
 				processData:false,
-				success: function(data,statusCode,xhr){
-					RequestSuccess(data,statusCode,xhr)
+				success: function(data, xhr){
+					RequestSuccess(data, xhr, true);
 				},
-				error: function(data,statusCode, xhr){
-					RequestError(data, statusCode, xhr)
+				error: function(data, xhr){
+					RequestError(data, xhr, false);
 				}
 			})
 			
@@ -149,19 +149,15 @@ function setting_events(){
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data, statusCode, xhr){
-			//page_reload();
-			RequestSuccess( data, statusCode, xhr)
-		}).fail(function(data, statusCode, xhr){
-			//ERRO DE REQUISIÇÃO
-			//page_reload();
-			RequestError(data, statusCode, xhr)
+		}).done(function(data, xhr){
+			RequestSuccess( data, xhr, true)
+		}).fail(function(data, xhr){
+			RequestError(data, xhr, false)
 		});
 			
 		
 	})
 	$(".delete_post").on("click",function(){
-		var post_id = $(this).val()
 		var confirmation = confirm("Tem certeza que quer deletar essa publicação?")
 
 		if (confirmation == true){
@@ -173,11 +169,11 @@ function setting_events(){
 				type: 'POST',
 				contentType: false,
 				processData: false
-			}).done(function(data, statusCode, xhr){
-				RequestSuccess(data, statusCode, xhr);
+			}).done(function(data, xhr){
+				RequestSuccess(data, xhr, true);
 				
-			}). fail(function(data, statusCode, xhr){
-				RequestError(data, statusCode, xhr);
+			}). fail(function(data, xhr){
+				RequestError(data, xhr, false);
 			});
 		}
 	})

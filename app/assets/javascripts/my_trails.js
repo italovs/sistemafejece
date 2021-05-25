@@ -182,15 +182,14 @@ function setting_events(){
 	$("#new_season").on('click',function(){
 		formData = new FormData
 		formData.append('id', $('#update_input').val())
-		var new_option
 		$.ajax({
 			url: '/new_season',
 			data: formData,
 			type: 'POST',
 			contentType: false,
 			processData: false
-		}).done(function(data,statusCode, xhr) {
-			RequestSuccess(data,statusCode, xhr);
+		}).done(function(data, xhr) {
+			RequestSuccess(data, xhr, false);
 			var option = document.createElement("option");
 			option.setAttribute("value", data[0]['new_season_order']);
 			option.setAttribute("data-value", data[0]['new_season_id']);
@@ -198,8 +197,8 @@ function setting_events(){
 			option.appendChild(text_option);
 			$("#season-select").append(option)
 			
-		}).fail(function(data, statusCode, xhr){
-			RequestError(data,statusCode,xhr);
+		}).fail(function(data, xhr){
+			RequestError(data, xhr, false);
 		});
 		
 	})
@@ -219,8 +218,8 @@ function setting_events(){
 				contentType: false,
 				processData: false
 			})
-			.done(function(data,statusCode,xhr){
-				RequestSuccess(data, statusCode, xhr);
+			.done(function(data, xhr){
+				RequestSuccess(data, xhr, false);
 				$.post('/serie_information', {
 						id: $("#update_input").val()
 					},
@@ -250,8 +249,8 @@ function setting_events(){
 					}
 				);
 
-			}).fail(function(data,statusCode, xhr){
-				RequestError(data, statusCode, xhr);
+			}).fail(function(data, xhr){
+				RequestError(data, xhr, false);
 			});
 			flag_verify_posts_selectize_ready = true;
 		}
@@ -322,13 +321,10 @@ function setting_events(){
                 type: 'POST',
                 contentType: false,
                 processData: false
-            }).done(function(data, statusCode, xhr){
-                //page_reload();
-				RequestSuccess(data, statusCode, xhr);
-            }).fail(function(data, statusCode, xhr){
-                //ERRO DE REQUISIÇÃO
-                //page_reload();
-                RequestError(data, statusCode, xhr);
+            }).done(function(data, xhr){
+				RequestSuccess(data, xhr, true);
+            }).fail(function(data, xhr){
+                RequestError(data, xhr, false);
             });
         }
 
@@ -351,13 +347,10 @@ function setting_events(){
 				type: 'POST',
 				contentType: false,
 				processData: false
-			}).done(function(data, statusCode, xhr){
-				//page_reload();
-				RequestSuccess(data,statusCode,xhr)
-			}).fail(function(data,statusCode,xhr){
-				//ERRO DE REQUISIÇÃO
-				//page_reload();
-				RequestError(data,statusCode,xhr)
+			}).done(function(data, xhr){
+				RequestSuccess(data, xhr, true);
+			}).fail(function(data, xhr){
+				RequestError(data, xhr, false);
 			});
 
 		}else {
@@ -393,13 +386,10 @@ function setting_events(){
 				type: 'POST',
 				contentType: false,
 				processData: false
-			}).done(function(data, statusCode, xhr){
-				//page_reload();
-				RequestSuccess(data, statusCode, xhr);
-			}).fail(function(data, statusCode, xhr){
-				//ERRO DE REQUISIÇÃO
-				//page_reload();
-				RequestError(data, statusCode, xhr)
+			}).done(function(data, xhr){
+				RequestSuccess(data, xhr, true);
+			}).fail(function(data, xhr){
+				RequestError(data, xhr, false)
 			});
 
 		}else {

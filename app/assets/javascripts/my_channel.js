@@ -130,23 +130,27 @@ function setting_events(){
 		$(".success-msg").hide();
 		$(".error-msg").hide();
 		
-		var post_id = $(this).val()
+		
 		var confirmation = confirm("Tem certeza que quer deletar essa publicação?")
 
+		
 		if (confirmation == true){
-			$.post('/delete_post',
-			{
-				id: post_id
-			},function(data, status){
-				if(status == "success"){
-					//page_reload();
-					$(".success-msg").show();
-					$(".succes").html(data[0]["msg"]);
-				}else{
-					$(".error-msg").show();
-					$(".err").html(data[0]["msg"]);
-				}
-			})
+			formData = new FormData
+			formData.append('id', $(this).val())
+			$.ajax({
+				url: '/delete_post',
+				data: formData,
+				type: 'POST',
+				contentType: false,
+				processData: false
+			}).done(function(data, xhr){
+				//page_reload();
+				RequestSuccess(data, xhr, true);
+			}).fail(function(data, xhr){
+				//ERRO DE REQUISIÇÃO
+				//page_reload();
+				RequestError(data,xhr, false)
+			});
 		}
 	})
 
@@ -171,11 +175,11 @@ function setting_events(){
 					type: 'POST',
 					contentType: false,
 					processData: false,
-					success: function(data, statusCode, xhr){
-						RequestSuccess(data, statusCode, xhr)
+					success: function(data, xhr){
+						RequestSuccess(data, xhr, true);
 					},
-					error: function(data,statusCode, xhr){
-						RequestError(data, statusCode, xhr)
+					error: function(data,xhr){
+						RequestError(data, xhr, false);
 					}
 				})
 			}
@@ -202,10 +206,10 @@ function setting_events(){
 					type: 'POST',
 					contentType: false,
 					processData: false,
-					success: function(data, statusCode,xhr){
-						RequestSuccess(data, statusCode,xhr)},
-					error: function(data,statusCode, xhr){
-						 RequestError(data,statusCode, xhr)
+					success: function(data, xhr){
+						RequestSuccess(data, xhr, true)},
+					error: function(data, xhr){
+						 RequestError(data, xhr, false)
 						}
 				})
 			}
