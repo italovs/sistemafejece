@@ -271,64 +271,66 @@
                 <div class="row owl-carousel latest-movies-slider mt-20">
 
                     <!-- === Start of Sliding Item 1 === -->
-                        <% @posts_and_videos.each do |post|%>    
-                            <div class="item">
-                                <!-- Start of Movie Box -->
-                                <div class="movie-box-1">
+                        <%if @posts_and_videos != [nil] %>
+                            <% @posts_and_videos.each do |post|%>    
+                                <div class="item">
+                                    <!-- Start of Movie Box -->
+                                    <div class="movie-box-1">
 
-                                    <!-- Start of Poster -->
-                                    <div class="poster">
-                                        <%if post.poster_image.attached?%>
-                                            <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
-                                        <%end%>
+                                        <!-- Start of Poster -->
+                                        <div class="poster">
+                                            <%if post.poster_image.attached?%>
+                                                <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+                                            <%end%>
+                                        </div>
+                                        <!-- End of Poster -->
+
+                                        <!-- Start of Buttons -->
+                                        <div class="buttons">
+                                            <% if post.kind == 'video'%>
+                                                <a class="play-video" href="https://www.youtube.com/watch?v=<%= post.link%>">
+                                                    <i class="fas fa-play"></i>
+                                                </a>
+                                            <% elsif post.kind == 'post'%>
+                                                <a class="open-post" target="_blank" href="https://<%= post.link%>">
+                                                    <i class="fas fa-link"></i>
+                                                </a>
+                                            <% end %>
+                                        </div>
+                                        <!-- End of Buttons -->
+
+                                        <!-- Start of Movie Details -->
+                                        <div class="movie-details">
+                                            <h4 class="movie-title">
+                                                <%= link_to current_user_post_path(post.id) do%>
+                                                    <%= post.name %>
+                                                <%end%>    
+                                            </h4>
+                                            <span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>
+                                        </div>
+                                        <!-- End of Movie Details -->
+
+                                        <!-- Start of Rating -->
+                                        <div class="stars">
+                                            <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                            <div class="rating"></div>
+                            
+                                            <% if post.rating == -1 %>
+                                                <div class="d-inline-flex">
+                                                    <h6 class="fas fa-star text-warning mr-2 mt-0"></h6>
+                                                    <h6 class="text-white mt-0">Não há avaliações</h6>
+                                                </div>
+                                            <%else%>
+                                                <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                            <%end%>	
+
+                                        </div>
+                                        <!-- End of Rating -->
+
                                     </div>
-                                    <!-- End of Poster -->
-
-                                    <!-- Start of Buttons -->
-                                    <div class="buttons">
-                                        <% if post.kind == 'video'%>
-                                            <a class="play-video" href="https://www.youtube.com/watch?v=<%= post.link%>">
-                                                <i class="fas fa-play"></i>
-                                            </a>
-                                        <% elsif post.kind == 'post'%>
-                                            <a class="open-post" target="_blank" href="https://<%= post.link%>">
-                                                <i class="fas fa-link"></i>
-                                            </a>
-                                        <% end %>
-                                    </div>
-                                    <!-- End of Buttons -->
-
-                                    <!-- Start of Movie Details -->
-                                    <div class="movie-details">
-                                        <h4 class="movie-title">
-                                            <%= link_to current_user_post_path(post.id) do%>
-                                                <%= post.name %>
-                                            <%end%>    
-                                        </h4>
-                                        <span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>
-                                    </div>
-                                    <!-- End of Movie Details -->
-
-                                    <!-- Start of Rating -->
-                                    <div class="stars">
-                                        <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                                        <div class="rating"></div>
-                        
-                                        <% if post.rating == -1 %>
-                                            <div class="d-inline-flex">
-                                                <h6 class="fas fa-star text-warning mr-2 mt-0"></h6>
-                                                <h6 class="text-white mt-0">Não há avaliações</h6>
-                                            </div>
-                                        <%else%>
-                                            <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
-                                        <%end%>	
-
-                                    </div>
-                                    <!-- End of Rating -->
-
+                                    <!-- End of Movie Box -->
                                 </div>
-                                <!-- End of Movie Box -->
-                            </div>
+                            <%end%>
                         <%end%>
                     <!-- === End of Sliding Item 1 === -->    
 
@@ -420,52 +422,54 @@
                         </thead>
 
                         <tbody>
-                            <% @series.each do |serie| %>
-                                <tr class="col-12 d-flex justify-content-center p-0">
-                                        <th class="col-12 border-0 p-0">
-                                        <div class="col-md-12 col-sm-12 p-0">
-                                            <div class="movie-list-1 mb30">
-                                                <div class="listing-container">
-                                                    <!-- Movie List Image -->
-                                                    <div class="listing-image">
-                                                        <%if serie.poster_image.attached?%>
-                                                            <%= image_tag serie.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
-                                                        <%end%>
+                            <%if @series != [nil] %>
+                                <% @series.each do |serie| %>
+                                    <tr class="col-12 d-flex justify-content-center p-0">
+                                            <th class="col-12 border-0 p-0">
+                                            <div class="col-md-12 col-sm-12 p-0">
+                                                <div class="movie-list-1 mb30">
+                                                    <div class="listing-container">
+                                                        <!-- Movie List Image -->
+                                                        <div class="listing-image">
+                                                            <%if serie.poster_image.attached?%>
+                                                                <%= image_tag serie.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+                                                            <%end%>
 
-                                                            <!-- Buttons -->
-                                                            <!--
-                                                            <div class="buttons">
-                                                                <li class="tooltips edit_video d-inline-flex bg-transparent mr-3" type="button" value="<%=serie.id%>" title="Editar" data-placement="bottom" style="list-style:none">
-                                                                    <i class="fas fa-pencil-alt"></i>
-                                                                </li>
+                                                                <!-- Buttons -->
+                                                                <!--
+                                                                <div class="buttons">
+                                                                    <li class="tooltips edit_video d-inline-flex bg-transparent mr-3" type="button" value="<%=serie.id%>" title="Editar" data-placement="bottom" style="list-style:none">
+                                                                        <i class="fas fa-pencil-alt"></i>
+                                                                    </li>
 
-                                                                <li class="tooltips delete_video d-inline-flex bg-transparent" type="button" value="<%= serie.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </li>
-                                                            </div>
-                                                            -->
+                                                                    <li class="tooltips delete_video d-inline-flex bg-transparent" type="button" value="<%= serie.id%>" title="Excluir" data-placement="bottom" style="list-style:none">
+                                                                        <i class="fas fa-trash-alt"></i>
+                                                                    </li>
+                                                                </div>
+                                                                -->
 
-                                                            <!-- Image -->
-                                                            <img src="" alt="">
-                                                    </div>
+                                                                <!-- Image -->
+                                                                <img src="" alt="">
+                                                        </div>
 
-                                                    <!-- Movie List Content -->
-                                                    <div class="listing-content">
-                                                            <div class="inner">
-                                                                <h2 class="title"><%= serie.name %></h2>
+                                                        <!-- Movie List Content -->
+                                                        <div class="listing-content">
+                                                                <div class="inner">
+                                                                    <h2 class="title"><%= serie.name %></h2>
 
-                                                                <p><%=serie.description%></p>
+                                                                    <p><%=serie.description%></p>
 
-                                                                <%= link_to  "/serie/#{serie.id}", class: "btn btn-main btn-effect" do%>
-                                                                        Detalhes
-                                                                <%end%>
-                                                            </div>
+                                                                    <%= link_to  "/serie/#{serie.id}", class: "btn btn-main btn-effect" do%>
+                                                                            Detalhes
+                                                                    <%end%>
+                                                                </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </th>
-                                    </tr>		
-                                </div>
+                                            </th>
+                                        </tr>		
+                                    </div>
+                                <%end%>
                             <%end%>
                         </tbody>	
                     </table>
@@ -574,68 +578,70 @@
                 <div class="row owl-carousel latest-posts-slider mt-20">
 
                     <!-- === Start of Sliding Item 1 === -->
-                    <%@posts.each do |post|%>
-                      <div>
-                        <div class="movie-box-3 shadow mb30">
-                          <div class="listing-container">
+                    <%if @posts != [nil]%>
+                        <%@posts.each do |post|%>
+                        <div>
+                            <div class="movie-box-3 shadow mb30">
+                            <div class="listing-container">
 
-                            <!-- Movie List Image -->
-                            <div class="listing-image">
-                              <%if post.poster_image.attached?%>
-                                <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
-                              <%end%>
-                            </div>
-
-                            <!-- Movie List Content -->
-                            <div class="listing-content border-top">
-                              <div class="inner">
-
-                                <!-- Play Button -->
-                                <div class="play-btn">
-                                  <a class="open-post" target="_blank" href="https://<%= post.link%>">
-                                    <i class="fas fa-link"></i>
-                                  </a>
-                                </div>
-
-                                <h2 class="title"><%=post.name%></h2>
-
-                                <!-- Rating -->
-
-
-
-                                <!-- Start of Rating -->
-                                <div class="stars">
-                                    <input class="rating-input" type="hidden" value="<%=post.rating%>" />
-                                    <div class="rating"></div>
-                    
-                                    <% if post.rating == -1 %>
-                                        <div class="d-inline-flex">
-                                            <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
-                                            <h6 style="font-size:12px; padding-top:2px;" class="text-dark">Não há avaliações</h6>
-                                        </div>
-                                    <%else%>
-                                        <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
-                                    <%end%>	
-
-                                    <!-- End of Rating -->
-                                
-
-                                  <% aux =  @post_categories.where(post_id: post.id)%>
-                                  <span class="category text-dark pt-2"><strong><%=collect_categories_ids(aux)%></strong></span>
-
-                                </div>
-
-                                <p class="mt-1"><%=post.description%></p>
-
-                                <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
-                                    Detalhes
+                                <!-- Movie List Image -->
+                                <div class="listing-image">
+                                <%if post.poster_image.attached?%>
+                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
                                 <%end%>
-                              </div>
-                            </div>
+                                </div>
 
-                          </div>
+                                <!-- Movie List Content -->
+                                <div class="listing-content border-top">
+                                <div class="inner">
+
+                                    <!-- Play Button -->
+                                    <div class="play-btn">
+                                    <a class="open-post" target="_blank" href="https://<%= post.link%>">
+                                        <i class="fas fa-link"></i>
+                                    </a>
+                                    </div>
+
+                                    <h2 class="title"><%=post.name%></h2>
+
+                                    <!-- Rating -->
+
+
+
+                                    <!-- Start of Rating -->
+                                    <div class="stars">
+                                        <input class="rating-input" type="hidden" value="<%=post.rating%>" />
+                                        <div class="rating"></div>
+                        
+                                        <% if post.rating == -1 %>
+                                            <div class="d-inline-flex">
+                                                <h6 style="font-size:12px;" class="fas fa-star text-warning mr-2"></h6>
+                                                <h6 style="font-size:12px; padding-top:2px;" class="text-dark">Não há avaliações</h6>
+                                            </div>
+                                        <%else%>
+                                            <h6 class="text-white mt-0"><%=post.rating%>/10</h6>
+                                        <%end%>	
+
+                                        <!-- End of Rating -->
+                                    
+
+                                    <% aux =  @post_categories.where(post_id: post.id)%>
+                                    <span class="category text-dark pt-2"><strong><%=collect_categories_ids(aux)%></strong></span>
+
+                                    </div>
+
+                                    <p class="mt-1"><%=post.description%></p>
+
+                                    <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                        Detalhes
+                                    <%end%>
+                                </div>
+                                </div>
+
+                            </div>
+                            </div>
                         </div>
-                      </div>
+                        <%end%>
                     <%end%>
                     <!-- === End of Sliding Item 1 === -->    
 
