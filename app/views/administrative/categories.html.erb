@@ -52,7 +52,8 @@
 					<td><%= category.name %></td>
 					<td><%= category.description %></td>
 					<td>
-						<i class="btn btn-danger material-icons" title="Tornar membro" id="category<%= "#{category.id}" %>">close</i>
+						<i class="btn btn-info material-icons" title="Editar Categoria" id="<%= "#{category.id}" %>">edit</i>
+						<i class="btn btn-danger material-icons" title="Remover Categoria" id="category<%= "#{category.id}" %>">close</i>
 					</td>
 					<% cont = cont + 1%>
 				</tr>

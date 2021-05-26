@@ -44,6 +44,19 @@ class AdministrativeController < ApplicationController
     end
   end
 
+  def update_admin
+    @admin = Admin.find(params[:id])
+    @admin.email = params[:email] if params[:email].present?
+    @admin.name = params[:name] if params[:name].present?
+    @admin.password = params[:password] if params[:password].present?
+
+    if @admin.save
+      render json: [msg: 'Administrador Atualizado com sucesso'], status: :ok
+    else
+      render json: [msg: "Falha ao salvar atualização #{@admin.errors}"], status: :unprocessable_entity
+    end
+  end
+
   def remove_admin
     admin = Admin.find(params[:id]) if params[:id].present?
     admin.destroy
@@ -61,6 +74,18 @@ class AdministrativeController < ApplicationController
       render json: [msg: 'Empresa Junior criada com sucesso', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
     else
       render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
+    end
+  end
+
+  def update_junior_enterprise
+    @ej = JuniorEnterprise.find(params[:id])
+    @ej.name = params[:name]
+    @ej.description = params[:description]
+
+    if @ej.save
+      render json: [msg: 'Empresa junior atualizada com sucesso'], status: :ok
+    else
+      render json: [msg: "Falha ao atualizar empresa junior #{@ej.errors}"], status: :unprocessable_entity
     end
   end
 
@@ -89,6 +114,18 @@ class AdministrativeController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid
     render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
+  end
+
+  def update_category
+    @category = Category.find(params[:id])
+    @category.name = params[:name]
+    @category.description = params[:description]
+
+    if @category.save
+      render json: [msg: "Categoria atualizada com sucesso"], status: :ok
+    else
+      render json: [msg: "Falha ao atualizar categoria"], status: :unprocessable_entity
+    end
   end
 
 
