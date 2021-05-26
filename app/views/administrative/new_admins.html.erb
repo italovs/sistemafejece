@@ -13,10 +13,10 @@
 <% end %>
 
 
-<h1>Piratas Cadastrados</h1>
+<h1 class="main-title"> Piratas Cadastrados</h1>
 <br>
 
-<div class="row">
+<div class="row" id="admin-list">
 	<div class="col">
 		<div class="card card-small mb-4">
 			<div class="card-header border-bottom bg-f-green">
@@ -53,11 +53,8 @@
 	</div>
 </div>
 
-
-
-  <title>Novo Pirata</title>
   <br />
-  <h2>Novo Pirata</h2>
+  <h2 class="new-pirate">Novo Pirata</h2>
   <br />
   <div class="field">
     <%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field" %>

@@ -40,4 +40,16 @@ $(".remove_admin").on("click",function(){
 	
 })
 
+$(".edit_admin").on("click", function(){
+	$("#admin-list").hide()
+	$(".main-title").html('Editar Pirata');
+	$("#name").show()
+	$("#email").show();
+	$("#password").show();
+	$("#password_2").hide();
+	$("#email_2").hide();
+	$(".new-pirate").hide();
+
+});
+
 

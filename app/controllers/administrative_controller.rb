@@ -49,7 +49,6 @@ class AdministrativeController < ApplicationController
     @admin.email = params[:email] if params[:email].present?
     @admin.name = params[:name] if params[:name].present?
     @admin.password = params[:password] if params[:password].present?
-
     if @admin.save
       render json: [msg: 'Administrador Atualizado com sucesso'], status: :ok
     else
