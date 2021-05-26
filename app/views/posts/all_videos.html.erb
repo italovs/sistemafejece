@@ -16,7 +16,6 @@
 
 	
 	<%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
-	<%= stylesheet_link_tag 'application', media: 'all' %>
 
 	<!-- ===== Favicon & Different size apple touch icons ===== -->
 	<link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
@@ -196,10 +195,10 @@
 
 	<%= render '/layouts/member_footer' %>
 
-	
-	<%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload' %>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+	<%= javascript_include_tag 'assets/datatables.min.js', 'data-turbolinks-track': 'reload', :defer=>"defer" %>	
 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
-	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload', defer: 'defer' %>
 	<%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'jquery.magnific-popup.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'jquery.mmenu', 'data-turbolinks-track': 'reload' %>
@@ -210,5 +209,7 @@
 	<%= javascript_include_tag 'imagesloaded.pkgd.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
+	
 	<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'selectize_for_categories', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'pagination_evaluation', 'data-turbolinks-track': 'reload' %>

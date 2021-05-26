@@ -206,17 +206,17 @@ Author URI: gnodesign.com
         });
 
         /*------------------------------------------
-            DATA TABLE
+            DATA TABLE - ERRO AQUI
         -------------------------------------------*/    
         
-        $("#home_series").DataTable({
-            paging: true,
-            searching:false,
-            ordering: false,
-            language:{
-                url: "/dataTable_portuguese.json"
-            }
-        });
+        // $("#home_series").DataTable({
+        //     paging: true,
+        //     searching:false,
+        //     ordering: false,
+        //     language:{
+        //         url: "/dataTable_portuguese.json"
+        //     }
+        // });
         
         
         /*----------------------------------------------------
@@ -625,8 +625,7 @@ Author URI: gnodesign.com
             mainClass: 'mfp-fade',
             removalDelay: 160,
             preloader: false,
-
-            fixedContentPos: false
+            fixedContentPos: true
         });
         
         
@@ -929,12 +928,12 @@ Author URI: gnodesign.com
         
         
         /*----------------------------------------------------
-          TOOLTIP
+          TOOLTIP- ERRO AQUI
         ----------------------------------------------------*/
-        $('[data-toggle="tooltip"]').tooltip({
-           animated: 'fade', 
-           container: 'body'
-        });
+        // $('[data-toggle="tooltip"]').tooltip({
+        //    animated: 'fade', 
+        //    container: 'body'
+        // });
         
         
         

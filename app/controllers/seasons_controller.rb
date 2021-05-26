@@ -34,18 +34,14 @@ class SeasonsController < ApplicationController
         @posts_rating << post.rating
       end
 
-      if (admin_signed_in? && @season.tv_serie.owner_id.zero?) ||
-         (member_signed_in? && @season.tv_serie.owner_id == current_member.junior_enterprise_id)
-        if @posts.nil?
-          render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts],
-                 status: :no_content
-        else # nenhuma serie
+      
+      if @posts.nil?
+        render json: [msg: 'Você ainda não possui Vídeos nessa Temporada', post: @posts],
+                status: :no_content
+      else # nenhuma serie
 
-          render json: [posts: @posts, poster_image: @poster_image, rating: @posts_rating],
-                 status: :ok
-        end
-      else
-        render json: [msg: 'Temporada inválida para você'], status: :unauthorized
+        render json: [posts: @posts, poster_image: @poster_image, rating: @posts_rating],
+                status: :ok
       end
     else
       render json: [msg: 'Temporada inválida'], status: :not_found

@@ -34,8 +34,8 @@
 
 			<!-- ===== Google Fonts ===== -->
 			<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-				<link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" rel="stylesheet">
 				
 
 			<!-- ===== CSS links ===== -->
@@ -117,16 +117,17 @@
 													<%if @post.poster_image.attached?%>
 														<%= image_tag @post.poster_image.variant(gravity:'Center',resize:"300x444^"  , crop: '300x444+0+0')%>
 													<%end%>
-
-													<% if @post.kind == 'video'%>
-														<a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>" id="<%= @post.id %>">
-															<i class="fas fa-play"></i>
-														</a>
-													<% elsif @post.kind == 'post'%>
-														<a class="open-post" target="_blank" href="https://<%= @post.link%>" id="<%= @post.id %>">
-															<i class="fas fa-link"></i>
-														</a>
-													<% end %>
+													<div class ="buttons">
+														<% if @post.kind == 'video'%>
+															<a class="play-video" href="https://www.youtube.com/watch?v=<%= @post.link%>" id="<%= @post.id %>">
+																<i class="fas fa-play"></i>
+															</a>
+														<% elsif @post.kind == 'post'%>
+															<a class="open-post" target="_blank" href="https://<%= @post.link%>" id="<%= @post.id %>">
+																<i class="fas fa-link"></i>
+															</a>
+														<% end %>
+													</div>
 											</div>
 
 
@@ -374,6 +375,7 @@
 
 			<!-- =============== JAVASCRIPT FILES =============== -->
 			<%# javascript_include_tag 'my_channel' %>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 			<%= javascript_include_tag 'post' %>
 			<%= javascript_include_tag 'pagination_evaluation' %>
 			<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>

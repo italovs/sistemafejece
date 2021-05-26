@@ -113,6 +113,8 @@ function setting_events(){
 		},function(data, status){
 			if(status == "success"){
 				post_information = data[0]
+				console.log(post_information)
+				console.log(post_information['post_name'])
 				$('#post_name').val(post_information["post_name"]);
 				$('#post_link').val(post_information["post_link"]);
 				$('#post_description').val(post_information["post_description"]);
@@ -137,7 +139,7 @@ function setting_events(){
 		
 		var formData = new FormData();
 		formData.append('post_id', $('#update_input').val())
-		formData.append('name', $("#post_title").val())
+		formData.append('name', $("#post_name").val())
 		formData.append('link', $("#post_link").val())
 		formData.append('description', $("#post_description").val())
 		formData.append('categories', $("#post_category").val())

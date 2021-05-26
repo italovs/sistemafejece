@@ -75,7 +75,11 @@ function change_mail(){
 		$(".email").show();
 		$(".password").first().show();
 		$("#change_mail").html("ENVIAR");
+		$("#change_password").hide();
+		$("#change_information").hide();
 	} else {
+		$("#change_password").show();
+		$("#change_information").show();
 		formData = new FormData
 		formData.append('new_email',$("#new_email").val());
 		formData.append('repeat_email', $("#repeat_email").val());
@@ -110,8 +114,12 @@ function change_information(){
 		$(".profile_picture").show();
 		$(".password").first().show();
 		$("#change_information").html("ENVIAR")
+		$("#change_password").hide();
+		$("#change_mail").hide();
 	} else {
 		//ajax (rota, parâmetros, função )
+		$("#change_password").show();
+		$("#change_mail").show();
 		var formData = new FormData();
 		formData.append('name',$("#name_field").val())
 		formData.append('about',$("#about_field").val())
@@ -149,9 +157,13 @@ function change_password(){
 		$(".field").hide();
 		$("#profile_info").hide();
 		$(".profile_data").hide()
-		$(".password").show()
-		$("#change_password").html("ENVIAR")
+		$(".password").show();
+		$("#change_password").html("ENVIAR");
+		$("#change_mail").hide();
+		$("#change_information").hide();
 	} else {
+		$("#change_mail").show();
+		$("#change_information").show();
 		formData = new FormData
 		formData.append('old_password',$("#old_password").val());
 		formData.append('new_password',$("#new_password").val());

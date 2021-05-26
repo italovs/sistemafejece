@@ -73,7 +73,6 @@ Rails.application.routes.draw do
       get '/all_videos', to: 'posts#all_videos', as: 'admin_all_videos'
       get '/all_posts', to: 'posts#all_posts', as: 'admin_all_posts'
       get '/all_series', to: 'tv_series#all_series', as: 'admin_all_series'
-
     end
 
     unauthenticated :admin do
@@ -131,6 +130,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
