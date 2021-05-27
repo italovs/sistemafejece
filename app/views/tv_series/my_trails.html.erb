@@ -3,7 +3,7 @@
 	<meta charset="UTF-8">
 	<%= csrf_meta_tags %>
 	<%= csp_meta_tag %>
-	<title>Meu Canal</title>
+	<title>Minhas Trilhas</title>
 	<!-- ===== Mobile viewport optimized ===== -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
@@ -116,7 +116,7 @@
 		<div class="row">
 			<div class="col d-flex justify-content-end">
 				<div id="new_serie" class="btn btn-f-green text-white">
-					Nova Série
+					Nova Trilha
 				</div>
 			</div>
 		</div>	
@@ -191,7 +191,7 @@
 				<div class="col-lg-8">
 					<div class="card card-small mb-4">
 						<div class="card-header border-bottom bg-f-green">
-							<h6 id="main_title" class="m-0 text-white">Nova Série</h6>
+							<h6 id="main_title" class="m-0 text-white">Nova Trilha</h6>
 						</div>
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item p-3">
@@ -206,16 +206,16 @@
 
 											<div class="form-row serie-field">
 												<div class="form-group col-md-12">
-													<p class="text-muted d-block mb-2 d-inline-flex">Poster da série</p>
-													<small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">tamanho recomendado 300x444|tamanho máximo 5 mb</small>
+													<p class="text-muted d-block mb-2 d-inline-flex">Poster da Trilha</p>
+													<small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">300x440|5 mb</small>
 													<%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"serie_poster_image", accept:"image/jpg, image/png, image/jpeg"%>
 												</div>
 											</div>
 
 											<div class="form-row serie-field">
 												<div class="form-group col-md-12">
-													<p class="text-muted d-block mb-2 d-inline-flex">Banner da série</p>
-													<small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">tamanho recomendado 1600x803|tamanho máximo 5 mb</small>
+													<p class="text-muted d-block mb-2 d-inline-flex">Banner da Trilha</p>
+													<small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">1600x800|5 mb</small>
 													<%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"serie_banner_image", accept:"image/jpg, image/png, image/jpeg" %>
 												</div>
 											</div>

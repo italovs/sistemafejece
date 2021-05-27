@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 	<html lang="pt-BR">
     <head>
-      <title>Minha biblioteca</title>
+      <title>Meus Materiais</title>
       <meta charset="UTF-8">
       <%= csrf_meta_tags %>
       <%= csp_meta_tag %>
@@ -88,8 +88,8 @@
     
     <body class="bg-light">
       <%if true == false %>
-        <div id="new_post" class="btn btn-primary">Novo Post</div>
-        <div id="my_posts" class="btn btn-primary">Meus Posts</div>
+        <div id="new_post" class="btn btn-primary">Novo Materiais</div>
+        <div id="my_posts" class="btn btn-primary">Meus Materiais</div>
 
 
         <%# novo post %>
@@ -126,10 +126,10 @@
         <section class="page-header overlay-gradient" style="z-index: 0;">
           <div class="container">
               <div class="inner py-4">
-                  <h2 class="title pb-1">Meus Posts</h2>
+                  <h2 class="title pb-1">Meus Materiais</h2>
                   <ol class="breadcrumb">
                       <li><%=link_to "Home", logged_root, class:"text-white" %></li>
-                      <li>Meus Posts</li>
+                      <li>Meus Materiais</li>
                   </ol>
               </div>
           </div>
@@ -142,7 +142,7 @@
         <div class="container p-0">
           <div class="d-flex justify-content-end">
             <div id="new_post" class="btn btn-f-green text-white mx-3">
-              Novo Post
+              Novo Material
             </div>
           </div>
 
@@ -242,7 +242,7 @@
             <div class="col-lg-8">
               <div class="card card-small mb-4">
                 <div class="card-header border-bottom bg-f-green">
-                  <h6 id="main_title" class="m-0 text-white">Novo Post</h6>
+                  <h6 id="main_title" class="m-0 text-white">Novo Material</h6>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item p-3">
@@ -259,7 +259,7 @@
                           <div class="form-row">
                             <div class="form-group col-md-12">
                               <p class="text-muted d-block mb-2 d-inline-flex">Poster da publicação</p>
-                              <small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">dimensão recomendado 300x444|tamanho máximo 5 mb</small>
+                              <small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">300x440|5 mb</small>
                               <%= file_field_tag :poster_image, title: "poster da publicação", class: "input_field form-control", id:"poster_image", accept:"image/jpg, image/png, image/jpeg"%>
                             </div>  
                           </div>
@@ -267,7 +267,7 @@
                           <div class="form-row">
                             <div class="form-group col-md-12">
                               <p class="text-muted d-block mb-2 d-inline-flex">Banner da publicação</p>
-                              <small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">dimensão recomendado 1600x803|tamanho máximo 5 mb</small>
+                              <small class= "form-text text-muted d-inline-flex" style="font-size: 12px !important">1600x800|5 mb</small>
                               <%= file_field_tag :banner_image, placeholder: "Banner da publicação", class: "input_field form-control", id:"banner_image", accept:"image/jpg, image/png, image/jpeg" %>
                             </div>  
                           </div>

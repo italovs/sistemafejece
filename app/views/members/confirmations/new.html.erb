@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <%# TODO: colocar um título %>
-    <title>App Exemplo</title>
+    <title>Reenviar confirmação</title>
     <%# TODO: mudar com descrição do sistema %>
     <meta name="description" content="Mudar com a descrição do sistema.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,7 +34,7 @@
           <div class="card">
             <div class="card-body">
               <img class="auth-form__logo d-table mx-auto mb-3" src="/images/fejece_logo_fundo_branco.jpg" alt="Logo FEJECE">
-              <h5 class="auth-form__title text-center mb-4">Esqueceu sua Senha?</h5>
+              <h5 class="auth-form__title text-center mb-4">Não recebeu a confirmação de email?</h5>
               <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
                 <%= render "admins/shared/error_messages", resource: resource %>
 
