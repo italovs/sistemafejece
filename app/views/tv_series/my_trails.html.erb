@@ -153,7 +153,7 @@
 												<h3 class="title" style="color: #000;"><%= serie.name %></h3>
 
 												<% aux =  @serie_categories.where(tv_serie_id: serie.id)%>
-												<p style="color: #3d4555;"><%= serie.description %></p>
+												<p style="color: #3d4555;"><%= serie.description.length <= 350? serie.description : serie.description[0..349] + "..." %></p>
 
 												<div class="row">
 													<div class="col">

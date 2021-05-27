@@ -117,14 +117,14 @@
 
         <%= search_form_for @q, url: 'all_series', html: { method: :get } do |f| %>
 
-          <p class="m-1">Pesquise por vídeos</p>
-          <%= f.search_field :name_cont, class: 'col-3 mr-3', style: 'height: 40px;' %>
+          <p class="m-1">Pesquise por trilhas</p>
+          <%= f.search_field :name_cont, class: 'border-0 rounded col-3 mr-3', style: 'height: 40px;' %>
 
           <%#= f.select :owner_id_eq, options_for_select(@ejs.map { |obj| [obj[:name], obj[:id]] }), {:include_blank => "Todas as Ejs" }, {class: 'col-3 mr-3'} %>
 
           <%#= f.select :id_eq, options_from_collection_for_select(@post_categories, "id", "name", @search.project_id_eq) %>
 
-          <%= select_tag :tv_serie_category_category_id_eq, options_from_collection_for_select(Category.all, "id", "name", @q.tv_serie_category_category_id_eq), {class: 'select_field custom-select form-control selectize mb-3', style:'height:100%; width: 50%;'}%>
+          <%= select_tag :tv_serie_category_category_id_eq, options_from_collection_for_select(Category.all, "id", "name", @q.tv_serie_category_category_id_eq), {class: 'select_field custom-select form-control col-3 mb-3 mr-3', style:'height:43px; vertical-align: inherit;'}%>
 
 
           <%= f.submit class:'btn-f-green border-0 text-white rounded col-2', style: "height: 45px; font-weight:600" %>

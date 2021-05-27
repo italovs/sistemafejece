@@ -42,6 +42,8 @@ class SiteController < ApplicationController
     q = params[:q]
     @series_search = TvSerie.ransack(junior_enterprise_name_cont: q).result
     @posts_search = Post.ransack(junior_enterprise_name_cont: q).result
+
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
   end
 
   def profile
@@ -64,22 +66,7 @@ class SiteController < ApplicationController
     @series = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
                               name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
 
-    direction_notification
-  end
-
-  def all_videos
-    # @custom_ejs = []
-    # @custom_ejs << ({id: nil, name: "Todas as EJs"})
-    # JuniorEnterprise.all.each do |ej|
-    #   @custom_ejs << ({id: ej.id, name: ej.name})
-    # end
-    # @custom_ejs << ({id: nil, name: "FEJECE"})
-    # byebug
-    @ejs = JuniorEnterprise.all
-    @categories = Category.all
-
-    @q = Post.where(kind: 1).ransack(params[:q])
-    @videos = @q.result(distinct: true)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
 
     direction_notification
   end

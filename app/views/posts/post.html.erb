@@ -331,7 +331,7 @@
 														<div class="movie-details">
 																<h4 class="movie-title">
 																	<%= link_to  current_user_post_path(post.id) do%>
-																		<%= post.name %>
+																		<%= post.name.length <= 60? post.name : post.name[0..59] + "..."  %>
 																	<%end%>
 																</h4>
 																<span class="released"><%= post.created_at.strftime("%d/%m/%Y") %></span>

@@ -87,6 +87,11 @@
 					background: -o-linear-gradient(bottom, #e27321 20%, #018c77 100%);
 					background: linear-gradient(to bottom, #018c77 20%, #e27321 100%);
 			}
+
+
+			.movie-poster::before{
+				background: transparent !important;
+			}
 		</style>
 
 
@@ -114,9 +119,9 @@
 									<div class="col-md-12">
 
 											<div class="movie-poster">
-                        <%if @serie.poster_image.attached?%>
-                          <%= image_tag @serie.poster_image.variant(gravity:'Center',resize:"300x444^"  , crop: '300x444+0+0')%>
-                        <%end%>
+												<%if @serie.poster_image.attached?%>
+													<%= image_tag @serie.poster_image.variant(gravity:'Center',resize:"300x444^"  , crop: '300x444+0+0')%>
+												<%end%>
 											</div>
 
 
@@ -257,7 +262,7 @@
 														<div class="movie-details">
 																<h4 class="movie-title">
 																	<%= link_to  current_user_serie_path(serie.id) do%>
-																		<%= serie.name %>
+																		<%= serie.name.length <= 60? serie.name : serie.name[0..59] + "..." %>
 																	<%end%>
 																</h4>
 																<span class="released"><%= serie.created_at.strftime("%d/%m/%Y") %></span>

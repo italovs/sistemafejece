@@ -56,9 +56,9 @@
 					</li>
 
 					<!-- Menu Item -->
-					<li class="nav-item">
+					<!--<li class="nav-item">
 						<%= link_to "Fale Conosco", "/all_posts", {class: "nav-link"}%>
-					</li>
+					</li>-->
 
 					<li id="user-dropdown" class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Usuário</a>
@@ -121,11 +121,11 @@
 				<ul class="navbar-nav extra-nav">
 
 					<!-- Menu Item -->
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<a class="nav-link toggle-search" href="#">
 							<i class="fas fa-search"></i>
 						</a>
-					</li>
+					</li> -->
 
 					<!-- Menu Item -->
 					<% if admin_signed_in? %>
@@ -174,8 +174,8 @@
 							<% if valid_member_or_admin? %>
 								<li class="dropdown-item">
 									<%= link_to "/my_channel" , class: "nav-link" do %>
-										<i class="fas fa-tv"></i>
-										Meu canal
+										<i class="fab fa-youtube"></i>
+										Meus vídeos
 									<% end %>
 								</li>
 								
@@ -188,8 +188,8 @@
 
 								<li class="dropdown-item">
 									<%= link_to "/my_library" , class: "nav-link" do %>
-										<i class="fas fa-book"></i>
-										Minha biblioteca
+										<i class="fas fa-file-alt"></i>
+										Meus materiais
 									<% end %>
 								</li>
 							<%end%>

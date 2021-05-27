@@ -21,6 +21,8 @@ class PostsController < ApplicationController
                   .order(updated_at: :desc)
               end
 
+              @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+
     direction_notification
   end
 
@@ -38,6 +40,8 @@ class PostsController < ApplicationController
                  .order(updated_at: :desc)
              end
 
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)         
+
     direction_notification
   end
 
@@ -50,6 +54,8 @@ class PostsController < ApplicationController
     @post_categories = PostCategory.where(post_id: @post.id)
     @categories = Category.all
 
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+
     direction_notification
   end
 
@@ -60,21 +66,20 @@ class PostsController < ApplicationController
     @q = Post.all.where(kind: 0).ransack(params[:q])
     @posts = @q.result(distinct: true)
 
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+
     direction_notification
   end
 
   def all_videos
-    # @custom_ejs = []
-    # @custom_ejs << ({id: nil, name: "Todas as EJs"})
-    # JuniorEnterprise.all.each do |ej|
-    #   @custom_ejs << ({id: ej.id, name: ej.name})
-    # end
-    # @custom_ejs << ({id: nil, name: "FEJECE"})
+
     @ejs = JuniorEnterprise.all
     @categories = Category.all
 
-    @q = Post.where(kind: 1).ransack(params[:q])
+    @q = Post.all.where(kind: 1).ransack(params[:q])
     @videos = @q.result(distinct: true)
+
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
 
     direction_notification
   end
