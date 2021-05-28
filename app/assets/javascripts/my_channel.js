@@ -247,6 +247,19 @@ function setting_events(){
 	})
 }
 
+//Characters counter
+$("#youtube_name").on("keyup", function(){
+    var length = $(this).val().length;
+
+    $("#title-count").html(length+"/60");
+});
+
+$("#youtube_description").on("keyup", function(){
+    var length = $(this).val().length;
+
+    $("#description-count").html(length+"/350");
+});
+
 // JS DE TESTE
 function search_for_video( category_id, owner_id, season_id, serie_id, name ){
 	$.post( '/search_for_video' ,

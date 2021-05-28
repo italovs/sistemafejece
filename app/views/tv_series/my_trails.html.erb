@@ -200,7 +200,8 @@
 										<form>
 											<div class="form-row serie-field">
 												<div class="form-group col-md-12">
-													<%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control"%>
+													<span id="title-count" class="ml-2">0/60</span>
+													<%= text_field_tag :serie_name, nil, placeholder: "Nome da Série", class: "input_field form-control", maxlength:"60"%>
 												</div>
 											</div>
 
@@ -254,7 +255,8 @@
 
 											<div class="form-row serie-field">
 												<div class="form-group col-md-12">
-													<%= text_area_tag :serie_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5" %>
+													<span id="description-count" class="ml-2">0/350</span>
+													<%= text_area_tag :serie_description, nil, placeholder: "Descrição", class: "input_field form-control", rows:"5", maxlength:"350" %>
 												</div>
 											</div>
 

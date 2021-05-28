@@ -420,9 +420,20 @@ function setting_events(){
 			url: "/dataTable_portuguese.json"
 		}
 	})
-
-
 }
+
+//Characters counter
+$("#serie_name").on("keyup", function(){
+    var length = $(this).val().length;
+
+    $("#title-count").html(length+"/60");
+});
+
+$("#serie_description").on("keyup", function(){
+    var length = $(this).val().length;
+
+    $("#description-count").html(length+"/350");
+});
 
 // JS DE TESTE
 function search_for_post( category_id, owner_id, name ){

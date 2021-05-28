@@ -219,6 +219,19 @@ function setting_events(){
 	})
 }
 
+//Characters counter
+$("#post_name").on("keyup", function(){
+    var length = $(this).val().length;
+
+    $("#title-count").html(length+"/60");
+});
+
+$("#post_description").on("keyup", function(){
+    var length = $(this).val().length;
+
+    $("#description-count").html(length+"/350");
+});
+
 function new_card_area(name, data){
 	html = 	"<h3>"+name+"</h3>"
 	html += '<div id="'+name+'" class="card-group">'
