@@ -159,7 +159,7 @@
                             <div class="movie-details">
                                 <h4 class="movie-title">
                                     <%=link_to  current_user_serie_path(serie.id) do%>
-                                        <%= serie.name %>
+                                        <%= serie.name.length <= 60? serie.name : serie.name[0..59] + "..." %>
                                     <%end%>    
                                 </h4>
                                 <span class="released"><%= serie.created_at.strftime("%d/%m/%Y") %></span>
