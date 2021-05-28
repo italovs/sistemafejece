@@ -1,56 +1,163 @@
+<style>
+    @media only screen and (max-width: 857px){
+        article.post-format-standard{
+            justify-content: center;
+        }
+
+        #second-videos-column{
+            display:none;
+        }
+    }
+
+</style>
+
+
 <!-- =============== START OF FOOTER =============== -->
 <footer class="footer1 bg-dark">
 
     <!-- ===== START OF FOOTER WIDGET AREA ===== -->
-    <div style="background-color: #018c77 !important;" class="footer-widget-area ptb100">
+    <div style="background-color: #018c77 !important;" class="footer-widget-area ptb60">
         <div class="container">
             <div class="row">
 
                 <!-- Start of Widget 1 -->
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
-                    <div class="widget widget-about d-flex align-items-center">
+                <div class="col-lg-4 col-md-5 col-sm-12 d-flex">
+                    <div class="widget widget-about" style="margin-top: -15px;">
 
-                        <!-- INSERT YOUR LOGO HERE -->
-                        <img src="" alt="logo" class="logo">
                         <!-- INSERT YOUR WHITE LOGO HERE -->
-                        <img src="https://storage.googleapis.com/farol-fejece/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" alt="white logo" style="height: 170px;" class="logo-white">
+                        <div class="d-flex text-center d-flex justify-content-center">
+                            <img class="m-0" src="https://storage.googleapis.com/farol-fejece/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" alt="white logo" style="height: 140px;" class="logo-white">
+                        </div>
+
+                        <!-- Start of Widget 4 -->
+                        <div class="widget widget-social">
+                            <h4 class="widget-title text-center m-3">Siga-nos!</h4>
+
+                            <p class="text-center"> Não fique por fora do que está rolando no MEJ Cearense!</p>
+
+                            <!-- Start of Social Buttons -->
+                            <ul class="social-btns text-center">
+                                <!-- Social Media -->
+                                <li>
+                                    <a href="#" class="social-btn-roll facebook">
+                                        <div class="social-btn-roll-icons">
+                                            <i class="social-btn-roll-icon fab fa-facebook"></i>
+                                            <i class="social-btn-roll-icon fab fa-facebook bg-white text-f-green"></i>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <!-- Social Media -->
+                                <li>
+                                    <a href="#" class="social-btn-roll linkedin">
+                                        <div class="social-btn-roll-icons">
+                                            <i class="social-btn-roll-icon fab fa-linkedin-in"></i>
+                                            <i class="social-btn-roll-icon fab fa-linkedin-in bg-white text-f-green"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+                                <!-- Social Media -->
+                                <li>
+                                    <a href="#" class="social-btn-roll instagram">
+                                        <div class="social-btn-roll-icons">
+                                            <i class="social-btn-roll-icon fab fa-instagram"></i>
+                                            <i class="social-btn-roll-icon fab fa-instagram bg-white text-f-green"></i>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <!-- Social Media -->
+                                <li>
+                                    <a href="#" class="social-btn-roll twitter">
+                                        <div class="social-btn-roll-icons">
+                                            <i class="social-btn-roll-icon fas fa-globe-americas"></i>
+                                            <i class="social-btn-roll-icon fas fa-globe-americas bg-white text-f-green"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End of Social Buttons -->
+                        </div>
+                        <!-- End of Widget 4 -->
+                    
                     </div>
+
                 </div>
                 <!-- End of Widget 1 -->
 
+                <div class="col-lg-2 col-md-1 pb-5"></div>
+
                 <!-- Start of Widget 2 -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="widget widget-links">
-                        <h4 class="widget-title">Vídeos recentes</h4>
-                        
-                        <% @footer_videos.each do |post| %>
-                            <ul class="recent-posts pl-1">
-                                <li style="list-style: none;">
-                                    <article class="post-format-standard row mb-3">
-                                        <div class="mini-post-imgb w-auto float-left">
-                                            <a class="alignleft post-rollover this-ready" aria-label="redimensionar imagens">
-                                                <%if post.poster_image.attached?%>
-                                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"80x60^"  , crop: '80x60+0+0')%>
-                                                <%end%>
-                                            </a>
-                                        </div>
+                        <h4 class="widget-title text-center">Vídeos recentes</h4>
 
-                                        <div class="post-content w-auto p-0 col ">
-                                            <%= link_to current_user_post_path(post.id) do%>
-                                                
-                                                    <span class="row" style="margin-left: 2px;font-size: 18px">
-                                                        <%= post.name.length <= 60? post.name : post.name[0..59] + "..." %>
-                                                    <span>
-                                                    <span class="row" style="font-size: 14px;  width: 19em; ; overflow: hidden; text-overflow: clip; white-space: pre;">
-                                                        <%= post.description.length <= 350? post.description : post.description[0..349] + "..." %>
-                                                    <span>
 
-                                            <%end%>
-                                        </div>
-                                    </article>
-                                </li>
-                            </ul>
-                        <%end%>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12" style="margin-bottom: 0px !important;">
+                                <% @footer_videos.first(3).each do |post| %>
+                                    <ul class="recent-posts pl-1">
+                                        <li style="list-style: none;">
+                                            <article class="post-format-standard row mb-3">
+                                                <div class="mini-post-imgb w-auto float-left">
+                                                    <a class="alignleft post-rollover this-ready" aria-label="redimensionar imagens">
+                                                        <%if post.poster_image.attached?%>
+                                                            <%= image_tag post.poster_image.variant(gravity:'Center',resize:"80x60^"  , crop: '80x60+0+0')%>
+                                                        <%end%>
+                                                    </a>
+                                                </div>
+
+                                                <div class="post-content w-auto p-0">
+                                                    <%= link_to current_user_post_path(post.id) do%>
+                                                        
+                                                            <span class="row">
+                                                                <p style="font-size: 18px; margin-bottom: 0px;"><%= post.name.length <= 60?  post.name : post.name[0..59] + "..." %></p>
+                                                            </span>
+                                                            <span class="row">
+                                                                <p style="font-size: 12px;"><%= post.description.length <= 350? post.description : post.description[0..349] + "..." %></p>
+                                                            </span>
+
+                                                    <%end%>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    </ul>
+                                <%end%>
+                            </div>
+
+                            <div id="second-videos-column" class="col-md-6 col-sm-12">
+                                <% @footer_videos.last(3).each do |post| %>
+                                    <ul class="recent-posts pl-1">
+                                        <li style="list-style: none;">
+                                            <article class="post-format-standard row mb-3">
+                                                <div class="mini-post-imgb w-auto float-left">
+                                                    <a class="alignleft post-rollover this-ready" aria-label="redimensionar imagens">
+                                                        <%if post.poster_image.attached?%>
+                                                            <%= image_tag post.poster_image.variant(gravity:'Center',resize:"80x60^"  , crop: '80x60+0+0')%>
+                                                        <%end%>
+                                                    </a>
+                                                </div>
+
+                                                <div class="post-content w-auto p-0 col ">
+                                                    <%= link_to current_user_post_path(post.id) do%>
+                                                        
+                                                            <span class="row">
+                                                                <p style="font-size: 18px; margin-bottom: 0px;"><%= post.name.length <= 60?  post.name : post.name[0..59] + "..." %></p>
+                                                            </span>
+                                                            <span class="row">
+                                                                <p style="font-size: 12px;"><%= post.description.length <= 350? post.description : post.description[0..349] + "..." %></p>
+                                                            </span>
+
+                                                    <%end%>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    </ul>
+                                <%end%>
+                            </div>
+
+                        </div>    
                     
                     </div>
                 </div>
@@ -71,60 +178,6 @@
                 </div> -->
                 <!-- End of Widget 3 -->
 
-                <!-- Start of Widget 4 -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="widget widget-social">
-                        <h4 class="widget-title">Siga-nos!</h4>
-
-                        <p> Não fique por fora do que está rolando no MEJ Cearense!</p>
-
-                        <!-- Start of Social Buttons -->
-                        <ul class="social-btns">
-                            <!-- Social Media -->
-                            <li>
-                                <a href="#" class="social-btn-roll facebook">
-                                    <div class="social-btn-roll-icons">
-                                        <i class="social-btn-roll-icon fab fa-facebook"></i>
-                                        <i class="social-btn-roll-icon fab fa-facebook bg-white text-f-green"></i>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <!-- Social Media -->
-                            <li>
-                                <a href="#" class="social-btn-roll linkedin">
-                                    <div class="social-btn-roll-icons">
-                                        <i class="social-btn-roll-icon fab fa-linkedin-in"></i>
-                                        <i class="social-btn-roll-icon fab fa-linkedin-in bg-white text-f-green"></i>
-                                    </div>
-                                </a>
-                            </li>
-                            
-                            <!-- Social Media -->
-                            <li>
-                                <a href="#" class="social-btn-roll instagram">
-                                    <div class="social-btn-roll-icons">
-                                        <i class="social-btn-roll-icon fab fa-instagram"></i>
-                                        <i class="social-btn-roll-icon fab fa-instagram bg-white text-f-green"></i>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <!-- Social Media -->
-                            <li>
-                                <a href="#" class="social-btn-roll twitter">
-                                    <div class="social-btn-roll-icons">
-                                        <i class="social-btn-roll-icon fas fa-globe-americas"></i>
-                                        <i class="social-btn-roll-icon fas fa-globe-americas bg-white text-f-green"></i>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- End of Social Buttons -->
-
-                    </div>
-                </div>
-                <!-- End of Widget 4 -->
 
             </div>
         </div>

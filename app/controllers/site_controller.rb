@@ -37,13 +37,15 @@ class SiteController < ApplicationController
       random_offset = rand(series_count)
       @serie = TvSerie.offset(random_offset).first
       @series << @serie unless @series.include? @serie
+
+      @tv_series = TvSerie.all.order(created_at: :desc).first(15) 
     end
 
     q = params[:q]
     @series_search = TvSerie.ransack(junior_enterprise_name_cont: q).result
     @posts_search = Post.ransack(junior_enterprise_name_cont: q).result
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
   end
 
   def profile
@@ -66,7 +68,7 @@ class SiteController < ApplicationController
     @series = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
                               name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 
     direction_notification
   end

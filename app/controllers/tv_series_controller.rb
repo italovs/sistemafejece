@@ -12,7 +12,7 @@ class TvSeriesController < ApplicationController
     @seasons = Season.all.where(tv_serie_id: @serie.id)
     @seasons = @seasons.sort_by(&:order)
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 
     direction_notification
   end
@@ -22,7 +22,7 @@ class TvSeriesController < ApplicationController
     @serie_categories = TvSerieCategory.all
     series_and_posts
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 
     direction_notification
   end
@@ -34,7 +34,7 @@ class TvSeriesController < ApplicationController
     @q = TvSerie.all.ransack(params[:q])
     @series = @q.result(distinct: true)
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 
     direction_notification
   end
