@@ -124,7 +124,7 @@ class AdministrativeController < ApplicationController
   # FIM EJS
 
   def categories
-    @categories = Category.all
+    @categories = Category.all.order(name: :asc)
   end
 
   def new_category
@@ -146,6 +146,15 @@ class AdministrativeController < ApplicationController
       render json: [msg: 'Categoria atualizada com sucesso'], status: :ok
     else
       render json: [msg: 'Falha ao atualizar categoria'], status: :unprocessable_entity
+    end
+  end
+
+  def category_info
+    @category = Category.find(params[:id])
+    if @category.nil?
+      render json: [msg: 'Não foi possivel localizar essa categoria'], status: :not_found
+    else
+      render json: [category_name: @category.name, category_decription: @category.description], status: :ok
     end
   end
 

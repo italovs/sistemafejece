@@ -28,11 +28,11 @@
 -->
 
 
-<div class="row">
+<div class="row" id="category-list">
 <div class="col">
   <div class="card card-small mb-4">
 	<div class="card-header border-bottom bg-f-green">
-	  <h6 class="m-0 text-white">Categorias</h6>
+	  <h6 class="m-0 text-white" id="main-title">Categorias</h6>
 	</div>
 	<div class="card-body p-0 pb-3 text-center">
 	  <table class="table mb-0" id="categories">
@@ -52,7 +52,7 @@
 					<td><%= category.name %></td>
 					<td><%= category.description %></td>
 					<td>
-						<i class="btn btn-info material-icons" title="Editar Categoria" id="<%= "#{category.id}" %>">edit</i>
+						<i class="btn btn-info material-icons edit_category" title="Editar Categoria" id="<%= "#{category.id}" %>">edit</i>
 						<i class="btn btn-danger material-icons remove_category" title="Remover Categoria" id="<%=category.id%>">close</i>
 					</td>
 					<% cont = cont + 1%>
@@ -68,7 +68,7 @@
 <br>
 
 <br>
-<h2>Nova Categoria</h2>
+<h2 id="new-category">Nova Categoria</h2>
 <br />
 <div class="field">
 	<%= text_field_tag :name, nil, placeholder: "Nome", class: "input_field" %>
@@ -78,5 +78,8 @@
 </div>
 <div id="send" class="btn btn-f-green text-white">
 	Enviar
+</div>
+<div class="btn btn-f-green text-white update" style="display: none;">
+	Atualizar categoria
 </div>
 <br /><br />

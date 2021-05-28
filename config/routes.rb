@@ -31,6 +31,8 @@ Rails.application.routes.draw do
         get '/categories', to: 'administrative#categories', as: 'categories'
         post '/categories', to: 'administrative#new_category', as: 'new_category'
         post '/remove_category', to: 'administrative#remove_category', as: 'remove_category'
+        post '/category_info', to: 'administrative#category_info', as: 'category_info'
+        post '/update_category', to: 'administrative#update_category', as: 'update_category'
       end
 
       get '/profile', to: 'administrative#profile_admin', as: 'profile_admin'
