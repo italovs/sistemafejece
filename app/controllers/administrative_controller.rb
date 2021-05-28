@@ -35,6 +35,15 @@ class AdministrativeController < ApplicationController
     @admins = Admin.all
   end
 
+  def admin_info
+    @admin = Admin.find(params[:id])
+    if @admin.nil?
+      render json: [msg: "admin não encontrado"], status: :not_found
+    else
+      render json: [admin_name: @admin.name, admin_email: @admin.email], status: :ok
+    end
+  end
+
   def create_admin
     @admin = Admin.new(name: params[:name], email: params[:email], password: params[:password])
     if @admin.save
@@ -58,8 +67,12 @@ class AdministrativeController < ApplicationController
 
   def remove_admin
     admin = Admin.find(params[:id]) if params[:id].present?
-    admin.destroy
-    render json: [msg: 'Pirata removido com sucesso!'], status: :ok
+    if Admin.all.count == 1
+      render json: [msg: "impossivel deletar o último administrador"], status: :not_acceptable
+    else
+      admin.destroy
+      render json: [msg: 'Pirata removido com sucesso!'], status: :ok
+    end
   end
 
   # EJS

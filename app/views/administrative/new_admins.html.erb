@@ -76,8 +76,11 @@
     <%= password_field_tag :password_2, nil, placeholder: "Repetir Senha", class: "input_field" %>
   </div>
 
-  <div id="send" class="btn btn-f-green text-white mb-4">
+  <div class="btn btn-f-green text-white mb-4 send">
     Enviar
+  </div>
+  <div class="btn btn-f-green text-white mb-4 update" style="display: none;">
+    atualizar admin
   </div>
 
   <script src="<%= javascript_path "essencials" %>"></script>
