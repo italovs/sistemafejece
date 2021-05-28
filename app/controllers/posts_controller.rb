@@ -105,10 +105,15 @@ class PostsController < ApplicationController
   end
 
   def new_post
+    @link = params[:link]
+
+    unless @link.include? "https://" or @link.include? 'http://'
+      @link = "https://#{@link}"
+    end
     file_post = Post.new(
       name: params[:name],
       description: params[:description],
-      link: params[:link],
+      link: @link,
       kind: Post.kinds[:post]
     )
     file_post.banner_image.attach(params[:banner_image]) if params[:banner_image].present?

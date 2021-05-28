@@ -25,19 +25,21 @@ $(function(){
 $(".remove_admin").on("click",function(){
 	formData = new FormData
 	formData.append('id', $(this).attr('id').replace("admin_",""))
-	$.ajax({
-		url: '/pirates/remove_pirate',
-		data: formData,
-		type: 'POST',
-		contentType: false,
-		processData: false
-	}).done(function(data, xhr){
-		RequestSuccess(data, xhr, true);
-		
-	}). fail(function(data, xhr){
-		RequestError(data, xhr, false);
-	});
-	
+	var confirmation = confirm("Tem certeza que quer deletar esse administrador?");
+	if (confirmation){
+		$.ajax({
+			url: '/pirates/remove_pirate',
+			data: formData,
+			type: 'POST',
+			contentType: false,
+			processData: false
+		}).done(function(data, xhr){
+			RequestSuccess(data, xhr, true);
+			
+		}). fail(function(data, xhr){
+			RequestError(data, xhr, false);
+		});
+	}	
 })
 
 $(".edit_admin").on("click", function(){

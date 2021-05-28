@@ -38,7 +38,7 @@ class AdministrativeController < ApplicationController
   def admin_info
     @admin = Admin.find(params[:id])
     if @admin.nil?
-      render json: [msg: "admin não encontrado"], status: :not_found
+      render json: [msg: 'admin não encontrado'], status: :not_found
     else
       render json: [admin_name: @admin.name, admin_email: @admin.email], status: :ok
     end
@@ -68,7 +68,7 @@ class AdministrativeController < ApplicationController
   def remove_admin
     admin = Admin.find(params[:id]) if params[:id].present?
     if Admin.all.count == 1
-      render json: [msg: "impossivel deletar o último administrador"], status: :not_acceptable
+      render json: [msg: 'impossivel deletar o último administrador'], status: :not_acceptable
     else
       admin.destroy
       render json: [msg: 'Pirata removido com sucesso!'], status: :ok
@@ -77,7 +77,7 @@ class AdministrativeController < ApplicationController
 
   # EJS
   def junior_enterprises
-    @junior_enterprises = JuniorEnterprise.all
+    @junior_enterprises = JuniorEnterprise.all.order(name: :asc)
   end
 
   def new_junior_enterprise
@@ -86,6 +86,15 @@ class AdministrativeController < ApplicationController
       render json: [msg: 'Empresa Junior criada com sucesso', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
     else
       render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
+    end
+  end
+
+  def junior_enterprise_info
+    @ej = JuniorEnterprise.find(params[:id])
+    if @ej.nil?
+      render json: [msg: 'Empresa junior não encontrada'], status: :not_found
+    else
+      render json: [ej_name: @ej.name, ej_description: @ej.description], status: :ok
     end
   end
 
@@ -115,7 +124,7 @@ class AdministrativeController < ApplicationController
   # FIM EJS
 
   def categories
-    @categories = Category.all
+    @categories = Category.all.order(name: :asc)
   end
 
   def new_category
@@ -134,13 +143,31 @@ class AdministrativeController < ApplicationController
     @category.description = params[:description]
 
     if @category.save
-      render json: [msg: "Categoria atualizada com sucesso"], status: :ok
+      render json: [msg: 'Categoria atualizada com sucesso'], status: :ok
     else
-      render json: [msg: "Falha ao atualizar categoria"], status: :unprocessable_entity
+      render json: [msg: 'Falha ao atualizar categoria'], status: :unprocessable_entity
     end
   end
 
+  def category_info
+    @category = Category.find(params[:id])
+    if @category.nil?
+      render json: [msg: 'Não foi possivel localizar essa categoria'], status: :not_found
+    else
+      render json: [category_name: @category.name, category_decription: @category.description], status: :ok
+    end
+  end
 
+  def remove_category
+    @category = Category.find(params[:id])
+    if @category.nil?
+      render json: [msg: 'Categoria não encontrada'], status: :not_found
+    elsif @category.destroy
+      render json: [msg: 'Categoria deletada com sucesso'], status: :ok
+    else
+      render json: [msg: 'Falha ao deletar categoria'], status: :unprocessable_entity
+    end
+  end
 
   private
 
