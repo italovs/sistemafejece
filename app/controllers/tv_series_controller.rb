@@ -8,6 +8,14 @@ class TvSeriesController < ApplicationController
     @videos = Post.all.where(kind: 1)
     @posts = Post.all.where(kind: 0)
     @series = TvSerie.all
+    @serie_categories = ""
+
+    @serie.tv_serie_category.each do |serie|
+      @serie_categories += serie.category.name.to_s
+      @serie_categories += " | "
+    end
+
+    @serie_categories = @serie_categories[0..-3]
 
     @seasons = Season.all.where(tv_serie_id: @serie.id)
     @seasons = @seasons.sort_by(&:order)
