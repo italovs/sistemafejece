@@ -77,7 +77,7 @@ class AdministrativeController < ApplicationController
 
   # EJS
   def junior_enterprises
-    @junior_enterprises = JuniorEnterprise.all
+    @junior_enterprises = JuniorEnterprise.all.order(name: :asc)
   end
 
   def new_junior_enterprise
@@ -86,6 +86,15 @@ class AdministrativeController < ApplicationController
       render json: [msg: 'Empresa Junior criada com sucesso', ejs: JuniorEnterprise.all.select(:id, :name, :description)], status: :ok
     else
       render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
+    end
+  end
+
+  def junior_enterprise_info
+    @ej = JuniorEnterprise.find(params[:id])
+    if @ej.nil?
+      render json: [msg: "Empresa junior não encontrada"], status: :not_found
+    else
+      render json: [ej_name: @ej.name, ej_description: @ej.description], status: :ok
     end
   end
 

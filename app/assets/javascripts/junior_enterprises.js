@@ -54,8 +54,55 @@ $(function(){
 		ajax_action( this )
 	})
 
+	$(".editar_junior_enterprise").on("click", function(){
+		formData = new FormData
+		formData.append('id', $(this).attr('id'))
+		$(".update").attr('id', $(this).attr('id'))
+		$.ajax({
+			url: '/pirates/junior_enterprise_info',
+			data: formData,
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			success: function(data, xhr){
+				$("#ej-list").hide();
+				$("#main-title").html('Editar Empresa Junior')
+				$("#new-ej").hide();
+				$("#name").val(data[0]["ej_name"])
+				$("#decription").val(data[0]["ej_description"])
+				$("#send").hide()
+				
+				$(".update").show();
+			},
+			error: function(data, xhr){
+				RequestError(data, xhr, false);
+			}
+		})
+	})
+	$(".update").on('click',function(){
+		formData = new FormData
+		console.log( $(this).attr('id'))
+		formData.append('id', $(this).attr('id'));
+		formData.append('name', $("#name").val());
+		formData.append('description', $("#description").val());
+		$.ajax({
+			url: '/pirates/update_junior_enterprise',
+			data: formData,
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			success: function(data, xhr){
+				RequestSuccess(data, xhr, true);
+			},
+			error: function(data, xhr){
+				RequestError(data, xhr, true);
+			}
+		})
+	})
 
 });
+
+
 
 function ajax_action( obj ){
 	formData = new FormData

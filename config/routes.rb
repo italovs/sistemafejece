@@ -26,6 +26,8 @@ Rails.application.routes.draw do
         get '/junior_enterprises', to: 'administrative#junior_enterprises', as: 'junior_enterprises'
         post '/junior_enterprises', to: 'administrative#new_junior_enterprise', as: 'new_junior_enterprise'
         post '/junior_enterprises/remove', to: 'administrative#remove_junior_enterprise', as: 'remove_junior_enterprise'
+        post '/update_junior_enterprise', to: 'administrative#update_junior_enterprise', as: 'update_junior_enterprise'
+        post '/junior_enterprise_info', to: 'administrative#junior_enterprise_info', as: 'junior_enterprise_info'
         get '/categories', to: 'administrative#categories', as: 'categories'
         post '/categories', to: 'administrative#new_category', as: 'new_category'
       end
