@@ -51,7 +51,10 @@ $(function(){
 	});
 
 	$(".remove_junior_enterprise").on("click", function(){
-		ajax_action( this )
+		var confirmation = confirm("Tem certeza que quer deletar essa empresa junior?");
+		if (confirmation){
+			ajax_action( this );
+		}	
 	})
 
 	$(".editar_junior_enterprise").on("click", function(){

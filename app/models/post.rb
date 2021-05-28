@@ -70,7 +70,7 @@ class Post < ApplicationRecord
       banner_image.attach(io: file, filename: 'default_post_image.png', content_type: 'image/png')
     end
   end
-
+  
   def delete_images
     poster_image.purge
     banner_image.purge

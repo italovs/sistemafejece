@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         post '/junior_enterprise_info', to: 'administrative#junior_enterprise_info', as: 'junior_enterprise_info'
         get '/categories', to: 'administrative#categories', as: 'categories'
         post '/categories', to: 'administrative#new_category', as: 'new_category'
+        post '/remove_category', to: 'administrative#remove_category', as: 'remove_category'
       end
 
       get '/profile', to: 'administrative#profile_admin', as: 'profile_admin'

@@ -53,7 +53,7 @@
 					<td><%= category.description %></td>
 					<td>
 						<i class="btn btn-info material-icons" title="Editar Categoria" id="<%= "#{category.id}" %>">edit</i>
-						<i class="btn btn-danger material-icons" title="Remover Categoria" id="category<%= "#{category.id}" %>">close</i>
+						<i class="btn btn-danger material-icons remove_category" title="Remover Categoria" id="<%=category.id%>">close</i>
 					</td>
 					<% cont = cont + 1%>
 				</tr>
