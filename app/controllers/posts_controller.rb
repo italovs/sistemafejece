@@ -89,35 +89,35 @@ class PostsController < ApplicationController
   end
 
   def post_information
-    @post = Post.find(params[:id])
+    post = Post.find(params[:id])
 
-    @post_categories = PostCategory.where(post_id: @post.id)
+    post_categories = PostCategory.where(post_id: @post.id)
 
-    @categories = []
+    categories = []
 
-    @post_categories.each do |post_category|
-      @categories << post_category.category
+    post_categories.each do |post_category|
+      categories << post_category.category
     end
 
-    render json: [post_id: @post.id,
-                  post_image: url_for(@post.poster_image),
-                  banner_image: @post.banner_image,
-                  post_name: @post.name,
-                  post_description: @post.description,
-                  post_link: @post.link,
-                  post_categories: @categories], status: :ok
+    render json: [post_id: post.id,
+                  post_image: url_for(post.poster_image),
+                  banner_image: post.banner_image,
+                  post_name: post.name,
+                  post_description: post.description,
+                  post_link: post.link,
+                  post_categories: categories], status: :ok
   end
 
   def new_post
-    @link = params[:link]
+    link = params[:link]
 
-    unless @link.include? "https://" or @link.include? 'http://'
-      @link = "https://#{@link}"
+    unless link.include? "https://" or link.include? 'http://'
+      link = "https://#{link}"
     end
     file_post = Post.new(
       name: params[:name],
       description: params[:description],
-      link: @link,
+      link: link,
       kind: Post.kinds[:post]
     )
     file_post.banner_image.attach(params[:banner_image]) if params[:banner_image].present?

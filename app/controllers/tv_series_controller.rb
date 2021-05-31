@@ -48,28 +48,28 @@ class TvSeriesController < ApplicationController
   end
 
   def serie_information
-    @serie = TvSerie.find(params[:id])
+    serie = TvSerie.find(params[:id])
 
-    tv_serie_categories = TvSerieCategory.where(tv_serie_id: @serie.id)
+    tv_serie_categories = TvSerieCategory.where(tv_serie_id: serie.id)
 
-    @categories = []
+    categories = []
 
     tv_serie_categories.each do |tv_serie_category|
-      @categories << tv_serie_category.category
+      categories << tv_serie_category.category
     end
-    @seasons = Season.where(tv_serie_id: params[:id])
-    @first_season = @seasons.each do |season|
+    seasons = Season.where(tv_serie_id: params[:id])
+    first_season = seasons.each do |season|
       season if season.order == 1
     end
-    @posts_from_first_season = SeasonPost.where(season_id: @first_season[0].id)
-    render json: [tv_serie_id: @serie.id,
-                  poster_image: @serie.poster_image,
-                  banner_image: @serie.banner_image,
-                  tv_serie_name: @serie.name,
-                  tv_serie_description: @serie.description,
-                  tv_serie_categories: @categories,
-                  tv_serie_seasons: @serie.seasons,
-                  first_season_posts: @posts_from_first_season], status: :ok
+    posts_from_first_season = SeasonPost.where(season_id: first_season[0].id)
+    render json: [tv_serie_id: serie.id,
+                  poster_image: serie.poster_image,
+                  banner_image: serie.banner_image,
+                  tv_serie_name: serie.name,
+                  tv_serie_description: serie.description,
+                  tv_serie_categories: categories,
+                  tv_serie_seasons: serie.seasons,
+                  first_season_posts: posts_from_first_season], status: :ok
   end
 
   def new_serie

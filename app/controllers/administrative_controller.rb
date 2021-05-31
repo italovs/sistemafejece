@@ -36,32 +36,32 @@ class AdministrativeController < ApplicationController
   end
 
   def admin_info
-    @admin = Admin.find(params[:id])
-    if @admin.nil?
+    admin = Admin.find(params[:id])
+    if admin.nil?
       render json: [msg: 'admin não encontrado'], status: :not_found
     else
-      render json: [admin_name: @admin.name, admin_email: @admin.email], status: :ok
+      render json: [admin_name: admin.name, admin_email: @admin.email], status: :ok
     end
   end
 
   def create_admin
-    @admin = Admin.new(name: params[:name], email: params[:email], password: params[:password])
-    if @admin.save
+    admin = Admin.new(name: params[:name], email: params[:email], password: params[:password])
+    if admin.save
       render json: [msg: 'Administrador criado com sucesso'], status: :ok
     else
-      render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
+      render json: [msg: "Erro: #{admin.errors}"], status: :unprocessable_entity
     end
   end
 
   def update_admin
-    @admin = Admin.find(params[:id])
-    @admin.email = params[:email] if params[:email].present?
-    @admin.name = params[:name] if params[:name].present?
-    @admin.password = params[:password] if params[:password].present?
-    if @admin.save
+    admin = Admin.find(params[:id])
+    admin.email = params[:email] if params[:email].present?
+    admin.name = params[:name] if params[:name].present?
+    admin.password = params[:password] if params[:password].present?
+    if admin.save
       render json: [msg: 'Administrador Atualizado com sucesso'], status: :ok
     else
-      render json: [msg: "Falha ao salvar atualização #{@admin.errors}"], status: :unprocessable_entity
+      render json: [msg: "Falha ao salvar atualização #{admin.errors}"], status: :unprocessable_entity
     end
   end
 
@@ -90,23 +90,23 @@ class AdministrativeController < ApplicationController
   end
 
   def junior_enterprise_info
-    @ej = JuniorEnterprise.find(params[:id])
-    if @ej.nil?
+    ej = JuniorEnterprise.find(params[:id])
+    if ej.nil?
       render json: [msg: 'Empresa junior não encontrada'], status: :not_found
     else
-      render json: [ej_name: @ej.name, ej_description: @ej.description], status: :ok
+      render json: [ej_name: ej.name, ej_description: ej.description], status: :ok
     end
   end
 
   def update_junior_enterprise
-    @ej = JuniorEnterprise.find(params[:id])
-    @ej.name = params[:name]
-    @ej.description = params[:description]
+    ej = JuniorEnterprise.find(params[:id])
+    ej.name = params[:name]
+    ej.description = params[:description]
 
-    if @ej.save
+    if ej.save
       render json: [msg: 'Empresa junior atualizada com sucesso'], status: :ok
     else
-      render json: [msg: "Falha ao atualizar empresa junior #{@ej.errors}"], status: :unprocessable_entity
+      render json: [msg: "Falha ao atualizar empresa junior #{ej.errors}"], status: :unprocessable_entity
     end
   end
 
@@ -128,21 +128,21 @@ class AdministrativeController < ApplicationController
   end
 
   def new_category
-    @category = Category.create(name: params[:name], description: params[:description])
+    category = Category.create(name: params[:name], description: params[:description])
     ActiveRecord::Base.transaction do
-      @category.save
+      category.save
       render json: [msg: 'Categoria criada com sucesso', ejs: Category.all.select(:name, :description)], status: :ok
     end
   rescue ActiveRecord::RecordInvalid
-    render json: [msg: "Erro: #{@admin.errors}"], status: :unprocessable_entity
+    render json: [msg: "Erro: #{admin.errors}"], status: :unprocessable_entity
   end
 
   def update_category
-    @category = Category.find(params[:id])
-    @category.name = params[:name]
-    @category.description = params[:description]
+    category = Category.find(params[:id])
+    category.name = params[:name]
+    category.description = params[:description]
 
-    if @category.save
+    if category.save
       render json: [msg: 'Categoria atualizada com sucesso'], status: :ok
     else
       render json: [msg: 'Falha ao atualizar categoria'], status: :unprocessable_entity
@@ -150,19 +150,19 @@ class AdministrativeController < ApplicationController
   end
 
   def category_info
-    @category = Category.find(params[:id])
-    if @category.nil?
+    category = Category.find(params[:id])
+    if category.nil?
       render json: [msg: 'Não foi possivel localizar essa categoria'], status: :not_found
     else
-      render json: [category_name: @category.name, category_decription: @category.description], status: :ok
+      render json: [category_name: category.name, category_decription: category.description], status: :ok
     end
   end
 
   def remove_category
-    @category = Category.find(params[:id])
-    if @category.nil?
+    category = Category.find(params[:id])
+    if category.nil?
       render json: [msg: 'Categoria não encontrada'], status: :not_found
-    elsif @category.destroy
+    elsif category.destroy
       render json: [msg: 'Categoria deletada com sucesso'], status: :ok
     else
       render json: [msg: 'Falha ao deletar categoria'], status: :unprocessable_entity

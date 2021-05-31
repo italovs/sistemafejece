@@ -87,162 +87,162 @@ class SiteController < ApplicationController
   end
 
   def change_password
-    @person = if member_signed_in?
+    person = if member_signed_in?
                 current_member
               else
                 current_admin
               end
 
-    if @person.valid_password? params[:old_password]
+    if person.valid_password? params[:old_password]
       if params[:new_password] == params[:confirmation_password]
-        @person.password = params[:new_password]
-        if @person.save
+        person.password = params[:new_password]
+        if person.save
           if member_signed_in?
             render json: [msg: 'Senha alterada com sucesso',
-                          person: person_information(@person),
-                          junior_enterprise: @person.junior_enterprise.name], status: :ok
+                          person: person_information(person),
+                          junior_enterprise: person.junior_enterprise.name], status: :ok
           else
-            render json: [msg: 'Senha alterada com sucesso', person: person_information(@person)], status: :ok
+            render json: [msg: 'Senha alterada com sucesso', person: person_information(person)], status: :ok
           end
         else
           if member_signed_in?
             render json: [msg: 'Erro: Falha em salvar nova senha',
-                          person: person_information(@person),
-                          junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
+                          person: person_information(person),
+                          junior_enterprise: person.junior_enterprise.name], status: :unprocessable_entity
           else
             render json: [msg: 'Erro: Falha em salvar nova senha',
-                          person: person_information(@person)], status: :unprocessable_entity
+                          person: person_information(person)], status: :unprocessable_entity
           end
         end
       else
         if member_signed_in?
           render json: [msg: 'Erro: Campos de nova senha não são iguais',
-                        person: person_information(@person),
-                        junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
+                        person: person_information(person),
+                        junior_enterprise: person.junior_enterprise.name], status: :unprocessable_entity
         else
           render json: [msg: 'Erro: Campos de nova senha não são iguais',
-                        person: person_information(@person)], status: :unprocessable_entity
+                        person: person_information(person)], status: :unprocessable_entity
         end
       end
     else
       if member_signed_in?
         render json: [msg: 'Erro: Senha antiga inválida',
-                      person: person_information(@person),
-                      junior_enterprise: @person.junior_enterprise.name], status: :unauthorized
+                      person: person_information(person),
+                      junior_enterprise: person.junior_enterprise.name], status: :unauthorized
       else
         render json: [msg: 'Erro: Senha antiga inválida',
-                      person: person_information(@person)], status: :unauthorized
+                      person: person_information(person)], status: :unauthorized
       end
     end
   end
 
   def change_information
-    @person = if member_signed_in?
+    person = if member_signed_in?
                 current_member
               else
                 current_admin
               end
 
-    if @person.valid_password? params[:confirmation_password]
+    if person.valid_password? params[:confirmation_password]
       if params[:profile_picture].present? && params[:profile_picture] != 'undefined'
-        @image = params[:profile_picture]
+        image = params[:profile_picture]
 
         if ['image/jpg', 'image/png', 'image/jpeg'].include?(@image.content_type)
-          @person.profile_picture.purge if @person.profile_picture.attached?
-          @person.profile_picture.attach(params[:profile_picture])
+          person.profile_picture.purge if person.profile_picture.attached?
+          person.profile_picture.attach(params[:profile_picture])
         else
           render json: [msg: 'formato de arquivo de imagem não suportado,
 						somente jpg, png e jpeg são validos'], status: :unsupported_media_type and return
         end
       end
 
-      @person.name = params[:name] if params[:name].present?
-      @person.about = params[:about] if params[:about].present?
+      person.name = params[:name] if params[:name].present?
+      person.about = params[:about] if params[:about].present?
       # apenas membros
       if member_signed_in?
-        @person.position = params[:position] if params[:position].present?
+        person.position = params[:position] if params[:position].present?
         if params[:junior_enterprise].present?
-          @person.junior_enterprise_id = params[:junior_enterprise]
+          person.junior_enterprise_id = params[:junior_enterprise]
         end
       end
-      if @person.save
+      if person.save
         if member_signed_in?
           render json: [msg: 'Informações alteradas com sucesso',
-                        person: person_information(@person),
+                        person: person_information(person),
                         junior_enterprise: @person.junior_enterprise.name], status: :ok
         else
           render json: [msg: 'Informações alteradas com sucesso',
-                        person: person_information(@person)], status: :ok
+                        person: person_information(person)], status: :ok
         end
       else
         if member_signed_in?
           render json: [msg: 'Erro: Falha em salvar novo e-mail',
-                        person: person_information(@person),
+                        person: person_information(person),
                         junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
         else
           render json: [msg: 'Erro: Falha em salvar novo e-mail',
-                        person: person_information(@person)], status: :unprocessable_entity
+                        person: person_information(person)], status: :unprocessable_entity
         end
       end
     else
       if member_signed_in?
         render json: [msg: 'Erro: Senha inválida',
-                      person: person_information(@person),
+                      person: person_information(person),
                       junior_enterprise: @person.junior_enterprise.name], status: :unauthorized
       else
         render json: [msg: 'Erro: Senha inválida',
-                      person: person_information(@person)], status: :unauthorized
+                      person: person_information(person)], status: :unauthorized
       end
     end
   end
 
   def change_mail
-    @person = if member_signed_in?
+    person = if member_signed_in?
                 current_member
               else
                 current_admin
               end
 
-    if @person.valid_password? params[:confirmation_password]
+    if person.valid_password? params[:confirmation_password]
       if params[:new_email] == params[:repeat_email] &&
          !(URI::MailTo::EMAIL_REGEXP =~ params[:repeat_email]).nil?
-        @person.email = params[:new_email]
-        if @person.save
+        person.email = params[:new_email]
+        if person.save
           if member_signed_in?
             render json: [msg: 'Email alterado com sucesso',
-                          person: person_information(@person),
+                          person: person_information(person),
                           junior_enterprise: @person.junior_enterprise.name], status: :ok
           else
             render json: [msg: 'Email alterado com sucesso',
-                          person: person_information(@person)], status: :ok
+                          person: person_information(person)], status: :ok
           end
         else
           if member_signed_in?
             render json: [msg: 'Erro: Falha em salvar novo e-mail',
-                          person: person_information(@person),
-                          junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
+                          person: person_information(person),
+                          junior_enterprise: person.junior_enterprise.name], status: :unprocessable_entity
           else
             render json: [msg: 'Erro: Falha em salvar novo e-mail',
-                          person: person_information(@person)], status: :unprocessable_entity
+                          person: person_information(person)], status: :unprocessable_entity
           end
         end
       else
         if member_signed_in?
           render json: [msg: 'Erro: Campos de novo e-mail não são iguais',
-                        person: person_information(@person),
-                        junior_enterprise: @person.junior_enterprise.name], status: :unprocessable_entity
+                        person: person_information(person),
+                        junior_enterprise: person.junior_enterprise.name], status: :unprocessable_entity
         else
           render json: [msg: 'Erro: Campos de novo e-mail não são iguais',
-                        person: person_information(@person)], status: :unprocessable_entity
+                        person: person_information(person)], status: :unprocessable_entity
         end
       end
     else
       if member_signed_in?
         render json: [msg: 'Erro: Senha inválida',
-                      person: person_information(@person),
-                      junior_enterprise: @person.junior_enterprise.name], status: :unauthorized
+                      person: person_information(person),
+                      junior_enterprise: person.junior_enterprise.name], status: :unauthorized
       else
-        render json: [msg: 'Erro: Senha inválida', person: person_information(@person)], status: :unauthorized
+        render json: [msg: 'Erro: Senha inválida', person: person_information(person)], status: :unauthorized
       end
     end
   end
