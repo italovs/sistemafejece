@@ -143,9 +143,6 @@
 															<li>15 December 2017 (USA)</li>
 													</ul>-->
 
-													<%= link_to current_user_serie_path(@post.season_post[0].season.tv_serie.id), class: 'btn btn-f-orange text-white' do%>
-														Confira a Trilha
-													<% end %>
 
 													<!--
 													<a href="#" class="btn btn-main btn-effect">watch later</a>
@@ -244,37 +241,25 @@
 				</div>
 
 				<div class="container">
-					<% vote = @votes.find{|c| c.post_id == @post.id && c.owner == current_logged_user.id && c.admin == user_is_admin?}%>
-					<% if vote.nil? %>
-						<form class="evaluation-form">
+					<form class="evaluation-form">
+						<%if @vote.nil?%>
 							<h3 class="title">Deixe sua avaliação</h3>
-
-							<div class="make-evaluation mb-5 mt-2">
-								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="2"></button>
-								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="4"></button>
-								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="6"></button>
-								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="8"></button>
-								<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="10"></button>
-								<button type="button" class="button-reset fas fa-undo bg-transparent border-0 ml-4"></button>
-							</div>
-
-							<input type="hidden" id="post_id" value="<%= @post.id %>" />
 							<input type="hidden" id="value" value="0" />
-
-							<div id="create_new_vote" class="btn btn-f-green text-white">
-								Avaliar
-							</div>
-
-						</form>
-					<%else%>	
-						<form class="final-evaluation-form">
-							<input type="hidden" id="final-rating-input" value="<%= vote.value %>" />
+						<%else%>
 							<h3 class="title">Sua avaliação foi:</h3>
+							<input type="hidden" id="value" value="<%= @vote.value %>" />
+						<%end%>
+						
+						<div class="make-evaluation mb-5 mt-2">
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="2"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="4"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="6"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="8"></button>
+							<button type="button" class="button-evaluation far fa-star bg-transparent border-0 text-warning" value="10"></button>
+						</div>
 
-							<div class="final-rating mt-2"></div>
-
-						</form>
-					<%end%>	
+						<input type="hidden" id="post_id" value="<%= @post.id %>" />
+					</form>
 				</div>
 			</section>
 			<!-- =============== END OF MOVIE DETAIL MAIN SECTION =============== -->

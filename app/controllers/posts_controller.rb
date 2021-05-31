@@ -49,8 +49,12 @@ class PostsController < ApplicationController
     @videos = Post.all.where(kind: 1)
     @post = Post.find(params[:id])
     @posts = Post.all
-    @ej = JuniorEnterprise.all.find { |ej| ej.id == @post.owner_id }
-    @votes = Vote.all
+    @ej = JuniorEnterprise.find(@post.owner_id)
+    @vote = if current_admin
+                Vote.where(post_id: params[:id], owner: current_admin.id, admin: true).first
+              else
+                Vote.where(post_id: params[:id], owner: current_member.id, admin: false).first
+              end
     @post_categories = PostCategory.where(post_id: @post.id)
     @categories = Category.all
 

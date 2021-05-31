@@ -343,16 +343,25 @@ class SiteController < ApplicationController
   # requer id do post e nota
   def new_vote
     vote = if admin_signed_in?
-             Vote.new(post_id: params[:post_id],
-                      owner: current_admin.id,
-                      admin: true,
-                      value: params[:value])
-           else
-             Vote.new(post_id: params[:post_id],
-                      owner: current_member.id,
-                      admin: false,
-                      value: params[:value])
-           end
+                  Vote.where(post_id: params[:post_id], owner: current_admin.id, admin: true).first
+               else
+                  Vote.where(post_id: params[:post_id], owner: current_member.id, admin: false).first
+               end
+    if vote.blank?
+      vote = if admin_signed_in?
+              Vote.new(post_id: params[:post_id],
+                        owner: current_admin.id,
+                        admin: true,
+                        value: params[:value])
+            else
+              Vote.new(post_id: params[:post_id],
+                        owner: current_member.id,
+                        admin: false,
+                        value: params[:value])
+            end
+    else
+      vote.value = params[:value]
+    end
     if vote.save
       if admin_signed_in?
         render json: [msg: 'Sucesso: Sua nota foi salva',
