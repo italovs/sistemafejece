@@ -191,7 +191,7 @@
 											<strong>Última Atualização: </strong><%=@serie.updated_at.strftime("%d/%m/%Y")%>
 										</li>
 
-										<% if @serie.owner_id.nil?%>
+										<% if @serie.owner_id.zero?%>
 											<li style="font-size: 1rem">
 												<span class="fas fa-user-cog text-f-orange mr-2 mb-3"></span>
 												<strong>Criador: </strong>FEJECE
@@ -290,8 +290,6 @@
 			<%= render '/layouts/member_footer' %>
 
 			<!-- =============== JAVASCRIPT FILES =============== -->
-			<%= javascript_include_tag 'serie' %>
-			<%= javascript_include_tag 'pagination_evaluation' %>
 			<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'jquery.ajaxchimp', 'data-turbolinks-track': 'reload' %>
@@ -305,6 +303,8 @@
 			<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+			<%= javascript_include_tag 'serie' %>
+			<%= javascript_include_tag 'pagination_evaluation' %>
 
 		</body>
 	</html> 

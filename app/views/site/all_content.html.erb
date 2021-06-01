@@ -151,15 +151,15 @@
                                 <!-- Start of Buttons -->
                                 <div class="buttons">
                                 <% if content.class == Post && content.kind == 0%>
-                                    <a class="play-video" href="<%= content.link%>">
+                                    <a class="open-post" href="<%= content.link%>" >
                                         <i class="fas fa-link"></i>
                                     </a>
                                 <% elsif content.class == Post && content.kind == 1%> 
-                                    <a class="play-video" href="<%= content.link%>">
+                                    <a class="play-video" href="<%= content.link%>" >
                                         <i class="fas fa-link"></i>
                                     </a>
                                 <% else %>
-                                    <%= link_to  current_user_serie_path(content.id), class: "play-video" do%>
+                                    <%= link_to  current_user_serie_path(content.id), class: "open-post" do%>
                                         <i class="fas fa-mouse-pointer"></i>								
                                     <%end%>
                                 <% end %>
@@ -223,11 +223,22 @@
                             <!-- End of Poster -->
 
                             <!-- Start of Buttons -->
+                            
                             <div class="buttons">
-                                <a class="open-post" target="_blank" href="https://<%= post.link%>">
-                                    <i class="fas fa-link"></i>
-                                </a>
+                                <%if post.kind == 'post'%>
+                                    <a class="open-post" target="_blank" href="<%= post.link%>" id="<%=post.id%>">
+                                        <i class="fas fa-link"></i>
+                                    </a>
+                                <%elsif post.kind == 'video'%>
+                                    <a class="play-video" target="_blank" href="https://www.youtube.com/watch?v=<%= post.link%>" id="<%=post.id%>">
+                                        <i class="fas fa-play"></i>
+                                    </a>
+                                <%end%>
+
                             </div>
+                            
+
+                            
                             <!-- End of Buttons -->
 
                             <!-- Start of Movie Details -->
@@ -280,8 +291,8 @@
 
                             <!-- Start of Buttons -->
                             <div class="buttons">
-                                <%= link_to  current_user_serie_path(serie.id), class: "play-video" do%>
-                                    <i class="fas fa-mouse-pointer"></i>								
+                                <%= link_to  current_user_serie_path(serie.id), class: "open-post", id:"#{serie.id}" do%>
+                                    <i class="fas fa-layer-group"></i>								
                                 <%end%>
                             </div>
                             <!-- End of Buttons -->

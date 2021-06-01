@@ -166,14 +166,4 @@ function setting_events(){
 			alert("Há campos em branco")
 		}
 	})
-
-	$(".play-video").on("click", function(){
-		$.post( '/update_views' ,
-		{ id: $(this).attr('id') },
-		function(data, status){
-			if(status == "success"){
-			} else {
-			}
-		})
-	});
 }

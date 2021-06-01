@@ -4,13 +4,38 @@
 
 
 
-
-
 $.ajaxSetup({
     headers: {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
+
+$(function(){
+  $(".open-post").on("click", function(e){
+    e.stopPropagation();
+    
+    $.post( '/update_views' ,
+    { id: parseInt($(this).attr('id')) },
+    function(data, status){
+      if(status == "success"){
+      } else {
+      }
+    })
+  });
+
+  $(".play-video").on("click", function(e){
+    e.stopPropagation();
+    console.log($(this).attr('id'))
+    $.post( '/update_views' ,
+    { id: parseInt($(this).attr('id')) },
+    function(data, status){
+      if(status == "success"){
+      } else {
+      }
+    })
+  });
+})
 
 function RequestError(data, xhr, reload=false){
   $(".err").html("código: " + data.status)
@@ -36,3 +61,5 @@ function RequestSuccess(data, xhr, reload=false){
     }, 2000);
   }
 }
+
+

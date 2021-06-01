@@ -1,6 +1,6 @@
 //= require jquery
 $(document).on("turbolinks:load",function(){
-	$(".selectize").selectize();
+	
 });
 
 $.ajaxSetup({
@@ -40,11 +40,11 @@ function post_from_list(post, poster_image, rating, i){
 
     if (post["kind"] == "video")
     {
-        $(".play-btn").eq(i).append("<a href='https://www.youtube.com/watch?v="+post["link"]+"' class='play-video'><i class='fas fa-play'></i></a>")
+        $(".play-btn").eq(i).append("<a href='https://www.youtube.com/watch?v="+post["link"]+"' class='play-video' id='"+post["id"]+"'><i class='fas fa-play'></i></a>")
     }
     else if (post["kind"] == "post")
     {
-        $(".play-btn").eq(i).append("<a href='"+post["link"]+"' class='open-post'><i class='fas fa-link'></i></a>")
+        $(".play-btn").eq(i).append("<a href='"+post["link"]+"' class='open-post' id='"+post["id"]+"'><i class='fas fa-link'></i></a>")
     }
 
     if (rating == -1)
