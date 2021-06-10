@@ -68,6 +68,7 @@ Rails.application.routes.draw do
       post '/delete_serie', to: 'tv_series#delete_tv_serie', as: 'admin_delete_serie'
       post '/update_serie', to: 'tv_series#update_serie', as: 'admin_update_serie'
       post '/update_post', to: 'posts#update_post', as: 'admin_update_post'
+      post '/contact_form', to:'site#contact_form', as:'admin_contact_form'
 
       get '/my_library', to: 'posts#my_library', as: 'admin_my_library'
       root 'site#index', as: 'admin_root'
@@ -121,6 +122,7 @@ Rails.application.routes.draw do
           post '/delete_serie', to: 'tv_series#delete_tv_serie', as: 'validated_delete_serie'
           post '/update_serie', to: 'tv_series#update_serie', as: 'validated_update_serie'
           post '/new_vote', to: 'site#new_vote', as: 'member_new_vote'
+          post '/contact_form', to:'site#contact_form', as:'member_contact_form'
           get  '/serie/:id', to: 'tv_series#serie', as: 'member_serie'
 
           post '/update_views', to: 'site#view_counter_update', as: 'member_view_counter_update'

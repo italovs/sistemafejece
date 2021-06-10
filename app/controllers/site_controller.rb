@@ -48,6 +48,12 @@ class SiteController < ApplicationController
     @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
   end
 
+  def contact_form
+    phone = params[:phone]
+    message = params[:message]
+    MemberMailer.send_form(current_logged_user, phone, message).deliver_now
+  end
+
   def profile
     @ejs = JuniorEnterprise.all.map { |ej| [ej.name, ej.id] }
     @profile = current_member
