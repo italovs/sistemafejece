@@ -117,22 +117,22 @@
 		<%= search_form_for @q, url: 'all_videos', html: { method: :get } do |f| %>
 
 			<p class="m-1">Pesquise por vídeos</p>
-			<%= f.search_field :name_cont, class: 'border-0 rounded col-3 mr-3', style: 'height: 40px;' %>
+			<%= f.search_field :name_cont, class: 'border-0 rounded col-lg-3 col-md-4 col-sm-6 col-12 mr-3 mb-2', style: 'height: 40px;' %>
 
 			<%#= f.select :owner_id_eq, options_for_select(@ejs.map { |obj| [obj[:name], obj[:id]] }), {:include_blank => "Todas as Ejs" }, {class: 'col-2 mr-3'} %>
 
 			<%#= f.select :id_eq, options_from_collection_for_select(@post_categories, "id", "name", @search.project_id_eq) %>
 
 
-			<%= f.select :post_category_category_id_eq, options_from_collection_for_select(@categories,'id','name', @q.post_category_category_id_eq), {:include_blank => "Todas as Categorias"}, {class: 'select_field custom-select form-control col-3 mb-3 mr-3', style:'height:45px; vertical-align: inherit;'}%>
+			<%= f.select :post_category_category_id_eq, options_from_collection_for_select(@categories,'id','name', @q.post_category_category_id_eq), {:include_blank => "Todas as Categorias"}, {class: 'select_field custom-select form-control col-lg-3 col-md-4 col-sm-5 col-12 mb-3 mr-3', style:'height:45px; vertical-align: inherit;'}%>
 
-			<%= f.submit class:'btn-f-green border-0 text-white rounded col-2', style: "height: 45px; font-weight:600" %>
+			<%= f.submit class:'btn-f-green border-0 text-white rounded col-lg-2 col-md-3 col-sm-4 col-6', style: "height: 45px; font-weight:600" %>
 		<% end %>
 
 		<div class="row mt80">
 			<!-- === Start of Sliding Item 1 === -->
 				<% @videos.each do |post|%>    
-					<div class="item col-3">
+					<div class="item col-lg-3 col-md-4 col-sm-6 col-12">
 						<!-- Start of Movie Box -->
 						<div class="movie-box-1">
 
