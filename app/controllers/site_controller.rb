@@ -51,7 +51,7 @@ class SiteController < ApplicationController
   def contact_form
     phone = params[:phone]
     message = params[:message]
-    MemberMailer.send_form(current_logged_user, phone, message).deliver_now
+    MemberMailer.send_form(current_logged_user, phone, message).deliver
   end
 
   def profile
