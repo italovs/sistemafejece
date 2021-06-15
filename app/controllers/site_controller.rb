@@ -52,6 +52,8 @@ class SiteController < ApplicationController
     phone = params[:phone]
     message = params[:message]
     MemberMailer.send_form(current_logged_user, phone, message).deliver
+
+    render json: [msg: "Mensagem enviada com sucesso!"]
   end
 
   def profile
