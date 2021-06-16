@@ -572,6 +572,13 @@
 
                 <!-- Start of Latest Movies Slider -->
                 <div class="row owl-carousel latest-posts-slider mt-20">
+                <style>
+                     .latest-posts-slider.owl-item{
+                       display:flex;
+                       flex-direction: column;
+                       align-items: stretch; 
+                    } 
+                </style>
 
                     <!-- === Start of Sliding Item 1 === -->
                     <%if @posts != [nil]%>
@@ -588,7 +595,7 @@
                                 </div>
 
                                 <!-- Movie List Content -->
-                                <div class="listing-content border-top">
+                                <div class="listing-content border-top" style="height:20em;">
                                 <div class="inner">
 
                                     <!-- Play Button -->
@@ -628,7 +635,7 @@
 
                                     <p class="mt-1"><%= post.description.length <= 350? post.description : post.description[0..349] + "..."%></p>
 
-                                    <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect" do%>
+                                    <%= link_to  current_user_post_path(post.id), class: "btn btn-main btn-effect", style:'position: fixed; top: 43em;' do%>
                                         Detalhes
                                     <%end%>
                                 </div>
