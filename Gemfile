@@ -25,6 +25,7 @@ gem 'sass-rails', '>= 6'
 gem 'selectize-rails'
 gem 'turbolinks'
 gem 'uglifier'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

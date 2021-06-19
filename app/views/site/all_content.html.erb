@@ -46,6 +46,7 @@
     <%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
     <%= stylesheet_link_tag 'style', media: 'all' %>
     <%= stylesheet_link_tag 'responsive', media: 'all' %>
+    <%= stylesheet_link_tag 'pagination-kaminari', media: 'all' %>
     <title>Meu Canal</title>
   </head>
 
@@ -92,6 +93,36 @@
 
   </style>
 
+    <% if cookies[:serie] %>
+
+        <style>
+            #series-button{
+                pointer-events: none;
+            }
+            #posts-button{
+                background: #c8c8c8;
+            }
+            #posts-button:hover{
+                box-shadow: 0 1px 3px #737373;
+            }
+        </style>
+
+    <% else %>
+
+        <style>
+            #posts-button{
+                pointer-events: none;
+            }
+            #series-button{
+                background: #c8c8c8;
+            }
+            #series-button:hover{
+                box-shadow: 0 1px 3px #737373;
+            }
+        </style>
+
+    <% end %>    
+
   <body class="bg-light">
     
     <nav id="main-mobile-nav"></nav>
@@ -115,6 +146,19 @@
 
 
     <div class="container">
+
+        <div class="d-flex justify-content-end">
+            <%= link_to 'serie_or_post', method: :post, class: 'btn btn-f-orange rounded text-white mr-2', id: 'posts-button' do%>
+                <i class="fab fa-youtube text-white"></i> / <i class="fas fa-file-alt text-white"></i>
+            <%end%>
+
+            <%= link_to 'serie_or_post', method: :post, class: 'btn btn-f-orange rounded text-white', id: 'series-button' do%>
+                <i class="fas fa-layer-group text-white"></i>
+            <%end%>
+
+            
+
+        </div>
 
 
         <%= form_tag logged_user_all_content_path, method: :get do %>
@@ -208,6 +252,7 @@
                 <%end%> 
 
 
+            <% unless cookies[:serie] %>
                 <!-- === Start of Sliding Item 1 === -->
                 <% @posts.each do |post|%>    
                     <div class="item col-lg-3 col-md-4 col-sm-6 col-12">
@@ -275,7 +320,10 @@
                 <%end%>
                 <!-- === End of Sliding Item 1 === --> 
 
-            
+                <%= paginate @posts%>
+
+
+            <% else%>    
                 <% @series.each do |serie|%>    
                     <div class="item col-lg-3 col-md-4 col-sm-6 col-12">
                         <!-- Start of Movie Box -->
@@ -311,7 +359,11 @@
                         </div>
                         <!-- End of Movie Box -->
                     </div>
-                <%end%>    
+                <%end%> 
+
+                <%= paginate @series%>
+
+            <%end%>    
             
         </div>
     </div>    

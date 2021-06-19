@@ -69,6 +69,7 @@ class PostsController < ApplicationController
 
     @q = Post.all.where(kind: 0).ransack(params[:q])
     @posts = @q.result(distinct: true)
+    @posts = @posts.page params[:page]
 
     @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 
@@ -82,6 +83,7 @@ class PostsController < ApplicationController
 
     @q = Post.all.where(kind: 1).ransack(params[:q])
     @videos = @q.result(distinct: true)
+    @videos = @videos.page params[:page]
 
     @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 

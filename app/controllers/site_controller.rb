@@ -73,12 +73,27 @@ class SiteController < ApplicationController
     q3 = params[:q3]
     @posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
                           name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
+
+    @posts = @posts.page params[:page]
+
     @series = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
                               name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
+
+    @series = @series.page params[:page]
 
     @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 
     direction_notification
+  end
+
+  def serie_or_post
+    if cookies[:serie]
+      cookies.delete(:serie)
+    else
+      cookies[:serie] = {value: 'ver series'}
+    end  
+
+    redirect_to '/all_content'
   end
 
   def request_to_become_a_director
