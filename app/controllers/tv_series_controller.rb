@@ -41,6 +41,7 @@ class TvSeriesController < ApplicationController
 
     @q = TvSerie.all.ransack(params[:q])
     @series = @q.result(distinct: true)
+    @series = @series.page params[:page]
 
     @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 

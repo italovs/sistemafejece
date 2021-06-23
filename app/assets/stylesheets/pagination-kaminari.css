@@ -1,0 +1,40 @@
+.pagination{
+    justify-content:center;
+}
+.pagination span{
+    background: #fff;
+    padding: 10px;
+    color: #737373;
+}
+
+.pagination span.page{
+    background: #fff;
+    padding:10px 15px;
+    color: #737373;
+}
+
+.pagination span a:visited{
+    color: #737373;
+}
+
+span.prev, span.page, span.next, span.last{
+    border-left: 1px solid #c4c4c4;
+}
+
+.pagination span.current{
+    background: #018C77;
+    color: #fff;
+}
+
+.pagination span:hover{
+    background: #FF8225;
+    color: #fff;
+}
+.pagination span.current:hover{
+    background: #018C77;
+    color: #fff;
+}
+
+span.prev, span.next{
+    display:none;
+}

@@ -45,6 +45,7 @@
 	<%= stylesheet_link_tag 'owl.carousel.min', media: 'all' %>
 	<%= stylesheet_link_tag 'style', media: 'all' %>
 	<%= stylesheet_link_tag 'responsive', media: 'all' %>
+	<%= stylesheet_link_tag 'pagination-kaminari', media: 'all' %>
 	<title>Vídeos</title>
   </head>
 
@@ -186,6 +187,8 @@
 				<%end%>
 			<!-- === End of Sliding Item 1 === -->   
 		</div>
+
+		<%= paginate @videos%>
 	</div>    
 	
 

@@ -71,14 +71,43 @@ class SiteController < ApplicationController
     q1 = params[:q1]
     q2 = params[:q2]
     q3 = params[:q3]
+
+    #byebug
     @posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
                           name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
+
+    @posts = @posts.page params[:page]
+
     @series = TvSerie.ransack(name_cont: q0, owner_id_eq: q1, tv_serie_category_category_id_eq: q2,
                               name_or_junior_enterprise_name_or_tv_serie_category_category_name_cont: q3).result
+
+    @series = @series.page params[:page]
+
+    if (q0!=nil && q2!=nil)
+      cookies[:q0] = {value:q0}
+      cookies[:q2] = {value:q2}
+      cookies.delete(:q3)
+    end
 
     @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
 
     direction_notification
+  end
+
+  def serie_or_post
+
+    if cookies[:serie]
+      cookies.delete(:serie)
+    else
+      cookies[:serie] = {value: 'ver series'}
+    end  
+
+    if cookies[:q3]
+      redirect_to ("/all_content?page=1&q3=#{cookies[:q3]}")
+    else
+      redirect_to ("/all_content?q0=#{cookies[:q0]}&q2=#{cookies[:q2]}&commit=Pesquisar")
+    end
+
   end
 
   def request_to_become_a_director
@@ -487,6 +516,7 @@ class SiteController < ApplicationController
   def search
     if params[:q]
       search_params = CGI.escapeHTML(params[:q])
+      cookies[:q3] = {value: search_params}
       redirect_to("/all_content?q3=#{search_params}")
     end
   end

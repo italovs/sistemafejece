@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
       get '/serie/:id', to: 'tv_series#serie', as: 'admin_serie'
 
+      post '/serie_or_post', to:'site#serie_or_post', as:'admin_serie_or_post'
       post '/update_views', to: 'site#view_counter_update', as: 'admin_view_counter_update'
       get '/all_content', to: 'site#all_content', as: 'admin_all_content'
       get '/all_videos', to: 'posts#all_videos', as: 'admin_all_videos'
@@ -126,6 +127,7 @@ Rails.application.routes.draw do
           get  '/serie/:id', to: 'tv_series#serie', as: 'member_serie'
 
           post '/update_views', to: 'site#view_counter_update', as: 'member_view_counter_update'
+          post '/serie_or_post', to:'site#serie_or_post', as:'member_serie_or_post'
 
           get  '/all_content', to: 'site#all_content', as: 'member_all_content'
           get  '/all_videos', to: 'posts#all_videos', as: 'member_all_videos'
