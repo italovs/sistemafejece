@@ -21,7 +21,7 @@ class PostsController < ApplicationController
                   .order(updated_at: :desc)
               end
 
-              @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
+              @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
 
     direction_notification
   end
@@ -40,7 +40,7 @@ class PostsController < ApplicationController
                  .order(updated_at: :desc)
              end
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)         
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)         
 
     direction_notification
   end
@@ -58,7 +58,7 @@ class PostsController < ApplicationController
     @post_categories = PostCategory.where(post_id: @post.id)
     @categories = Category.all
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
 
     direction_notification
   end
@@ -71,7 +71,7 @@ class PostsController < ApplicationController
     @posts = @q.result(distinct: true)
     @posts = @posts.page params[:page]
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
 
     direction_notification
   end
@@ -85,7 +85,7 @@ class PostsController < ApplicationController
     @videos = @q.result(distinct: true)
     @videos = @videos.page params[:page]
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
 
     direction_notification
   end
@@ -93,7 +93,7 @@ class PostsController < ApplicationController
   def post_information
     post = Post.find(params[:id])
 
-    post_categories = PostCategory.where(post_id: @post.id)
+    post_categories = PostCategory.where(post_id: post.id)
 
     categories = []
 

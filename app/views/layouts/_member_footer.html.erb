@@ -108,11 +108,11 @@
                     <div class="widget widget-links">
                         <h4 class="widget-title text-center">Vídeos recentes</h4>
 
-                        <% @footer_videos.first(3).each do |post| %>
+                        <% @footer_videos.each do |post| %>
                             <ul class="recent-posts pl-1">
                                 <li style="list-style: none;">
-                                    <article class="post-format-standard row justify-content-center mb-3">
-                                        <div class="mini-post-imgb w-auto float-left">
+                                    <article class="post-format-standard row mb-3">
+                                        <div class="mini-post-imgb w-auto">
                                             <a class="alignleft post-rollover this-ready" aria-label="redimensionar imagens">
                                                 <%if post.poster_image.attached?%>
                                                     <%= image_tag post.poster_image.variant(gravity:'Center',resize:"80x60^"  , crop: '80x60+0+0')%>
@@ -124,10 +124,10 @@
                                             <%= link_to current_user_post_path(post.id) do%>
                                                 
                                                     <span class="row">
-                                                        <p style="font-size: 18px; margin-bottom: 0px;"><%= post.name.length <= 60?  post.name : post.name[0..59] + "..." %></p>
+                                                        <p style="font-size: 18px; margin-bottom: 0px;"><%= post.name.length <= 15?  post.name : post.name[0..14] + "..." %></p>
                                                     </span>
                                                     <span class="row">
-                                                        <p style="font-size: 12px;"><%= post.description.length <= 350? post.description : post.description[0..349] + "..." %></p>
+                                                        <p style="font-size: 12px;"><%= post.description.length <= 24? post.description : post.description[0..23] + "..." %></p>
                                                     </span>
 
                                             <%end%>

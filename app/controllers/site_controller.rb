@@ -45,7 +45,7 @@ class SiteController < ApplicationController
     @series_search = TvSerie.ransack(junior_enterprise_name_cont: q).result
     @posts_search = Post.ransack(junior_enterprise_name_cont: q).result
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
   end
 
   def contact_form
@@ -61,6 +61,8 @@ class SiteController < ApplicationController
     @profile = current_member
     @positions = Member.positions.map { |k, _v| [k.capitalize, k] }
     @directories = [['Membro', false], ['Diretoria', true], ['Solicitar Dirertoria', '']]
+
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
   end
 
   def all_content
@@ -89,7 +91,7 @@ class SiteController < ApplicationController
       cookies.delete(:q3)
     end
 
-    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(6)
+    @footer_videos = Post.all.where(kind: 1).order(created_at: :desc).first(3)
 
     direction_notification
   end
