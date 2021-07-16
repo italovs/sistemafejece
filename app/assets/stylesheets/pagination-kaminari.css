@@ -3,15 +3,20 @@
 }
 .pagination span{
     background: #fff;
-    padding: 10px;
     color: #737373;
 }
 
-.pagination span.page{
+.pagination span.current{
     background: #fff;
-    padding:10px 15px;
+    padding: 10px 15px;
     color: #737373;
 }
+
+.pagination span a{
+    display:flex;
+    padding: 10px 15px;
+}
+
 
 .pagination span a:visited{
     color: #737373;
@@ -24,16 +29,21 @@ span.prev, span.page, span.next, span.last{
 .pagination span.current{
     background: #018C77;
     color: #fff;
+    font-weight: 500;
 }
 
 .pagination span:hover{
     background: #FF8225;
+}
+
+.pagination span a:hover{
     color: #fff;
+    font-weight: 500;
 }
 .pagination span.current:hover{
     background: #018C77;
-    color: #fff;
 }
+
 
 span.prev, span.next{
     display:none;
