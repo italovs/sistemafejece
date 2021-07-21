@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_170833) do
+ActiveRecord::Schema.define(version: 2021_07_21_163157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(version: 2021_05_19_170833) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "actual_months", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.integer "user_id"
+    t.boolean "admin"
+    t.integer "quantity"
+    t.index ["post_id"], name: "index_actual_months_on_post_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -89,6 +97,17 @@ ActiveRecord::Schema.define(version: 2021_05_19_170833) do
     t.index ["email_bidx"], name: "index_members_on_email_bidx", unique: true
     t.index ["junior_enterprise_id"], name: "index_members_on_junior_enterprise_id"
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+  end
+
+  create_table "month_histories", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "junior_enterprise_id", null: false
+    t.integer "uniq_views"
+    t.integer "views"
+    t.integer "month"
+    t.integer "year"
+    t.index ["junior_enterprise_id"], name: "index_month_histories_on_junior_enterprise_id"
+    t.index ["post_id"], name: "index_month_histories_on_post_id"
   end
 
   create_table "post_categories", force: :cascade do |t|
@@ -161,7 +180,10 @@ ActiveRecord::Schema.define(version: 2021_05_19_170833) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "actual_months", "posts"
   add_foreign_key "members", "junior_enterprises"
+  add_foreign_key "month_histories", "junior_enterprises"
+  add_foreign_key "month_histories", "posts"
   add_foreign_key "post_categories", "categories"
   add_foreign_key "post_categories", "posts"
   add_foreign_key "posts", "junior_enterprises", column: "owner_id"
