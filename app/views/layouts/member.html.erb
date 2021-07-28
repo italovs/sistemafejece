@@ -283,7 +283,7 @@
                                         <!-- Start of Poster -->
                                         <div class="poster">
                                             <%if post.poster_image.attached?%>
-                                                <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0')%>
+                                                <%= image_tag post.poster_image.variant(gravity:'Center',resize:"265x395^"  , crop: '265x395+0+0'), loading: "lazy"%>
                                             <%end%>
                                         </div>
                                         <!-- End of Poster -->
@@ -435,7 +435,7 @@
                                                         <!-- Movie List Image -->
                                                         <div class="listing-image">
                                                             <%if serie.poster_image.attached?%>
-                                                                <%= image_tag serie.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0')%>
+                                                                <%= image_tag serie.poster_image.variant(gravity:'Center',resize:"530x300^"  , crop: '530x300+0+0'), loading: "lazy"%>
                                                             <%end%>
 
                                                                 <!-- Buttons -->
@@ -572,13 +572,6 @@
 
                 <!-- Start of Latest Movies Slider -->
                 <div class="row owl-carousel latest-posts-slider mt-20">
-                <style>
-                     .latest-posts-slider.owl-item{
-                       display:flex;
-                       flex-direction: column;
-                       align-items: stretch; 
-                    } 
-                </style>
 
                     <!-- === Start of Sliding Item 1 === -->
                     <%if @posts != [nil]%>
@@ -590,7 +583,7 @@
                                 <!-- Movie List Image -->
                                 <div class="listing-image">
                                 <%if post.poster_image.attached?%>
-                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0')%>
+                                    <%= image_tag post.poster_image.variant(gravity:'Center',resize:"350x518^"  , crop: '350x518+0+0'), loading:"lazy"%>
                                 <%end%>
                                 </div>
 
