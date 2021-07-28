@@ -7,4 +7,5 @@
   "emmet.includeLanguages": {
     "erb": "html"
   },
+  "terminal.integrated.fontFamily": "Menlo for Powerline",
 }

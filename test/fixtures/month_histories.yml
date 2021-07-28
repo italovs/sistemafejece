@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  post: one
+  junior_enterprise: one
+  uniq_views: 1
+  views: 1
+  month: 1
+  year: 1
+
+two:
+  post: two
+  junior_enterprise: two
+  uniq_views: 1
+  views: 1
+  month: 1
+  year: 1

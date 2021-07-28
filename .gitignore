@@ -31,3 +31,4 @@ gcs.keyfile.json
 # Ignore node_modules and yarn errors
 /node_modules
 /yarn-error.log
+.vscode/settings.json

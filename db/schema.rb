@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_21_163157) do
+ActiveRecord::Schema.define(version: 2021_07_28_134821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,11 @@ ActiveRecord::Schema.define(version: 2021_07_21_163157) do
     t.bigint "post_id", null: false
     t.integer "user_id"
     t.boolean "admin"
-    t.integer "quantity"
+    t.integer "views"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "junior_enterprise_id", null: false
+    t.index ["junior_enterprise_id"], name: "index_actual_months_on_junior_enterprise_id"
     t.index ["post_id"], name: "index_actual_months_on_post_id"
   end
 
@@ -106,6 +110,8 @@ ActiveRecord::Schema.define(version: 2021_07_21_163157) do
     t.integer "views"
     t.integer "month"
     t.integer "year"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["junior_enterprise_id"], name: "index_month_histories_on_junior_enterprise_id"
     t.index ["post_id"], name: "index_month_histories_on_post_id"
   end
@@ -180,6 +186,7 @@ ActiveRecord::Schema.define(version: 2021_07_21_163157) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "actual_months", "junior_enterprises"
   add_foreign_key "actual_months", "posts"
   add_foreign_key "members", "junior_enterprises"
   add_foreign_key "month_histories", "junior_enterprises"

@@ -38,7 +38,7 @@ class SiteController < ApplicationController
       @serie = TvSerie.offset(random_offset).first
       @series << @serie unless @series.include? @serie
 
-      @tv_series = TvSerie.all.order(created_at: :desc).first(15) 
+      @tv_series = TvSerie.all.order(created_at: :desc).first(15)
     end
 
     q = params[:q]
@@ -53,7 +53,7 @@ class SiteController < ApplicationController
     message = params[:message]
     MemberMailer.send_form(current_logged_user, phone, message).deliver
 
-    render json: [msg: "Mensagem enviada com sucesso!"]
+    render json: [msg: 'Mensagem enviada com sucesso!']
   end
 
   def profile
@@ -74,7 +74,7 @@ class SiteController < ApplicationController
     q2 = params[:q2]
     q3 = params[:q3]
 
-    #byebug
+    # byebug
     @posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
                           name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
 
@@ -85,9 +85,9 @@ class SiteController < ApplicationController
 
     @series = @series.page params[:page]
 
-    if (q0!=nil && q2!=nil)
-      cookies[:q0] = {value:q0}
-      cookies[:q2] = {value:q2}
+    if !q0.nil? && !q2.nil?
+      cookies[:q0] = {value: q0}
+      cookies[:q2] = {value: q2}
       cookies.delete(:q3)
     end
 
@@ -97,19 +97,17 @@ class SiteController < ApplicationController
   end
 
   def serie_or_post
-
     if cookies[:serie]
       cookies.delete(:serie)
     else
       cookies[:serie] = {value: 'ver series'}
-    end  
-
-    if cookies[:q3]
-      redirect_to ("/all_content?page=1&q3=#{cookies[:q3]}")
-    else
-      redirect_to ("/all_content?q0=#{cookies[:q0]}&q2=#{cookies[:q2]}&commit=Pesquisar")
     end
 
+    if cookies[:q3]
+      redirect_to("/all_content?page=1&q3=#{cookies[:q3]}")
+    else
+      redirect_to("/all_content?q0=#{cookies[:q0]}&q2=#{cookies[:q2]}&commit=Pesquisar")
+    end
   end
 
   def request_to_become_a_director
@@ -127,10 +125,10 @@ class SiteController < ApplicationController
 
   def change_password
     person = if member_signed_in?
-                current_member
-              else
-                current_admin
-              end
+               current_member
+             else
+               current_admin
+             end
 
     if person.valid_password? params[:old_password]
       if params[:new_password] == params[:confirmation_password]
@@ -177,10 +175,10 @@ class SiteController < ApplicationController
 
   def change_information
     person = if member_signed_in?
-                current_member
-              else
-                current_admin
-              end
+               current_member
+             else
+               current_admin
+             end
 
     if person.valid_password? params[:confirmation_password]
       if params[:profile_picture].present? && params[:profile_picture] != 'undefined'
@@ -237,10 +235,10 @@ class SiteController < ApplicationController
 
   def change_mail
     person = if member_signed_in?
-                current_member
-              else
-                current_admin
-              end
+               current_member
+             else
+               current_admin
+             end
 
     if person.valid_password? params[:confirmation_password]
       if params[:new_email] == params[:repeat_email] &&
@@ -382,22 +380,22 @@ class SiteController < ApplicationController
   # requer id do post e nota
   def new_vote
     vote = if admin_signed_in?
-                  Vote.where(post_id: params[:post_id], owner: current_admin.id, admin: true).first
-               else
-                  Vote.where(post_id: params[:post_id], owner: current_member.id, admin: false).first
-               end
+             Vote.where(post_id: params[:post_id], owner: current_admin.id, admin: true).first
+           else
+             Vote.where(post_id: params[:post_id], owner: current_member.id, admin: false).first
+           end
     if vote.blank?
       vote = if admin_signed_in?
-              Vote.new(post_id: params[:post_id],
+               Vote.new(post_id: params[:post_id],
                         owner: current_admin.id,
                         admin: true,
                         value: params[:value])
-            else
-              Vote.new(post_id: params[:post_id],
+             else
+               Vote.new(post_id: params[:post_id],
                         owner: current_member.id,
                         admin: false,
                         value: params[:value])
-            end
+             end
     else
       vote.value = params[:value]
     end
@@ -488,7 +486,29 @@ class SiteController < ApplicationController
 
   def view_counter_update
     post = Post.find(params[:id])
+    if member_signed_in?
+      view = ActualMonth.where(post_id: post.id, user_id: current_logged_user.id, admin: false).first
+      if view.blank?
+        view = ActualMonth.create(post_id: post.id,
+                                  user_id: current_logged_user.id,
+                                  junior_enterprise_id: current_logged_user.junior_enterprise_id,
+                                  admin: false, views: 1)
+      end
+    else
+      view = ActualMonth.where(post_id: post.id,
+                               user_id: current_logged_user.id,
+                               junior_enterprise_id: 0,
+                               admin: true).first
+      if view.blank?
+        view = ActualMonth.create(post_id: post.id,
+                                  user_id: current_logged_user.id,
+                                  junior_enterprise_id: 0,
+                                  admin: true, views: 1)
+      end
+    end
+    view.views += 1
     post.views += 1
+    view.save
     post.save
   end
 

@@ -1,4 +1,4 @@
-class CreateMonthHistory < ActiveRecord::Migration[6.0]
+class CreateMonthHistories < ActiveRecord::Migration[6.0]
   def change
     create_table :month_histories do |t|
       t.references :post, null: false, foreign_key: true
@@ -7,6 +7,8 @@ class CreateMonthHistory < ActiveRecord::Migration[6.0]
       t.integer :views
       t.integer :month
       t.integer :year
+
+      t.timestamps
     end
   end
 end

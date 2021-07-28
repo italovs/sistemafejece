@@ -14,6 +14,11 @@ class Post < ApplicationRecord
   has_many :season, through: :season_post, source: 'season'
   has_many :tv_serie, through: :season, source: 'tv_serie'
 
+  # views history
+
+  has_many :actual_months, dependent: :destroy
+  has_many :month_histories, dependent: :destroy
+
   has_one_attached :poster_image # 300x444
   has_one_attached :banner_image # 1600x803
   validates :poster_image, content_type: ['image/jpg', 'image/png', 'image/jpeg']
@@ -70,7 +75,7 @@ class Post < ApplicationRecord
       banner_image.attach(io: file, filename: 'default_post_image.png', content_type: 'image/png')
     end
   end
-  
+
   def delete_images
     poster_image.purge
     banner_image.purge
