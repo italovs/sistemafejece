@@ -38,16 +38,16 @@
               <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
                 <%= render "members/shared/error_messages", resource: resource %>
                 <%= f.hidden_field :reset_password_token %>
-                <div class="field">
+                <div class="form-group">
                   <%= f.label :password, "Nova Senha" %><br />
                   <% if @minimum_password_length %>
                   <em>(<%= @minimum_password_length %> characters minimum)</em><br />
                   <% end %>
-                  <%= f.password_field :password, autofocus: true, autocomplete: "Nova senha" %>
+                  <%= f.password_field :password, autofocus: true, autocomplete: "Nova senha", class:"form-control" %>
                 </div>
-                <div class="field">
+                <div class="form-group">
                   <%= f.label :password_confirmation, "Confirme a nova senha" %><br />
-                  <%= f.password_field :password_confirmation, autocomplete: "Corfirmar nova senha" %>
+                  <%= f.password_field :password_confirmation, autocomplete: "Corfirmar nova senha", class: "form-control" %>
                 </div>
 
                 <div class="actions">
