@@ -1,25 +1,66 @@
-<h2>Change your password</h2>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <%# TODO: colocar um título %>
+    <title>Alterar senha</title>
+    <%# TODO: mudar com descrição do sistema %>
+    <meta name="description" content="Mudar com a descrição do sistema.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= javascript_include_tag 'administrative', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+</head>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "members/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+<body>
 
-<%= render "members/shared/links" %>
+  <style>
+    body{
+        background: rgb(216,117,46);
+        background: linear-gradient(145deg, rgba(216,117,46,1) 40%, rgba(1,140,119,1) 60%);
+        background-repeat: no-repeat;
+      }
+  </style>
+  
+  <main class="main-content col">
+    <div class="main-content-container container-fluid px4 h-100">
+      <div class="row no gutters h-100">
+        <div class="col-lg-4 col-md-4 auth-form mx-auto mt-3">
+          <div class="card">
+            <div class="card-body">
+              <img class="auth-form__logo d-table mx-auto mb-3" src="/images/fejece_logo_fundo_branco.jpg" alt="Logo FEJECE">
+              <h5 class="auth-form__title text-center mb-4">Nova senha</h5>
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+                <%= render "members/shared/error_messages", resource: resource %>
+                <%= f.hidden_field :reset_password_token %>
+                <div class="field">
+                  <%= f.label :password, "Nova Senha" %><br />
+                  <% if @minimum_password_length %>
+                  <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+                  <% end %>
+                  <%= f.password_field :password, autofocus: true, autocomplete: "Nova senha" %>
+                </div>
+                <div class="field">
+                  <%= f.label :password_confirmation, "Confirme a nova senha" %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "Corfirmar nova senha" %>
+                </div>
+
+                <div class="actions">
+                  <%= f.submit "Mudar Senha", class:"btn btn-pill btn-f-orange text-white d-table mx-auto mt-5" %>
+                </div>
+              <% end %>
+
+              <%= render "devise/shared/links" %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
