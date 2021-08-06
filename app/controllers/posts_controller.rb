@@ -55,7 +55,7 @@ class PostsController < ApplicationController
               else
                 Vote.where(post_id: params[:id], owner: current_member.id, admin: false).first
               end
-    byebug          
+
     @post_categories = PostCategory.where(post_id: @post.id)
     @categories = Category.all
 
