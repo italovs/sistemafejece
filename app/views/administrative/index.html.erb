@@ -1,2 +1,155 @@
 <title>painel</title>
 <h1> Painel administrativo</h1>
+
+<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+<script src="<%= javascript_path "essencials" %>"></script>
+<script src="<%= javascript_path "assets/datatables.min.js" %>"></script>
+
+<%= stylesheet_link_tag 'assets/datatables.min.css', media: 'all' %>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+    <div class="card card-small h-100">
+        <div class="card-header border-bottom bg-f-green">
+            <h6 class="m-0 text-white">NPS dos conteúdos</h6>
+        </div>
+        
+        <div class="card-body d-flex py-4"><div style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;" class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+            <canvas id="pie-chart" style="width:200px  !important"></canvas>
+        </div>
+
+        <div class="card-footer border-top">
+            <div class="row">
+                <div class="col">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-0" id="nps-list">
+	<div class="col-lg-4 col-md-6 col-sm-12 mb-4 p-0">
+		<div class="card card-small mb-4">
+			<div class="card-header border-bottom bg-f-green">
+				<h6 class="m-0 text-white">NPS dos Conteúdos</h6>
+			</div>
+			<div class="card-body p-0 pb-3 text-center">
+				<table class="table" id="nps_table" style="margin:0px !important">
+					<thead class="bg-light">
+						<tr>
+						<th scope="col" class="border-0">Nome</th>
+						<th scope="col" class="border-0">NPS</th>
+						</tr>
+					</thead>
+					<tbody id="ascending">
+						<% @posts_asc.each do |post| %>
+							<tr>
+								<td><%= post[:name] %></td>
+								<td><%= post[:rating] %></td>
+							</tr>
+						<% end %>
+					</tbody>
+
+                    <tbody id="descending" style="display:none;">
+						<% @posts_desc.each do |post| %>
+							<tr>
+								<td><%= post[:name] %></td>
+								<td><%= post[:rating] %></td>
+							</tr>
+						<% end %>
+					</tbody>
+
+				</table>
+			</div>
+
+            <div class="card-footer border-top">
+                <div class="row">
+                    <div class="col">
+                        <select class="custom-select custom-select-sm">
+                            <option value="asc">Detrator</option>
+                            <option value="desc">Promotor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    var ctx = document.getElementById("pie-chart");
+
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        
+        data: {
+        labels: ["Promotor", "Neutro", "Detrator"],
+            datasets: [{
+                label: "Population (millions)",
+                backgroundColor: ["#2ECC71", "#fcc01a","#FF0000"],
+                data: ["<%= @nps_promotor.length%>", "<%= @nps_neutro.length%>", "<%= @nps_detrator.length%>"]
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: false
+                }
+            }
+        },
+    });
+</script>
+
+
+<script>
+    //= require jquery
+    $("#nps_table").DataTable({
+            paging: false,
+            searching: false,
+            scrollY: 400,
+            info: false,
+            order: false,
+            language:{
+                url: "/dataTable_portuguese.json"
+            }
+    });
+
+    $( ".custom-select" ).change(function() {
+        
+            console.log($(this).val())
+            if ($(this).val() == "asc"){
+                $("#ascending").show();
+                $("#descending").hide();
+            }
+            else{
+                $("#ascending").hide();
+                $("#descending").show();
+            }
+
+    });
+
+    
+</script>
+
+

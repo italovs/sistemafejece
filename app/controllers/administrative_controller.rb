@@ -6,6 +6,19 @@ class AdministrativeController < ApplicationController
   layout 'administrative'
   include ApplicationHelper
   def index
+    @nps_promotor = Vote.where("value > 8")
+    @nps_detrator = Vote.where("value < 7")
+    @nps_neutro = Vote.where(value: [7,8])
+
+    @posts_asc = []
+    Post.all.each do |post|
+      if post.rating != -1
+        @posts_asc << {"name": post.name, "rating": post.rating}
+      end  
+    end
+
+    @posts_asc = @posts_asc.sort_by{ |post| post[:rating] }
+    @posts_desc = @posts_asc.reverse()
   end
 
   def members_validation

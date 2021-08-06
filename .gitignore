@@ -32,3 +32,4 @@ gcs.keyfile.json
 /node_modules
 /yarn-error.log
 .vscode/settings.json
+.vscode/settings.json
