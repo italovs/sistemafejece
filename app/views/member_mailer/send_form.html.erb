@@ -13,40 +13,40 @@
 <div class="container" style="padding: 0% 20%;">
 
     <div style="background: #018C77; padding: 0px;">
-        <div class="row" style="border:none; padding: 0px; margin:0px; border-bottom: 1px solid #fff; display: flex; justify-content:center;">
+        <div style="padding: 0px; margin:0px; border-bottom: 1px solid #fff; display: flex; justify-content:center;">
             <img id="main-logo" class="text-dark align-top mr-1" style="max-width: 240px; display:inline-block" 
                                 src="https://storage.googleapis.com/farol-fejece/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" 
                                 alt="Farol">
         </div>
 
-        <div class="row" style="border-top: none;">
-            <h6 class="text-white col-12"><strong>Nome:</strong></h6>
+        <div style="padding: 20px 0px; margin: 0px 30px;">
+            <h6 style="color: #fff; font-size:20px;"><strong>Nome:</strong></h6>
 
-            <h6 class="text-white col-12"><%= @current_user.name %></h6>
+            <h6 style="color: #fff; font-size:20px;"><%= @current_user.name %></h6>
         </div>
 
-        <div class="row">
-            <h6 class="text-white col-12"><strong>E-mail:</strong></h6>
+        <div style="padding: 20px 0px; margin: 0px 30px; border-top: 1px solid #fff;">
+            <h6 style="color: #fff; font-size:20px;"><strong>E-mail:</strong></h6>
 
-            <h6 class="text-white col-12"><%= @current_user.email %></h6>
+            <h6 style="color: #fff; font-size:20px;"><%= @current_user.email %></h6>
         </div>
 
         <% if @phone != "" %>
-            <div class="row">
-            <h6 class="text-white col-12"><strong>Telefone:</strong></h6>
+            <div style="padding: 20px 0px; margin: 0px 30px; border-top: 1px solid #fff;">
+                <h6 style="color: #fff; font-size:20px;"><strong>Telefone:</strong></h6>
 
-            <h6 class="text-white col-12"><%= @phone %></h6>
-        </div>
+                <h6 style="color: #fff; font-size:20px;"><%= @phone %></h6>
+            </div>
         <% end %>   
 
-        <div class="row">
-            <h6 class="text-white col-12"><strong>Mensagem:</strong></h6>
+        <div style="padding: 20px 0px; margin: 0px 30px; border-top: 1px solid #fff;">
+            <h6 style="color: #fff; font-size:20px;"><strong>Mensagem:</strong></h6>
 
-            <h6 class="text-white col-12"><%= @message %></h6>
+            <h6 style="color: #fff; font-size:20px;"><%= @message %></h6>
         </div>
 
-        <div class="row" style="display:flex !important; justify-content: center !important; margin:0px; padding: 20px 0px;">
-            <div class="text-white">
+        <div style="display:flex !important; justify-content: center !important; margin:0px; padding: 20px 0px; justify-content: center; border-top: 1px solid #fff;">
+            <div style="color: #fff; font-size:20px;">
                 Desenvolvido com <span style="color: red;">❤</span> por <a href="https://gtijr.com/" style="color: #02e1f5;">GTi Engenharia Jr</a>
             </div>
         </div>
