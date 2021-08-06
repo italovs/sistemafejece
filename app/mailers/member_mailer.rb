@@ -4,6 +4,6 @@ class MemberMailer < ApplicationMailer
         @current_user = current_user
         @phone = phone
         @message = message
-        mail(to: "italo_1002@live.com", subject: "Mensagem enviada pelo formulário da Farol")
+        mail(to: "joaogabriel9086@gmail.com", subject: "Mensagem enviada pelo formulário da Farol")
     end
 end

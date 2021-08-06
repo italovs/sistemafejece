@@ -248,6 +248,7 @@
 						<%else%>
 							<h3 class="title">Sua avaliação foi:</h3>
 							<input type="hidden" id="value" value="<%= @vote.value %>" />
+							<%byebug%>
 						<%end%>
 						
 						<div class="make-evaluation mb-5 mt-2">
@@ -380,6 +381,7 @@
 			<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+			<script> $("#value").val('<%= @vote.value%>'); </script>
 
 		</body>
 	</html>    

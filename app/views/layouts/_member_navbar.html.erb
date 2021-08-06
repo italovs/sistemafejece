@@ -156,7 +156,7 @@
 							<%else%>
 								<%= image_tag TEMPLATE_IMAGE_FOR_PROFILE,:size=>"30x30", :class	=>"rounded-circle"%>
 							<%end%>
-							<%=logged_name%>
+							<%=logged_name.split(' ')[0]%>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right">
 							<% if admin_signed_in? %>

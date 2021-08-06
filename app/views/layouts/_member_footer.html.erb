@@ -69,7 +69,7 @@
 
                                 <!-- Social Media -->
                                 <li>
-                                    <a href="https://twitter.com/FEJECE" class="social-btn-roll twitter">
+                                    <a href="https://fejece.com.br/" class="social-btn-roll twitter">
                                         <div class="social-btn-roll-icons">
                                             <i class="social-btn-roll-icon fas fa-globe-americas"></i>
                                             <i class="social-btn-roll-icon fas fa-globe-americas bg-white text-f-green"></i>
@@ -124,7 +124,7 @@
                                             <%= link_to current_user_post_path(post.id) do%>
                                                 
                                                     <span class="row">
-                                                        <p style="font-size: 18px; margin-bottom: 0px;"><%= post.name.length <= 15?  post.name : post.name[0..14] + "..." %></p>
+                                                        <p style="font-size: 18px; margin-bottom: 0px;"><%= post.name.length <= 13?  post.name : post.name[0..12] + "..." %></p>
                                                     </span>
                                                     <span class="row">
                                                         <p style="font-size: 12px;"><%= post.description.length <= 24? post.description : post.description[0..23] + "..." %></p>
