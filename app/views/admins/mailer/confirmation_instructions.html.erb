@@ -1,5 +1,36 @@
-<p>Welcome <%= @email %>!</p>
+<div class="container" style="padding: 0% 20%;">
 
-<p>You can confirm your account email through the link below:</p>
+  <div style="background: #018C77; padding: 0px;">
+    <div style="padding: 0px; margin:0px; border-bottom: 1px solid #fff; display: flex; justify-content:center;">
+        <img id="main-logo" class="text-dark align-top mr-1" style="max-width: 240px; display:inline-block" 
+                            src="https://storage.googleapis.com/farol-fejece/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" 
+                            alt="Farol">
+    </div>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+    <div style="padding: 20px 0px; margin: 0px 30px;">
+        <p style="color: #fff; font-size:16px;">Bem-vindo <%= @email %>!</p>
+
+        <p style="color: #fff; font-size:16px;">Você pode confirmar seu e-mail através do link abaxio:</p>
+
+        <p style="color: #fff; font-size:16px;"><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+    </div>
+
+    <div style="display:flex !important; justify-content: center !important; margin:0px; padding: 20px 0px; justify-content: center; border-top: 1px solid #fff;">
+        <div style="color: #fff; font-size:16px;">
+            Desenvolvido com <span style="color: red;">❤</span> por <a href="https://gtijr.com/" style="color: #02e1f5;">GTi Engenharia Jr</a>
+        </div>
+    </div>
+
+  </div>
+</div>    
+
+
+
+
+
+
+
+
+
+
+

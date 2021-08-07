@@ -1,7 +1,28 @@
-<p>Hello <%= @email %>!</p>
+<div class="container" style="padding: 0% 20%;">
 
-<% if @resource.try(:unconfirmed_email?) %>
-  <p>We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.</p>
-<% else %>
-  <p>We're contacting you to notify you that your email has been changed to <%= @resource.email %>.</p>
-<% end %>
+  <div style="background: #018C77; padding: 0px;">
+    <div style="padding: 0px; margin:0px; border-bottom: 1px solid #fff; display: flex; justify-content:center;">
+        <img id="main-logo" class="text-dark align-top mr-1" style="max-width: 240px; display:inline-block" 
+                            src="https://storage.googleapis.com/farol-fejece/Logotipo%20Plataforma%20Farol/SVG/farol_Logo%20branca%20sem%20palavra%20embaixo.svg" 
+                            alt="Farol">
+    </div>
+
+    <div style="padding: 20px 0px; margin: 0px 30px;">
+      <p style="color: #fff; font-size:16px;">Olá <%= @email %>!</p>
+
+      <% if @resource.try(:unconfirmed_email?) %>
+        <p style="color: #fff; font-size:16px;">Nós estamos te contatando para avisar que seu e-mail foi alterado para <%= @resource.unconfirmed_email %>.</p>
+      <% else %>
+        <p style="color: #fff; font-size:16px;">Nós estamos te contatando para avisar que seu e-mail foi alterado para <%= @resource.email %>.</p>
+      <% end %>
+    </div>
+
+    <div style="display:flex !important; justify-content: center !important; margin:0px; padding: 20px 0px; justify-content: center; border-top: 1px solid #fff;">
+        <div style="color: #fff; font-size:16px;">
+            Desenvolvido com <span style="color: red;">❤</span> por <a href="https://gtijr.com/" style="color: #02e1f5;">GTi Engenharia Jr</a>
+        </div>
+    </div>
+
+  </div>
+</div>    
+
