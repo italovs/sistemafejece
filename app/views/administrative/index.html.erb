@@ -149,7 +149,7 @@
         labels: [30,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,1],
         datasets: [{ 
             data:  [500, 800, 320, 180, 240, 320, 230, 650, 590, 1200, 750, 940, 1420, 1200, 960, 1450, 1820, 2800, 2102, 1920, 3920, 3202, 3140, 2800, 3200, 3200, 3400, 2910, 3100, 4250],
-            label: "Africa",
+            label: "Acessos",
             borderColor: "#3e95cd",
             fill: 'start', 
             backgroundColor: 'rgba(0,123,255,0.1)',
@@ -162,12 +162,17 @@
           }
         ]},
         options: {
-          responsive: true, 
-            elements:{
-              line: {
-                tension: 0.3
-              }
-            },
+          responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          }
+    },
+          elements:{
+            line: {
+              tension: 0.3
+            }
+          },
               scales: {
                 x: {
                   grid: {display: false},
@@ -180,7 +185,7 @@
               tooltips: {
                 custom: false,
                 mode: 'nearest',
-                intersect: false
+                intersect: false,
               }
         }
     });
