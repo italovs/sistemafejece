@@ -7,11 +7,12 @@ class AdministrativeController < ApplicationController
   include ApplicationHelper
   def index
     @label_days = []
-    @activity = Activity.all.pluck(:quantity)
+    @activity = Activity.all.pluck(:quantity).reverse
     Activity.all.each do |day|
       labelday = "#{day.created_at.day}/#{day.created_at.month}"
       @label_days << labelday unless @label_days.include? labelday
     end
+    @label_days = @label_days.reverse
     @activity_data = {}
     @nps_promotor = Vote.where('value > 8')
     @nps_detrator = Vote.where('value < 7')
