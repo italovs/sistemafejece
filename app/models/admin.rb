@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -8,8 +10,8 @@ class Admin < ApplicationRecord
   before_destroy :delete_images
 
   has_one_attached :profile_picture do |attachable|
-    attachable.variant :thumb, resize:"100x100"
-    attachable.variant :mediun, resize: "300x300"
+    attachable.variant :thumb, resize: '100x100'
+    attachable.variant :mediun, resize: '300x300'
   end
   def delete_images
     profile_picture.purge

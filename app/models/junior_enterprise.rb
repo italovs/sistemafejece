@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JuniorEnterprise < ApplicationRecord
   has_many :members
   has_many :posts

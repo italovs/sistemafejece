@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 class TvSerie < ApplicationRecord
   has_many :seasons, dependent: :destroy

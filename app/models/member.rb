@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Member < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -8,7 +10,6 @@ class Member < ApplicationRecord
     :validatable,
     :confirmable
 
-  
   encrypts :email, :name, :about
   blind_index :email, :name
 
@@ -35,7 +36,7 @@ class Member < ApplicationRecord
   end
 
   def director
-    self.validated = if position == "Diretor"
+    self.validated = if position == 'Diretor'
                        nil
                      else
                        0

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Season < ApplicationRecord
   belongs_to :tv_serie
   has_many :season_posts, dependent: :destroy
@@ -10,9 +12,7 @@ class Season < ApplicationRecord
       @seasons = Season.where(tv_serie_id: tv_serie_id)
       @next_seasons = []
       @seasons.each do |season|
-        if season.order > order
-          @next_seasons << season
-        end
+        @next_seasons << season if season.order > order
       end
 
       @next_seasons.each do |season|

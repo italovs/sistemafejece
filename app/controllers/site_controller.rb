@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SiteController < ApplicationController
   layout 'member', except: [:profile, :all_content]
   include ApplicationHelper
@@ -489,10 +491,14 @@ class SiteController < ApplicationController
     if member_signed_in?
       view = ActualMonth.where(post_id: post.id, user_id: current_logged_user.id, admin: false).first
       if view.blank?
-        view = ActualMonth.create(post_id: post.id,
-                                  user_id: current_logged_user.id,
-                                  junior_enterprise_id: current_logged_user.junior_enterprise_id,
-                                  admin: false, views: 1)
+        ActualMonth.create(post_id: post.id,
+                           user_id: current_logged_user.id,
+                           junior_enterprise_id: current_logged_user.junior_enterprise_id,
+                           admin: false, views: 1)
+        activity_couter_update
+      else
+        view.views += 1
+        view.save
       end
     else
       view = ActualMonth.where(post_id: post.id,
@@ -500,15 +506,17 @@ class SiteController < ApplicationController
                                junior_enterprise_id: 0,
                                admin: true).first
       if view.blank?
-        view = ActualMonth.create(post_id: post.id,
-                                  user_id: current_logged_user.id,
-                                  junior_enterprise_id: 0,
-                                  admin: true, views: 1)
+        ActualMonth.create(post_id: post.id,
+                           user_id: current_logged_user.id,
+                           junior_enterprise_id: 0,
+                           admin: true, views: 1)
+        activity_couter_update
+      else
+        view.views += 1
+        view.save
       end
     end
-    view.views += 1
     post.views += 1
-    view.save
     post.save
   end
 

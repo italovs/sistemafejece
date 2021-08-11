@@ -19,6 +19,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def activity_couter_update
+    activity = Activity.last
+    if activity.created_at.day == Time.zone.today.display
+      activity += 1
+      activity.save
+    else
+      Activity.create(quantity: 1)
+    end
+  end
+
   def verify_onwership(object)
     if admin_signed_in?
       object.owner_id.zero?

@@ -6,19 +6,24 @@ class AdministrativeController < ApplicationController
   layout 'administrative'
   include ApplicationHelper
   def index
-    @nps_promotor = Vote.where("value > 8")
-    @nps_detrator = Vote.where("value < 7")
-    @nps_neutro = Vote.where(value: [7,8])
+    @label_days = []
+    @activity = Activity.all.pluck(:quantity)
+    Activity.all.each do |day|
+      labelday = "#{day.created_at.day}/#{day.created_at.month}"
+      @label_days << labelday unless @label_days.include? labelday
+    end
+    @activity_data = {}
+    @nps_promotor = Vote.where('value > 8')
+    @nps_detrator = Vote.where('value < 7')
+    @nps_neutro = Vote.where(value: [7, 8])
 
     @posts_asc = []
     Post.all.each do |post|
-      if post.rating != -1
-        @posts_asc << {"name": post.name, "rating": post.rating}
-      end  
+      @posts_asc << {"name": post.name, "rating": post.rating} if post.rating != -1
     end
 
-    @posts_asc = @posts_asc.sort_by{ |post| post[:rating] }
-    @posts_desc = @posts_asc.reverse()
+    @posts_asc = @posts_asc.sort_by { |post| post[:rating] }
+    @posts_desc = @posts_asc.reverse
   end
 
   def members_validation
