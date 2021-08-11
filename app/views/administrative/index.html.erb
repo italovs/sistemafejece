@@ -33,7 +33,7 @@
                         <button type="button" class="btn btn-sm btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0">View Full Report &rarr;</button>
                       </div>
                     </div>
-                    <canvas height="130" style="max-width: 100% !important;" class="blog-overview-users"></canvas>
+                    <canvas height="130" style="max-width: 100% !important;" class="blog-overview-users" id='line-chart'></canvas>
                     <div>
                         <%@label_days.each do |day|%>
                             <input value='<%= j day%>' type="hidden" id="days" />
@@ -131,87 +131,64 @@
 
 
 <script>
+    const label_days =[];
+    const activity = [];
+
+    <% @label_days.each do |ld| %>
+      label_days.push('<%= ld%>');
+    <%end%>
+
+    <% @activity.each do |act| %>
+      activity.push('<%= act%>');
+    <%end%>
 
 
-
-    var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
-    // Data
-    var bouData = {
-      // Generate the days labels on the X axis.
-      label: ['8/8','9/8'],
-      datasets: [{
-        label: 'Current Month',
-        fill: 'start',
-        data: <%=@activity%>,
-        backgroundColor: 'rgba(0,123,255,0.1)',
-        borderColor: 'rgba(0,123,255,1)',
-        pointBackgroundColor: '#ffffff',
-        pointHoverBackgroundColor: 'rgb(0,123,255)',
-        borderWidth: 1.5,
-        pointRadius: 0,
-        pointHoverRadius: 3
-      }]
-    };
-
-    // Options
-    var bouOptions = {
-      responsive: true,
-      legend: {
-        position: 'top'
-      },
-      elements: {
-        line: {
-          // A higher value makes the line look skewed at this ratio.
-          tension: 0.3
-        },
-        point: {
-          radius: 0
-        }
-      },
-      scales: {
-        x: {
-          grid: {display: false},
-          ticks: {
-            callback: function (tick, index) {
-              // Jump every 7 values on the X axis labels to avoid clutter.
-              return index % 7 !== 0 ? '' : tick;
-            }
+    var bouCtx=new Chart(document.getElementById("line-chart"), {
+      type: 'line',
+      data: {
+        labels: [30,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,1],
+        datasets: [{ 
+            data:  [500, 800, 320, 180, 240, 320, 230, 650, 590, 1200, 750, 940, 1420, 1200, 960, 1450, 1820, 2800, 2102, 1920, 3920, 3202, 3140, 2800, 3200, 3200, 3400, 2910, 3100, 4250],
+            label: "Africa",
+            borderColor: "#3e95cd",
+            fill: 'start', 
+            backgroundColor: 'rgba(0,123,255,0.1)',
+            borderColor: 'rgba(0,123,255,1)',
+            pointBackgroundColor: '#ffffff',
+            pointHoverBackgroundColor: 'rgb(0,123,255)',
+            borderWidth: 1.5,
+            pointRadius: 0,
+            pointHoverRadius: 3,    
           }
-        },
-        yAxes: {
-          ticks: {
-            suggestedMax: 45,
-            callback: function (tick, index, ticks) {
-              if (tick === 0) {
-                return tick;
+        ]},
+        options: {
+          responsive: true, 
+            elements:{
+              line: {
+                tension: 0.3
               }
-              // Format the amounts using Ks for thousands.
-              return tick > 999 ? (tick/ 1000).toFixed(1) + 'K' : tick;
-            }
-          }
+            },
+              scales: {
+                x: {
+                  grid: {display: false},
+                }
+              },
+               hover: {
+                mode: 'nearest',
+                intersect: false
+              },
+              tooltips: {
+                custom: false,
+                mode: 'nearest',
+                intersect: false
+              }
         }
-      },
-      // Uncomment the next lines in order to disable the animations.
-      // animation: {
-      //   duration: 0
-      // },
-      hover: {
-        mode: 'nearest',
-        intersect: false
-      },
-      tooltips: {
-        custom: false,
-        mode: 'nearest',
-        intersect: false
-      }
-    };
+    });
+
+   
 
     // Generate the Analytics Overview chart.
-    window.BlogOverviewUsers = new Chart(bouCtx, {
-      type: "line",
-      data: bouData,
-      options: bouOptions
-    });
+   
 
     var ctx = document.getElementById("pie-chart");
 
