@@ -76,7 +76,6 @@ class SiteController < ApplicationController
     q2 = params[:q2]
     q3 = params[:q3]
 
-    # byebug
     @posts = Post.ransack(name_cont: q0, owner_id_eq: q1, post_category_category_id_eq: q2,
                           name_or_junior_enterprise_name_or_post_category_category_name_cont: q3).result
 
@@ -491,27 +490,55 @@ class SiteController < ApplicationController
     if member_signed_in?
       view = ActualMonth.where(post_id: post.id, user_id: current_logged_user.id, admin: false).first
       if view.blank?
+        activity = ActualMonth.where(user_id: current_logged_user.id, admin: false).maximum(:updated_at)
+        if activity.nil?
+          activity_couter_update
+        elsif activity.day == Time.zone.today.day
+          activity_couter_update unless activity.month == Time.zone.today.month
+        elsif activity.day != Time.zone.display
+          activity_couter_update
+        end
         ActualMonth.create(post_id: post.id,
                            user_id: current_logged_user.id,
                            junior_enterprise_id: current_logged_user.junior_enterprise_id,
                            admin: false, views: 1)
-        activity_couter_update
+
       else
+        activity = ActualMonth.where(user_id: current_logged_user.id, admin: false).maximum(:updated_at)
+        if activity.day == Time.zone.today.day
+          activity_couter_update unless activity.month == Time.zone.today.month
+        else
+          activity_couter_update
+        end
         view.views += 1
         view.save
       end
+      # admin: true
     else
       view = ActualMonth.where(post_id: post.id,
                                user_id: current_logged_user.id,
                                junior_enterprise_id: 0,
                                admin: true).first
       if view.blank?
+        activity = ActualMonth.where(user_id: current_logged_user.id, admin: true).maximum(:updated_at)
+        if activity.nil?
+          activity_couter_update
+        elsif activity.day == Time.zone.today.day
+          activity_couter_update unless activity.month == Time.zone.today.month
+        elsif activity.day != Time.zone.today.display
+          activity_couter_update
+        end
         ActualMonth.create(post_id: post.id,
                            user_id: current_logged_user.id,
                            junior_enterprise_id: 0,
                            admin: true, views: 1)
-        activity_couter_update
       else
+        activity = ActualMonth.where(user_id: current_logged_user.id, admin: true).maximum(:updated_at)
+        if activity.day == Time.zone.today.day
+          activity_couter_update unless activity.month == Time.zone.today.month
+        else
+          activity_couter_update
+        end
         view.views += 1
         view.save
       end

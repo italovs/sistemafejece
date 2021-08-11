@@ -21,8 +21,9 @@ class ApplicationController < ActionController::Base
 
   def activity_couter_update
     activity = Activity.last
-    if activity.created_at.day == Time.zone.today.display
-      activity += 1
+    Activity.create(quantity: 1) if activity == nil
+    if activity.created_at.day == Time.zone.today.day
+      activity.quantity += 1
       activity.save
     else
       Activity.create(quantity: 1)
