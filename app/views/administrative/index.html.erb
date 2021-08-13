@@ -1,20 +1,23 @@
-<title>painel</title>
-<h1> Painel administrativo</h1>
+<head>
+  <title>painel</title>
+  <h1> Painel administrativo</h1>
 
-<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
-<script src="<%= javascript_path "essencials" %>"></script>
-<script src="<%= javascript_path "assets/datatables.min.js" %>"></script>
+  <%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track': 'reload' %>
+  <script src="<%= javascript_path "essencials" %>" data-turbolinks-track='reload'></script>
+  <script src="<%= javascript_path "assets/datatables.min.js" %>" data-turbolinks-track='reload'></script>
 
-<%= stylesheet_link_tag 'assets/datatables.min.css', media: 'all' %>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <%= stylesheet_link_tag 'assets/datatables.min.css', media: 'all' %>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" data-turbolinks-eval='false'></script>
+</head>
+
 
 
  <div class="row">
               <!-- Users Stats -->
               <div class="col-lg-8 col-md-12 col-sm-12 mb-4">
                 <div class="card card-small">
-                  <div class="card-header border-bottom">
-                    <h6 class="m-0">Users</h6>
+                  <div class="card-header border-bottom bg-f-green">
+                    <h6 class="m-0 text-white">Acessos</h6>
                   </div>
                   <div class="card-body pt-0">
                     <div class="row border-bottom py-2 bg-light">
@@ -131,8 +134,8 @@
 
 
 <script>
-    const label_days =[];
-    const activity = [];
+    var label_days =[];
+    var activity = [];
 
     <% @label_days.each do |ld| %>
       label_days.push('<%= ld%>');

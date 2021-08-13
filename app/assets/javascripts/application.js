@@ -1,5 +1,5 @@
 //= require jquery
-//= require rails-ujs
+//= require pagination_evaluation
 //= require turbolinks
 
 

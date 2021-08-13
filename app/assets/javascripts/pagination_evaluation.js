@@ -1,5 +1,4 @@
 //= require jquery
-
 $(".paginate-item").on("click", function(){
 	var this_value = $(this).val();
 	var maxRows = 2;
