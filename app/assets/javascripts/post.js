@@ -31,7 +31,7 @@ function reset_fields(){
 					var full_star = Math.floor(stars/2);
 					var half_star = (stars % 2);
 					var empty_star = 5 - (full_star + half_star);
-					console.log("deu")
+
 					$('.button-evaluation').each(function(index){
 						if (index < full_star){
 							$(".button-evaluation").eq(index).removeClass('far fa-star')
@@ -73,7 +73,6 @@ $(".button-evaluation").on("click", function(){
 		}
 		
 	});
-	console.log(val)
 	$("#value").val(val);
 	// $(this).attr('id', 'value');
 	formData = new FormData

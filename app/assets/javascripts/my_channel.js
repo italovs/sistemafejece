@@ -59,7 +59,6 @@ function setting_events(){
 	$("#new_video").on("click", function(){
 		if(!$("#youtube_link").is(":visible")){
 			hide_fields()
-			console.log('click')
 		}
 		$("#form-fields").toggle();
 		$("#main_title").text("Novo Vídeo");
@@ -80,8 +79,7 @@ function setting_events(){
 
 	$(".edit_video").on("click", function(){
 		if(!$("#youtube_link").is(":visible")){
-			hide_fields()
-			console.log('click')
+			hide_fields();
 		}
 		$("#form-fields").toggle();
 		$("#main_title").text("Editar Vídeo");
@@ -273,10 +271,8 @@ function search_for_video( category_id, owner_id, season_id, serie_id, name ){
 	function(data, status){
 		if(status == "success" ){
 			if(!data[0].hasOwnProperty("msg")){
-				console.log(data)
 			} else {
 				//erro
-				console.log(data[0]["msg"])
 			}
 		} else {
 			//ERRO DE REQUISIÇÃO

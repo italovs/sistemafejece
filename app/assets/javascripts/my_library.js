@@ -113,8 +113,6 @@ function setting_events(){
 		},function(data, status){
 			if(status == "success"){
 				post_information = data[0]
-				console.log(post_information)
-				console.log(post_information['post_name'])
 				$('#post_name').val(post_information["post_name"]);
 				$('#post_link').val(post_information["post_link"]);
 				$('#post_description').val(post_information["post_description"]);

@@ -15,7 +15,6 @@ $("#submit_form_button").on("click", function(){
                     
                     $(".success-msg").show();
                     $(".succes").html(data[0]["msg"])
-                    console.log(data[0]["msg"])
                 }
             } else {
                 //ERRO DE REQUISIÇÃO

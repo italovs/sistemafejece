@@ -225,7 +225,6 @@ function setting_events(){
 					},
 					function(data, status){
 						if(status == "success"){
-							console.log(data);
 							tv_serie_information = data[0]
 							posts_first_season = tv_serie_information["first_season_posts"]
 
@@ -278,7 +277,6 @@ function setting_events(){
 				contentType: false,
 				processData: false
 			}).done(function(data){
-				console.log(data[0]["posts"])
 				posts  = data[0]["posts"];
 				posts_id = [];
 				for (var i = 0; i<posts.length; i++){
@@ -295,7 +293,6 @@ function setting_events(){
 			selectize_posts.clear();
 		}else{
 			for (var i =0; i< posts_id.length; i++){
-				console.log(posts_id[i]);
 				selectize_posts.addItem(posts_id[i]);
 			}
 		}
@@ -446,10 +443,8 @@ function search_for_post( category_id, owner_id, name ){
 	function(data, status){
 		if(status == "success" ){
 			if(!data[0].hasOwnProperty("msg")){
-				console.log(data)
 			} else {
 				//erro
-				console.log(data[0]["msg"])
 			}
 		} else {
 			//ERRO DE REQUISIÇÃO
@@ -465,7 +460,6 @@ function my_series_by_category( category_id ){
 	function(data, status){
 		if(status == "success" ){
 			if(!data[0].hasOwnProperty("msg")){
-				console.log(data)
 			} else {
 				//erro
 			}
@@ -483,7 +477,6 @@ function my_seasons_by_serie( serie_id ){
 	function(data, status){
 		if(status == "success" ){
 			if(!data[0].hasOwnProperty("msg")){
-				console.log(data)
 			} else {
 				//erro
 			}

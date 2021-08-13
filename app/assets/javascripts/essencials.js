@@ -82,7 +82,6 @@ function ajax_submit(fields, target_path, clear_fields = false, tables = [], col
 		my_form_data: fields
 	},
 	function(data, status){
-		console.log(data)
 		if(status == "success"){
 			if(clear_fields == true){
 				clear_forms()

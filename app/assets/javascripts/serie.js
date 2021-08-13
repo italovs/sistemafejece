@@ -156,7 +156,6 @@ function posts_list(){
         },
         function(data, status){
             if(status == "success" ){
-                console.log(data[0]["rating"])
 
                 $("#posts-list .var-item").remove();
 

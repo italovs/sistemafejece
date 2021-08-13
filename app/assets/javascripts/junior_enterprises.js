@@ -84,7 +84,6 @@ $(function(){
 	})
 	$(".update").on('click',function(){
 		formData = new FormData
-		console.log( $(this).attr('id'))
 		formData.append('id', $(this).attr('id'));
 		formData.append('name', $("#name").val());
 		formData.append('description', $("#description").val());
