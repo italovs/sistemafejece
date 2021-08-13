@@ -1,14 +1,14 @@
 <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
-  <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+  <form action="#" class="main-navbar__search w-100  d-none">
     <div class="input-group input-group-seamless ml-3">
       <div class="input-group-prepend">
         <div class="input-group-text">
           <i class="fas fa-search"></i>
         </div>
       </div>
-      <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
+      <label class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
   </form>
-  <ul class="navbar-nav flex-row ">
+  <ul class="navbar-nav flex-row ms-auto">
     <li class="dropdown-item">
       <%= link_to logout_path, class: "nav-link text-f-orange", 'data-toggle' => "dropdown", 'aria-haspopup' => "true", 'aria-expanded' => "false", method: 'delete'  do %>
         <i class="fas fa-sign-out-alt"></i>
