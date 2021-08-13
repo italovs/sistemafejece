@@ -380,7 +380,7 @@
 			<%= javascript_include_tag 'isotope.pkgd.min', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'headroom', 'data-turbolinks-track': 'reload' %>
 			<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
-			<script> $("#value").val('<%= @vote.value%>'); </script>
+			<script> $("#value").val('<%= @vote.value unless @vote.nil?%>'); </script>
 
 		</body>
 	</html>    
