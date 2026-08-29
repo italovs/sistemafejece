@@ -10,7 +10,7 @@ gem 'blind_index'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise-i18n'
-gem 'google-cloud-storage'
+gem 'google-cloud-storage', '>= 1.32.0'
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 gem 'image_processing'
 gem 'jbuilder', '~> 2.7'
